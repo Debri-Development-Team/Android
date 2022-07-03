@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">Debri</string>
+
+<!--    daily calendar-->
+    <string name="back"><![CDATA[<-]]></string>
+    <string name="forward"><![CDATA[->]]></string>
+</resources>
