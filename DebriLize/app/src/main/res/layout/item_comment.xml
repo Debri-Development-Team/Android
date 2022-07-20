@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/darkmode_background">
+
+    <LinearLayout
+        android:id="@+id/item_comment_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/border_line_bottom"
+        android:orientation="vertical"
+        android:paddingBottom="15dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:gravity="center_vertical">
+
+        <TextView
+            android:id="@+id/item_comment_tv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/noto_sans_kr_regular"
+            android:includeFontPadding="false"
+            android:text="지금 장난하나 ㅡㅡ 아니 코딩이 장난이에요? 최소한 검색 정도는 할 줄 알아야지 얼탱이가 밤탱이네요 ㅡㅡ 님은 코딩하지마삼"
+            android:textColor="@color/white"
+            android:textSize="13sp" />
+
+
+        <LinearLayout
+            android:id="@+id/item_comment_info_layout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="25dp"
+            android:orientation="horizontal"
+            android:gravity="center_vertical">
+
+            <TextView
+                android:id="@+id/item_comment_profile_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="데브리짱장걸 >"
+                android:fontFamily="@font/noto_sans_kr_regular"
+                android:includeFontPadding="false"
+                android:textColor="@color/white"
+                android:textSize="12sp" />
+
+            <TextView
+                android:id="@+id/item_comment_time_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="방금 전"
+                android:fontFamily="@font/noto_sans_kr_regular"
+                android:includeFontPadding="false"
+                android:textColor="@color/white"
+                android:textSize="12sp"
+                android:layout_marginStart="15dp"/>
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_weight="1" />
+
+            <ImageView
+                android:id="@+id/item_comment_like_iv"
+                android:layout_width="15dp"
+                android:layout_height="15dp"
+                android:src="@drawable/ic_comment_like"
+                android:layout_marginEnd="10dp"
+                />
+
+            <TextView
+                android:id="@+id/item_comment_like_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="0"
+                android:fontFamily="@font/noto_sans_kr_regular"
+                android:includeFontPadding="false"
+                android:textColor="@color/white"
+                android:textSize="12sp"
+                android:layout_marginEnd="5dp"
+                />
+
+            <View
+                android:layout_width="15dp"
+                android:layout_height="15dp"
+                android:background="@drawable/vertical_line_white_1"
+                android:layout_marginEnd="5dp"/>
+
+            <ImageView
+                android:id="@+id/item_comment_cocomment_iv"
+                android:layout_width="15dp"
+                android:layout_height="15dp"
+                android:src="@drawable/btn_cocomment"
+                />
+
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/item_comment_cocomment_rv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:overScrollMode="never"
+        android:nestedScrollingEnabled="false"
+        tools:listitem="item_cocomment"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/item_comment_layout" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
