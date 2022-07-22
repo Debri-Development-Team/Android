@@ -26,41 +26,41 @@
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintStart_toStartOf="parent" />
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="40dp"
-                    android:id="@+id/post_detail_search_layout"
-                    android:layout_marginTop="35dp"
-                    android:layout_marginStart="30dp"
-                    android:layout_marginEnd="30dp"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/post_detail_logo_debri_iv"
-                    android:gravity="center_vertical"
-                    android:background="@drawable/border_round_white_transparent_10">
+<!--                <LinearLayout-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="40dp"-->
+<!--                    android:id="@+id/post_detail_search_layout"-->
+<!--                    android:layout_marginTop="35dp"-->
+<!--                    android:layout_marginStart="30dp"-->
+<!--                    android:layout_marginEnd="30dp"-->
+<!--                    app:layout_constraintStart_toStartOf="parent"-->
+<!--                    app:layout_constraintTop_toBottomOf="@+id/post_detail_logo_debri_iv"-->
+<!--                    android:gravity="center_vertical"-->
+<!--                    android:background="@drawable/border_round_white_transparent_10">-->
 
-                    <ImageView
-                        android:id="@+id/board_content_search_iv"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:src="@drawable/btm_nav_search"
-                        android:layout_marginStart="15dp"
-                        />
+<!--                    <ImageView-->
+<!--                        android:id="@+id/board_content_search_iv"-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:src="@drawable/btm_nav_search"-->
+<!--                        android:layout_marginStart="15dp"-->
+<!--                        />-->
 
-                    <EditText
-                        android:id="@+id/post_detail_search_et"
-                        android:layout_width="280dp"
-                        android:layout_height="wrap_content"
-                        android:background="@null"
-                        android:hint="검색어를 입력하세요"
-                        android:textColorHint="@color/white"
-                        android:textColor="@color/white"
-                        android:inputType="textPassword"
-                        android:textSize="15sp"
-                        android:fontFamily="@font/noto_sans_kr_regular"
-                        android:includeFontPadding="false"
-                        android:layout_marginStart="10dp"/>
+<!--                    <EditText-->
+<!--                        android:id="@+id/post_detail_search_et"-->
+<!--                        android:layout_width="280dp"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:background="@null"-->
+<!--                        android:hint="검색어를 입력하세요"-->
+<!--                        android:textColorHint="@color/white"-->
+<!--                        android:textColor="@color/white"-->
+<!--                        android:inputType="textPassword"-->
+<!--                        android:textSize="15sp"-->
+<!--                        android:fontFamily="@font/noto_sans_kr_regular"-->
+<!--                        android:includeFontPadding="false"-->
+<!--                        android:layout_marginStart="10dp"/>-->
 
-                </LinearLayout>
+<!--                </LinearLayout>-->
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -71,8 +71,9 @@
                     android:layout_marginTop="25dp"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/post_detail_search_layout"
+                    app:layout_constraintTop_toBottomOf="@+id/post_detail_logo_debri_iv"
                     android:gravity="center_vertical">
+
 
 
                     <ImageView
@@ -290,7 +291,7 @@
                             <ImageView
                                 android:id="@+id/post_detail_menu_like_iv"
                                 android:layout_width="15dp"
-                                android:layout_height="15dp"
+                                android:layout_height="wrap_content"
                                 android:layout_marginEnd="10dp"
                                 android:src="@drawable/ic_like_white" />
 
@@ -357,24 +358,61 @@
             </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.core.widget.NestedScrollView>
 
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/post_detail_write_comment_btn"
-            android:layout_width="match_parent"
-            android:layout_height="45dp"
-            android:background="@drawable/border_round_debri_darkmode_10"
-            android:paddingStart="23dp"
-            android:paddingEnd="230dp"
-            android:drawableStart="@drawable/ic_write_debri"
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:id="@+id/post_detail_write_comment_layout"
+        android:layout_marginStart="30dp"
+        android:layout_marginEnd="30dp"
+        android:layout_marginBottom="40dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:gravity="center_vertical"
+        android:background="@drawable/border_round_debri_darkmode_10">
+
+        <ImageView
+            android:id="@+id/post_detail_write_comment_iv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_write_debri"
+            android:layout_marginStart="15dp"
+            />
+
+        <EditText
+            android:id="@+id/post_detail_write_comment_et"
+            android:layout_width="280dp"
+            android:layout_height="wrap_content"
+            android:background="@null"
             android:text="댓글쓰기"
+            android:textColorHint="@color/white"
             android:textColor="@color/debri"
+            android:inputType="text"
+            android:textSize="15sp"
             android:fontFamily="@font/noto_sans_kr_black"
-            android:textSize="16sp"
-            android:textStyle="bold"
             android:includeFontPadding="false"
-            android:layout_marginStart="30dp"
-            android:layout_marginEnd="30dp"
-            android:layout_marginBottom="40dp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"/>
+            android:layout_marginStart="10dp"/>
+
+    </LinearLayout>
+
+<!--        <androidx.appcompat.widget.AppCompatButton-->
+<!--            android:id="@+id/post_detail_write_comment_btn"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="45dp"-->
+<!--            android:background="@drawable/border_round_debri_darkmode_10"-->
+<!--            android:paddingStart="23dp"-->
+<!--            android:paddingEnd="230dp"-->
+<!--            android:drawableStart="@drawable/ic_write_debri"-->
+<!--            android:text="댓글쓰기"-->
+<!--            android:textColor="@color/debri"-->
+<!--            android:fontFamily="@font/noto_sans_kr_black"-->
+<!--            android:textSize="16sp"-->
+<!--            android:textStyle="bold"-->
+<!--            android:includeFontPadding="false"-->
+<!--            android:layout_marginStart="30dp"-->
+<!--            android:layout_marginEnd="30dp"-->
+<!--            android:layout_marginBottom="40dp"-->
+<!--            app:layout_constraintStart_toStartOf="parent"-->
+<!--            app:layout_constraintEnd_toEndOf="parent"-->
+<!--            app:layout_constraintBottom_toBottomOf="parent"/>-->
     </androidx.constraintlayout.widget.ConstraintLayout>

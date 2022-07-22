@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingBottom="10dp"
+    android:background="@drawable/border_round_transparent_gray_10"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_marginStart="20dp"
+    android:layout_marginEnd="20dp">
+
+    <ImageView
+        android:id="@+id/dialog_mark_debri_iv"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:src="@drawable/ic_dialog_mark_debri"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="17dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/dialog_write_language_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="&quot;c언어&quot;"
+        android:fontFamily="@font/noto_sans_kr_black"
+        android:textSize="16sp"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="10dp"
+        app:layout_constraintStart_toEndOf="@id/dialog_mark_debri_iv"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+    <TextView
+        android:id="@+id/dialog_write_post_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="게시판"
+        android:fontFamily="@font/noto_sans_kr_regular"
+        android:textSize="16sp"
+        android:textColor="@color/black"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="10dp"
+        app:layout_constraintStart_toEndOf="@id/dialog_write_language_tv"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+    <TextView
+        android:id="@+id/dialog_memo_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="에 작성하시겠어요?"
+        android:fontFamily="@font/noto_sans_kr_bold"
+        android:textSize="16sp"
+        android:textColor="@color/black"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="10dp"
+        app:layout_constraintStart_toEndOf="@id/dialog_write_post_tv"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/dialog_write_yes_btn"
+        android:layout_width="80dp"
+        android:layout_height="38dp"
+        android:background="@drawable/border_round_transparent_debri_10"
+        android:text="네"
+        android:textColor="@color/white"
+        android:fontFamily="@font/noto_sans_kr_bold"
+        android:layout_marginEnd="10dp"
+        android:layout_marginTop="5dp"
+        app:layout_constraintEnd_toStartOf="@id/dialog_write_no_btn"
+        app:layout_constraintTop_toBottomOf="@id/dialog_memo_tv"/>
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/dialog_write_no_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="38dp"
+        android:background="@drawable/border_round_transparent_white_10"
+        android:text="아니요"
+        android:fontFamily="@font/noto_sans_kr_bold"
+        android:layout_marginEnd="20dp"
+        android:layout_marginTop="5dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/dialog_memo_tv"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -4,6 +4,7 @@ import android.content.Context
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.Log
 import android.view.ContextThemeWrapper
 import android.view.Menu
 import android.view.MenuItem
@@ -12,14 +13,18 @@ import android.widget.EditText
 import android.widget.PopupMenu
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
+import com.example.debri_lize.CustomDialog
 import com.example.debri_lize.R
 import com.example.debri_lize.data.Post
 import com.example.debri_lize.databinding.ActivityWriteBinding
+import com.example.debri_lize.fragment.PostFragment
 
 
 class WriteActivity : AppCompatActivity() { //, CoroutineScope by MainScope()
 
     lateinit var binding : ActivityWriteBinding
+
+    var postData : Post = Post()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -49,21 +54,47 @@ class WriteActivity : AppCompatActivity() { //, CoroutineScope by MainScope()
         // 실행
         binding.writeBtn.setOnClickListener{
 
-            //BoardDetailFragment에 data보내기
-//            val bundle = Bundle()
-//            bundle.putSerializable("boardDetail", boardDetaildata)
-//            val passBundleBFragment = PostFragment()
-//            passBundleBFragment.arguments = bundle
-//            Log.d("bundle", bundle.toString())
-//
+            //글 작성 다이얼로그
+            val dialog = CustomDialog(this)
+
+            dialog.showWriteDlg()
+            //작성 ok 버튼 클릭시
+            dialog.setOnClickListener(object:CustomDialog.ButtonClickListener{
+                override fun onClicked(TF: Boolean) {
+                    //PostFragment에 data보내기
+//                    val bundle = Bundle()
+//                    bundle.putSerializable("post", postData)
+//                    val passBundleBFragment = PostFragment()
+//                    passBundleBFragment.arguments = bundle
+//                    Log.d("bundle", bundle.toString())
+
+                    finish()
+                }
+
+            })
+
+
+
 //            supportFragmentManager.beginTransaction()
 //                .replace(R.id.write_activity, passBundleBFragment)
 //                .commit()
 
-            finish()
+//            finish()
 
         }
 
+        //back 버튼 클릭
+        binding.writePreviousIv.setOnClickListener {
+            //다이얼로그 생성
+            val dialog = CustomDialog(this)
+            dialog.showCancelDlg()
+            dialog.setOnClickListener(object:CustomDialog.ButtonClickListener{
+                override fun onClicked(TF: Boolean) {
+                    finish()
+                }
+
+            })
+        }
 
     }
 
