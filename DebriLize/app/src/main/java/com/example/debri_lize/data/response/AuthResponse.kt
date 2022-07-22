@@ -7,7 +7,7 @@ data class AuthResponse(
     @SerializedName(value = "isSuccess") val isSuccess:Boolean,
     @SerializedName(value = "returnCode") val code:Int,
     @SerializedName(value = "returnMsg") val message:String,
-    @SerializedName(value = "result") val result: Result?,
+    @SerializedName(value = "result") val result: Result?
 )
 
 data class Result(

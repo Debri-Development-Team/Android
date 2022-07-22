@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/border_round_white_darkmode_10"
+    android:paddingTop="10dp"
+    android:paddingBottom="10dp">
+    <ImageView
+        android:id="@+id/item_class_favorite_iv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_favorite_on"
+        android:layout_gravity="center_vertical"
+        android:layout_marginEnd="20dp"
+        android:layout_marginStart="15dp"/>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+        <TextView
+            android:id="@+id/item_class_fav_tag_language_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="c언어"
+            android:textSize="11sp"
+            android:paddingStart="5dp"
+            android:paddingEnd="5dp"
+            android:paddingTop="2dp"
+            android:paddingBottom="2dp"
+            android:background="@drawable/border_round_transparent_c_10"/>
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="3dp">
+            <TextView
+                android:id="@+id/item_class_fav_title_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="C의 정석"
+                android:textColor="@color/white"
+                android:fontFamily="@font/noto_sans_kr_regular"
+                android:includeFontPadding="false"
+                android:textSize="17sp"/>
+            <TextView
+                android:id="@+id/item_class_fav_chapter_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="(15챕터)"
+                android:layout_marginStart="5dp"
+                android:textColor="@color/white"
+                android:textSize="11sp"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp">
+            <TextView
+                android:id="@+id/item_class_fav_media_tag_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="#서적"
+                android:textColor="@color/white"
+                android:textSize="11sp"/>
+            <TextView
+                android:id="@+id/item_class_fav_price_tag_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="#유료"
+                android:layout_marginStart="5dp"
+                android:textColor="@color/white"
+                android:textSize="11sp"/>
+        </LinearLayout>
+    </LinearLayout>
+
+    <View
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_weight="1" />
+
+    <ImageView
+        android:id="@+id/item_board_favorite_next_iv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/btn_next"
+        android:layout_gravity="center_vertical"
+        android:layout_marginEnd="20dp" />
+
+
+</LinearLayout>

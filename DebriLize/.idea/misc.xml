@@ -63,9 +63,13 @@
         <entry key="..\:/Users/tptty/AndroidStudioProjects/DebriLize/app/src/main/res/layout/item_post.xml" value="0.17916666666666667" />
         <entry key="..\:/Users/tptty/AndroidStudioProjects/DebriLize/app/src/main/res/menu/bottom_nav_menu.xml" value="0.17916666666666667" />
         <entry key="..\:/Users/tptty/AndroidStudioProjects/DebriLize/app/src/main/res/menu/post_menu.xml" value="0.1" />
+        <entry key="app/src/main/res/drawable-v24/border_round_debri_gray_6.xml" value="0.1655" />
         <entry key="app/src/main/res/drawable-v24/border_round_debri_transparent_10.xml" value="0.1" />
         <entry key="app/src/main/res/drawable-v24/border_round_debri_transparent_6.xml" value="0.1" />
         <entry key="app/src/main/res/drawable-v24/border_round_transparent_debri_10.xml" value="0.1" />
+        <entry key="app/src/main/res/drawable-v24/border_round_transparent_debri_6.xml" value="0.1655" />
+        <entry key="app/src/main/res/drawable-v24/border_round_transparent_gray_10.xml" value="0.1655" />
+        <entry key="app/src/main/res/drawable-v24/border_round_transparent_gray_6.xml" value="0.1655" />
         <entry key="app/src/main/res/drawable-v24/border_round_transparent_red_10.xml" value="0.1" />
         <entry key="app/src/main/res/drawable-v24/border_round_transparent_white_10.xml" value="0.1" />
         <entry key="app/src/main/res/drawable-v24/border_round_white_darkmode_10.xml" value="0.1" />
@@ -73,10 +77,13 @@
         <entry key="app/src/main/res/drawable-v24/border_round_white_transparent_10.xml" value="0.1" />
         <entry key="app/src/main/res/drawable-v24/btm_color_selector.xml" value="0.1" />
         <entry key="app/src/main/res/drawable/border_round_debri_darkmode_10.xml" value="0.1" />
+        <entry key="app/src/main/res/drawable/border_round_transparent_c_10.xml" value="0.1655" />
         <entry key="app/src/main/res/drawable/border_round_white_transparent_18.xml" value="0.1655" />
         <entry key="app/src/main/res/drawable/btm_nav_class.xml" value="0.1655" />
         <entry key="app/src/main/res/drawable/btn_radio_class_selector.xml" value="0.1655" />
         <entry key="app/src/main/res/drawable/circle_debri_transparent_8.xml" value="0.1095" />
+        <entry key="app/src/main/res/drawable/ic_add.xml" value="0.1095" />
+        <entry key="app/src/main/res/drawable/ic_back.xml" value="0.1095" />
         <entry key="app/src/main/res/drawable/ic_complain.xml" value="0.1" />
         <entry key="app/src/main/res/drawable/ic_dialog_mark_debri.xml" value="0.1" />
         <entry key="app/src/main/res/drawable/ic_dialog_mark_red.xml" value="0.1095" />
@@ -95,12 +102,15 @@
         <entry key="app/src/main/res/layout/dialog_write.xml" value="0.335" />
         <entry key="app/src/main/res/layout/fragment_board.xml" value="0.25" />
         <entry key="app/src/main/res/layout/fragment_bottom_sheet_complain.xml" value="0.1" />
-        <entry key="app/src/main/res/layout/fragment_class.xml" value="0.375" />
+        <entry key="app/src/main/res/layout/fragment_class.xml" value="0.25" />
         <entry key="app/src/main/res/layout/fragment_home.xml" value="0.1" />
         <entry key="app/src/main/res/layout/fragment_post.xml" value="0.1" />
         <entry key="app/src/main/res/layout/item_board.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/item_board_favorite.xml" value="0.23802083333333332" />
+        <entry key="app/src/main/res/layout/item_class_favorite.xml" value="0.23697916666666666" />
         <entry key="app/src/main/res/layout/item_comment.xml" value="0.1157548125633232" />
         <entry key="app/src/main/res/layout/item_post.xml" value="0.1157548125633232" />
+        <entry key="app/src/main/res/menu/post_menu.xml" value="0.25" />
       </map>
     </option>
   </component>
