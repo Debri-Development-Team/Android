@@ -85,6 +85,7 @@
         <entry key="app/src/main/res/drawable/ic_scrap_darkmode.xml" value="0.1" />
         <entry key="app/src/main/res/drawable/ic_scrap_white.xml" value="0.1" />
         <entry key="app/src/main/res/drawable/ic_write_debri.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/activity_add_curriculum.xml" value="0.1157548125633232" />
         <entry key="app/src/main/res/layout/activity_login.xml" value="0.20244565217391305" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.1" />
         <entry key="app/src/main/res/layout/activity_post_detail.xml" value="0.2838616714697406" />

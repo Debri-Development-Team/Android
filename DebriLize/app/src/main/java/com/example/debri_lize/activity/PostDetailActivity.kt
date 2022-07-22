@@ -2,14 +2,11 @@ package com.example.debri_lize.activity
 
 import android.content.res.Resources
 import android.os.Bundle
-import android.util.Log
 import android.view.Gravity
-import android.view.LayoutInflater
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
-import com.example.debri_lize.CustomDialog
 import com.example.debri_lize.R
 import com.example.debri_lize.databinding.ActivityPostDetailBinding
 import com.google.android.material.bottomsheet.BottomSheetDialog
@@ -75,7 +72,7 @@ class PostDetailActivity : AppCompatActivity() {
 
 
                 //스크랩 확인 토스트메시지
-                var scrapToast = layoutInflater.inflate(R.layout.dialog_scrap,null)
+                var scrapToast = layoutInflater.inflate(R.layout.toast_scrap,null)
                 var toast = Toast(this)
                 toast.view = scrapToast
                 toast.setGravity(Gravity.CENTER_HORIZONTAL,0,0)
