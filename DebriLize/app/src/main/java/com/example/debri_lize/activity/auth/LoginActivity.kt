@@ -9,12 +9,11 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import com.example.debri_lize.R
-import com.example.debri_lize.activity.AddCurriculumActivity
 import com.example.debri_lize.activity.MainActivity
 import com.example.debri_lize.data.UserLogin
 import com.example.debri_lize.data.response.Result
 import com.example.debri_lize.data.service.AuthService
-import com.example.debri_lize.data.view.LoginView
+import com.example.debri_lize.data.view.auth.LoginView
 import com.example.debri_lize.databinding.ActivityLoginBinding
 import com.example.debri_lize.utils.saveJwt
 import com.example.debri_lize.utils.saveUserIdx

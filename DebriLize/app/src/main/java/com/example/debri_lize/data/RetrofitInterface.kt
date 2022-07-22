@@ -4,7 +4,9 @@ import com.example.debri_lize.data.response.AuthResponse
 import com.example.debri_lize.data.response.PostResponse
 import retrofit2.Call
 import retrofit2.http.Body
+import retrofit2.http.GET
 import retrofit2.http.POST
+import retrofit2.http.Path
 
 interface RetrofitInterface {
 
@@ -18,8 +20,9 @@ interface RetrofitInterface {
 
     //게시물 생성
     @POST("api/post/create")
-    fun createPost(@Body post : Post): Call<PostResponse>
+    fun createPost(@Body post: Post): Call<PostResponse>
 
-    //
-
+    //[특정 게시판] 게시물 조회
+    @GET("api/post/getList/{boardIdx}")
+    fun eachPostList(@Path("boardIdx") boardIdx: Int) : Call<PostResponse>
 }

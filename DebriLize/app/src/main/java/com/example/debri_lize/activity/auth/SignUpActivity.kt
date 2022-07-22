@@ -1,21 +1,15 @@
 package com.example.debri_lize.activity.auth
 
-import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import com.example.debri_lize.R
-import com.example.debri_lize.activity.AddCurriculumActivity
 import com.example.debri_lize.data.UserSignup
 import com.example.debri_lize.data.service.AuthService
-import com.example.debri_lize.data.view.SignUpView
+import com.example.debri_lize.data.view.auth.SignUpView
 import com.example.debri_lize.databinding.ActivitySignupBinding
-import com.example.debri_lize.data.response.Result
-import com.example.debri_lize.utils.saveJwt
-import com.example.debri_lize.utils.saveUserIdx
 
 class SignUpActivity:AppCompatActivity(), SignUpView {
     lateinit var binding: ActivitySignupBinding

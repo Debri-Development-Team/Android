@@ -5,8 +5,8 @@ import com.example.debri_lize.data.RetrofitInterface
 import com.example.debri_lize.data.UserLogin
 import com.example.debri_lize.data.UserSignup
 import com.example.debri_lize.data.response.AuthResponse
-import com.example.debri_lize.data.view.LoginView
-import com.example.debri_lize.data.view.SignUpView
+import com.example.debri_lize.data.view.auth.LoginView
+import com.example.debri_lize.data.view.auth.SignUpView
 import com.example.debri_lize.utils.getRetrofit
 import retrofit2.Call
 import retrofit2.Callback

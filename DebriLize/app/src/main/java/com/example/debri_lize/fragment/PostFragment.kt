@@ -13,15 +13,17 @@ import com.example.debri_lize.R
 import com.example.debri_lize.activity.MainActivity
 import com.example.debri_lize.activity.PostCreateActivity
 import com.example.debri_lize.data.Board
-import com.example.debri_lize.data.Post
+import com.example.debri_lize.data.EachPostList
+import com.example.debri_lize.data.service.PostService
+import com.example.debri_lize.data.view.post.EachPostListView
 import com.example.debri_lize.databinding.FragmentPostBinding
 
 
-class PostFragment : Fragment() {
+class PostFragment : Fragment(), EachPostListView {
 
     lateinit var binding: FragmentPostBinding
     private lateinit var postRVAdapter: PostRVAdapter
-    private val datas = ArrayList<Post>()
+    private val datas = ArrayList<EachPostList>()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -53,59 +55,62 @@ class PostFragment : Fragment() {
                 .replace(R.id.main_frm, BoardFragment()).commitAllowingStateLoss()
         }
 
-        //post data 받아오기
+        //api
+        val postService = PostService()
+        postService.seteachPostListView(this)
+        postService.eachPostList(1) //변경필요
 
-
-
+        //게시글 작성하기 버튼
         binding.postWriteBtn.setOnClickListener{
             val intent = Intent(context, PostCreateActivity::class.java)
-            //intent.putExtra("userid", userid)
             startActivity(intent)
         }
 
     }
 
-    override fun onResume() {
-        super.onResume()
+    override fun onEachPostListSuccess(code: Int, result: List<com.example.debri_lize.data.response.Post>) {
+        when(code){
+            //개발할 때는 userIdx 저장이 필요할수도
+            200-> {
+                binding.postListRv.layoutManager =
+                    LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
+                postRVAdapter = PostRVAdapter()
+                binding.postListRv.adapter = postRVAdapter
 
-        initBoardDetailRecycler()
-    }
+                //data
+                datas.apply {
 
-
-    private fun initBoardDetailRecycler() {
-        binding.postListRv.layoutManager =
-            LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
-        postRVAdapter = PostRVAdapter()
-        binding.postListRv.adapter = postRVAdapter
-
-        //data
-        datas.apply {
-
-            //add(Post(0, 0, "알ㄹ랄ㄹ라", "여기서 오류 고치는 법", "dd"))
-
-            postRVAdapter.datas = datas
-            postRVAdapter.notifyDataSetChanged()
-
-            //recyclerview item 클릭하면 fragment 전환
-            postRVAdapter.setItemClickListener(object : PostRVAdapter.OnItemClickListener {
-                override fun onClick(v: View, position: Int) {
-                    // 클릭 시 이벤트 작성
-                    activity?.let {
-
-                        //객체 자체를 보내는 방법 (data class)
-                        //val intent = Intent(context, DailyCalendarActivity::class.java)
-                        //intent.putExtra("schedule", datas[position])
-                        //startActivity(intent)
-
+                    for (i in result){
+                        datas.add(EachPostList(i.boardIdx, i.postIdx, i.authorName, i.postName, i.likeCnt, i.timeAfterCreated, i.commentCnt))
                     }
 
+                    postRVAdapter.datas = datas
+                    postRVAdapter.notifyDataSetChanged()
+
+                    //recyclerview item 클릭하면 fragment 전환
+                    postRVAdapter.setItemClickListener(object : PostRVAdapter.OnItemClickListener {
+                        override fun onClick(v: View, position: Int) {
+                            // 클릭 시 이벤트 작성
+                            activity?.let {
+
+                                //객체 자체를 보내는 방법 (data class)
+                                //val intent = Intent(context, DailyCalendarActivity::class.java)
+                                //intent.putExtra("schedule", datas[position])
+                                //startActivity(intent)
+
+                            }
+
+                        }
+                    })
+
+
                 }
-            })
-
-
+            }
         }
+    }
 
-
+    override fun onEachPostListFailure(code: Int) {
+        TODO("Not yet implemented")
     }
 
 }

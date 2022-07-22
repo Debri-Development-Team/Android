@@ -1,4 +1,4 @@
-package com.example.debri_lize.data.view
+package com.example.debri_lize.data.view.auth
 
 interface SignUpView {
     fun onSignUpSuccess(code : Int)

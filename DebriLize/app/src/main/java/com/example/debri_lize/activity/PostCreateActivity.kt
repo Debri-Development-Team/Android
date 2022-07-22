@@ -1,24 +1,18 @@
 package com.example.debri_lize.activity
 
-import android.content.Context
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
-import android.view.ContextThemeWrapper
-import android.view.Menu
 import android.view.MenuItem
 import android.view.View
-import android.widget.EditText
 import android.widget.PopupMenu
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import com.example.debri_lize.R
 import com.example.debri_lize.data.Post
-import com.example.debri_lize.data.UserSignup
-import com.example.debri_lize.data.service.AuthService
 import com.example.debri_lize.data.service.PostService
-import com.example.debri_lize.data.view.PostCreateView
+import com.example.debri_lize.data.view.post.PostCreateView
 import com.example.debri_lize.databinding.ActivityPostCreateBinding
 import com.example.debri_lize.utils.getUserIdx
 

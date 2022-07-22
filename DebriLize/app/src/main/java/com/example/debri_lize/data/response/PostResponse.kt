@@ -7,9 +7,15 @@ data class PostResponse(
     @SerializedName(value = "isSuccess") val isSuccess:Boolean,
     @SerializedName(value = "returnCode") val code:Int,
     @SerializedName(value = "returnMsg") val message:String,
-    @SerializedName(value = "result") val result: Post,
+    @SerializedName(value = "result") val result: List<Post>,
 )
 
 data class Post(
-    @SerializedName(value = "postIdx") var postIdx : Int
+    @SerializedName(value = "boardIdx") var boardIdx : Int,
+    @SerializedName(value = "postIdx") var postIdx : Int,
+    @SerializedName(value = "authorName") var authorName : String,
+    @SerializedName(value = "postName") var postName : String,
+    @SerializedName(value = "likeNumber") var likeCnt : Int,
+    @SerializedName(value = "timeAfterCreated") var timeAfterCreated : Int,
+    @SerializedName(value = "commentNumber") var commentCnt : Int
 )

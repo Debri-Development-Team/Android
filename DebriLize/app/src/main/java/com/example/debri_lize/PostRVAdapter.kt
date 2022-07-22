@@ -5,24 +5,25 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.example.debri_lize.data.EachPostList
 import com.example.debri_lize.data.Post
 import com.example.debri_lize.databinding.ItemPostBinding
 
 class PostRVAdapter : RecyclerView.Adapter<PostRVAdapter.ViewHolder>() {
 
-    var datas = mutableListOf<Post>()
+    var datas = mutableListOf<EachPostList>()
 
     inner class ViewHolder(val binding : ItemPostBinding) : RecyclerView.ViewHolder(binding.root){
 
         val title : TextView = binding.itemPostTitle
-        val time : TextView = binding.itemPostTitle
-        var comment : TextView = binding.itemPostCountCommentTv
+        val time : TextView = binding.itemPostTimeTv
+        var commentCnt : TextView = binding.itemPostCountCommentTv
+        //var likeCnt : TextView = binding.
 
-        fun bind(item: Post) {
-            //viewpager만들고 item.coverImg[position]
+        fun bind(item: EachPostList) {
             title.text = item.postName
-            //time.text = item.time
-            //comment.text = item.comment
+            time.text = item.timeAfterCreated.toString()+"분 전"
+            commentCnt.text = "("+item.commentCnt.toString()+")"
         }
     }
 
