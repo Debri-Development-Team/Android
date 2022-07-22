@@ -3,7 +3,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/darkmode_background"
-    android:id="@+id/bottom_sheet_complain"
+    android:id="@+id/bottom_sheet_edit_delete"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     app:behavior_hideable="true"
@@ -11,7 +11,7 @@
     app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior">
 
     <LinearLayout
-        android:id="@+id/bottom_sheet_complain_page_layout"
+        android:id="@+id/bottom_sheet_edit_delete_page_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
@@ -23,76 +23,40 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginBottom="6dp"
-        app:layout_constraintBottom_toTopOf="@+id/bottom_sheet_close_tv">
+        app:layout_constraintBottom_toTopOf="@+id/bottom_sheet_edit_delete_close_tv">
 
         <TextView
-            android:id="@+id/bottom_sheet_complain_page_tv"
+            android:id="@+id/bottom_sheet_edit_delete_page_tv"
             android:layout_width="match_parent"
             android:layout_height="48dp"
+            android:background="@drawable/border_line_bottom"
             android:fontFamily="@font/noto_sans_kr_regular"
-            android:includeFontPadding="false"
             android:gravity="center"
-            android:text="신고 사유"
+            android:includeFontPadding="false"
+            android:text="게시물 관리"
             android:textColor="@color/black"
-            android:textSize="12sp"
-            android:background="@drawable/border_line_bottom"/>
+            android:textSize="12sp" />
 
         <TextView
-            android:id="@+id/bottom_sheet_complain_page_tv1"
+            android:id="@+id/bottom_sheet_edit_delete_page_tv1"
             android:layout_width="match_parent"
             android:layout_height="48dp"
             android:fontFamily="@font/noto_sans_kr_bold"
             android:includeFontPadding="false"
             android:gravity="center"
-            android:text="상업적 광고 / 스팸 게시물"
-            android:textColor="@color/black"
-            android:textSize="16sp"
-            android:background="@drawable/border_line_top"/>
-
-        <TextView
-            android:id="@+id/bottom_sheet_complain_page_tv2"
-            android:layout_width="match_parent"
-            android:layout_height="48dp"
-            android:fontFamily="@font/noto_sans_kr_bold"
-            android:includeFontPadding="false"
-            android:gravity="center"
-            android:text="낚시 / 도배 게시물"
+            android:text="수정하기"
             android:textColor="@color/black"
             android:textSize="16sp"
             android:background="@drawable/border_line_top"/>
 
         <TextView
-            android:id="@+id/bottom_sheet_complain_page_tv3"
+            android:id="@+id/bottom_sheet_edit_delete_page_tv2"
             android:layout_width="match_parent"
             android:layout_height="48dp"
             android:fontFamily="@font/noto_sans_kr_bold"
             android:includeFontPadding="false"
             android:gravity="center"
-            android:text="개발과 무관한 게시물"
-            android:textColor="@color/black"
-            android:textSize="16sp"
-            android:background="@drawable/border_line_top"/>
-
-        <TextView
-            android:id="@+id/bottom_sheet_complain_page_tv4"
-            android:layout_width="match_parent"
-            android:layout_height="48dp"
-            android:fontFamily="@font/noto_sans_kr_bold"
-            android:includeFontPadding="false"
-            android:gravity="center"
-            android:text="욕설 / 비하를 포함한 게시물"
-            android:textColor="@color/black"
-            android:textSize="16sp"
-            android:background="@drawable/border_line_top"/>
-
-        <TextView
-            android:id="@+id/bottom_sheet_complain_page_tv5"
-            android:layout_width="match_parent"
-            android:layout_height="48dp"
-            android:fontFamily="@font/noto_sans_kr_bold"
-            android:includeFontPadding="false"
-            android:gravity="center"
-            android:text="기타 사유"
+            android:text="삭제하기"
             android:textColor="@color/black"
             android:textSize="16sp"
             android:background="@drawable/border_line_top"/>
@@ -100,7 +64,7 @@
     </LinearLayout>
 
     <TextView
-        android:id="@+id/bottom_sheet_close_tv"
+        android:id="@+id/bottom_sheet_edit_delete_close_tv"
         android:layout_width="match_parent"
         android:layout_height="48dp"
         android:gravity="center"

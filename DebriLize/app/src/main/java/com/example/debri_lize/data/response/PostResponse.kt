@@ -11,5 +11,5 @@ data class PostResponse(
 )
 
 data class Post(
-    @SerializedName(value = "postIdx") var userIdx : Int
+    @SerializedName(value = "postIdx") var postIdx : Int
 )

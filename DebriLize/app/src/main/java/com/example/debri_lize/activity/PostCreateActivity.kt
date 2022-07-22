@@ -10,20 +10,26 @@ import android.view.MenuItem
 import android.view.View
 import android.widget.EditText
 import android.widget.PopupMenu
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import com.example.debri_lize.R
 import com.example.debri_lize.data.Post
-import com.example.debri_lize.databinding.ActivityWriteBinding
+import com.example.debri_lize.data.UserSignup
+import com.example.debri_lize.data.service.AuthService
+import com.example.debri_lize.data.service.PostService
+import com.example.debri_lize.data.view.PostCreateView
+import com.example.debri_lize.databinding.ActivityPostCreateBinding
+import com.example.debri_lize.utils.getUserIdx
 
 
-class WriteActivity : AppCompatActivity() { //, CoroutineScope by MainScope()
+class PostCreateActivity : AppCompatActivity(), PostCreateView { //, CoroutineScope by MainScope()
 
-    lateinit var binding : ActivityWriteBinding
+    lateinit var binding : ActivityPostCreateBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityWriteBinding.inflate(layoutInflater) //binding 초기화
+        binding = ActivityPostCreateBinding.inflate(layoutInflater) //binding 초기화
         setContentView(binding.root)
 
         //board option menu
@@ -38,30 +44,10 @@ class WriteActivity : AppCompatActivity() { //, CoroutineScope by MainScope()
         //게시글 글자수 count
         countLetter()
 
-        //게시글 등록
-        // component
-        val title : EditText = binding.writeTitleEt
-        val content : EditText = binding.writeContentEt
-
-        // 유저아이디
-        //val userIdx : Int = getIntent().getIntExtra("userid")
-
         // 실행
         binding.writeBtn.setOnClickListener{
-
-            //BoardDetailFragment에 data보내기
-//            val bundle = Bundle()
-//            bundle.putSerializable("boardDetail", boardDetaildata)
-//            val passBundleBFragment = PostFragment()
-//            passBundleBFragment.arguments = bundle
-//            Log.d("bundle", bundle.toString())
-//
-//            supportFragmentManager.beginTransaction()
-//                .replace(R.id.write_activity, passBundleBFragment)
-//                .commit()
-
+            createPost()
             finish()
-
         }
 
 
@@ -164,6 +150,62 @@ class WriteActivity : AppCompatActivity() { //, CoroutineScope by MainScope()
                 binding.writeCountLetterTv.text = userinput.length.toString() + "/5000"
             }
         })
+    }
+
+    //api
+
+    //회원가입
+    //사용자가 입력한 값 가져오기
+    private fun getPost() : Post {
+        val boardIdx : Int = 1 //변경필요
+        val userIdx = getUserIdx() //변경필요
+        val postContent : String = binding.writeContentEt.text.toString()
+        var postName : String = binding.writeTitleEt.text.toString()
+
+        return Post(boardIdx, userIdx, postContent, postName)
+    }
+
+    //회원가입 진행(서버이용)
+    private fun createPost(){
+        //이메일 형식이 잘못된 경우
+        if(binding.writeTitleEt.text.toString().isEmpty()){
+            Toast.makeText(this, "제목을 입력해주세요", Toast.LENGTH_SHORT).show()
+            return
+        }
+
+
+        //닉네임 형식이 맞지 않는 경우
+        if(binding.writeContentEt.text.toString().isEmpty()){
+            Toast.makeText(this, "내용을 입력해주세요", Toast.LENGTH_SHORT).show()
+            return
+        }
+
+        val postService = PostService()
+        postService.setPostCreateView(this)
+
+        //만든 API 호출
+        postService.createPost(getPost())
+
+    }
+
+    override fun onPostCreateSuccess(code : Int) {
+        when(code){
+            //개발할 때는 userIdx 저장이 필요할수도
+            200-> {
+                Toast.makeText(this, "ok", Toast.LENGTH_SHORT).show()
+                finish()
+            }
+        }
+
+    }
+
+    override fun onPostCreateFailure(code : Int) {
+        when(code){
+            //개발할 때는 userIdx 저장이 필요할수도
+            3030, 1000, 5000, 5001, 5002, 5003, 5004, 5005-> {
+                Toast.makeText(this, "fail", Toast.LENGTH_SHORT).show()
+            }
+        }
     }
 
 

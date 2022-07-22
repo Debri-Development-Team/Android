@@ -31,7 +31,12 @@ class SignUpActivity:AppCompatActivity(), SignUpView {
             finish()
         }
 
-        setFocus() //focus effect
+        binding.signUpBackLayout.setOnClickListener{
+            finish()
+        }
+
+        //focus effect
+        setFocus()
 
 
     }
@@ -100,7 +105,6 @@ class SignUpActivity:AppCompatActivity(), SignUpView {
             //개발할 때는 userIdx 저장이 필요할수도
             3020, 3021, 3022, 3023, 3024, 3025, 3026, 3027, 1000-> {
                 Toast.makeText(this, "message", Toast.LENGTH_SHORT).show()
-                finish()
             }
         }
     }

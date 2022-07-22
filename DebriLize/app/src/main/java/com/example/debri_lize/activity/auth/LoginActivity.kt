@@ -10,6 +10,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import com.example.debri_lize.R
 import com.example.debri_lize.activity.AddCurriculumActivity
+import com.example.debri_lize.activity.MainActivity
 import com.example.debri_lize.data.UserLogin
 import com.example.debri_lize.data.response.Result
 import com.example.debri_lize.data.service.AuthService
@@ -78,7 +79,9 @@ public class LoginActivity:AppCompatActivity(), LoginView {
                 saveJwt(result!!.jwt)
                 saveUserIdx(result!!.userIdx)
                 Log.d("save", "success")
-                startActivity(Intent(this, AddCurriculumActivity::class.java))
+                //startActivity(Intent(this, AddCurriculumActivity::class.java))
+                //test
+                startActivity(Intent(this, MainActivity::class.java))
             }
         }
     }

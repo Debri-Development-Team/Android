@@ -6,20 +6,20 @@ import com.example.debri_lize.utils.ApplicationClass.Companion.mSharedPreference
 
 fun saveJwt(jwtToken: String) {
     val editor = mSharedPreferences.edit()
-    editor.putString("auth", jwtToken)
+    editor.putString("jwt", jwtToken)
 
     editor.apply()
 }
 
-fun getJwt(): String? = mSharedPreferences.getString("auth", null)
+fun getJwt(): String? = mSharedPreferences.getString("jwt", null)
 
-fun saveUserIdx(jwtToken: Int) {
+fun saveUserIdx(userIdx: Int) {
     val editor = mSharedPreferences.edit()
-    editor.putInt("auth2", jwtToken)
+    editor.putInt("userIdx", userIdx)
 
     editor.apply()
 }
 
-fun getUserIdx(): String? = mSharedPreferences.getString("auth2", null)
+fun getUserIdx(): Int? = mSharedPreferences.getInt("userIdx", 0)
 
 

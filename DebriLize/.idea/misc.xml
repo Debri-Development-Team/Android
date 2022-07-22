@@ -62,6 +62,17 @@
         <entry key="..\:/Users/tptty/AndroidStudioProjects/DebriLize/app/src/main/res/layout/item_post.xml" value="0.17916666666666667" />
         <entry key="..\:/Users/tptty/AndroidStudioProjects/DebriLize/app/src/main/res/menu/bottom_nav_menu.xml" value="0.17916666666666667" />
         <entry key="..\:/Users/tptty/AndroidStudioProjects/DebriLize/app/src/main/res/menu/post_menu.xml" value="0.1" />
+        <entry key="..\:/Users/tptty/AndroidStudioProjects/Debri_final/Android/DebriLize/app/src/main/res/drawable/border_line_top.xml" value="0.1" />
+        <entry key="..\:/Users/tptty/AndroidStudioProjects/Debri_final/Android/DebriLize/app/src/main/res/drawable/border_line_top_bottom.xml" value="0.1" />
+        <entry key="..\:/Users/tptty/AndroidStudioProjects/Debri_final/Android/DebriLize/app/src/main/res/drawable/border_round_transparent_darkmode_10.xml" value="0.1" />
+        <entry key="..\:/Users/tptty/AndroidStudioProjects/Debri_final/Android/DebriLize/app/src/main/res/drawable/border_round_white_bottom_sheet_10.xml" value="0.1" />
+        <entry key="..\:/Users/tptty/AndroidStudioProjects/Debri_final/Android/DebriLize/app/src/main/res/layout/activity_post_detail.xml" value="0.22" />
+        <entry key="..\:/Users/tptty/AndroidStudioProjects/Debri_final/Android/DebriLize/app/src/main/res/layout/activity_signup.xml" value="0.17916666666666667" />
+        <entry key="..\:/Users/tptty/AndroidStudioProjects/Debri_final/Android/DebriLize/app/src/main/res/layout/activity_write.xml" value="0.17916666666666667" />
+        <entry key="..\:/Users/tptty/AndroidStudioProjects/Debri_final/Android/DebriLize/app/src/main/res/layout/fragment_board.xml" value="0.1" />
+        <entry key="..\:/Users/tptty/AndroidStudioProjects/Debri_final/Android/DebriLize/app/src/main/res/layout/fragment_bottom_sheet_complain.xml" value="0.22" />
+        <entry key="..\:/Users/tptty/AndroidStudioProjects/Debri_final/Android/DebriLize/app/src/main/res/layout/fragment_bottom_sheet_edit.xml" value="0.17916666666666667" />
+        <entry key="..\:/Users/tptty/AndroidStudioProjects/Debri_final/Android/DebriLize/app/src/main/res/layout/item_board.xml" value="0.17916666666666667" />
       </map>
     </option>
   </component>

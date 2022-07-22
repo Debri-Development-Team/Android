@@ -11,7 +11,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.debri_lize.PostRVAdapter
 import com.example.debri_lize.R
 import com.example.debri_lize.activity.MainActivity
-import com.example.debri_lize.activity.WriteActivity
+import com.example.debri_lize.activity.PostCreateActivity
 import com.example.debri_lize.data.Board
 import com.example.debri_lize.data.Post
 import com.example.debri_lize.databinding.FragmentPostBinding
@@ -58,7 +58,7 @@ class PostFragment : Fragment() {
 
 
         binding.postWriteBtn.setOnClickListener{
-            val intent = Intent(context, WriteActivity::class.java)
+            val intent = Intent(context, PostCreateActivity::class.java)
             //intent.putExtra("userid", userid)
             startActivity(intent)
         }
@@ -81,12 +81,7 @@ class PostFragment : Fragment() {
         //data
         datas.apply {
 
-            add(Post(0, 0, "알ㄹ랄ㄹ라", "여기서 오류 고치는 법", "dd"))
-            add(Post(0, 0, "알ㄹ랄ㄹ라", "여기서 오류 고치는 법", "dd"))
-            add(Post(0, 0, "알ㄹ랄ㄹ라", "여기서 오류 고치는 법", "dd"))
-            add(Post(0, 0, "알ㄹ랄ㄹ라", "여기서 오류 고치는 법", "dd"))
-            add(Post(0, 0, "알ㄹ랄ㄹ라", "여기서 오류 고치는 법", "dd"))
-
+            //add(Post(0, 0, "알ㄹ랄ㄹ라", "여기서 오류 고치는 법", "dd"))
 
             postRVAdapter.datas = datas
             postRVAdapter.notifyDataSetChanged()

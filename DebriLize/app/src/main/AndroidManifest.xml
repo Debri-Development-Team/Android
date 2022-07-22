@@ -33,7 +33,7 @@
             android:name=".activity.AddCurriculumActivity"
             android:exported="true" />
         <activity
-            android:name=".activity.WriteActivity"
+            android:name=".activity.PostCreateActivity"
             android:exported="true"/>
         <activity
             android:name=".activity.PostDetailActivity"
