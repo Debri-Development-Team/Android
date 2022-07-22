@@ -1,6 +1,7 @@
 package com.example.debri_lize.data
 
 import com.example.debri_lize.data.response.AuthResponse
+import com.example.debri_lize.data.response.PostDetailResponse
 import com.example.debri_lize.data.response.PostResponse
 import retrofit2.Call
 import retrofit2.http.Body
@@ -24,5 +25,9 @@ interface RetrofitInterface {
 
     //[특정 게시판] 게시물 조회
     @GET("api/post/getList/{boardIdx}")
-    fun eachPostList(@Path("boardIdx") boardIdx: Int) : Call<PostResponse>
+    fun showEachPostList(@Path("boardIdx") boardIdx: Int) : Call<PostResponse>
+
+    //게시물 상세 조회
+    @GET("api/post/get/{postIdx}")
+    fun showPostDetail(@Path("postIdx") boardIdx: Int) : Call<PostDetailResponse>
 }

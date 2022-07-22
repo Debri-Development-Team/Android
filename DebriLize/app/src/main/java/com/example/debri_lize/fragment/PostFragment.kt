@@ -12,10 +12,13 @@ import com.example.debri_lize.PostRVAdapter
 import com.example.debri_lize.R
 import com.example.debri_lize.activity.MainActivity
 import com.example.debri_lize.activity.PostCreateActivity
+import com.example.debri_lize.activity.PostDetailActivity
 import com.example.debri_lize.data.Board
-import com.example.debri_lize.data.EachPostList
+import com.example.debri_lize.data.PostList
+import com.example.debri_lize.data.response.PostDetail
 import com.example.debri_lize.data.service.PostService
 import com.example.debri_lize.data.view.post.EachPostListView
+import com.example.debri_lize.data.view.post.PostDetailView
 import com.example.debri_lize.databinding.FragmentPostBinding
 
 
@@ -23,7 +26,7 @@ class PostFragment : Fragment(), EachPostListView {
 
     lateinit var binding: FragmentPostBinding
     private lateinit var postRVAdapter: PostRVAdapter
-    private val datas = ArrayList<EachPostList>()
+    private val datas = ArrayList<PostList>()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -58,7 +61,7 @@ class PostFragment : Fragment(), EachPostListView {
         //api
         val postService = PostService()
         postService.seteachPostListView(this)
-        postService.eachPostList(1) //변경필요
+        postService.showEachPostList(1) //변경필요
 
         //게시글 작성하기 버튼
         binding.postWriteBtn.setOnClickListener{
@@ -81,7 +84,7 @@ class PostFragment : Fragment(), EachPostListView {
                 datas.apply {
 
                     for (i in result){
-                        datas.add(EachPostList(i.boardIdx, i.postIdx, i.authorName, i.postName, i.likeCnt, i.timeAfterCreated, i.commentCnt))
+                        datas.add(PostList(i.boardIdx, i.postIdx, i.authorName, i.postName, i.likeCnt, i.timeAfterCreated, i.commentCnt))
                     }
 
                     postRVAdapter.datas = datas
@@ -94,9 +97,9 @@ class PostFragment : Fragment(), EachPostListView {
                             activity?.let {
 
                                 //객체 자체를 보내는 방법 (data class)
-                                //val intent = Intent(context, DailyCalendarActivity::class.java)
-                                //intent.putExtra("schedule", datas[position])
-                                //startActivity(intent)
+                                val intent = Intent(context, PostDetailActivity::class.java)
+                                intent.putExtra("postIdx", datas[position].postIdx)
+                                startActivity(intent)
 
                             }
 

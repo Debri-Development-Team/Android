@@ -5,13 +5,12 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.example.debri_lize.data.EachPostList
-import com.example.debri_lize.data.Post
+import com.example.debri_lize.data.PostList
 import com.example.debri_lize.databinding.ItemPostBinding
 
 class PostRVAdapter : RecyclerView.Adapter<PostRVAdapter.ViewHolder>() {
 
-    var datas = mutableListOf<EachPostList>()
+    var datas = mutableListOf<PostList>()
 
     inner class ViewHolder(val binding : ItemPostBinding) : RecyclerView.ViewHolder(binding.root){
 
@@ -20,7 +19,7 @@ class PostRVAdapter : RecyclerView.Adapter<PostRVAdapter.ViewHolder>() {
         var commentCnt : TextView = binding.itemPostCountCommentTv
         //var likeCnt : TextView = binding.
 
-        fun bind(item: EachPostList) {
+        fun bind(item: PostList) {
             title.text = item.postName
             time.text = item.timeAfterCreated.toString()+"분 전"
             commentCnt.text = "("+item.commentCnt.toString()+")"
