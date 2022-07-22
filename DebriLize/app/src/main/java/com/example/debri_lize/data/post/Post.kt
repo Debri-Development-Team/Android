@@ -1,4 +1,4 @@
-package com.example.debri_lize.data
+package com.example.debri_lize.data.post
 
 import com.google.gson.annotations.SerializedName
 

@@ -1,14 +1,13 @@
-package com.example.debri_lize.data.service
+package com.example.debri_lize.service
 
 import android.util.Log
-import com.example.debri_lize.data.Post
+import com.example.debri_lize.data.post.Post
 import com.example.debri_lize.data.RetrofitInterface
-import com.example.debri_lize.data.response.PostDetailResponse
-import com.example.debri_lize.data.response.PostResponse
-import com.example.debri_lize.data.view.post.EachPostListView
-import com.example.debri_lize.data.view.post.PostCreateView
-import com.example.debri_lize.data.view.post.PostDetailView
-import com.example.debri_lize.fragment.PostFragment
+import com.example.debri_lize.response.PostDetailResponse
+import com.example.debri_lize.response.PostResponse
+import com.example.debri_lize.view.post.EachPostListView
+import com.example.debri_lize.view.post.PostCreateView
+import com.example.debri_lize.view.post.PostDetailView
 import com.example.debri_lize.utils.getRetrofit
 import retrofit2.Call
 import retrofit2.Callback

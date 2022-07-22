@@ -6,9 +6,9 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import com.example.debri_lize.R
-import com.example.debri_lize.data.UserSignup
-import com.example.debri_lize.data.service.AuthService
-import com.example.debri_lize.data.view.auth.SignUpView
+import com.example.debri_lize.data.auth.UserSignup
+import com.example.debri_lize.service.AuthService
+import com.example.debri_lize.view.auth.SignUpView
 import com.example.debri_lize.databinding.ActivitySignupBinding
 
 class SignUpActivity:AppCompatActivity(), SignUpView {

@@ -10,9 +10,9 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import com.example.debri_lize.R
-import com.example.debri_lize.data.Post
-import com.example.debri_lize.data.service.PostService
-import com.example.debri_lize.data.view.post.PostCreateView
+import com.example.debri_lize.data.post.Post
+import com.example.debri_lize.service.PostService
+import com.example.debri_lize.view.post.PostCreateView
 import com.example.debri_lize.databinding.ActivityPostCreateBinding
 import com.example.debri_lize.utils.getUserIdx
 
@@ -148,7 +148,6 @@ class PostCreateActivity : AppCompatActivity(), PostCreateView { //, CoroutineSc
 
     //api
 
-    //회원가입
     //사용자가 입력한 값 가져오기
     private fun getPost() : Post {
         val boardIdx : Int = 1 //변경필요
@@ -159,7 +158,7 @@ class PostCreateActivity : AppCompatActivity(), PostCreateView { //, CoroutineSc
         return Post(boardIdx, userIdx, postContent, postName)
     }
 
-    //회원가입 진행(서버이용)
+
     private fun createPost(){
         //이메일 형식이 잘못된 경우
         if(binding.writeTitleEt.text.toString().isEmpty()){

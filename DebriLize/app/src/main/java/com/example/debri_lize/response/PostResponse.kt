@@ -1,8 +1,7 @@
-package com.example.debri_lize.data.response
+package com.example.debri_lize.response
 
 import com.google.gson.annotations.SerializedName
 
-//회원가입, 로그인
 data class PostResponse(
     @SerializedName(value = "isSuccess") val isSuccess:Boolean,
     @SerializedName(value = "returnCode") val code:Int,
@@ -13,6 +12,7 @@ data class PostResponse(
 data class Post(
     @SerializedName(value = "boardIdx") var boardIdx : Int,
     @SerializedName(value = "postIdx") var postIdx : Int,
+    @SerializedName(value = "authorIdx") var authorIdx : Int,
     @SerializedName(value = "authorName") var authorName : String,
     @SerializedName(value = "postName") var postName : String,
     @SerializedName(value = "likeNumber") var likeCnt : Int,

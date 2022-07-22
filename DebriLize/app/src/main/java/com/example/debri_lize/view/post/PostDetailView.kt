@@ -1,6 +1,6 @@
-package com.example.debri_lize.data.view.post
+package com.example.debri_lize.view.post
 
-import com.example.debri_lize.data.response.PostDetail
+import com.example.debri_lize.response.PostDetail
 
 interface PostDetailView {
     fun onPostDetailSuccess(code: Int, result: PostDetail)

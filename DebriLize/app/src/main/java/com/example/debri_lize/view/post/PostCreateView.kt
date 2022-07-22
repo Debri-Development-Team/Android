@@ -1,4 +1,4 @@
-package com.example.debri_lize.data.view.post
+package com.example.debri_lize.view.post
 
 interface PostCreateView {
     fun onPostCreateSuccess(code : Int)

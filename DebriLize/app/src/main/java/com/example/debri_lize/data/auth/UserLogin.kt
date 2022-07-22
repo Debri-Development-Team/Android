@@ -1,4 +1,4 @@
-package com.example.debri_lize.data
+package com.example.debri_lize.data.auth
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey

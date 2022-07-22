@@ -5,7 +5,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.example.debri_lize.data.Board
+import com.example.debri_lize.data.board.Board
 import com.example.debri_lize.databinding.ItemBoardFavoriteBinding
 
 class BoardFavoriteRVAdapter : RecyclerView.Adapter<BoardFavoriteRVAdapter.ViewHolder>() {

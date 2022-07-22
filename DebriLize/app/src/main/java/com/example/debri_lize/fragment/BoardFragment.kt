@@ -9,7 +9,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.debri_lize.BoardFavoriteRVAdapter
 import com.example.debri_lize.BoardRVAdapter
 import com.example.debri_lize.R
-import com.example.debri_lize.data.Board
+import com.example.debri_lize.data.board.Board
 import com.example.debri_lize.databinding.FragmentBoardBinding
 
 class BoardFragment : Fragment() {

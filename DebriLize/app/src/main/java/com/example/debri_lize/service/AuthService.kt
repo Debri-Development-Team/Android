@@ -1,12 +1,12 @@
-package com.example.debri_lize.data.service
+package com.example.debri_lize.service
 
 import android.util.Log
 import com.example.debri_lize.data.RetrofitInterface
-import com.example.debri_lize.data.UserLogin
-import com.example.debri_lize.data.UserSignup
-import com.example.debri_lize.data.response.AuthResponse
-import com.example.debri_lize.data.view.auth.LoginView
-import com.example.debri_lize.data.view.auth.SignUpView
+import com.example.debri_lize.data.auth.UserLogin
+import com.example.debri_lize.data.auth.UserSignup
+import com.example.debri_lize.response.AuthResponse
+import com.example.debri_lize.view.auth.LoginView
+import com.example.debri_lize.view.auth.SignUpView
 import com.example.debri_lize.utils.getRetrofit
 import retrofit2.Call
 import retrofit2.Callback

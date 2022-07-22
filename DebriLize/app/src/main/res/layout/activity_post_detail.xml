@@ -360,24 +360,40 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.core.widget.NestedScrollView>
 
-    <androidx.appcompat.widget.AppCompatButton
+    <LinearLayout
         android:id="@+id/post_detail_write_comment_btn"
         android:layout_width="match_parent"
         android:layout_height="45dp"
         android:background="@drawable/border_round_debri_darkmode_10"
-        android:paddingStart="23dp"
-        android:paddingEnd="230dp"
-        android:drawableStart="@drawable/ic_write_debri"
-        android:text="댓글쓰기"
-        android:textColor="@color/debri"
-        android:fontFamily="@font/noto_sans_kr_black"
-        android:textSize="16sp"
-        android:textStyle="bold"
-        android:includeFontPadding="false"
+        android:paddingStart="5dp"
+        android:paddingEnd="10dp"
         android:layout_marginStart="30dp"
         android:layout_marginEnd="30dp"
         android:layout_marginBottom="6dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"/>
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:gravity="center_vertical">
+
+        <ImageView
+            android:id="@+id/post_detail_write_comment_iv"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:src="@drawable/ic_write_debri"
+            android:layout_marginStart="15dp"
+            />
+
+        <EditText
+            android:id="@+id/post_detail_write_comment_et"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/noto_sans_kr_bold"
+            android:includeFontPadding="false"
+            android:hint="댓글쓰기"
+            android:textColorHint="@color/debri"
+            android:textColor="@color/white"
+            android:textSize="16sp"
+            android:layout_marginStart="10dp"/>
+
+    </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

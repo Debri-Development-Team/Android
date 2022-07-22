@@ -13,12 +13,10 @@ import com.example.debri_lize.R
 import com.example.debri_lize.activity.MainActivity
 import com.example.debri_lize.activity.PostCreateActivity
 import com.example.debri_lize.activity.PostDetailActivity
-import com.example.debri_lize.data.Board
-import com.example.debri_lize.data.PostList
-import com.example.debri_lize.data.response.PostDetail
-import com.example.debri_lize.data.service.PostService
-import com.example.debri_lize.data.view.post.EachPostListView
-import com.example.debri_lize.data.view.post.PostDetailView
+import com.example.debri_lize.data.board.Board
+import com.example.debri_lize.data.post.PostList
+import com.example.debri_lize.service.PostService
+import com.example.debri_lize.view.post.EachPostListView
 import com.example.debri_lize.databinding.FragmentPostBinding
 
 
@@ -71,7 +69,7 @@ class PostFragment : Fragment(), EachPostListView {
 
     }
 
-    override fun onEachPostListSuccess(code: Int, result: List<com.example.debri_lize.data.response.Post>) {
+    override fun onEachPostListSuccess(code: Int, result: List<com.example.debri_lize.response.Post>) {
         when(code){
             //개발할 때는 userIdx 저장이 필요할수도
             200-> {
