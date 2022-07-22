@@ -1,6 +1,5 @@
 package com.example.debri_lize.activity.auth
 
-import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
@@ -11,7 +10,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import com.example.debri_lize.R
 import com.example.debri_lize.activity.AddCurriculumActivity
-import com.example.debri_lize.data.User
+import com.example.debri_lize.data.UserLogin
 import com.example.debri_lize.data.response.Result
 import com.example.debri_lize.data.service.AuthService
 import com.example.debri_lize.data.view.LoginView
@@ -19,7 +18,7 @@ import com.example.debri_lize.databinding.ActivityLoginBinding
 import com.example.debri_lize.utils.saveJwt
 import com.example.debri_lize.utils.saveUserIdx
 
-class LoginActivity:AppCompatActivity(), LoginView {
+public class LoginActivity:AppCompatActivity(), LoginView {
     lateinit var binding: ActivityLoginBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -37,7 +36,6 @@ class LoginActivity:AppCompatActivity(), LoginView {
 
         //click login btn
         binding.loginBtn.setOnClickListener{
-            startActivity(Intent(this, AddCurriculumActivity::class.java))
             login()
         }
     }
@@ -56,15 +54,15 @@ class LoginActivity:AppCompatActivity(), LoginView {
         }
 
         //정상적으로 입력된 경우
-        val id : String = binding.loginIdEt.text.toString()
-        val password : String = binding.loginPasswordEt.text.toString()
+        val email : String = binding.loginIdEt.text.toString()
+        val pwd : String = binding.loginPasswordEt.text.toString()
 
 
         val authService = AuthService()
         authService.setLoginView(this)
 
         //만든 API 호출
-        authService.login(User(id, "", "", password))
+        authService.login(UserLogin(email, pwd))
 
         //user가 null일 경우
         //Toast.makeText(this, "회원 정보가 존재하지 않습니다.", Toast.LENGTH_SHORT).show()
@@ -72,13 +70,14 @@ class LoginActivity:AppCompatActivity(), LoginView {
     }
 
     override fun onLoginSuccess(code:Int, result: Result?) {
-        Log.d("login", "success")
+
         when(code){
             //개발할 때는 userIdx 저장이 필요할수도
             200-> {
+
                 saveJwt(result!!.jwt)
                 saveUserIdx(result!!.userIdx)
-
+                Log.d("save", "success")
                 startActivity(Intent(this, AddCurriculumActivity::class.java))
             }
         }
