@@ -69,7 +69,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
-                android:id="@+id/post_detail_titleB_layout"
+                android:id="@+id/post_detail_board_name_layout"
                 android:layout_marginStart="30dp"
                 android:layout_marginEnd="30dp"
                 android:layout_marginTop="25dp"
@@ -89,27 +89,17 @@
 
 
                 <TextView
-                    android:id="@+id/post_detail_titleB_tv1"
+                    android:id="@+id/post_detail_board_name_tv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="7dp"
                     android:text="Python"
                     android:fontFamily="@font/noto_sans_kr_black"
                     android:includeFontPadding="false"
-                    android:textColor="@color/python"
-                    android:textSize="21sp"
-                    />
-
-                <TextView
-                    android:id="@+id/post_detail_titleB_tv2"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="게시판"
-                    android:fontFamily="@font/noto_sans_kr_black"
-                    android:includeFontPadding="false"
                     android:textColor="@color/white"
                     android:textSize="21sp"
                     />
+
             </LinearLayout>
 
             <LinearLayout
@@ -123,7 +113,7 @@
                 android:paddingBottom="15dp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/post_detail_titleB_layout"
+                app:layout_constraintTop_toBottomOf="@+id/post_detail_board_name_layout"
                 android:orientation="vertical"
                 android:gravity="center_vertical"
                 android:background="@drawable/border_line_bottom">

@@ -21,6 +21,10 @@ interface RetrofitInterface {
     @POST("api/auth/login")
     fun login(@Body user : UserLogin): Call<AuthResponse>
 
+    //전체 게시판 보여주기
+    @GET("api/board/getList")
+    fun showBoard() : Call<BoardResponse>
+
     //게시물 작성
     @POST("api/post/create")
     fun createPost(@Body post: Post): Call<PostResponse>

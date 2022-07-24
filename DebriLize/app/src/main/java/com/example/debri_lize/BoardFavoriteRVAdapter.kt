@@ -14,13 +14,10 @@ class BoardFavoriteRVAdapter : RecyclerView.Adapter<BoardFavoriteRVAdapter.ViewH
 
     inner class ViewHolder(val binding : ItemBoardFavoriteBinding) : RecyclerView.ViewHolder(binding.root){
 
-        val title1 : TextView = binding.itemBoardFavoriteTv1
-        val title2 : TextView = binding.itemBoardFavoriteTv2
+        val boardName : TextView = binding.itemBoardFavoriteTv1
 
         fun bind(item: Board) {
-            //viewpager만들고 item.coverImg[position]
-            title1.text = item.title1
-            title2.text = item.title2
+            boardName.text = item.boardName
         }
     }
 

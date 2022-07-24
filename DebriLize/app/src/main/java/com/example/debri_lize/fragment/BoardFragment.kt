@@ -11,8 +11,11 @@ import com.example.debri_lize.BoardRVAdapter
 import com.example.debri_lize.R
 import com.example.debri_lize.data.board.Board
 import com.example.debri_lize.databinding.FragmentBoardBinding
+import com.example.debri_lize.service.BoardService
+import com.example.debri_lize.service.PostService
+import com.example.debri_lize.view.board.BoardView
 
-class BoardFragment : Fragment() {
+class BoardFragment : Fragment(), BoardView {
 
     lateinit var binding: FragmentBoardBinding
     lateinit var boardfavoriteRVAdapter: BoardFavoriteRVAdapter
@@ -32,7 +35,11 @@ class BoardFragment : Fragment() {
     override fun onStart() {
         super.onStart()
         initBoardFavoriteRecycler()
-        initBoardRecycler()
+
+        //api
+        val boardService = BoardService()
+        boardService.setBoardView(this)
+        boardService.showBoard()
     }
 
 
@@ -44,10 +51,10 @@ class BoardFragment : Fragment() {
 
         //dummy
         datas_f.apply {
-            add(Board("&quot;JAVA&quot;","게시판"))
-            add(Board("&quot;JAVA&quot;","게시판"))
-            add(Board("&quot;JAVA&quot;","게시판"))
-            add(Board("&quot;JAVA&quot;","게시판"))
+//            add(Board("&quot;JAVA&quot;","게시판"))
+//            add(Board("&quot;JAVA&quot;","게시판"))
+//            add(Board("&quot;JAVA&quot;","게시판"))
+//            add(Board("&quot;JAVA&quot;","게시판"))
 
             boardfavoriteRVAdapter.datas_f = datas_f
             boardfavoriteRVAdapter.notifyDataSetChanged()
@@ -67,46 +74,48 @@ class BoardFragment : Fragment() {
 
     }
 
-    private fun initBoardRecycler() {
-        binding.boardAllRv.layoutManager =
-            LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
-        boardRVAdapter = BoardRVAdapter()
-        binding.boardAllRv.adapter = boardRVAdapter
+    override fun onBoardSuccess(code: Int, result: List<com.example.debri_lize.response.Board>) {
+        when(code){
+            200->{
+                binding.boardAllRv.layoutManager =
+                    LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
+                boardRVAdapter = BoardRVAdapter()
+                binding.boardAllRv.adapter = boardRVAdapter
 
-        //data
-        datas.apply {
-            add(Board("C언어", "게시판"))
-            add(Board("C언어", "질문 게시판"))
-            add(Board("JAVA", "게시판"))
-            add(Board("JAVA", "질문 게시판"))
-            add(Board("", "개발 뉴스 &amp; 이슈"))
-            add(Board("", "질문 게시판"))
-            add(Board("", "커리큘럼 질문게시판"))
+                //data
+                datas.apply {
+                    for (i in result){
+                        datas.add(Board(i.boardIdx, i.boardName))
+                    }
 
-            boardRVAdapter.datas = datas
-            boardfavoriteRVAdapter.notifyDataSetChanged()
+                    boardRVAdapter.datas = datas
+                    boardfavoriteRVAdapter.notifyDataSetChanged()
 
-            //recyclerview item 클릭하면 fragment 전환
-            boardRVAdapter.setItemClickListener(object : BoardRVAdapter.OnItemClickListener {
-                override fun onClick(v: View, position: Int) {
+                    //recyclerview item 클릭하면 fragment 전환
+                    boardRVAdapter.setItemClickListener(object : BoardRVAdapter.OnItemClickListener {
+                        override fun onClick(v: View, position: Int) {
 
-                    //BoardDetailFragment에 data보내기
-                    val bundle = Bundle()
-                    bundle.putSerializable("board", datas[position])
-                    val passBundleBFragment = PostFragment()
-                    passBundleBFragment.arguments = bundle
+                            //PostFragment에 data보내기
+                            val bundle = Bundle()
+                            bundle.putSerializable("board", datas[position])
+                            val passBundleBFragment = PostFragment()
+                            passBundleBFragment.arguments = bundle
 
-                    //fragment to fragment
-                    activity?.supportFragmentManager!!.beginTransaction()
-                        .replace(R.id.main_frm, passBundleBFragment)
-                        .commit()
+                            //fragment to fragment
+                            activity?.supportFragmentManager!!.beginTransaction()
+                                .replace(R.id.main_frm, passBundleBFragment)
+                                .commit()
+
+                        }
+                    })
+
 
                 }
-            })
-
-
+            }
         }
+    }
 
+    override fun onBoardFailure(code: Int) {
 
     }
 

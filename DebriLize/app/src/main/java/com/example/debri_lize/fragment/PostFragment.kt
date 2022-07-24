@@ -18,6 +18,7 @@ import com.example.debri_lize.data.post.PostList
 import com.example.debri_lize.service.PostService
 import com.example.debri_lize.view.post.EachPostListView
 import com.example.debri_lize.databinding.FragmentPostBinding
+import kotlin.properties.Delegates
 
 
 class PostFragment : Fragment(), EachPostListView {
@@ -25,6 +26,9 @@ class PostFragment : Fragment(), EachPostListView {
     lateinit var binding: FragmentPostBinding
     private lateinit var postRVAdapter: PostRVAdapter
     private val datas = ArrayList<PostList>()
+
+    var boardIdx by Delegates.notNull<Int>()
+    var boardName by Delegates.notNull<String>()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -35,8 +39,6 @@ class PostFragment : Fragment(), EachPostListView {
         return binding.root
     }
 
-
-
     override fun onStart() {
         super.onStart()
 
@@ -45,9 +47,10 @@ class PostFragment : Fragment(), EachPostListView {
         //받아온 data로 변경
         Log.d("board", board.toString())
         if (board != null) {
-            //레이아웃에 있는 text를 변경
-            binding.postTitleTv1.text = board.title1
-            binding.postTitleTv2.text = board.title2
+            //게시판 이름 변경
+            binding.postNameTv.text = board.boardName
+            boardName = board.boardName
+            boardIdx = board.boardIdx
         }
 
         //fragment to fragment
@@ -59,11 +62,12 @@ class PostFragment : Fragment(), EachPostListView {
         //api
         val postService = PostService()
         postService.seteachPostListView(this)
-        postService.showEachPostList(1) //변경필요
+        postService.showEachPostList(boardIdx) //변경필요
 
         //게시글 작성하기 버튼
         binding.postWriteBtn.setOnClickListener{
             val intent = Intent(context, PostCreateActivity::class.java)
+            intent.putExtra("boardIdx", boardIdx)
             startActivity(intent)
         }
 
@@ -97,6 +101,7 @@ class PostFragment : Fragment(), EachPostListView {
                                 //객체 자체를 보내는 방법 (data class)
                                 val intent = Intent(context, PostDetailActivity::class.java)
                                 intent.putExtra("postIdx", datas[position].postIdx)
+                                intent.putExtra("boardName", boardName)
                                 startActivity(intent)
 
                             }

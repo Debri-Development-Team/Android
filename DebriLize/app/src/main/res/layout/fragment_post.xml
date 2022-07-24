@@ -85,22 +85,11 @@
 
 
                 <TextView
-                    android:id="@+id/post_title_tv1"
+                    android:id="@+id/post_name_tv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="7dp"
                     android:text="&quot;Python&quot;"
-                    android:fontFamily="@font/noto_sans_kr_black"
-                    android:includeFontPadding="false"
-                    android:textColor="@color/python"
-                    android:textSize="21sp"
-                    android:gravity="center|left"/>
-
-                <TextView
-                    android:id="@+id/post_title_tv2"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="게시판"
                     android:fontFamily="@font/noto_sans_kr_black"
                     android:includeFontPadding="false"
                     android:textColor="@color/white"

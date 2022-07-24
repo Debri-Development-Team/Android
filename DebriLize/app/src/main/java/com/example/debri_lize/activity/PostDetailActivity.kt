@@ -54,6 +54,7 @@ class PostDetailActivity : AppCompatActivity(), PostDetailView, CommentCreateVie
 
         val intent = intent //전달할 데이터를 받을 Intent
         postIdx = intent.getIntExtra("postIdx", 0)
+        binding.postDetailBoardNameTv.text = intent.getStringExtra("boardName")
         postService.showPostDetail(postIdx)
 
         //api - comment
@@ -146,7 +147,7 @@ class PostDetailActivity : AppCompatActivity(), PostDetailView, CommentCreateVie
                         if(i.commentLevel == 0){
                             comments.add(CommentList(i.commentIdx, i.authorIdx, i.postIdx, i.commentLevel, i.commentOrder, i.commentGroup, i.commentContent, i.authorName))
                         }
-                        
+
                     }
                     commentRVAdapter.datas = comments
                     commentRVAdapter.notifyDataSetChanged()
