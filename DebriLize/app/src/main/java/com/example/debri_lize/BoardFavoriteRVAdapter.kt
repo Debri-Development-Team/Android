@@ -6,23 +6,25 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.debri_lize.data.board.Board
-import com.example.debri_lize.databinding.ItemBoardFavoriteBinding
+import com.example.debri_lize.databinding.ItemBoardBinding
 
 class BoardFavoriteRVAdapter : RecyclerView.Adapter<BoardFavoriteRVAdapter.ViewHolder>() {
 
     var datas_f = mutableListOf<Board>()
 
-    inner class ViewHolder(val binding : ItemBoardFavoriteBinding) : RecyclerView.ViewHolder(binding.root){
+    inner class ViewHolder(val binding : ItemBoardBinding) : RecyclerView.ViewHolder(binding.root){
 
-        val boardName : TextView = binding.itemBoardFavoriteTv1
+
+        val boardName : TextView = binding.itemBoardNameTv
 
         fun bind(item: Board) {
             boardName.text = item.boardName
+            binding.itemBoardIv.setImageResource(R.drawable.ic_favorite_on)
         }
     }
 
     override fun onCreateViewHolder(viewGroup: ViewGroup, viewType: Int): ViewHolder {
-        val binding: ItemBoardFavoriteBinding = ItemBoardFavoriteBinding.inflate(LayoutInflater.from(viewGroup.context), viewGroup, false)
+        val binding: ItemBoardBinding = ItemBoardBinding.inflate(LayoutInflater.from(viewGroup.context), viewGroup, false)
         return ViewHolder(binding)
     }
 

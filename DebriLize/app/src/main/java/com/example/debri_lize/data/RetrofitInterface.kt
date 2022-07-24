@@ -25,6 +25,10 @@ interface RetrofitInterface {
     @GET("api/board/getList")
     fun showBoard() : Call<BoardResponse>
 
+    //즐겨찾기 게시판 보여주기
+//    @GET("/api/board/scrap/getList")
+//    fun showScrapBoard() : Call<BoardResponse>
+
     //게시물 작성
     @POST("api/post/create")
     fun createPost(@Body post: Post): Call<PostResponse>

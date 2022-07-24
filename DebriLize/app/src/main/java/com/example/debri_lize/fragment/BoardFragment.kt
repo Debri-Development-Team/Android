@@ -34,7 +34,6 @@ class BoardFragment : Fragment(), BoardView {
 
     override fun onStart() {
         super.onStart()
-        initBoardFavoriteRecycler()
 
         //api
         val boardService = BoardService()
@@ -43,49 +42,30 @@ class BoardFragment : Fragment(), BoardView {
     }
 
 
-    private fun initBoardFavoriteRecycler() {
-        binding.boardFavoriteRv.layoutManager =
-            LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
-        boardfavoriteRVAdapter = BoardFavoriteRVAdapter()
-        binding.boardFavoriteRv.adapter = boardfavoriteRVAdapter
-
-        //dummy
-        datas_f.apply {
-//            add(Board("&quot;JAVA&quot;","게시판"))
-//            add(Board("&quot;JAVA&quot;","게시판"))
-//            add(Board("&quot;JAVA&quot;","게시판"))
-//            add(Board("&quot;JAVA&quot;","게시판"))
-
-            boardfavoriteRVAdapter.datas_f = datas_f
-            boardfavoriteRVAdapter.notifyDataSetChanged()
-
-            //recyclerview item 클릭하면 fragment 전환
-            boardfavoriteRVAdapter.setItemClickListener(object : BoardFavoriteRVAdapter.OnItemClickListener {
-                override fun onClick(v: View, position: Int) {
-
-
-
-                }
-            })
-
-
-        }
-
-
-    }
 
     override fun onBoardSuccess(code: Int, result: List<com.example.debri_lize.response.Board>) {
         when(code){
             200->{
+                //전체 게시판 조회 (즐겨찾기된 게시판은 삭제)
                 binding.boardAllRv.layoutManager =
                     LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
                 boardRVAdapter = BoardRVAdapter()
                 binding.boardAllRv.adapter = boardRVAdapter
 
-                //data
+                //즐겨찾기 게시판 조회
+                binding.boardFavoriteRv.layoutManager =
+                    LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
+                boardfavoriteRVAdapter = BoardFavoriteRVAdapter()
+                binding.boardFavoriteRv.adapter = boardfavoriteRVAdapter
+
+                //data : 전체
                 datas.apply {
                     for (i in result){
+
                         datas.add(Board(i.boardIdx, i.boardName))
+//                        if(i.status == "INACTIVE") {
+//                            datas.add(Board(i.boardIdx, i.boardName, i.status))
+//                        }
                     }
 
                     boardRVAdapter.datas = datas
@@ -108,8 +88,38 @@ class BoardFragment : Fragment(), BoardView {
 
                         }
                     })
+                }
 
+                //datas_f : 즐겨찾기
+                datas_f.apply {
+                    for (i in result){
 
+                        datas_f.add(Board(i.boardIdx, i.boardName))
+
+//                        if(i.status == "ACTIVE") {
+//                            datas_f.add(Board(i.boardIdx, i.boardName, i.status))
+//                        }
+                    }
+
+                    boardfavoriteRVAdapter.datas_f = datas_f
+                    boardfavoriteRVAdapter.notifyDataSetChanged()
+
+                    //recyclerview item 클릭하면 fragment 전환
+                    boardfavoriteRVAdapter.setItemClickListener(object : BoardFavoriteRVAdapter.OnItemClickListener {
+                        override fun onClick(v: View, position: Int) {
+                            //PostFragment에 data보내기
+                            val bundle = Bundle()
+                            bundle.putSerializable("board", datas[position])
+                            val passBundleBFragment = PostFragment()
+                            passBundleBFragment.arguments = bundle
+
+                            //fragment to fragment
+                            activity?.supportFragmentManager!!.beginTransaction()
+                                .replace(R.id.main_frm, passBundleBFragment)
+                                .commit()
+
+                        }
+                    })
                 }
             }
         }

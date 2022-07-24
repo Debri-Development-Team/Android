@@ -12,5 +12,8 @@ data class BoardResponse(
 data class Board(
     @SerializedName(value = "boardIdx") var boardIdx : Int,
     @SerializedName(value = "boardName") var boardName : String,
-    @SerializedName(value = "boardAdmin") var boardAdmin : String
+    @SerializedName(value = "boardAdmin") var boardAdmin : String,
+    @SerializedName(value = "createdAd") var createdAd : String,
+    @SerializedName(value = "updatedAd") var updatedAd : String,
+    @SerializedName(value = "status") var status : String
 )
