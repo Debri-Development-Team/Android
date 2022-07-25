@@ -18,4 +18,5 @@
     <color name="java">#F0DB4F</color>
     <color name="python">#4B8BBE</color>
     <color name="cocomment">#202E51</color>
+    <color name="red">#FF0000</color>
 </resources>

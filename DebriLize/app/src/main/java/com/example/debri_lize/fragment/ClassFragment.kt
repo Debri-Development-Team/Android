@@ -126,11 +126,6 @@ class ClassFragment : Fragment() {
 
     }
 
-    private fun closeBtnClick(view:View){
-        view.setOnClickListener{
-
-        }
-    }
 
     private fun initClassFavoriteRecycler() {
         binding.classFavoriteRv.layoutManager =
