@@ -3,32 +3,37 @@ package com.example.debri_lize.activity
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
-import android.view.MenuItem
 import android.view.View
-import android.widget.PopupMenu
+import android.widget.AdapterView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.content.ContextCompat
 import com.example.debri_lize.R
+import com.example.debri_lize.data.SpinnerModel
 import com.example.debri_lize.data.post.Post
 import com.example.debri_lize.service.PostService
 import com.example.debri_lize.view.post.PostCreateView
 import com.example.debri_lize.databinding.ActivityPostCreateBinding
 import com.example.debri_lize.utils.getUserIdx
+import com.example.debri_lize.SpinnerAdapter
 
 
 class PostCreateActivity : AppCompatActivity(), PostCreateView { //, CoroutineScope by MainScope()
 
     lateinit var binding : ActivityPostCreateBinding
 
+    //spinner
+    private lateinit var spinnerAdapterYear: SpinnerAdapter
+    private val listOfYear = ArrayList<SpinnerModel>()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityPostCreateBinding.inflate(layoutInflater) //binding 초기화
         setContentView(binding.root)
 
-        //board option menu
-        binding.writeOptionMenuLayout.setOnClickListener {
-
+        //spinner : boardList
+        binding.writeOptionMenuLayout.setOnClickListener{
+            setupSpinnerYear()
+            setupSpinnerHandler()
         }
 
 
@@ -47,9 +52,36 @@ class PostCreateActivity : AppCompatActivity(), PostCreateView { //, CoroutineSc
 
     }
 
+    private fun setupSpinnerYear() {
+        val years = resources.getStringArray(R.array.spinner_year)
+
+        for (i in years.indices) {
+            val year = SpinnerModel(R.drawable.ic_favorite_on, years[i])
+            listOfYear.add(year)
+        }
+        spinnerAdapterYear = SpinnerAdapter(this, R.layout.item_spinner, listOfYear)
+        binding.spinnerYear.adapter = spinnerAdapterYear
+    }
+
+
+    private fun setupSpinnerHandler() {
+        binding.spinnerYear.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+                val year = binding.spinnerYear.getItemAtPosition(position) as SpinnerModel
+                if (!year.name.equals("연도")) {
+                    binding.txtYear.text = "Selected: ${year.name}"
+                }
+            }
+
+            override fun onNothingSelected(p0: AdapterView<*>?) {
+
+            }
+        }
+
+    }
+
     //count letter
     private fun countLetter(){
-        //count letter
         binding.writeContentEt.addTextChangedListener(object : TextWatcher {
 
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {

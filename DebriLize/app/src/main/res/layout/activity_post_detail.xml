@@ -379,6 +379,7 @@
             android:layout_height="wrap_content"
             android:fontFamily="@font/noto_sans_kr_bold"
             android:includeFontPadding="false"
+            android:inputType="text"
             android:hint="댓글쓰기"
             android:textColorHint="@color/debri"
             android:textColor="@color/white"
