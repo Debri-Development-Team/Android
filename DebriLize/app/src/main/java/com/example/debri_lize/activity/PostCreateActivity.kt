@@ -28,7 +28,7 @@ class PostCreateActivity : AppCompatActivity(), PostCreateView { //, CoroutineSc
 
         //board option menu
         binding.writeOptionMenuLayout.setOnClickListener {
-            showPopup(binding.writeOptionMenuListIv)
+
         }
 
 
@@ -44,84 +44,6 @@ class PostCreateActivity : AppCompatActivity(), PostCreateView { //, CoroutineSc
             finish()
         }
 
-
-    }
-
-    //popup menu custom method
-    private fun showPopup(v: View) {
-
-        //val wrapper = ContextThemeWrapper(this, com.example.debri_lize.R.style.MyPopupMenu)
-        //val popup = PopupMenu(wrapper, v) // PopupMenu 객체 선언
-
-        val popup = PopupMenu(this, v) // PopupMenu 객체 선언
-        popup.menuInflater.inflate(R.menu.post_menu, popup.menu) // 메뉴 레이아웃 inflate
-        popup.setOnMenuItemClickListener(PopupListener())
-        popup.show() // 팝업 보여주기
-    }
-
-    inner class PopupListener : PopupMenu.OnMenuItemClickListener {
-        override fun onMenuItemClick(item: MenuItem?): Boolean {
-            when (item?.itemId) { // 메뉴 아이템에 따라 동작 다르게 하기
-                R.id.c -> {
-                    binding.writeOptionMenuListTv1.text = "C언어"
-                    binding.writeOptionMenuListTv1.setTextColor(ContextCompat.getColor(applicationContext!!, R.color.c))
-                    binding.writeOptionMenuListTv2.text = "게시판"
-                }
-
-                R.id.c_qna -> {
-                    binding.writeOptionMenuListTv1.text = "C언어"
-                    binding.writeOptionMenuListTv1.setTextColor(ContextCompat.getColor(applicationContext!!, R.color.c))
-                    binding.writeOptionMenuListTv2.text = "질문 게시판"
-                }
-
-                R.id.java -> {
-                    binding.writeOptionMenuListTv1.text = "JAVA"
-                    binding.writeOptionMenuListTv1.setTextColor(ContextCompat.getColor(applicationContext!!, R.color.java))
-                    binding.writeOptionMenuListTv2.text = "게시판"
-                }
-
-                R.id.java_qna -> {
-                    binding.writeOptionMenuListTv1.text = "JAVA"
-                    binding.writeOptionMenuListTv1.setTextColor(ContextCompat.getColor(applicationContext!!, R.color.java))
-                    binding.writeOptionMenuListTv2.text = "질문 게시판"
-                }
-
-                R.id.python -> {
-                    binding.writeOptionMenuListTv1.text = "Python"
-                    binding.writeOptionMenuListTv1.setTextColor(ContextCompat.getColor(applicationContext!!, R.color.python))
-                    binding.writeOptionMenuListTv2.text = "게시판"
-                }
-
-                R.id.python_qna -> {
-                    binding.writeOptionMenuListTv1.text = "Python"
-                    binding.writeOptionMenuListTv1.setTextColor(ContextCompat.getColor(applicationContext!!, R.color.python))
-                    binding.writeOptionMenuListTv2.text = "질문 게시판"
-                }
-
-                R.id.news_issue -> {
-                    binding.writeOptionMenuListTv1.text = null
-                    binding.writeOptionMenuListTv2.text = "개발 뉴스 &amp; 이슈"
-                }
-
-                R.id.news_issue -> {
-                    binding.writeOptionMenuListTv1.text = null
-                    binding.writeOptionMenuListTv2.text = "개발 뉴스 &amp; 이슈"
-                }
-
-                R.id.qna -> {
-                    binding.writeOptionMenuListTv1.text = null
-                    binding.writeOptionMenuListTv2.text = "질문 게시판"
-                }
-
-                R.id.curriculum_qna -> {
-                    binding.writeOptionMenuListTv1.text = null
-                    binding.writeOptionMenuListTv2.text = "커리큘럼 질문 게시판"
-                }
-
-            }
-
-            return item != null // 아이템이 null이 아닌 경우 true, null인 경우 false 리턴
-        }
 
     }
 

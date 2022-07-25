@@ -32,7 +32,7 @@ interface RetrofitInterface {
 
     //[전체 게시판] 게시물 조회
     @POST("api/post/getSearchList")
-    fun showPostList(@Path("keyword") keyword: String) : Call<PostResponse>
+    fun showPostList(@Body keyword: String) : Call<PostResponse>
 
     //[특정 게시판] 게시물 조회
     @GET("api/post/getList/{boardIdx}")

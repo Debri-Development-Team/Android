@@ -2,6 +2,7 @@ package com.example.debri_lize.activity
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.KeyEvent
 import android.view.KeyEvent.KEYCODE_ENTER
 import android.view.View
@@ -21,10 +22,6 @@ class PostListActivity : AppCompatActivity(), PostListView {
     lateinit var binding: ActivityPostListBinding
     private lateinit var postRVAdapter: PostRVAdapter
     private val datas = ArrayList<PostList>()
-
-    var boardIdx by Delegates.notNull<Int>()
-    var boardName by Delegates.notNull<String>()
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -46,12 +43,14 @@ class PostListActivity : AppCompatActivity(), PostListView {
                 //api
                 val postService = PostService()
                 postService.setPostListView(this)
-                postService.showPostList(binding.postListSearchEt.toString())
+                Log.d("et", binding.postListSearchEt.text.toString())
+                postService.showPostList(binding.postListSearchEt.text.toString())
                 true
             }
 
             false
         }
+
 
     }
 
@@ -66,7 +65,7 @@ class PostListActivity : AppCompatActivity(), PostListView {
 
                 //data
                 datas.apply {
-
+                    Log.d("resultSize", result.size.toString())
                     for (i in result){
                         datas.add(PostList(i.boardIdx, i.postIdx, i.authorName, i.postName, i.likeCnt, i.timeAfterCreated, i.commentCnt))
                     }
@@ -81,7 +80,6 @@ class PostListActivity : AppCompatActivity(), PostListView {
                             //객체 자체를 보내는 방법 (data class)
                             val intent = Intent(this@PostListActivity, PostDetailActivity::class.java)
                             intent.putExtra("postIdx", datas[position].postIdx)
-                            intent.putExtra("boardName", boardName)
                             startActivity(intent)
 
                         }
