@@ -25,13 +25,15 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity
             android:name=".activity.auth.SignUpActivity"
             android:exported="true" />
         <activity
             android:name=".activity.AddCurriculumActivity"
             android:exported="true" />
+        <activity
+            android:name=".activity.PostListActivity"
+            android:exported="true"/>
         <activity
             android:name=".activity.PostCreateActivity"
             android:exported="true"/>

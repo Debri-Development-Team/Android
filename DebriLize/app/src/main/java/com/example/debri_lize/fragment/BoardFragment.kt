@@ -1,5 +1,6 @@
 package com.example.debri_lize.fragment
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -9,13 +10,14 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.debri_lize.BoardFavoriteRVAdapter
 import com.example.debri_lize.BoardRVAdapter
 import com.example.debri_lize.R
+import com.example.debri_lize.activity.PostListActivity
+import com.example.debri_lize.activity.auth.SignUpActivity
 import com.example.debri_lize.data.board.Board
 import com.example.debri_lize.databinding.FragmentBoardBinding
 import com.example.debri_lize.service.BoardService
-import com.example.debri_lize.service.PostService
-import com.example.debri_lize.view.board.BoardView
+import com.example.debri_lize.view.board.BoardListView
 
-class BoardFragment : Fragment(), BoardView {
+class BoardFragment : Fragment(), BoardListView {
 
     lateinit var binding: FragmentBoardBinding
     lateinit var boardfavoriteRVAdapter: BoardFavoriteRVAdapter
@@ -34,16 +36,92 @@ class BoardFragment : Fragment(), BoardView {
 
     override fun onStart() {
         super.onStart()
+        //search
+        binding.boardSearchLayout.setOnClickListener{
+            val intent = Intent(activity, PostListActivity::class.java)
+            startActivity(intent)
+        }
+
+        //
+        //전체 게시판 조회 (즐겨찾기된 게시판은 삭제)
+        binding.boardAllRv.layoutManager =
+            LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
+        boardRVAdapter = BoardRVAdapter()
+        binding.boardAllRv.adapter = boardRVAdapter
+
+
+        //data : 전체
+        datas.apply {
+
+                datas.add(Board(1, "야호게시판"))
+            datas.add(Board(2, "야호게시판2"))
+
+
+            boardRVAdapter.datas = datas
+            boardRVAdapter.notifyDataSetChanged()
+
+            //recyclerview item 클릭하면 fragment 전환
+            boardRVAdapter.setItemClickListener(object : BoardRVAdapter.OnItemClickListener {
+                override fun onClick(v: View, position: Int) {
+
+                    //PostFragment에 data보내기
+                    val bundle = Bundle()
+                    bundle.putSerializable("board", datas[position])
+                    val passBundleBFragment = PostFragment()
+                    passBundleBFragment.arguments = bundle
+
+                    //fragment to fragment
+                    activity?.supportFragmentManager!!.beginTransaction()
+                        .replace(R.id.main_frm, passBundleBFragment)
+                        .commit()
+
+                }
+            })
+        }
+
+//        //즐겨찾기 게시판 조회
+        binding.boardFavoriteRv.layoutManager =
+            LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
+        boardfavoriteRVAdapter = BoardFavoriteRVAdapter()
+        binding.boardFavoriteRv.adapter = boardfavoriteRVAdapter
+
+
+        //datas_f : 즐겨찾기
+        datas_f.apply {
+
+                datas_f.add(Board(3, "즐찾"))
+
+
+            boardfavoriteRVAdapter.datas_f = datas_f
+            boardfavoriteRVAdapter.notifyDataSetChanged()
+
+            //recyclerview item 클릭하면 fragment 전환
+            boardfavoriteRVAdapter.setItemClickListener(object : BoardFavoriteRVAdapter.OnItemClickListener {
+                override fun onClick(v: View, position: Int) {
+                    //PostFragment에 data보내기
+                    val bundle = Bundle()
+                    bundle.putSerializable("board", datas[position])
+                    val passBundleBFragment = PostFragment()
+                    passBundleBFragment.arguments = bundle
+
+                    //fragment to fragment
+                    activity?.supportFragmentManager!!.beginTransaction()
+                        .replace(R.id.main_frm, passBundleBFragment)
+                        .commit()
+
+                }
+            })
+        }
 
         //api
         val boardService = BoardService()
-        boardService.setBoardView(this)
-        boardService.showBoard()
+        boardService.setBoardListView(this)
+        boardService.showBoardList()
     }
 
 
 
-    override fun onBoardSuccess(code: Int, result: List<com.example.debri_lize.response.Board>) {
+    override fun onBoardListSuccess(code: Int, result: List<com.example.debri_lize.response.Board>) {
         when(code){
             200->{
                 //전체 게시판 조회 (즐겨찾기된 게시판은 삭제)
@@ -125,7 +203,7 @@ class BoardFragment : Fragment(), BoardView {
         }
     }
 
-    override fun onBoardFailure(code: Int) {
+    override fun onBoardListFailure(code: Int) {
 
     }
 

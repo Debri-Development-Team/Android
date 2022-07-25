@@ -2,6 +2,7 @@ package com.example.debri_lize.activity
 
 import android.os.Bundle
 import android.util.Log
+import android.view.KeyEvent
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -62,19 +63,15 @@ class PostDetailActivity : AppCompatActivity(), PostDetailView, CommentCreateVie
         commentService.setShowCommentView(this)
         commentService.showComment(postIdx)
 
-        //write comment - enter키로 변경할 것
-        binding.postDetailWriteCommentIv.setOnClickListener{
-            createComment()
+        //write comment <- enter
+        binding.postDetailWriteCommentEt.setOnKeyListener { v, keyCode, event ->
+            if (event.action == KeyEvent.ACTION_DOWN && keyCode == KeyEvent.KEYCODE_ENTER) {
+                createComment()
+                true
+            }
+
+            false
         }
-//        binding.postDetailWriteCommentEt.setOnEditorActionListener { textView, action, event ->
-//            var handled = false
-//            if (action == EditorInfo.IME_ACTION_DONE) {
-//                createComment()
-//                //binding.postDetailWriteCommentEt.text = null
-//                handled = true
-//            }
-//            handled
-//        }
 
     }
 

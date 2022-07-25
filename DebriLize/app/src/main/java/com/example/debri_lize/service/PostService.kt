@@ -9,17 +9,24 @@ import com.example.debri_lize.view.post.EachPostListView
 import com.example.debri_lize.view.post.PostCreateView
 import com.example.debri_lize.view.post.PostDetailView
 import com.example.debri_lize.utils.getRetrofit
+import com.example.debri_lize.view.post.PostListView
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
 class PostService {
     private lateinit var postCreateView: PostCreateView
+    private lateinit var postListView: PostListView
     private lateinit var eachPostListView: EachPostListView
     private lateinit var postDetailtView: PostDetailView
 
+
     fun setPostCreateView(postCreateView: PostCreateView){
         this.postCreateView = postCreateView
+    }
+
+    fun setPostListView(postListView: PostListView){
+        this.postListView = postListView
     }
 
     fun seteachPostListView(eachPostListView: EachPostListView){
@@ -51,6 +58,29 @@ class PostService {
             //실패했을 때 처리
             override fun onFailure(call: Call<PostResponse>, t: Throwable) {
 
+            }
+
+        })
+    }
+
+    fun showPostList(keyword : String){
+        Log.d("postList", "enter")
+        val postService = getRetrofit().create(RetrofitInterface::class.java)
+        postService.showPostList(keyword).enqueue(object: Callback<PostResponse> {
+            //응답이 왔을 때 처리
+            override fun onResponse(call: Call<PostResponse>, response: Response<PostResponse>) {
+                Log.d("postList", "response")
+                val resp:PostResponse = response.body()!!
+                Log.d("postListCode", resp.code.toString())
+                when(resp.code){
+                    //API code값 사용
+                    200->postListView.onPostListSuccess(resp.code, resp.result)
+                    else->postListView.onPostListFailure(resp.code)
+                }
+            }
+            //실패했을 때 처리
+            override fun onFailure(call: Call<PostResponse>, t: Throwable) {
+                Log.d("postListFail", t.toString())
             }
 
         })
@@ -101,4 +131,6 @@ class PostService {
 
         })
     }
+
+
 }

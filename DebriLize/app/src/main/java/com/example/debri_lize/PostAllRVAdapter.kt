@@ -5,40 +5,39 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.example.debri_lize.data.board.Board
-import com.example.debri_lize.databinding.ItemBoardBinding
+import com.example.debri_lize.data.post.PostList
+import com.example.debri_lize.databinding.ItemPostBinding
 
-class BoardFavoriteRVAdapter : RecyclerView.Adapter<BoardFavoriteRVAdapter.ViewHolder>() {
+class PostAllRVAdapter : RecyclerView.Adapter<PostAllRVAdapter.ViewHolder>() {
 
-    var datas_f = mutableListOf<Board>()
+    var datas = mutableListOf<PostList>()
 
-    inner class ViewHolder(val binding : ItemBoardBinding) : RecyclerView.ViewHolder(binding.root){
+    inner class ViewHolder(val binding : ItemPostBinding) : RecyclerView.ViewHolder(binding.root){
 
+        val title : TextView = binding.itemPostTitle
+        val time : TextView = binding.itemPostTimeTv
+        var commentCnt : TextView = binding.itemPostCountCommentTv
+        //var likeCnt : TextView = binding.
 
-        val boardName : TextView = binding.itemBoardNameTv
-
-        fun bind(item: Board) {
-            boardName.text = item.boardName
-            binding.itemBoardIv.setImageResource(R.drawable.ic_favorite_on)
+        fun bind(item: PostList) {
+            title.text = item.postName
+            time.text = item.timeAfterCreated.toString()+"분 전"
+            commentCnt.text = "("+item.commentCnt.toString()+")"
         }
     }
 
     override fun onCreateViewHolder(viewGroup: ViewGroup, viewType: Int): ViewHolder {
-        val binding: ItemBoardBinding = ItemBoardBinding.inflate(LayoutInflater.from(viewGroup.context), viewGroup, false)
+        val binding: ItemPostBinding = ItemPostBinding.inflate(LayoutInflater.from(viewGroup.context), viewGroup, false)
         return ViewHolder(binding)
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.bind(datas_f[position])
+        holder.bind(datas[position])
 
         //recyclerview item 클릭하면 fragment
         // (1) 리스트 내 항목 클릭 시 onClick() 호출
         holder.itemView.setOnClickListener {
             itemClickListener.onClick(it, position)
-        }
-
-        holder.binding.itemBoardIv.setOnClickListener{
-            holder.binding.itemBoardIv.setImageResource(R.drawable.ic_favorite_off)
         }
     }
 
@@ -56,7 +55,7 @@ class BoardFavoriteRVAdapter : RecyclerView.Adapter<BoardFavoriteRVAdapter.ViewH
 
 
     //
-    override fun getItemCount(): Int = datas_f.size
+    override fun getItemCount(): Int = datas.size
 
 
 }

@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.example.debri_lize.databinding.FragmentMenuBinding
 
-class MenuFragment : Fragment() {
+class CurriculumFragment : Fragment() {
 
     lateinit var binding: FragmentMenuBinding
     override fun onCreateView(
