@@ -84,6 +84,7 @@
         <entry key="app/src/main/res/drawable/circle_debri_transparent_8.xml" value="0.1095" />
         <entry key="app/src/main/res/drawable/ic_add.xml" value="0.1095" />
         <entry key="app/src/main/res/drawable/ic_back.xml" value="0.1095" />
+        <entry key="app/src/main/res/drawable/ic_close.xml" value="0.1095" />
         <entry key="app/src/main/res/drawable/ic_complain.xml" value="0.1" />
         <entry key="app/src/main/res/drawable/ic_dialog_mark_debri.xml" value="0.1" />
         <entry key="app/src/main/res/drawable/ic_dialog_mark_red.xml" value="0.1095" />
@@ -92,6 +93,8 @@
         <entry key="app/src/main/res/drawable/ic_scrap_darkmode.xml" value="0.1" />
         <entry key="app/src/main/res/drawable/ic_scrap_white.xml" value="0.1" />
         <entry key="app/src/main/res/drawable/ic_write_debri.xml" value="0.1" />
+        <entry key="app/src/main/res/drawable/selector_class_radio_img.xml" value="0.1095" />
+        <entry key="app/src/main/res/drawable/selector_class_radio_text.xml" value="0.1095" />
         <entry key="app/src/main/res/layout/activity_add_curriculum.xml" value="0.1157548125633232" />
         <entry key="app/src/main/res/layout/activity_login.xml" value="0.20244565217391305" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.1" />
