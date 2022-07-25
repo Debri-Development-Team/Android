@@ -77,7 +77,12 @@
         <entry key="app/src/main/res/drawable-v24/border_round_white_debri_6.xml" value="0.1" />
         <entry key="app/src/main/res/drawable-v24/border_round_white_transparent_10.xml" value="0.1" />
         <entry key="app/src/main/res/drawable-v24/btm_color_selector.xml" value="0.1" />
+        <entry key="app/src/main/res/drawable-v24/vertical_line_debri_2.xml" value="0.114" />
         <entry key="app/src/main/res/drawable/border_round_debri_darkmode_10.xml" value="0.1" />
+        <entry key="app/src/main/res/drawable/border_round_debri_darkmode_6.xml" value="0.1" />
+        <entry key="app/src/main/res/drawable/border_round_red_gray_6.xml" value="0.1" />
+        <entry key="app/src/main/res/drawable/border_round_red_transparent_10.xml" value="0.1655" />
+        <entry key="app/src/main/res/drawable/border_round_red_transparent_6.xml" value="0.1" />
         <entry key="app/src/main/res/drawable/border_round_transparent_c_10.xml" value="0.1655" />
         <entry key="app/src/main/res/drawable/border_round_white_transparent_18.xml" value="0.1655" />
         <entry key="app/src/main/res/drawable/btm_nav_class.xml" value="0.1655" />
@@ -97,6 +102,8 @@
         <entry key="app/src/main/res/drawable/ic_write_debri.xml" value="0.1" />
         <entry key="app/src/main/res/drawable/selector_class_radio_img.xml" value="0.1095" />
         <entry key="app/src/main/res/drawable/selector_class_radio_text.xml" value="0.1095" />
+        <entry key="app/src/main/res/drawable/vertical_line_red_2.xml" value="0.1655" />
+        <entry key="app/src/main/res/drawable/vertical_line_white_1.xml" value="0.1655" />
         <entry key="app/src/main/res/layout/activity_add_curriculum.xml" value="0.1157548125633232" />
         <entry key="app/src/main/res/layout/activity_login.xml" value="0.20244565217391305" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.1" />
@@ -116,6 +123,7 @@
         <entry key="app/src/main/res/layout/item_comment.xml" value="0.1157548125633232" />
         <entry key="app/src/main/res/layout/item_post.xml" value="0.1157548125633232" />
         <entry key="app/src/main/res/menu/post_menu.xml" value="0.25" />
+        <entry key="app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.1655" />
       </map>
     </option>
   </component>
