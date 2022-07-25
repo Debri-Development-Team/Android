@@ -72,6 +72,7 @@
         <entry key="app/src/main/res/drawable-v24/border_round_transparent_gray_6.xml" value="0.1655" />
         <entry key="app/src/main/res/drawable-v24/border_round_transparent_red_10.xml" value="0.1" />
         <entry key="app/src/main/res/drawable-v24/border_round_transparent_white_10.xml" value="0.1" />
+        <entry key="app/src/main/res/drawable-v24/border_round_transparent_white_6.xml" value="0.1" />
         <entry key="app/src/main/res/drawable-v24/border_round_white_darkmode_10.xml" value="0.1" />
         <entry key="app/src/main/res/drawable-v24/border_round_white_debri_6.xml" value="0.1" />
         <entry key="app/src/main/res/drawable-v24/border_round_white_transparent_10.xml" value="0.1" />
@@ -84,6 +85,7 @@
         <entry key="app/src/main/res/drawable/circle_debri_transparent_8.xml" value="0.1095" />
         <entry key="app/src/main/res/drawable/ic_add.xml" value="0.1095" />
         <entry key="app/src/main/res/drawable/ic_back.xml" value="0.1095" />
+        <entry key="app/src/main/res/drawable/ic_check.xml" value="0.1" />
         <entry key="app/src/main/res/drawable/ic_close.xml" value="0.1095" />
         <entry key="app/src/main/res/drawable/ic_complain.xml" value="0.1" />
         <entry key="app/src/main/res/drawable/ic_dialog_mark_debri.xml" value="0.1" />

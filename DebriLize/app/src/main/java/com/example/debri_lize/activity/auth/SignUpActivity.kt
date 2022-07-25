@@ -19,6 +19,9 @@ import com.example.debri_lize.utils.saveUserIdx
 
 class SignUpActivity:AppCompatActivity(), SignUpView {
     lateinit var binding: ActivitySignupBinding
+    private var agree1TF: Boolean = false
+    private var agree2TF: Boolean = false
+    private var agree3TF: Boolean = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -31,8 +34,9 @@ class SignUpActivity:AppCompatActivity(), SignUpView {
             finish()
         }
 
-        setFocus() //focus effect
 
+        setFocus() //focus effect
+        onClick() //약관 클릭
 
     }
 
@@ -102,6 +106,94 @@ class SignUpActivity:AppCompatActivity(), SignUpView {
                 Toast.makeText(this, "message", Toast.LENGTH_SHORT).show()
                 finish()
             }
+        }
+    }
+
+    //약관 클릭
+    private fun onClick(){
+        //전체 동의
+        binding.signUpAgree1Layout.setOnClickListener {
+            if(!agree1TF){
+                binding.signUpBox1OnIv.visibility = View.VISIBLE
+                binding.signUpBox2OnIv.visibility = View.VISIBLE
+                binding.signUpBox3OnIv.visibility = View.VISIBLE
+                agree1TF = true
+                agree2TF = true
+                agree3TF = true
+            }else{
+                binding.signUpBox1OnIv.visibility = View.GONE
+                binding.signUpBox2OnIv.visibility = View.GONE
+                binding.signUpBox3OnIv.visibility = View.GONE
+                agree1TF = false
+                agree2TF = false
+                agree3TF = false
+            }
+            clickBackgroundChange()
+        }
+
+        //개인정보 약관(필수)
+        binding.signUpAgree2Layout.setOnClickListener {
+            if(!agree2TF){
+                binding.signUpBox2OnIv.visibility = View.VISIBLE
+                agree2TF = true
+                if(agree3TF) {
+                    agree1TF = true
+                    binding.signUpBox1OnIv.visibility = View.VISIBLE
+                }
+            }else{
+                binding.signUpBox1OnIv.visibility = View.GONE
+                binding.signUpBox2OnIv.visibility = View.GONE
+                agree1TF = false
+                agree2TF = false
+            }
+            clickBackgroundChange()
+        }
+
+        //홍보 약관(선택)
+        binding.signUpAgree3Layout.setOnClickListener {
+            if(!agree3TF){
+                binding.signUpBox3OnIv.visibility = View.VISIBLE
+                agree3TF = true
+                if(agree2TF) {
+                    agree1TF = true
+                    binding.signUpBox1OnIv.visibility = View.VISIBLE
+                }
+            }else{
+                binding.signUpBox1OnIv.visibility = View.GONE
+                binding.signUpBox3OnIv.visibility = View.GONE
+                agree1TF = false
+                agree3TF = false
+            }
+            clickBackgroundChange()
+        }
+
+    }
+
+    //약관 클릭
+    private fun clickBackgroundChange(){
+        //click agree1
+        if(agree1TF){
+            binding.signUpAgree1Layout.setBackgroundResource(R.drawable.border_round_debri_gray_6)
+            binding.signUpAgree2Layout.setBackgroundResource(R.drawable.border_round_debri_gray_6)
+            binding.signUpAgree3Layout.setBackgroundResource(R.drawable.border_round_debri_gray_6)
+        }else{
+            binding.signUpAgree1Layout.setBackgroundResource(R.drawable.border_round_transparent_gray_6)
+            binding.signUpAgree2Layout.setBackgroundResource(R.drawable.border_round_transparent_gray_6)
+            binding.signUpAgree3Layout.setBackgroundResource(R.drawable.border_round_transparent_gray_6)
+        }
+
+        //click agree2
+        if(agree2TF){
+            binding.signUpAgree2Layout.setBackgroundResource(R.drawable.border_round_debri_gray_6)
+        }else{
+            binding.signUpAgree2Layout.setBackgroundResource(R.drawable.border_round_transparent_gray_6)
+        }
+
+        //click agree3
+        if(agree3TF){
+            binding.signUpAgree3Layout.setBackgroundResource(R.drawable.border_round_debri_gray_6)
+        }else{
+            binding.signUpAgree3Layout.setBackgroundResource(R.drawable.border_round_transparent_gray_6)
         }
     }
 
@@ -191,6 +283,8 @@ class SignUpActivity:AppCompatActivity(), SignUpView {
                 }
             }
         })
+
+
 
     }
 }
