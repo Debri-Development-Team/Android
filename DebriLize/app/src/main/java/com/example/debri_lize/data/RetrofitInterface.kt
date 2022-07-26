@@ -2,6 +2,7 @@ package com.example.debri_lize.data
 
 import com.example.debri_lize.data.auth.UserLogin
 import com.example.debri_lize.data.auth.UserSignup
+import com.example.debri_lize.data.post.Cocomment
 import com.example.debri_lize.data.post.Comment
 import com.example.debri_lize.data.post.Post
 import com.example.debri_lize.response.*
@@ -49,6 +50,10 @@ interface RetrofitInterface {
     //댓글 작성
     @POST("api/comment/replyOnPost/create")
     fun createComment(@Body comment: Comment): Call<CommentResponse>
+
+    //대댓글 작성성
+    @POST("api/comment/replyOnPost/create")
+    fun createCocomment(@Body cocomment: Cocomment): Call<CommentResponse>
 
     //댓글, 대댓글 조회
     @GET("api/comment/get/{postIdx}")

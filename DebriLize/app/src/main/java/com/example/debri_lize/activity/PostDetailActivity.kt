@@ -10,6 +10,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.debri_lize.CommentRVAdapter
 import com.example.debri_lize.R
+import com.example.debri_lize.data.post.Cocomment
 import com.example.debri_lize.data.post.Comment
 import com.example.debri_lize.data.post.CommentList
 import com.example.debri_lize.databinding.ActivityPostDetailBinding
@@ -18,6 +19,7 @@ import com.example.debri_lize.service.CommentService
 import com.example.debri_lize.service.PostService
 import com.example.debri_lize.utils.getUserIdx
 import com.example.debri_lize.utils.getUserName
+import com.example.debri_lize.view.post.CocommentCreateView
 import com.example.debri_lize.view.post.CommentCreateView
 import com.example.debri_lize.view.post.PostDetailView
 import com.example.debri_lize.view.post.ShowCommentView
@@ -159,6 +161,7 @@ class PostDetailActivity : AppCompatActivity(), PostDetailView, CommentCreateVie
 
     }
 
+
     override fun onShowCommentSuccess(code: Int, result: List<com.example.debri_lize.response.CommentList>
     ) {
         when(code){
@@ -166,10 +169,11 @@ class PostDetailActivity : AppCompatActivity(), PostDetailView, CommentCreateVie
             200-> {
 
                 parentItemArrayList = ArrayList<CommentList>()
-                childItemArrayList = ArrayList<CommentList>()
+                var childItemArrayListGroup = ArrayList<ArrayList<CommentList>>()
                 var commentGroup by Delegates.notNull<Int>()
 
                 for (i in result) {
+                    childItemArrayList = ArrayList<CommentList>()
 
                     if(i.commentLevel==0){
                         commentGroup = i.commentGroup
@@ -182,11 +186,15 @@ class PostDetailActivity : AppCompatActivity(), PostDetailView, CommentCreateVie
                             childItemArrayList.add(CommentList(j.commentIdx, j.authorIdx, j.postIdx, j.commentLevel, j.commentOrder, j.commentGroup, j.commentContent, j.authorName))
                         }
                     }
+
+                    childItemArrayListGroup.add(childItemArrayList)
                 }
+                Log.d("parent", parentItemArrayList.toString())
+                Log.d("child", childItemArrayListGroup.toString())
 
                 binding.postDetailCommentRv.layoutManager =
                     LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
-                commentRVAdapter = CommentRVAdapter().build(parentItemArrayList, childItemArrayList)
+                commentRVAdapter = CommentRVAdapter().build(parentItemArrayList, childItemArrayListGroup)
                 binding.postDetailCommentRv.adapter = commentRVAdapter
 
                 commentRVAdapter.notifyDataSetChanged()
@@ -197,5 +205,7 @@ class PostDetailActivity : AppCompatActivity(), PostDetailView, CommentCreateVie
     override fun onShowCommentFailure(code: Int) {
 
     }
+
+
 
 }

@@ -12,11 +12,11 @@ class CommentRVAdapter : RecyclerView.Adapter<CommentRVAdapter.ViewHolder>() {
     private lateinit var cocommentRVAdapter: CocommentRVAdapter
 
     var parentItemArrayList = ArrayList<CommentList>()
-    var childItemArrayList = ArrayList<CommentList>()
+    var childItemArrayListGroup = ArrayList<ArrayList<CommentList>>()
 
-    fun build(parent: ArrayList<CommentList>, chile : ArrayList<CommentList>): CommentRVAdapter {
+    fun build(parent: ArrayList<CommentList>, child : ArrayList<ArrayList<CommentList>>): CommentRVAdapter {
         parentItemArrayList = parent
-        childItemArrayList = chile
+        childItemArrayListGroup = child
         return this
     }
 
@@ -29,12 +29,7 @@ class CommentRVAdapter : RecyclerView.Adapter<CommentRVAdapter.ViewHolder>() {
             commentContent.text = item.commentContent
             authorName.text = item.authorName
 
-            binding.itemCommentCocommentRv.apply {
-                layoutManager =
-                    LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
-                cocommentRVAdapter = CocommentRVAdapter().build(childItemArrayList)
-                adapter = cocommentRVAdapter
-            }
+
         }
     }
 
@@ -45,6 +40,13 @@ class CommentRVAdapter : RecyclerView.Adapter<CommentRVAdapter.ViewHolder>() {
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.bind(parentItemArrayList[position])
+
+        holder.binding.itemCommentCocommentRv.apply {
+            layoutManager =
+                LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
+            cocommentRVAdapter = CocommentRVAdapter().build(childItemArrayListGroup[position])
+            adapter = cocommentRVAdapter
+        }
 
         holder.binding.itemCommentMenuIv.setOnClickListener{
             //bottom sheet
