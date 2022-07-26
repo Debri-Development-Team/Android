@@ -1,6 +1,6 @@
-package com.example.debri_lize.data.view
+package com.example.debri_lize.view.auth
 
-import com.example.debri_lize.data.response.Result
+import com.example.debri_lize.response.Result
 
 interface LoginView {
     fun onLoginSuccess(code:Int, result : Result?)

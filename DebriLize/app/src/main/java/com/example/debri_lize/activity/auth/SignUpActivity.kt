@@ -1,17 +1,15 @@
 package com.example.debri_lize.activity.auth
 
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import com.example.debri_lize.R
-import com.example.debri_lize.data.User
-import com.example.debri_lize.data.service.AuthService
-import com.example.debri_lize.data.view.SignUpView
+import com.example.debri_lize.data.auth.UserSignup
+import com.example.debri_lize.service.AuthService
+import com.example.debri_lize.view.auth.SignUpView
 import com.example.debri_lize.databinding.ActivitySignupBinding
-import com.example.debri_lize.data.response.Result
 
 class SignUpActivity:AppCompatActivity(), SignUpView {
     lateinit var binding: ActivitySignupBinding
@@ -27,7 +25,12 @@ class SignUpActivity:AppCompatActivity(), SignUpView {
             finish()
         }
 
-        setFocus() //focus effect
+        binding.signUpBackLayout.setOnClickListener{
+            finish()
+        }
+
+        //focus effect
+        setFocus()
 
 
     }
@@ -35,13 +38,14 @@ class SignUpActivity:AppCompatActivity(), SignUpView {
 
     //회원가입
     //사용자가 입력한 값 가져오기
-    private fun getUser() : User {
+    private fun getUser() : UserSignup {
         val id : String = binding.signUpIdEt.text.toString()
+        val password : String = binding.signUpPasswordEt.text.toString()
+        val password2 : String = binding.signUpPasswordCheckEt.text.toString()
         var nickname : String = binding.signUpNicknameEt.text.toString()
         val birthday : String = binding.signUpBirthEt.text.toString()
-        val password : String = binding.signUpPasswordEt.text.toString()
 
-        return User(id, nickname, birthday, password)
+        return UserSignup(id, password, password2, nickname, birthday)
     }
 
     //회원가입 진행(서버이용)
@@ -79,14 +83,24 @@ class SignUpActivity:AppCompatActivity(), SignUpView {
 
     }
 
-    override fun onSignUpSuccess(result : Result) {
-        Log.d("success", "success")
+    override fun onSignUpSuccess(code : Int) {
+        when(code){
+            //개발할 때는 userIdx 저장이 필요할수도
+            200-> {
+                Toast.makeText(this, "message", Toast.LENGTH_SHORT).show()
+                finish()
+            }
+        }
 
-        finish()
     }
 
-    override fun onSignUpFailure() {
-        Log.d("fail", "fail")
+    override fun onSignUpFailure(code : Int) {
+        when(code){
+            //개발할 때는 userIdx 저장이 필요할수도
+            3020, 3021, 3022, 3023, 3024, 3025, 3026, 3027, 1000-> {
+                Toast.makeText(this, "message", Toast.LENGTH_SHORT).show()
+            }
+        }
     }
 
     //focus effect

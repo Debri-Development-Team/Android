@@ -1,3 +1,14 @@
 <resources>
     <string name="app_name">Debri - Lize</string>
+
+    <string-array name="spinner_year">
+        <item>연도</item>
+        <item>2021</item>
+        <item>2020</item>
+        <item>2019</item>
+        <item>2018</item>
+        <item>2017</item>
+        <item>2016</item>
+        <item>2015</item>
+    </string-array>
 </resources>

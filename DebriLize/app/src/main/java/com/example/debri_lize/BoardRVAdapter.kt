@@ -5,7 +5,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.example.debri_lize.data.Board
+import com.example.debri_lize.data.board.Board
 import com.example.debri_lize.databinding.ItemBoardBinding
 
 class BoardRVAdapter : RecyclerView.Adapter<BoardRVAdapter.ViewHolder>() {
@@ -14,13 +14,10 @@ class BoardRVAdapter : RecyclerView.Adapter<BoardRVAdapter.ViewHolder>() {
 
     inner class ViewHolder(val binding : ItemBoardBinding) : RecyclerView.ViewHolder(binding.root){
 
-        val title1 : TextView = binding.itemBoardTv1
-        val title2 : TextView = binding.itemBoardTv2
+        val boardName : TextView = binding.itemBoardNameTv
 
         fun bind(item: Board) {
-            //viewpager만들고 item.coverImg[position]
-            title1.text = item.title1
-            title2.text = item.title2
+            boardName.text = item.boardName
         }
     }
 
