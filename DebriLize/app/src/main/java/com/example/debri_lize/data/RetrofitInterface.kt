@@ -10,6 +10,10 @@ import retrofit2.http.*
 
 interface RetrofitInterface {
 
+    //token
+    @PATCH("api/jwt/refresh")
+    fun token(@Body refreshToken : String): Call<TokenResponse>
+
     //회원가입
     @POST("api/user/signUp")
     fun signUp(@Body user: UserSignup): Call<AuthResponse>
@@ -23,7 +27,7 @@ interface RetrofitInterface {
     fun showBoardList() : Call<BoardResponse>
 
     //즐겨찾기 게시판 보여주기
-    @GET("/api/board/scrap/getList")
+    @GET("api/board/scrap/getList")
     fun showScrapBoardList() : Call<BoardResponse>
 
     //게시물 작성
@@ -48,5 +52,5 @@ interface RetrofitInterface {
 
     //댓글, 대댓글 조회
     @GET("api/comment/get/{postIdx}")
-    fun showComment(@Path("postIdx") postIdx: Int) : Call<CommentResponse>
+    fun showComment(@Path("postIdx") postIdx: Int) : Call<CommentListResponse>
 }

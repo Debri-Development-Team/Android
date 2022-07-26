@@ -3,6 +3,7 @@ package com.example.debri_lize.service
 import android.util.Log
 import com.example.debri_lize.data.RetrofitInterface
 import com.example.debri_lize.data.post.Comment
+import com.example.debri_lize.response.CommentListResponse
 import com.example.debri_lize.response.CommentResponse
 import com.example.debri_lize.utils.getRetrofit
 import com.example.debri_lize.view.post.CommentCreateView
@@ -51,11 +52,11 @@ class CommentService {
     fun showComment(postIdx:Int){
         Log.d("showComment", "enter")
         val commentService = getRetrofit().create(RetrofitInterface::class.java)
-        commentService.showComment(postIdx).enqueue(object: Callback<CommentResponse> {
+        commentService.showComment(postIdx).enqueue(object: Callback<CommentListResponse> {
             //응답이 왔을 때 처리
-            override fun onResponse(call: Call<CommentResponse>, response: Response<CommentResponse>) {
+            override fun onResponse(call: Call<CommentListResponse>, response: Response<CommentListResponse>) {
                 Log.d("showComment", "response")
-                val resp:CommentResponse = response.body()!!
+                val resp:CommentListResponse = response.body()!!
                 Log.d("showCommentCode", resp.code.toString())
                 when(resp.code){
                     //API code값 사용
@@ -64,7 +65,7 @@ class CommentService {
                 }
             }
             //실패했을 때 처리
-            override fun onFailure(call: Call<CommentResponse>, t: Throwable) {
+            override fun onFailure(call: Call<CommentListResponse>, t: Throwable) {
                 Log.d("showComment", t.toString())
             }
 

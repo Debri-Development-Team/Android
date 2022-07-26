@@ -3,14 +3,14 @@ package com.example.debri_lize.response
 import com.google.gson.annotations.SerializedName
 
 
-data class CommentResponse(
+data class CommentListResponse(
     @SerializedName(value = "isSuccess") val isSuccess:Boolean,
     @SerializedName(value = "returnCode") val code:Int,
     @SerializedName(value = "returnMsg") val message:String,
-    @SerializedName(value = "result") val result: Comment
+    @SerializedName(value = "result") val result: List<CommentList>
 )
 
-data class Comment(
+data class CommentList(
     @SerializedName(value = "commentIdx") var commentIdx : Int,
     @SerializedName(value = "authorIdx") var authorIdx : Int, //authorIdx로 변경
     @SerializedName(value = "postIdx") var postIdx : Int,

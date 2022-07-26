@@ -14,7 +14,6 @@ import com.example.debri_lize.databinding.ActivityPostListBinding
 import com.example.debri_lize.response.Post
 import com.example.debri_lize.service.PostService
 import com.example.debri_lize.view.post.PostListView
-import kotlin.properties.Delegates
 
 
 class PostListActivity : AppCompatActivity(), PostListView {
@@ -81,6 +80,7 @@ class PostListActivity : AppCompatActivity(), PostListView {
                             val intent = Intent(this@PostListActivity, PostDetailActivity::class.java)
                             intent.putExtra("postIdx", datas[position].postIdx)
                             startActivity(intent)
+
 
                         }
                     })

@@ -154,7 +154,7 @@
                         android:textStyle="bold"
                         android:includeFontPadding="false"
                         android:textColor="@color/debri"
-                        android:textSize="20sp"
+                        android:textSize="18sp"
                         android:gravity="center|right" />
 
                 </LinearLayout>
@@ -196,36 +196,25 @@
                         android:textColor="@color/white"
                         android:textSize="12sp" />
 
+                    <View
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:layout_weight="1" />
+
+
+                    <ImageView
+                        android:id="@+id/post_detail_author_menu_iv"
+                        android:layout_width="25dp"
+                        android:layout_height="25dp"
+                        android:src="@drawable/ic_menu"
+                        />
+
 
                 </LinearLayout>
 
             </LinearLayout>
 
-            <ImageView
-                android:id="@+id/post_detail_complain_iv"
-                android:layout_width="15dp"
-                android:layout_height="15dp"
-                android:src="@drawable/ic_complain"
-                android:layout_marginEnd="10dp"
-                android:layout_marginTop="10dp"
-                app:layout_constraintTop_toBottomOf="@+id/post_detail_title_layout"
-                app:layout_constraintEnd_toStartOf="@+id/post_detail_complain_tv"/>
 
-
-            <TextView
-                android:id="@+id/post_detail_complain_tv"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="신고하기"
-                android:fontFamily="@font/noto_sans_kr_bold"
-                android:includeFontPadding="false"
-                android:textColor="@color/white"
-                android:textSize="13sp"
-                android:layout_marginEnd="30dp"
-                app:layout_constraintTop_toTopOf="@+id/post_detail_complain_iv"
-                app:layout_constraintBottom_toBottomOf="@+id/post_detail_complain_iv"
-                app:layout_constraintEnd_toEndOf="parent"
-                />
 
             <LinearLayout
                 android:id="@+id/post_detail_content_layout"
@@ -233,7 +222,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="30dp"
                 android:layout_marginEnd="30dp"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="30dp"
                 android:background="@drawable/border_line_bottom"
                 android:gravity="center_vertical"
                 android:orientation="vertical"
@@ -241,7 +230,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/post_detail_complain_iv">
+                app:layout_constraintTop_toBottomOf="@+id/post_detail_title_layout">
 
                 <TextView
                     android:id="@+id/post_detail_content_tv"
@@ -387,4 +376,9 @@
             android:layout_marginStart="10dp"/>
 
     </LinearLayout>
+
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>
+
+

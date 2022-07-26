@@ -1,19 +1,24 @@
 package com.example.debri_lize
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.debri_lize.data.post.Comment
 import com.example.debri_lize.data.post.CommentList
-import com.example.debri_lize.data.post.PostList
 import com.example.debri_lize.databinding.ItemCommentBinding
-import com.example.debri_lize.databinding.ItemPostBinding
 
 class CommentRVAdapter : RecyclerView.Adapter<CommentRVAdapter.ViewHolder>() {
+    private lateinit var cocommentRVAdapter: CocommentRVAdapter
 
-    var datas = mutableListOf<CommentList>()
+    var parentItemArrayList = ArrayList<CommentList>()
+    var childItemArrayList = ArrayList<CommentList>()
+
+    fun build(parent: ArrayList<CommentList>, chile : ArrayList<CommentList>): CommentRVAdapter {
+        parentItemArrayList = parent
+        childItemArrayList = chile
+        return this
+    }
 
     inner class ViewHolder(val binding : ItemCommentBinding) : RecyclerView.ViewHolder(binding.root){
 
@@ -23,6 +28,13 @@ class CommentRVAdapter : RecyclerView.Adapter<CommentRVAdapter.ViewHolder>() {
         fun bind(item: CommentList) {
             commentContent.text = item.commentContent
             authorName.text = item.authorName
+
+            binding.itemCommentCocommentRv.apply {
+                layoutManager =
+                    LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
+                cocommentRVAdapter = CocommentRVAdapter().build(childItemArrayList)
+                adapter = cocommentRVAdapter
+            }
         }
     }
 
@@ -32,9 +44,15 @@ class CommentRVAdapter : RecyclerView.Adapter<CommentRVAdapter.ViewHolder>() {
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.bind(datas[position])
+        holder.bind(parentItemArrayList[position])
+
+        holder.binding.itemCommentMenuIv.setOnClickListener{
+            //bottom sheet
+            //bottomSheet()
+        }
+
     }
 
-    override fun getItemCount(): Int = datas.size
+    override fun getItemCount(): Int = parentItemArrayList.size
 
 }

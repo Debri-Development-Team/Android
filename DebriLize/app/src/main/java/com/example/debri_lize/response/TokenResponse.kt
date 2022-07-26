@@ -3,16 +3,14 @@ package com.example.debri_lize.response
 import com.google.gson.annotations.SerializedName
 
 //회원가입, 로그인
-data class AuthResponse(
+data class TokenResponse(
     @SerializedName(value = "isSuccess") val isSuccess:Boolean,
     @SerializedName(value = "returnCode") val code:Int,
     @SerializedName(value = "returnMsg") val message:String,
-    @SerializedName(value = "result") val result: Result?
+    @SerializedName(value = "result") val result: Token?
 )
 
-data class Result(
-    @SerializedName(value = "userIdx") var userIdx : Int,
-    @SerializedName(value = "userName") var userName : String,
-    @SerializedName(value = "jwt") var jwt : String,
+data class Token(
+    @SerializedName(value = "accessToken") var accessToken : String,
     @SerializedName(value = "refreshToken") var refreshToken : String
 )
