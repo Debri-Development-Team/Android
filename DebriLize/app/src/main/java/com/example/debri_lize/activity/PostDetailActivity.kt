@@ -1,5 +1,6 @@
 package com.example.debri_lize.activity
 
+import android.content.res.Resources
 import android.os.Bundle
 import android.util.Log
 import android.view.KeyEvent
@@ -9,8 +10,9 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.debri_lize.CommentRVAdapter
+import android.view.Gravity
+import androidx.core.content.ContextCompat
 import com.example.debri_lize.R
-import com.example.debri_lize.data.post.Cocomment
 import com.example.debri_lize.data.post.Comment
 import com.example.debri_lize.data.post.CommentList
 import com.example.debri_lize.databinding.ActivityPostDetailBinding
@@ -19,7 +21,6 @@ import com.example.debri_lize.service.CommentService
 import com.example.debri_lize.service.PostService
 import com.example.debri_lize.utils.getUserIdx
 import com.example.debri_lize.utils.getUserName
-import com.example.debri_lize.view.post.CocommentCreateView
 import com.example.debri_lize.view.post.CommentCreateView
 import com.example.debri_lize.view.post.PostDetailView
 import com.example.debri_lize.view.post.ShowCommentView
@@ -29,13 +30,20 @@ import kotlin.properties.Delegates
 
 class PostDetailActivity : AppCompatActivity(), PostDetailView, CommentCreateView, ShowCommentView {
     lateinit var binding : ActivityPostDetailBinding
+
     var postIdx by Delegates.notNull<Int>()
     var authorIdx by Delegates.notNull<Int>()
 
+    //comment
     private lateinit var commentRVAdapter: CommentRVAdapter //Myadapter
     lateinit var parentItemArrayList: ArrayList<CommentList>
     lateinit var childItemArrayList: ArrayList<CommentList>
 
+    //like, scrap
+    private var likeTF : Boolean = false
+    private var scrapTF : Boolean = false
+
+    private fun Int.toPx(): Int = (this * Resources.getSystem().displayMetrics.density).toInt()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -63,6 +71,50 @@ class PostDetailActivity : AppCompatActivity(), PostDetailView, CommentCreateVie
                 true
             }
             false
+        }
+
+        //scrap
+        /* getBackground 함수가 없어서 현재 background 속성이 무엇인지 알 수 없음
+        *   -> Boolean 변수 사용하여 해결
+        *   -> 게시물 나갔다가 들어와도 유지되는지 확인 필요
+        */
+        //추천 버튼
+        binding.postDetailMenuLikeLayout.setOnClickListener {
+            likeTF = !likeTF
+            if(likeTF) {
+                binding.postDetailMenuLikeLayout.setBackgroundResource(R.drawable.border_round_white_transparent_10)
+                binding.postDetailMenuLikeIv.setImageResource(R.drawable.ic_like_white)
+            }else {
+                binding.postDetailMenuLikeLayout.setBackgroundResource(R.drawable.border_round_debri_darkmode_10)
+                binding.postDetailMenuLikeIv.setImageResource(R.drawable.ic_like_debri)
+            }
+
+        }
+
+
+        //스크랩 버튼
+        binding.postDetailMenuScrapLayout.setOnClickListener {
+            scrapTF = !scrapTF
+            if(scrapTF){
+                binding.postDetailMenuScrapLayout.setBackgroundResource(R.drawable.border_round_white_transparent_10)
+                binding.postDetailMenuScrapTv.setTextColor(ContextCompat.getColor(this@PostDetailActivity, R.color.white))
+                binding.postDetailMenuScrapIv.setImageResource(R.drawable.ic_scrap_white)
+            }else{
+                binding.postDetailMenuScrapLayout.setBackgroundResource(R.drawable.border_round_transparent_debri_10)
+                binding.postDetailMenuScrapTv.setTextColor(ContextCompat.getColor(this@PostDetailActivity, R.color.darkmode_background))
+                binding.postDetailMenuScrapIv.setImageResource(R.drawable.ic_scrap_darkmode)
+
+
+
+                //스크랩 확인 토스트메시지
+                var scrapToast = layoutInflater.inflate(R.layout.toast_scrap,null)
+                var toast = Toast(this)
+                toast.view = scrapToast
+                toast.setGravity(Gravity.CENTER_HORIZONTAL,0,0)
+                toast.show()
+
+            }
+
         }
 
     }

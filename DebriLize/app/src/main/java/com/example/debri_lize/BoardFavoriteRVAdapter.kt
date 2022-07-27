@@ -58,5 +58,10 @@ class BoardFavoriteRVAdapter : RecyclerView.Adapter<BoardFavoriteRVAdapter.ViewH
     //
     override fun getItemCount(): Int = datas_f.size
 
+    //검색어 입력시 필터
+    fun filterList(filteredList: ArrayList<Board>) {
+        datas_f = filteredList
+        notifyDataSetChanged()
+    }
 
 }

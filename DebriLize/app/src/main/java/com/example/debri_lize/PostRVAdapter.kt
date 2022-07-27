@@ -5,6 +5,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.example.debri_lize.data.post.Post
 import com.example.debri_lize.data.post.PostList
 import com.example.debri_lize.databinding.ItemPostBinding
 
@@ -57,5 +58,10 @@ class PostRVAdapter : RecyclerView.Adapter<PostRVAdapter.ViewHolder>() {
     //
     override fun getItemCount(): Int = datas.size
 
+    //검색어 입력시 필터
+    fun filterList(filteredList: ArrayList<PostList>) {
+        datas = filteredList
+        notifyDataSetChanged()
+    }
 
 }

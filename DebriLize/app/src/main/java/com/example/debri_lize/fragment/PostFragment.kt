@@ -2,6 +2,8 @@ package com.example.debri_lize.fragment
 
 import android.content.Intent
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -14,6 +16,7 @@ import com.example.debri_lize.activity.MainActivity
 import com.example.debri_lize.activity.PostCreateActivity
 import com.example.debri_lize.activity.PostDetailActivity
 import com.example.debri_lize.data.board.Board
+import com.example.debri_lize.data.post.Post
 import com.example.debri_lize.data.post.PostList
 import com.example.debri_lize.service.PostService
 import com.example.debri_lize.view.post.EachPostListView
@@ -29,6 +32,9 @@ class PostFragment : Fragment(), EachPostListView {
 
     var boardIdx by Delegates.notNull<Int>()
     var boardName by Delegates.notNull<String>()
+
+    //search post
+    private val filteredData = ArrayList<PostList>() //검색했을 때 나타낼 데이터
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -71,6 +77,28 @@ class PostFragment : Fragment(), EachPostListView {
             startActivity(intent)
         }
 
+
+
+    }
+
+    //search post
+    //검색어가 포함된 타이틀을 filteredData에 넣기
+    private fun searchFilter(searchText: String) {
+        filteredData.clear()
+
+        //기존 datas : <Post> -> 현재 datas : <PostList>
+        //api연결로 인해 data구조가 변경되었으므로 이 부분 확인 필요
+        //제목으로밖에 검색이 안됨
+
+        //현재 data중 게시글 제목이 null인게 있어 error발생
+//        for (i in 0 until datas.size) {
+//            //타이틀, content 필터 / 공백 제거 안함
+//            if (datas[i].postName!!.lowercase().contains(searchText.lowercase())) {
+//                filteredData.add(datas[i])
+//            }
+//        }
+
+        postRVAdapter.filterList(filteredData)
     }
 
     override fun onEachPostListSuccess(code: Int, result: List<com.example.debri_lize.response.Post>) {
@@ -111,6 +139,28 @@ class PostFragment : Fragment(), EachPostListView {
 
 
                 }
+
+                //search post
+                //검색어 입력
+                binding.postSearchEt.addTextChangedListener(object : TextWatcher {
+                    //입력이 끝날 때
+                    override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+
+                    }
+
+                    //입력하기 전에
+                    override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+
+                    }
+
+                    //타이핑되는 텍스트에 변화가 있을 때
+                    override fun afterTextChanged(p0: Editable?) {
+                        val searchText: String = binding.postSearchEt.text.toString()
+                        //Log.d("editText","$searchText")
+                        searchFilter(searchText)
+                    }
+
+                })
             }
         }
     }

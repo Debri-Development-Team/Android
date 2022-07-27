@@ -2,6 +2,8 @@ package com.example.debri_lize.activity
 
 import android.content.Intent
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.util.Log
 import android.view.KeyEvent
 import android.view.KeyEvent.KEYCODE_ENTER
@@ -36,19 +38,47 @@ class PostListActivity : AppCompatActivity(), PostListView {
             finish()
         }
 
-        binding.postListSearchEt.setOnKeyListener { v, keyCode, event ->
-            if (event.action == KeyEvent.ACTION_DOWN && keyCode == KEYCODE_ENTER) {
-                // 엔터 눌렀을때 행동
+        //search 방법1.
+//        binding.postListSearchEt.setOnKeyListener { v, keyCode, event ->
+//            if (event.action == KeyEvent.ACTION_DOWN && keyCode == KEYCODE_ENTER) {
+//                // 엔터 눌렀을때 행동
+//                //api
+//                val postService = PostService()
+//                postService.setPostListView(this)
+//                Log.d("et", binding.postListSearchEt.text.toString())
+//                postService.showPostList(binding.postListSearchEt.text.toString())
+//                true
+//            }
+//
+//            false
+//        }
+
+        //search 방법2. 실시간 검색 가능
+        //search post
+        //검색어 입력
+        binding.postListSearchEt.addTextChangedListener(object : TextWatcher {
+            //입력이 끝날 때
+            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+
+            }
+
+            //입력하기 전에
+            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+
+            }
+
+            //타이핑되는 텍스트에 변화가 있을 때
+            override fun afterTextChanged(p0: Editable?) {
                 //api
                 val postService = PostService()
-                postService.setPostListView(this)
-                Log.d("et", binding.postListSearchEt.text.toString())
+                postService.setPostListView(this@PostListActivity)
                 postService.showPostList(binding.postListSearchEt.text.toString())
+                Log.d("postListSearch",binding.postListSearchEt.text.toString())
+
                 true
             }
 
-            false
-        }
+        })
 
 
     }
@@ -63,6 +93,7 @@ class PostListActivity : AppCompatActivity(), PostListView {
                 binding.postListRv.adapter = postRVAdapter
 
                 //data
+                datas.clear()
                 datas.apply {
                     Log.d("resultSize", result.size.toString())
                     for (i in result){

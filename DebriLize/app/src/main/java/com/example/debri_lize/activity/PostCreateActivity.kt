@@ -7,6 +7,7 @@ import android.view.View
 import android.widget.AdapterView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.example.debri_lize.CustomDialog
 import com.example.debri_lize.R
 import com.example.debri_lize.data.SpinnerModel
 import com.example.debri_lize.data.post.Post
@@ -45,8 +46,31 @@ class PostCreateActivity : AppCompatActivity(), PostCreateView { //, CoroutineSc
 
         // 실행
         binding.writeBtn.setOnClickListener{
-            createPost()
-            finish()
+            //글 작성 다이얼로그
+            val dialog = CustomDialog(this)
+
+            dialog.showWriteDlg()
+            //작성 ok 버튼 클릭시
+            dialog.setOnClickListener(object:CustomDialog.ButtonClickListener{
+                override fun onClicked(TF: Boolean) {
+                    createPost()
+                    finish()
+                }
+
+            })
+        }
+
+        //back 버튼 클릭
+        binding.writePreviousIv.setOnClickListener {
+            //다이얼로그 생성
+            val dialog = CustomDialog(this)
+            dialog.showCancelDlg()
+            dialog.setOnClickListener(object:CustomDialog.ButtonClickListener{
+                override fun onClicked(TF: Boolean) {
+                    finish()
+                }
+
+            })
         }
 
 
