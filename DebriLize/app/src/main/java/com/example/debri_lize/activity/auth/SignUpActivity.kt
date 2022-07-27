@@ -1,5 +1,6 @@
 package com.example.debri_lize.activity.auth
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.View
@@ -7,12 +8,16 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import com.example.debri_lize.R
+import com.example.debri_lize.activity.AddCurriculumActivity
 import com.example.debri_lize.data.UserSignup
 import com.example.debri_lize.data.service.AuthService
 import com.example.debri_lize.data.view.SignUpView
 import com.example.debri_lize.databinding.ActivitySignupBinding
 import java.util.regex.Matcher
 import java.util.regex.Pattern
+import com.example.debri_lize.data.response.Result
+import com.example.debri_lize.utils.saveJwt
+import com.example.debri_lize.utils.saveUserIdx
 
 class SignUpActivity:AppCompatActivity(), SignUpView {
     lateinit var binding: ActivitySignupBinding
@@ -126,6 +131,7 @@ class SignUpActivity:AppCompatActivity(), SignUpView {
 
     }
 
+
     //입력 형식 틀렸을 때 효과
     private fun inputFormatCheck(){
         if(!idTF){
@@ -170,6 +176,7 @@ class SignUpActivity:AppCompatActivity(), SignUpView {
 
     }
 
+
     override fun onSignUpFailure(code : Int) {
         when(code){
             //개발할 때는 userIdx 저장이 필요할수도
@@ -178,7 +185,11 @@ class SignUpActivity:AppCompatActivity(), SignUpView {
                 finish()
             }
         }
+
     }
+
+
+    
 
     //입력이 이메일 형식인지 확인
     fun isEmail(email: String?): Boolean {
@@ -278,6 +289,7 @@ class SignUpActivity:AppCompatActivity(), SignUpView {
         }else{
             binding.signUpAgree3Layout.setBackgroundResource(R.drawable.border_round_transparent_gray_6)
         }
+
     }
 
     //focus effect
