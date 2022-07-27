@@ -26,83 +26,96 @@
             android:layout_marginEnd="10dp"
             />
 
-    <LinearLayout
-        android:id="@+id/item_cocomment_layout_vt"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:gravity="center_vertical"
-        android:layout_marginStart="5dp">
-
-        <TextView
-            android:id="@+id/item_cocomment_tv"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/noto_sans_kr_regular"
-            android:includeFontPadding="false"
-            android:text="지금 장난 둘 ^^"
-            android:textColor="@color/white"
-            android:textSize="13sp" />
-
-
         <LinearLayout
-            android:id="@+id/item_cocomment_info_layout"
+            android:id="@+id/item_cocomment_layout_vt"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:orientation="horizontal"
-            android:gravity="center_vertical">
+            android:orientation="vertical"
+            android:gravity="center_vertical"
+            android:layout_marginStart="5dp">
 
             <TextView
-                android:id="@+id/item_cocomment_profile_tv"
-                android:layout_width="wrap_content"
+                android:id="@+id/item_cocomment_tv"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="데브리짱장걸 >"
                 android:fontFamily="@font/noto_sans_kr_regular"
                 android:includeFontPadding="false"
+                android:text="지금 장난 둘 ^^"
                 android:textColor="@color/white"
-                android:textSize="12sp" />
+                android:textSize="13sp" />
 
-            <TextView
-                android:id="@+id/item_cocomment_time_tv"
+
+            <LinearLayout
+                android:id="@+id/item_cocomment_info_layout"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="방금 전"
-                android:fontFamily="@font/noto_sans_kr_regular"
-                android:includeFontPadding="false"
-                android:textColor="@color/white"
-                android:textSize="12sp"
-                android:layout_marginStart="15dp"/>
+                android:layout_marginTop="10dp"
+                android:orientation="horizontal"
+                android:gravity="center_vertical">
 
-            <View
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                android:layout_weight="1" />
+                <TextView
+                    android:id="@+id/item_cocomment_profile_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="데브리짱장걸 >"
+                    android:fontFamily="@font/noto_sans_kr_regular"
+                    android:includeFontPadding="false"
+                    android:textColor="@color/white"
+                    android:textSize="12sp" />
 
-            <ImageView
-                android:id="@+id/item_cocomment_like_iv"
-                android:layout_width="15dp"
-                android:layout_height="15dp"
-                android:src="@drawable/ic_comment_like"
-                android:layout_marginEnd="10dp"
-                />
+                <TextView
+                    android:id="@+id/item_cocomment_time_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="방금 전"
+                    android:fontFamily="@font/noto_sans_kr_regular"
+                    android:includeFontPadding="false"
+                    android:textColor="@color/white"
+                    android:textSize="12sp"
+                    android:layout_marginStart="15dp"/>
 
-            <TextView
-                android:id="@+id/item_cocomment_like_tv"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="0"
-                android:fontFamily="@font/noto_sans_kr_regular"
-                android:includeFontPadding="false"
-                android:textColor="@color/white"
-                android:textSize="12sp"
-                android:layout_marginEnd="5dp"
-                />
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_weight="1" />
 
+                <ImageView
+                    android:id="@+id/item_cocomment_like_iv"
+                    android:layout_width="15dp"
+                    android:layout_height="15dp"
+                    android:src="@drawable/ic_comment_like"
+                    android:layout_marginEnd="10dp"
+                    />
+
+                <TextView
+                    android:id="@+id/item_cocomment_like_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="0"
+                    android:fontFamily="@font/noto_sans_kr_regular"
+                    android:includeFontPadding="false"
+                    android:textColor="@color/white"
+                    android:textSize="12sp"
+                    android:layout_marginEnd="5dp"
+                    />
+
+                <View
+                    android:layout_width="15dp"
+                    android:layout_height="15dp"
+                    android:background="@drawable/vertical_line_white_1"
+                    android:layout_marginEnd="5dp"/>
+
+                <ImageView
+                    android:id="@+id/item_cocomment_menu_iv"
+                    android:layout_width="15dp"
+                    android:layout_height="15dp"
+                    android:src="@drawable/ic_menu"
+                    />
+
+
+            </LinearLayout>
 
         </LinearLayout>
-
-    </LinearLayout>
 
 
 

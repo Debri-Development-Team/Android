@@ -7,14 +7,13 @@ import com.example.debri_lize.databinding.ActivityMainBinding
 import com.example.debri_lize.fragment.BoardFragment
 import com.example.debri_lize.fragment.ClassFragment
 import com.example.debri_lize.fragment.HomeFragment
-import com.example.debri_lize.fragment.MenuFragment
+import com.example.debri_lize.fragment.CurriculumFragment
 
 class MainActivity : AppCompatActivity() {
     lateinit var binding : ActivityMainBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
 
         binding = ActivityMainBinding.inflate(layoutInflater) //binding 초기화
         setContentView(binding.root)
@@ -53,9 +52,9 @@ class MainActivity : AppCompatActivity() {
                         .commitAllowingStateLoss()
                     return@setOnItemSelectedListener true
                 }
-                R.id.menuFragment -> {
+                R.id.curriculumFragment -> {
                     supportFragmentManager.beginTransaction()
-                        .replace(R.id.main_frm, MenuFragment())
+                        .replace(R.id.main_frm, CurriculumFragment())
                         .commitAllowingStateLoss()
                     return@setOnItemSelectedListener true
                 }

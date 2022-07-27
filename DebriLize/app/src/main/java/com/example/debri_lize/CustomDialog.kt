@@ -6,15 +6,11 @@ import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.view.WindowManager
 import android.widget.Button
-import com.example.debri_lize.databinding.ActivityWriteBinding
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers.Main
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.launch
+import com.example.debri_lize.activity.PostCreateActivity
 
 class CustomDialog(context: Context) {
     private val dialog = Dialog(context)
-    lateinit var binding:ActivityWriteBinding
+    lateinit var binding:PostCreateActivity
 
     fun showWriteDlg(){
         dialog.setContentView(R.layout.dialog_write)

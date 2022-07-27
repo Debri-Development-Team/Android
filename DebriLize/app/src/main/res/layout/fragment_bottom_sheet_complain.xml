@@ -17,88 +17,43 @@
         android:orientation="vertical"
         android:layout_marginStart="30dp"
         android:layout_marginEnd="30dp"
-        android:background="@drawable/border_round_white_darkmode_10"
+        android:paddingStart="10dp"
+        android:paddingEnd="10dp"
+        android:background="@drawable/border_round_transparent_bottom_sheet_10"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginBottom="15dp"
+        android:layout_marginBottom="6dp"
         app:layout_constraintBottom_toTopOf="@+id/bottom_sheet_close_tv">
 
-
         <TextView
-            android:id="@+id/bottom_sheet_complain_page_tv1"
+            android:id="@+id/bottom_sheet_complain_tv"
             android:layout_width="match_parent"
-            android:layout_height="45dp"
-            android:fontFamily="@font/noto_sans_kr_regular"
+            android:layout_height="48dp"
+            android:fontFamily="@font/noto_sans_kr_bold"
             android:includeFontPadding="false"
             android:gravity="center"
-            android:text="상업적 광고 / 스팸 게시물"
-            android:textColor="@color/white"
-            android:textSize="18sp"
-            android:background="@drawable/border_line_bottom"/>
+            android:text="신고하기"
+            android:textColor="@color/black"
+            android:textSize="16sp"
+            android:background="@drawable/border_line_top"/>
 
-        <TextView
-            android:id="@+id/bottom_sheet_complain_page_tv2"
-            android:layout_width="match_parent"
-            android:layout_height="45dp"
-            android:fontFamily="@font/noto_sans_kr_regular"
-            android:includeFontPadding="false"
-            android:gravity="center"
-            android:text="낚시 / 도배 게시물"
-            android:textColor="@color/white"
-            android:textSize="18sp"
-            android:background="@drawable/border_line_bottom"/>
-
-        <TextView
-            android:id="@+id/bottom_sheet_complain_page_tv3"
-            android:layout_width="match_parent"
-            android:layout_height="45dp"
-            android:fontFamily="@font/noto_sans_kr_regular"
-            android:includeFontPadding="false"
-            android:gravity="center"
-            android:text="개발과 무관한 게시물"
-            android:textColor="@color/white"
-            android:textSize="18sp"
-            android:background="@drawable/border_line_bottom"/>
-
-        <TextView
-            android:id="@+id/bottom_sheet_complain_page_tv4"
-            android:layout_width="match_parent"
-            android:layout_height="45dp"
-            android:fontFamily="@font/noto_sans_kr_regular"
-            android:includeFontPadding="false"
-            android:gravity="center"
-            android:text="욕설 / 비하를 포함한 게시물"
-            android:textColor="@color/white"
-            android:textSize="18sp"
-            android:background="@drawable/border_line_bottom"/>
-
-        <TextView
-            android:id="@+id/bottom_sheet_complain_page_tv5"
-            android:layout_width="match_parent"
-            android:layout_height="45dp"
-            android:fontFamily="@font/noto_sans_kr_regular"
-            android:includeFontPadding="false"
-            android:gravity="center"
-            android:text="기타 사유"
-            android:textColor="@color/white"
-            android:textSize="18sp"
-            android:background="@drawable/border_line_bottom"/>
 
     </LinearLayout>
 
     <TextView
         android:id="@+id/bottom_sheet_close_tv"
         android:layout_width="match_parent"
-        android:layout_height="45dp"
+        android:layout_height="48dp"
         android:gravity="center"
         android:text="닫기"
         android:textColor="@color/white"
-        android:textSize="18sp"
-        android:background="@drawable/border_round_white_darkmode_10"
+        android:textSize="16sp"
+        android:background="@drawable/border_round_transparent_close_10"
         android:fontFamily="@font/noto_sans_kr_bold"
         android:includeFontPadding="false"
         android:layout_marginStart="30dp"
         android:layout_marginEnd="30dp"
+        android:layout_marginBottom="6dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintBottom_toBottomOf="parent" />

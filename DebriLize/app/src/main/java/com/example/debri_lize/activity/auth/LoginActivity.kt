@@ -4,21 +4,25 @@ import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.MotionEvent
+import android.view.PixelCopy.request
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import com.example.debri_lize.R
-import com.example.debri_lize.activity.AddCurriculumActivity
-import com.example.debri_lize.data.UserLogin
-import com.example.debri_lize.data.response.Result
-import com.example.debri_lize.data.service.AuthService
-import com.example.debri_lize.data.view.LoginView
+import com.example.debri_lize.activity.MainActivity
+import com.example.debri_lize.data.auth.UserLogin
+import com.example.debri_lize.response.Result
+import com.example.debri_lize.service.AuthService
+import com.example.debri_lize.view.auth.LoginView
 import com.example.debri_lize.databinding.ActivityLoginBinding
-import com.example.debri_lize.utils.saveJwt
-import com.example.debri_lize.utils.saveUserIdx
+import com.example.debri_lize.response.Token
+import com.example.debri_lize.service.TokenService
+import com.example.debri_lize.utils.*
+import com.example.debri_lize.view.auth.TokenView
+import okhttp3.Interceptor
 
-public class LoginActivity:AppCompatActivity(), LoginView {
+public class LoginActivity:AppCompatActivity(), LoginView, TokenView {
     lateinit var binding: ActivityLoginBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -64,39 +68,51 @@ public class LoginActivity:AppCompatActivity(), LoginView {
         //만든 API 호출
         authService.login(UserLogin(email, pwd))
 
-        //user가 null일 경우
-        //Toast.makeText(this, "회원 정보가 존재하지 않습니다.", Toast.LENGTH_SHORT).show()
 
     }
 
     override fun onLoginSuccess(code:Int, result: Result?) {
-
         when(code){
-            //개발할 때는 userIdx 저장이 필요할수도
             200-> {
 
                 saveJwt(result!!.jwt)
                 saveUserIdx(result!!.userIdx)
+                saveUserName(result!!.userName)
+                saveRefreshToken(result!!.refreshToken)
                 Log.d("save", "success")
-                startActivity(Intent(this, AddCurriculumActivity::class.java))
+
+                //startActivity(Intent(this, AddCurriculumActivity::class.java))
+                //test
+                startActivity(Intent(this, MainActivity::class.java))
             }
         }
     }
 
     override fun onLoginFailure(code:Int, message: String) {
         when(code){
-            3020->{ //이메일을 입력해주세요
-                }
-            3021->{ //비밀번호를 입력해주세요
+            5001->{
+                val tokenService = TokenService()
+                tokenService.setTokenView(this)
 
+                //만든 API 호출
+                tokenService.token(getRefreshToken()!!)
             }
-            3022->{ //이메일 형식을 확인해주세요
+        }
+    }
 
-            }
-            4010->{ //없는 아이디거나 비밀버호가 틀렸습니다
+    //token
+    override fun onTokenSuccess(code: Int, result: Token?) {
+        when(code){
+            200->{
+                saveJwt(result!!.accessToken)
+                saveRefreshToken(result!!.refreshToken)
 
             }
         }
+    }
+
+    override fun onTokenFailure(code: Int) {
+
     }
 
     //focus effect
@@ -233,4 +249,6 @@ public class LoginActivity:AppCompatActivity(), LoginView {
             }
         })
     }
+
+
 }

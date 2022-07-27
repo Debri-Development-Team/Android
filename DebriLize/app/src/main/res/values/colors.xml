@@ -12,11 +12,13 @@
 <!--    DEBRI-->
     <color name="debri">#66CC66</color>
     <color name="darkmode_background">#0A1123</color>
+    <color name="close">#212632</color>
     <color name="gray">#D9D9D9</color>
     <color name="darkgray">#6C6C6C</color>
     <color name="c">#7F8B99</color>
     <color name="java">#F0DB4F</color>
     <color name="python">#4B8BBE</color>
     <color name="cocomment">#202E51</color>
+    <color name="bottom_sheet">#8B95A1</color>
     <color name="red">#FF0000</color>
 </resources>

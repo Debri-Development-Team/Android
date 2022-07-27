@@ -30,17 +30,45 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/item_post_title"
-                android:layout_width="260dp"
+            <LinearLayout
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="여기서 오류 고치는 법"
-                android:fontFamily="@font/noto_sans_kr_regular"
-                android:includeFontPadding="false"
-                android:textColor="@color/white"
-                android:textSize="18sp"
-                android:maxLines="1"
-                android:ellipsize="end"/>
+                android:id="@+id/post_detail_title_cnt_layout"
+                android:orientation="horizontal"
+                android:gravity="center_vertical">
+
+                <TextView
+                    android:id="@+id/item_post_title"
+                    android:layout_width="260dp"
+                    android:layout_height="wrap_content"
+                    android:text="여기서 오류 고치는 법"
+                    android:fontFamily="@font/noto_sans_kr_regular"
+                    android:includeFontPadding="false"
+                    android:textColor="@color/white"
+                    android:textSize="18sp"
+                    android:maxLines="1"
+                    android:ellipsize="end"/>
+
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_weight="1" />
+
+                <TextView
+                    android:id="@+id/item_post_count_comment_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="(1)"
+                    android:fontFamily="@font/noto_sans_kr_black"
+                    android:textStyle="bold"
+                    android:includeFontPadding="false"
+                    android:textColor="@color/debri"
+                    android:textSize="20sp"
+                    android:gravity="center|right"
+                    android:layout_marginEnd="5dp"/>
+
+            </LinearLayout>
+
             <TextView
                 android:id="@+id/item_post_time_tv"
                 android:layout_width="wrap_content"
@@ -53,23 +81,6 @@
 
         </LinearLayout>
 
-        <View
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:layout_weight="1" />
-
-        <TextView
-            android:id="@+id/item_post_count_comment_tv"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="(1)"
-            android:fontFamily="@font/noto_sans_kr_black"
-            android:textStyle="bold"
-            android:includeFontPadding="false"
-            android:textColor="@color/debri"
-            android:textSize="20sp"
-            android:gravity="center|right"
-            android:layout_marginEnd="5dp"/>
 
     </LinearLayout>
 

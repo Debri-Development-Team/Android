@@ -1,6 +1,5 @@
 package com.example.debri_lize.activity.auth
 
-import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.View
@@ -8,16 +7,12 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import com.example.debri_lize.R
-import com.example.debri_lize.activity.AddCurriculumActivity
-import com.example.debri_lize.data.UserSignup
-import com.example.debri_lize.data.service.AuthService
-import com.example.debri_lize.data.view.SignUpView
+import com.example.debri_lize.data.auth.UserSignup
+import com.example.debri_lize.service.AuthService
+import com.example.debri_lize.view.auth.SignUpView
 import com.example.debri_lize.databinding.ActivitySignupBinding
 import java.util.regex.Matcher
 import java.util.regex.Pattern
-import com.example.debri_lize.data.response.Result
-import com.example.debri_lize.utils.saveJwt
-import com.example.debri_lize.utils.saveUserIdx
 
 class SignUpActivity:AppCompatActivity(), SignUpView {
     lateinit var binding: ActivitySignupBinding
@@ -39,13 +34,17 @@ class SignUpActivity:AppCompatActivity(), SignUpView {
         //가입완료 버튼을 누르면 회원가입 끝
         binding.signUpSignUpBtn.setOnClickListener{
             signUp()
-
-            //finish()
         }
 
+        binding.signUpBackLayout.setOnClickListener{
+            finish()
+        }
 
-        setFocus() //focus effect
-        onClick() //약관 클릭
+        //focus effect
+        setFocus()
+
+        //약관 클릭
+        onClick()
 
     }
 
@@ -182,7 +181,6 @@ class SignUpActivity:AppCompatActivity(), SignUpView {
             //개발할 때는 userIdx 저장이 필요할수도
             3020, 3021, 3022, 3023, 3024, 3025, 3026, 3027, 1000-> {
                 Toast.makeText(this, "message", Toast.LENGTH_SHORT).show()
-                finish()
             }
         }
 
