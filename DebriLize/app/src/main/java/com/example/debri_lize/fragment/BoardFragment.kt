@@ -1,6 +1,8 @@
 package com.example.debri_lize.fragment
 
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -19,6 +21,8 @@ class BoardFragment : Fragment() {
     lateinit var boardRVAdapter: BoardRVAdapter
     val datas_f = ArrayList<Board>()
     val datas = ArrayList<Board>()
+    private val filteredData = ArrayList<Board>() //검색했을 때 나타낼 데이터
+    private val filteredFavoriteData = ArrayList<Board>()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -33,6 +37,60 @@ class BoardFragment : Fragment() {
         super.onStart()
         initBoardFavoriteRecycler()
         initBoardRecycler()
+
+        //검색어 입력
+        binding.boardSearchEt.addTextChangedListener(object : TextWatcher {
+            //입력이 끝날 때
+            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+
+            }
+
+            //입력하기 전에
+            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+
+            }
+
+            //타이핑되는 텍스트에 변화가 있을 때
+            override fun afterTextChanged(p0: Editable?) {
+                val searchText: String = binding.boardSearchEt.text.toString()
+                //Log.d("editText","$searchText")
+                searchFilter(searchText)
+
+                //검색어 입력시에 즐겨찾기 게시판에서 필터하는 기능인데 오류로 일단 주석처리
+                //searchFavoriteFilter(searchText)
+            }
+
+        })
+    }
+
+    //검색어가 포함된 타이틀을 filteredData에 넣기
+    private fun searchFilter(searchText: String) {
+        filteredData.clear()
+
+        for (i in 0 until datas.size) {
+            //title1, title2 필터 / 공백 제거 안함
+            if (datas[i].title1!!.lowercase().contains(searchText.lowercase())
+                || datas[i].title2!!.lowercase().contains(searchText.lowercase())) {
+                filteredData.add(datas[i])
+            }
+        }
+
+        boardRVAdapter.filterList(filteredData)
+    }
+
+    //검색어가 포함된 타이틀을 filteredData에 넣기
+    private fun searchFavoriteFilter(searchText: String) {
+        filteredFavoriteData.clear()
+
+        for (i in 0 until datas.size) {
+            //title1, title2 필터 / 공백 제거 안함
+            if (datas[i].title1!!.lowercase().contains(searchText.lowercase())
+                || datas[i].title2!!.lowercase().contains(searchText.lowercase())) {
+                filteredFavoriteData.add(datas[i])
+            }
+        }
+
+        boardfavoriteRVAdapter.filterList(filteredFavoriteData)
     }
 
 

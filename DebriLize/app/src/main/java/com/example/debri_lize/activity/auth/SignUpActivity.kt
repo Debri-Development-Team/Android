@@ -13,12 +13,23 @@ import com.example.debri_lize.data.UserSignup
 import com.example.debri_lize.data.service.AuthService
 import com.example.debri_lize.data.view.SignUpView
 import com.example.debri_lize.databinding.ActivitySignupBinding
+import java.util.regex.Matcher
+import java.util.regex.Pattern
 import com.example.debri_lize.data.response.Result
 import com.example.debri_lize.utils.saveJwt
 import com.example.debri_lize.utils.saveUserIdx
 
 class SignUpActivity:AppCompatActivity(), SignUpView {
     lateinit var binding: ActivitySignupBinding
+    private var agree1TF: Boolean = false
+    private var agree2TF: Boolean = false
+    private var agree3TF: Boolean = false
+    private var idTF : Boolean = true
+    private var pwTF : Boolean = true
+    private var pwCkTF : Boolean = true
+    private var birthTF : Boolean = true
+    private var nicknameTF : Boolean = true
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -28,11 +39,13 @@ class SignUpActivity:AppCompatActivity(), SignUpView {
         //가입완료 버튼을 누르면 회원가입 끝
         binding.signUpSignUpBtn.setOnClickListener{
             signUp()
-            finish()
+
+            //finish()
         }
 
-        setFocus() //focus effect
 
+        setFocus() //focus effect
+        onClick() //약관 클릭
 
     }
 
@@ -51,30 +64,64 @@ class SignUpActivity:AppCompatActivity(), SignUpView {
 
     //회원가입 진행(서버이용)
     private fun signUp(){
+        val id : String = binding.signUpIdEt.text.toString().trim()
+        val password : String = binding.signUpPasswordEt.text.toString().trim()
+        val password2 : String = binding.signUpPasswordCheckEt.text.toString().trim()
+        var nickname : String = binding.signUpNicknameEt.text.toString().trim()
+        val birthday : String = binding.signUpBirthEt.text.toString().trim()
+
         //이메일 형식이 잘못된 경우
-        if(binding.signUpIdEt.text.toString().isEmpty()){
+        if(isEmail(id)){
+            idTF = true
+        }else{
+            Log.d("id","$id")
             Toast.makeText(this, "아이디 형식이 잘못되었습니다.", Toast.LENGTH_SHORT).show()
-            return
+            idTF = false
+
+            //return
         }
 
-        //비밀번호와 비밀번호 확인이 일치하지 않는 경우
-        if(binding.signUpPasswordEt.text.toString().isEmpty() != binding.signUpPasswordCheckEt.text.toString().isEmpty()){
+
+        //비밀번호와 비밀번호 확인이 일치하지 않는 경우 && 공백인 경우
+        if(password == password2 && password.isNotBlank() && password2.isNotBlank()){
+            pwTF = true
+            pwCkTF = true
+        }else{
             Toast.makeText(this, "비밀번호가 일치하지 않습니다.", Toast.LENGTH_SHORT).show()
-            return
+            Log.d("pw","$password")
+            pwTF = false
+            pwCkTF = false
+
+            //return
         }
 
         //닉네임 형식이 맞지 않는 경우
-        if(binding.signUpNicknameEt.text.toString().isEmpty()){
+        if(nickname.isEmpty()){
             Toast.makeText(this, "닉네임 형식이 잘못되었습니다.", Toast.LENGTH_SHORT).show()
-            return
-        }
+            nicknameTF = false
+
+            //return
+        }else nicknameTF = true
 
         //생일 형식이 맞지 않는 경우
-        if(binding.signUpBirthEt.text.toString().isEmpty()){
+        if(birthday.isEmpty()){
             Toast.makeText(this, "생일 형식이 잘못되었습니다.", Toast.LENGTH_SHORT).show()
+            birthTF = false
+
+            //return
+        }else birthTF = true
+
+        inputFormatCheck()
+
+        //시작하기 버튼 클릭 효과
+        if(idTF && pwTF && pwCkTF && birthTF && nicknameTF){
+            binding.signUpSignUpBtn.setTextColor(ContextCompat.getColor(this@SignUpActivity, R.color.white))
+            binding.signUpSignUpBtn.setBackgroundResource(R.drawable.border_round_debri_transparent_6)
+        }else{
+            binding.signUpSignUpBtn.setTextColor(ContextCompat.getColor(this@SignUpActivity, R.color.red))
+            binding.signUpSignUpBtn.setBackgroundResource(R.drawable.border_round_red_transparent_6)
             return
         }
-
 
         val authService = AuthService()
         authService.setSignUpView(this)
@@ -83,6 +130,40 @@ class SignUpActivity:AppCompatActivity(), SignUpView {
         authService.signUp(getUser())
 
     }
+
+
+    //입력 형식 틀렸을 때 효과
+    private fun inputFormatCheck(){
+        if(!idTF){
+            binding.signUpIdLayout.setBackgroundResource(R.drawable.border_round_red_transparent_10)
+            binding.signUpIdBarV.setBackgroundResource(R.drawable.vertical_line_red_2)
+            binding.signUpIdTv.setTextColor(ContextCompat.getColor(this@SignUpActivity, R.color.red))
+        }
+        if(!pwTF || !pwCkTF){
+            binding.signUpPasswordLayout.setBackgroundResource(R.drawable.border_round_red_transparent_10)
+            binding.signUpPasswordBarV.setBackgroundResource(R.drawable.vertical_line_red_2)
+            binding.signUpPasswordTv.setTextColor(ContextCompat.getColor(this@SignUpActivity, R.color.red))
+
+            binding.signUpPasswordCheckLayout.setBackgroundResource(R.drawable.border_round_red_transparent_10)
+            binding.signUpPasswordCheckBarV.setBackgroundResource(R.drawable.vertical_line_red_2)
+            binding.signUpPasswordCheckTv.setTextColor(ContextCompat.getColor(this@SignUpActivity, R.color.red))
+        }
+        if(!nicknameTF){
+            binding.signUpNicknameLayout.setBackgroundResource(R.drawable.border_round_red_transparent_10)
+            binding.signUpNicknameBarV.setBackgroundResource(R.drawable.vertical_line_red_2)
+            binding.signUpNicknameTv.setTextColor(ContextCompat.getColor(this@SignUpActivity, R.color.red))
+        }
+        if(!birthTF){
+            binding.signUpBirthLayout.setBackgroundResource(R.drawable.border_round_red_transparent_10)
+            binding.signUpBirthBarV.setBackgroundResource(R.drawable.vertical_line_red_2)
+            binding.signUpBirthTv.setTextColor(ContextCompat.getColor(this@SignUpActivity, R.color.red))
+        }
+        if(!agree2TF){
+            binding.signUpAgree2Layout.setBackgroundResource(R.drawable.border_round_red_gray_6)
+        }
+    }
+
+    
 
     override fun onSignUpSuccess(code : Int) {
         when(code){
@@ -95,6 +176,7 @@ class SignUpActivity:AppCompatActivity(), SignUpView {
 
     }
 
+
     override fun onSignUpFailure(code : Int) {
         when(code){
             //개발할 때는 userIdx 저장이 필요할수도
@@ -103,6 +185,111 @@ class SignUpActivity:AppCompatActivity(), SignUpView {
                 finish()
             }
         }
+
+    }
+
+
+    
+
+    //입력이 이메일 형식인지 확인
+    fun isEmail(email: String?): Boolean {
+        var returnValue = false
+        val regex = "^[_a-zA-Z0-9-\\.]+@[\\.a-zA-Z0-9-]+\\.[a-zA-Z]+$"
+        val p: Pattern = Pattern.compile(regex)
+        val m: Matcher = p.matcher(email)
+        if (m.matches()) {
+            returnValue = true
+        }
+        return returnValue
+    }
+
+    //약관 클릭
+    private fun onClick(){
+        //전체 동의
+        binding.signUpAgree1Layout.setOnClickListener {
+            if(!agree1TF){
+                binding.signUpBox1OnIv.visibility = View.VISIBLE
+                binding.signUpBox2OnIv.visibility = View.VISIBLE
+                binding.signUpBox3OnIv.visibility = View.VISIBLE
+                agree1TF = true
+                agree2TF = true
+                agree3TF = true
+            }else{
+                binding.signUpBox1OnIv.visibility = View.GONE
+                binding.signUpBox2OnIv.visibility = View.GONE
+                binding.signUpBox3OnIv.visibility = View.GONE
+                agree1TF = false
+                agree2TF = false
+                agree3TF = false
+            }
+            clickBackgroundChange()
+        }
+
+        //개인정보 약관(필수)
+        binding.signUpAgree2Layout.setOnClickListener {
+            if(!agree2TF){
+                binding.signUpBox2OnIv.visibility = View.VISIBLE
+                agree2TF = true
+                if(agree3TF) {
+                    agree1TF = true
+                    binding.signUpBox1OnIv.visibility = View.VISIBLE
+                }
+            }else{
+                binding.signUpBox1OnIv.visibility = View.GONE
+                binding.signUpBox2OnIv.visibility = View.GONE
+                agree1TF = false
+                agree2TF = false
+            }
+            clickBackgroundChange()
+        }
+
+        //홍보 약관(선택)
+        binding.signUpAgree3Layout.setOnClickListener {
+            if(!agree3TF){
+                binding.signUpBox3OnIv.visibility = View.VISIBLE
+                agree3TF = true
+                if(agree2TF) {
+                    agree1TF = true
+                    binding.signUpBox1OnIv.visibility = View.VISIBLE
+                }
+            }else{
+                binding.signUpBox1OnIv.visibility = View.GONE
+                binding.signUpBox3OnIv.visibility = View.GONE
+                agree1TF = false
+                agree3TF = false
+            }
+            clickBackgroundChange()
+        }
+
+    }
+
+    //약관 클릭
+    private fun clickBackgroundChange(){
+        //click agree1
+        if(agree1TF){
+            binding.signUpAgree1Layout.setBackgroundResource(R.drawable.border_round_debri_gray_6)
+            binding.signUpAgree2Layout.setBackgroundResource(R.drawable.border_round_debri_gray_6)
+            binding.signUpAgree3Layout.setBackgroundResource(R.drawable.border_round_debri_gray_6)
+        }else{
+            binding.signUpAgree1Layout.setBackgroundResource(R.drawable.border_round_transparent_gray_6)
+            binding.signUpAgree2Layout.setBackgroundResource(R.drawable.border_round_transparent_gray_6)
+            binding.signUpAgree3Layout.setBackgroundResource(R.drawable.border_round_transparent_gray_6)
+        }
+
+        //click agree2
+        if(agree2TF){
+            binding.signUpAgree2Layout.setBackgroundResource(R.drawable.border_round_debri_gray_6)
+        }else{
+            binding.signUpAgree2Layout.setBackgroundResource(R.drawable.border_round_transparent_gray_6)
+        }
+
+        //click agree3
+        if(agree3TF){
+            binding.signUpAgree3Layout.setBackgroundResource(R.drawable.border_round_debri_gray_6)
+        }else{
+            binding.signUpAgree3Layout.setBackgroundResource(R.drawable.border_round_transparent_gray_6)
+        }
+
     }
 
     //focus effect
@@ -191,6 +378,8 @@ class SignUpActivity:AppCompatActivity(), SignUpView {
                 }
             }
         })
+
+
 
     }
 }
