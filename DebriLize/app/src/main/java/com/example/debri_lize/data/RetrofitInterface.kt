@@ -4,6 +4,7 @@ import com.example.debri_lize.data.auth.UserLogin
 import com.example.debri_lize.data.auth.UserSignup
 import com.example.debri_lize.data.post.Cocomment
 import com.example.debri_lize.data.post.Comment
+import com.example.debri_lize.data.post.EditPost
 import com.example.debri_lize.data.post.Post
 import com.example.debri_lize.response.*
 import retrofit2.Call
@@ -34,6 +35,14 @@ interface RetrofitInterface {
     //게시물 작성
     @POST("api/post/create")
     fun createPost(@Body post: Post, @Header("ACCESS-TOKEN") authToken: String): Call<PostResponse>
+
+    //게시물 수정하기
+    @PATCH("api/post/{postIdx}")
+    fun editPost(@Body editPost : EditPost, @Path("postIdx") postIdx: Int, @Header("ACCESS-TOKEN") authToken: String) : Call<DeletePostResponse>
+
+    //게시물 삭제
+    @PATCH("api/post/{postIdx}/status")
+    fun deletePost(@Path("postIdx") postIdx: Int, @Header("ACCESS-TOKEN") authToken: String) : Call<DeletePostResponse>
 
     //[전체 게시판] 게시물 조회
     @POST("api/post/getSearchList")

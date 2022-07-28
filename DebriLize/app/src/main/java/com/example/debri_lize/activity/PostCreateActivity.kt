@@ -16,9 +16,13 @@ import com.example.debri_lize.view.post.PostCreateView
 import com.example.debri_lize.databinding.ActivityPostCreateBinding
 import com.example.debri_lize.utils.getUserIdx
 import com.example.debri_lize.SpinnerAdapter
+import com.example.debri_lize.data.post.EditPost
+import com.example.debri_lize.data.post.PostDetail
+import com.example.debri_lize.view.post.EditPostView
+import kotlin.properties.Delegates
 
 
-class PostCreateActivity : AppCompatActivity(), PostCreateView { //, CoroutineScope by MainScope()
+class PostCreateActivity : AppCompatActivity(), PostCreateView, EditPostView {
 
     lateinit var binding : ActivityPostCreateBinding
 
@@ -26,10 +30,18 @@ class PostCreateActivity : AppCompatActivity(), PostCreateView { //, CoroutineSc
     private lateinit var spinnerAdapterYear: SpinnerAdapter
     private val listOfYear = ArrayList<SpinnerModel>()
 
+    //api
+    lateinit var postDetail : PostDetail
+
+    var boardIdx by Delegates.notNull<Int>()
+    var edit by Delegates.notNull<Boolean>() //edit or write 구분
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityPostCreateBinding.inflate(layoutInflater) //binding 초기화
         setContentView(binding.root)
+
+        binding.writeBtn.text = "작성하기"
 
         //spinner : boardList
         binding.writeOptionMenuLayout.setOnClickListener{
@@ -44,6 +56,25 @@ class PostCreateActivity : AppCompatActivity(), PostCreateView { //, CoroutineSc
         //게시글 글자수 count
         countLetter()
 
+        //edit 초기화
+        edit = true
+
+        //PostFragment에서 boardIdx받기 (write)
+        val intent = intent //전달할 데이터를 받을 Intent
+        boardIdx = intent.getIntExtra("boardIdx", 0)
+        edit = intent.getBooleanExtra("edit", true)
+
+        //PostDetailAcitivy : edit -> data받아오기 (edit)
+        if(edit==true){
+            val intent = intent //전달할 데이터를 받을 Intent
+            postDetail = intent.getSerializableExtra("postDetail") as PostDetail
+            if(postDetail!=null){
+                binding.writeTitleEt.text = Editable.Factory.getInstance().newEditable(postDetail.postName)
+                binding.writeContentEt.text = Editable.Factory.getInstance().newEditable(postDetail.postContents)
+                binding.writeBtn.text = "수정하기"
+            }
+        }
+
         // 실행
         binding.writeBtn.setOnClickListener{
             //글 작성 다이얼로그
@@ -53,7 +84,13 @@ class PostCreateActivity : AppCompatActivity(), PostCreateView { //, CoroutineSc
             //작성 ok 버튼 클릭시
             dialog.setOnClickListener(object:CustomDialog.ButtonClickListener{
                 override fun onClicked(TF: Boolean) {
-                    createPost()
+
+                    if(binding.writeBtn.text == "작성하기"){
+                        createPost()
+                    }else{
+                        editPost()
+                    }
+
                     finish()
                 }
 
@@ -134,18 +171,25 @@ class PostCreateActivity : AppCompatActivity(), PostCreateView { //, CoroutineSc
         var postName : String = binding.writeTitleEt.text.toString()
 
         return Post(boardIdx, userIdx, postContent, postName)
+
+    }
+
+    private fun getEditPost() : EditPost{
+        val userIdx = getUserIdx() //변경필요
+        val postContent : String = binding.writeContentEt.text.toString()
+        return EditPost(userIdx, postContent)
     }
 
 
     private fun createPost(){
-        //이메일 형식이 잘못된 경우
+        //제목이 null인 경우
         if(binding.writeTitleEt.text.toString().isEmpty()){
             Toast.makeText(this, "제목을 입력해주세요", Toast.LENGTH_SHORT).show()
             return
         }
 
 
-        //닉네임 형식이 맞지 않는 경우
+        //내용이 null인 경우
         if(binding.writeContentEt.text.toString().isEmpty()){
             Toast.makeText(this, "내용을 입력해주세요", Toast.LENGTH_SHORT).show()
             return
@@ -156,6 +200,28 @@ class PostCreateActivity : AppCompatActivity(), PostCreateView { //, CoroutineSc
 
         //만든 API 호출
         postService.createPost(getPost())
+
+    }
+
+    private fun editPost(){
+        //제목이 null인 경우
+        if(binding.writeTitleEt.text.toString().isEmpty()){
+            Toast.makeText(this, "제목을 입력해주세요", Toast.LENGTH_SHORT).show()
+            return
+        }
+
+
+        //내용이 null인 경우
+        if(binding.writeContentEt.text.toString().isEmpty()){
+            Toast.makeText(this, "내용을 입력해주세요", Toast.LENGTH_SHORT).show()
+            return
+        }
+
+        val postService = PostService()
+        postService.setEditPostView(this)
+
+        //만든 API 호출
+        postService.editPost(getEditPost(), postDetail.postIdx)
 
     }
 
@@ -179,7 +245,17 @@ class PostCreateActivity : AppCompatActivity(), PostCreateView { //, CoroutineSc
         }
     }
 
+    override fun onEditPostSuccess(code: Int) {
+        when(code){
+            200-> {
 
+            }
+        }
+    }
+
+    override fun onEditPostFailure(code: Int) {
+
+    }
 
 
 }
