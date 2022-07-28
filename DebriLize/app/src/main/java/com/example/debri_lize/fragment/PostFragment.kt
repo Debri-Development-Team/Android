@@ -110,6 +110,8 @@ class PostFragment : Fragment(), EachPostListView {
                 postRVAdapter = PostRVAdapter()
                 binding.postListRv.adapter = postRVAdapter
 
+                datas.clear()
+
                 //data
                 datas.apply {
 

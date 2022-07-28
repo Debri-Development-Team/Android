@@ -33,6 +33,8 @@ class PostListActivity : AppCompatActivity(), PostListView {
     override fun onStart() {
         super.onStart()
 
+
+
         //fragment to fragment
         binding.postListPreviousIv.setOnClickListener{
             finish()

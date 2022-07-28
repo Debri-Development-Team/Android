@@ -25,27 +25,27 @@ interface RetrofitInterface {
 
     //전체 게시판 보여주기
     @GET("api/board/unscrap/getList")
-    fun showBoardList() : Call<BoardResponse>
+    fun showBoardList(@Header("ACCESS-TOKEN") authToken: String) : Call<BoardResponse>
 
     //즐겨찾기 게시판 보여주기
     @GET("api/board/scrap/getList")
-    fun showScrapBoardList() : Call<BoardResponse>
+    fun showScrapBoardList(@Header("ACCESS-TOKEN") authToken: String) : Call<BoardResponse>
 
     //게시물 작성
     @POST("api/post/create")
-    fun createPost(@Body post: Post): Call<PostResponse>
+    fun createPost(@Body post: Post, @Header("ACCESS-TOKEN") authToken: String): Call<PostResponse>
 
     //[전체 게시판] 게시물 조회
     @POST("api/post/getSearchList")
-    fun showPostList(@Body keyword: String) : Call<PostResponse>
+    fun showPostList(@Body keyword: String, @Header("ACCESS-TOKEN") authToken: String) : Call<PostResponse>
 
     //[특정 게시판] 게시물 조회
     @GET("api/post/getList/{boardIdx}")
-    fun showEachPostList(@Path("boardIdx") boardIdx: Int) : Call<PostResponse>
+    fun showEachPostList(@Path("boardIdx") boardIdx: Int, @Header("ACCESS-TOKEN") authToken: String) : Call<PostResponse>
 
     //게시물 상세 조회
     @GET("api/post/get/{postIdx}")
-    fun showPostDetail(@Path("postIdx") postIdx: Int) : Call<PostDetailResponse>
+    fun showPostDetail(@Path("postIdx") postIdx: Int, @Header("ACCESS-TOKEN") authToken: String) : Call<PostDetailResponse>
 
     //댓글 작성
     @POST("api/comment/replyOnPost/create")

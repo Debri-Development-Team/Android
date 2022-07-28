@@ -1,5 +1,6 @@
 package com.example.debri_lize.utils
 
+import android.util.Log
 import com.example.debri_lize.utils.ApplicationClass.Companion.X_ACCESS_TOKEN
 import com.example.debri_lize.utils.getJwt
 import okhttp3.Interceptor

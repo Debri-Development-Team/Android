@@ -4,6 +4,7 @@ import android.util.Log
 import com.example.debri_lize.data.RetrofitInterface
 import com.example.debri_lize.fragment.BoardFragment
 import com.example.debri_lize.response.BoardResponse
+import com.example.debri_lize.utils.getJwt
 import com.example.debri_lize.utils.getRetrofit
 import com.example.debri_lize.view.board.BoardListView
 import com.example.debri_lize.view.board.ScrapBoardListView
@@ -28,7 +29,7 @@ class BoardService {
     fun showBoardList(){
         Log.d("boardList", "enter")
         val boardService = getRetrofit().create(RetrofitInterface::class.java)
-        boardService.showBoardList().enqueue(object: Callback<BoardResponse> {
+        boardService.showBoardList(getJwt()!!).enqueue(object: Callback<BoardResponse> {
             //응답이 왔을 때 처리
             override fun onResponse(call: Call<BoardResponse>, response: Response<BoardResponse>) {
                 Log.d("boardList", "response")
@@ -53,7 +54,7 @@ class BoardService {
     fun showScrapBoardList(){
         Log.d("scrapBoardList", "enter")
         val boardService = getRetrofit().create(RetrofitInterface::class.java)
-        boardService.showScrapBoardList().enqueue(object: Callback<BoardResponse> {
+        boardService.showScrapBoardList(getJwt()!!).enqueue(object: Callback<BoardResponse> {
             //응답이 왔을 때 처리
             override fun onResponse(call: Call<BoardResponse>, response: Response<BoardResponse>) {
                 Log.d("scrapBoardList", "response")

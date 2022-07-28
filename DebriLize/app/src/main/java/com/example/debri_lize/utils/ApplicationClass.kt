@@ -3,11 +3,11 @@ package com.example.debri_lize.utils
 import android.app.Application
 import android.content.Context
 import android.content.SharedPreferences
-import android.util.Log
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import java.util.concurrent.TimeUnit
+
 
 class ApplicationClass : Application() {
     companion object{
@@ -25,7 +25,6 @@ class ApplicationClass : Application() {
 
     override fun onCreate() {
 
-
         val client: OkHttpClient = OkHttpClient.Builder()
             .readTimeout(30000, TimeUnit.MILLISECONDS)
             .connectTimeout(30000, TimeUnit.MILLISECONDS)
@@ -41,6 +40,7 @@ class ApplicationClass : Application() {
 
         //sharedPreference
         mSharedPreferences = applicationContext.getSharedPreferences(TAG, Context.MODE_PRIVATE)
+
 
         super.onCreate()
     }

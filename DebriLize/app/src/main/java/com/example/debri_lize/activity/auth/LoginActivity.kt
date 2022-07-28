@@ -4,7 +4,6 @@ import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.MotionEvent
-import android.view.PixelCopy.request
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -12,15 +11,15 @@ import androidx.core.content.ContextCompat
 import com.example.debri_lize.R
 import com.example.debri_lize.activity.MainActivity
 import com.example.debri_lize.data.auth.UserLogin
-import com.example.debri_lize.response.Result
-import com.example.debri_lize.service.AuthService
-import com.example.debri_lize.view.auth.LoginView
 import com.example.debri_lize.databinding.ActivityLoginBinding
+import com.example.debri_lize.response.Result
 import com.example.debri_lize.response.Token
+import com.example.debri_lize.service.AuthService
 import com.example.debri_lize.service.TokenService
 import com.example.debri_lize.utils.*
+import com.example.debri_lize.view.auth.LoginView
 import com.example.debri_lize.view.auth.TokenView
-import okhttp3.Interceptor
+
 
 public class LoginActivity:AppCompatActivity(), LoginView, TokenView {
     lateinit var binding: ActivityLoginBinding
@@ -42,6 +41,7 @@ public class LoginActivity:AppCompatActivity(), LoginView, TokenView {
         binding.loginBtn.setOnClickListener{
             login()
         }
+
     }
 
     private fun login(){
@@ -79,7 +79,8 @@ public class LoginActivity:AppCompatActivity(), LoginView, TokenView {
                 saveUserIdx(result!!.userIdx)
                 saveUserName(result!!.userName)
                 saveRefreshToken(result!!.refreshToken)
-                Log.d("save", "success")
+                Log.d("jwt", getJwt().toString())
+                Log.d("jwt", getUserName().toString())
 
                 //startActivity(Intent(this, AddCurriculumActivity::class.java))
                 //test
