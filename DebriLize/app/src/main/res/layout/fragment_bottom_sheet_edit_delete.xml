@@ -38,7 +38,7 @@
             android:textSize="12sp" />
 
         <TextView
-            android:id="@+id/bottom_sheet_edit_delete_page_tv1"
+            android:id="@+id/bottom_sheet_edit_tv"
             android:layout_width="match_parent"
             android:layout_height="48dp"
             android:fontFamily="@font/noto_sans_kr_bold"
@@ -50,7 +50,7 @@
             android:background="@drawable/border_line_top"/>
 
         <TextView
-            android:id="@+id/bottom_sheet_edit_delete_page_tv2"
+            android:id="@+id/bottom_sheet_delete_tv"
             android:layout_width="match_parent"
             android:layout_height="48dp"
             android:fontFamily="@font/noto_sans_kr_bold"

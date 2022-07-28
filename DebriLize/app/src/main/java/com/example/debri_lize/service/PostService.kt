@@ -3,20 +3,22 @@ package com.example.debri_lize.service
 import android.util.Log
 import com.example.debri_lize.data.post.Post
 import com.example.debri_lize.data.RetrofitInterface
+import com.example.debri_lize.data.post.EditPost
+import com.example.debri_lize.response.DeletePostResponse
 import com.example.debri_lize.response.PostDetailResponse
 import com.example.debri_lize.response.PostResponse
 import com.example.debri_lize.utils.getJwt
-import com.example.debri_lize.view.post.EachPostListView
-import com.example.debri_lize.view.post.PostCreateView
-import com.example.debri_lize.view.post.PostDetailView
 import com.example.debri_lize.utils.getRetrofit
-import com.example.debri_lize.view.post.PostListView
+import com.example.debri_lize.view.post.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
 class PostService {
     private lateinit var postCreateView: PostCreateView
+    private lateinit var editPostView: EditPostView
+    private lateinit var deletePostView: DeletePostView
+
     private lateinit var postListView: PostListView
     private lateinit var eachPostListView: EachPostListView
     private lateinit var postDetailtView: PostDetailView
@@ -24,6 +26,14 @@ class PostService {
 
     fun setPostCreateView(postCreateView: PostCreateView){
         this.postCreateView = postCreateView
+    }
+
+    fun setEditPostView(editPostView: EditPostView){
+        this.editPostView = editPostView
+    }
+
+    fun setDeletePostView(deletePostView: DeletePostView){
+        this.deletePostView = deletePostView
     }
 
     fun setPostListView(postListView: PostListView){
@@ -59,6 +69,52 @@ class PostService {
             //실패했을 때 처리
             override fun onFailure(call: Call<PostResponse>, t: Throwable) {
 
+            }
+
+        })
+    }
+
+    fun editPost(editPost: EditPost, postIdx : Int){
+        Log.d("editPost", "enter")
+        val postService = getRetrofit().create(RetrofitInterface::class.java)
+        postService.editPost(editPost, postIdx, getJwt()!!).enqueue(object: Callback<DeletePostResponse> {
+            //응답이 왔을 때 처리
+            override fun onResponse(call: Call<DeletePostResponse>, response: Response<DeletePostResponse>) {
+                Log.d("editPost", "response")
+                val resp:DeletePostResponse = response.body()!!
+                Log.d("editPostCode", resp.code.toString())
+                when(resp.code){
+                    //API code값 사용
+                    200->editPostView.onEditPostSuccess(resp.code)
+                    else->editPostView.onEditPostFailure(resp.code)
+                }
+            }
+            //실패했을 때 처리
+            override fun onFailure(call: Call<DeletePostResponse>, t: Throwable) {
+                Log.d("editPostFail", t.toString())
+            }
+
+        })
+    }
+
+    fun deletePost(postIdx : Int){
+        Log.d("deletePost", "enter")
+        val postService = getRetrofit().create(RetrofitInterface::class.java)
+        postService.deletePost(postIdx, getJwt()!!).enqueue(object: Callback<DeletePostResponse> {
+            //응답이 왔을 때 처리
+            override fun onResponse(call: Call<DeletePostResponse>, response: Response<DeletePostResponse>) {
+                Log.d("deletePost", "response")
+                val resp:DeletePostResponse = response.body()!!
+                Log.d("deletePostCode", resp.code.toString())
+                when(resp.code){
+                    //API code값 사용
+                    200->deletePostView.onDeletePostSuccess(resp.code)
+                    else->deletePostView.onDeletePostFailure(resp.code)
+                }
+            }
+            //실패했을 때 처리
+            override fun onFailure(call: Call<DeletePostResponse>, t: Throwable) {
+                Log.d("deletePostFail", t.toString())
             }
 
         })

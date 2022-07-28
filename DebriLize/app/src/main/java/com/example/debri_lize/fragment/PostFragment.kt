@@ -74,6 +74,7 @@ class PostFragment : Fragment(), EachPostListView {
         binding.postWriteBtn.setOnClickListener{
             val intent = Intent(context, PostCreateActivity::class.java)
             intent.putExtra("boardIdx", boardIdx)
+            intent.putExtra("edit", false)
             startActivity(intent)
         }
 

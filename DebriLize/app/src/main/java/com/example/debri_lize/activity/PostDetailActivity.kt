@@ -1,5 +1,6 @@
 package com.example.debri_lize.activity
 
+import android.content.Intent
 import android.content.res.Resources
 import android.os.Bundle
 import android.util.Log
@@ -16,23 +17,28 @@ import com.example.debri_lize.R
 import com.example.debri_lize.data.post.Comment
 import com.example.debri_lize.data.post.CommentList
 import com.example.debri_lize.databinding.ActivityPostDetailBinding
+import com.example.debri_lize.response.Post
 import com.example.debri_lize.response.PostDetail
 import com.example.debri_lize.service.CommentService
 import com.example.debri_lize.service.PostService
 import com.example.debri_lize.utils.getUserIdx
 import com.example.debri_lize.utils.getUserName
-import com.example.debri_lize.view.post.CommentCreateView
-import com.example.debri_lize.view.post.PostDetailView
-import com.example.debri_lize.view.post.ShowCommentView
+import com.example.debri_lize.view.post.*
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import kotlin.properties.Delegates
 
 
-class PostDetailActivity : AppCompatActivity(), PostDetailView, CommentCreateView, ShowCommentView {
+class PostDetailActivity : AppCompatActivity(), PostDetailView, CommentCreateView, ShowCommentView, DeletePostView {
     lateinit var binding : ActivityPostDetailBinding
 
     var postIdx by Delegates.notNull<Int>()
     var authorIdx by Delegates.notNull<Int>()
+
+    //data
+    lateinit var postDetail : com.example.debri_lize.data.post.PostDetail
+
+    //api
+    val postService = PostService()
 
     //comment
     private lateinit var commentRVAdapter: CommentRVAdapter //Myadapter
@@ -51,7 +57,6 @@ class PostDetailActivity : AppCompatActivity(), PostDetailView, CommentCreateVie
         setContentView(binding.root)
 
         //api - post
-        val postService = PostService()
         postService.setPostDetailView(this)
 
         val intent = intent //전달할 데이터를 받을 Intent
@@ -125,15 +130,34 @@ class PostDetailActivity : AppCompatActivity(), PostDetailView, CommentCreateVie
         lateinit var bottomSheetView : View
         val bottomSheetDialog = BottomSheetDialog(this)
 
-
         if(getUserIdx()==authorIdx){ //본인 글
             bottomSheetView = layoutInflater.inflate(R.layout.fragment_bottom_sheet_edit_delete, null)
             bottomSheetDialog.setContentView(bottomSheetView)
+
+            //click edit button
+            bottomSheetView.findViewById<TextView>(R.id.bottom_sheet_edit_tv).setOnClickListener {
+                //PostCreateActivity에 값 전달
+                val intent = Intent(this, PostCreateActivity::class.java)
+                intent.putExtra("postDetail", postDetail)
+                startActivity(intent)
+                bottomSheetDialog.dismiss()
+                finish()
+            }
+            //click delete button
+            bottomSheetView.findViewById<TextView>(R.id.bottom_sheet_delete_tv).setOnClickListener {
+                postService.deletePost(postIdx)
+                bottomSheetDialog.dismiss()
+                //add dialog code
+
+
+                finish()
+            }
         }
         else{ //타인 글
             bottomSheetView = layoutInflater.inflate(R.layout.fragment_bottom_sheet_complain, null)
             bottomSheetDialog.setContentView(bottomSheetView)
 
+            //click complain button
             bottomSheetView.findViewById<TextView>(R.id.bottom_sheet_complain_tv).setOnClickListener {
                 val bottomSheetComplainDetailView = layoutInflater.inflate(R.layout.fragment_bottom_sheet_complain_detail, null)
                 val bottomSheetComplainDetailDialog = BottomSheetDialog(this)
@@ -164,6 +188,7 @@ class PostDetailActivity : AppCompatActivity(), PostDetailView, CommentCreateVie
     override fun onPostDetailSuccess(code: Int, result: PostDetail) {
         when(code){
             200->{
+                postDetail = com.example.debri_lize.data.post.PostDetail(result.boardIdx, result.postIdx, result.authorIdx, result.authorName, result.postName, result.likeCnt, result.commentCnt, result.timeAfterCreated, result.postContents)
                 binding.postDetailTitleTv.text = result.postName
                 binding.postDetailTimeTv.text = result.timeAfterCreated.toString()+"분 전"
                 binding.postDetailAuthorTv.text = result.authorName
@@ -173,6 +198,7 @@ class PostDetailActivity : AppCompatActivity(), PostDetailView, CommentCreateVie
 
                 //bottom sheet
                 bottomSheet()
+                postService.setDeletePostView(this@PostDetailActivity)
             }
         }
     }
@@ -257,6 +283,19 @@ class PostDetailActivity : AppCompatActivity(), PostDetailView, CommentCreateVie
     override fun onShowCommentFailure(code: Int) {
 
     }
+
+    override fun onDeletePostSuccess(code: Int) {
+        when(code){
+            200->{
+                //게시글 삭제 성공 시 코드
+            }
+        }
+    }
+
+    override fun onDeletePostFailure(code: Int) {
+
+    }
+
 
 
 
