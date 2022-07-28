@@ -5,6 +5,7 @@ import com.example.debri_lize.data.post.Post
 import com.example.debri_lize.data.RetrofitInterface
 import com.example.debri_lize.response.PostDetailResponse
 import com.example.debri_lize.response.PostResponse
+import com.example.debri_lize.utils.getJwt
 import com.example.debri_lize.view.post.EachPostListView
 import com.example.debri_lize.view.post.PostCreateView
 import com.example.debri_lize.view.post.PostDetailView
@@ -43,7 +44,7 @@ class PostService {
         //서비스 객체 생성
         val postService = getRetrofit().create(RetrofitInterface::class.java)
 
-        postService.createPost(post).enqueue(object: Callback<PostResponse> {
+        postService.createPost(post, getJwt()!!).enqueue(object: Callback<PostResponse> {
             //응답이 왔을 때 처리
             override fun onResponse(call: Call<PostResponse>, response: Response<PostResponse>) {
                 val resp:PostResponse = response.body()!!
@@ -66,7 +67,7 @@ class PostService {
     fun showPostList(keyword : String){
         Log.d("postList", "enter")
         val postService = getRetrofit().create(RetrofitInterface::class.java)
-        postService.showPostList(keyword).enqueue(object: Callback<PostResponse> {
+        postService.showPostList(keyword, getJwt()!!).enqueue(object: Callback<PostResponse> {
             //응답이 왔을 때 처리
             override fun onResponse(call: Call<PostResponse>, response: Response<PostResponse>) {
                 Log.d("postList", "response")
@@ -89,7 +90,7 @@ class PostService {
     fun showEachPostList(boardIdx:Int){
         Log.d("eachpostlist", "enter")
         val postService = getRetrofit().create(RetrofitInterface::class.java)
-        postService.showEachPostList(boardIdx).enqueue(object: Callback<PostResponse> {
+        postService.showEachPostList(boardIdx, getJwt()!!).enqueue(object: Callback<PostResponse> {
             //응답이 왔을 때 처리
             override fun onResponse(call: Call<PostResponse>, response: Response<PostResponse>) {
                 Log.d("eachpostlist", "response")
@@ -112,7 +113,7 @@ class PostService {
     fun showPostDetail(postIdx:Int){
         Log.d("postdetail", "enter")
         val postService = getRetrofit().create(RetrofitInterface::class.java)
-        postService.showPostDetail(postIdx).enqueue(object: Callback<PostDetailResponse> {
+        postService.showPostDetail(postIdx, getJwt()!!).enqueue(object: Callback<PostDetailResponse> {
             //응답이 왔을 때 처리
             override fun onResponse(call: Call<PostDetailResponse>, response: Response<PostDetailResponse>) {
                 Log.d("postdetail", "response")

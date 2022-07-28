@@ -55,71 +55,6 @@ class BoardFragment : Fragment(), BoardListView, ScrapBoardListView {
         boardService.setScrapBoardListView(this)
         boardService.showScrapBoardList()
 
-        //게시판 api연동 오류로 인해 dummydata로 test용
-        //전체 게시판 조회 (즐겨찾기된 게시판은 삭제)
-        binding.boardAllRv.layoutManager =
-            LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
-        boardRVAdapter = BoardRVAdapter()
-        binding.boardAllRv.adapter = boardRVAdapter
-
-        //data : 전체
-        datas.apply {
-            datas.add(Board(1, "test게시판1"))
-
-            boardRVAdapter.datas = datas
-            boardRVAdapter.notifyDataSetChanged()
-
-            //recyclerview item 클릭하면 fragment 전환
-            boardRVAdapter.setItemClickListener(object : BoardRVAdapter.OnItemClickListener {
-                override fun onClick(v: View, position: Int) {
-
-                    //PostFragment에 data보내기
-                    val bundle = Bundle()
-                    bundle.putSerializable("board", datas[position])
-                    val passBundleBFragment = PostFragment()
-                    passBundleBFragment.arguments = bundle
-
-                    //fragment to fragment
-                    activity?.supportFragmentManager!!.beginTransaction()
-                        .replace(R.id.main_frm, passBundleBFragment)
-                        .commit()
-
-                }
-            })
-        }
-
-        //즐겨찾기 게시판 조회
-        binding.boardFavoriteRv.layoutManager =
-            LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
-        boardfavoriteRVAdapter = BoardFavoriteRVAdapter()
-        binding.boardFavoriteRv.adapter = boardfavoriteRVAdapter
-
-
-        //datas_f : 즐겨찾기
-        datas_f.apply {
-            datas_f.add(Board(1, "test즐찾게시판1"))
-
-            boardfavoriteRVAdapter.datas_f = datas_f
-            boardfavoriteRVAdapter.notifyDataSetChanged()
-
-            //recyclerview item 클릭하면 fragment 전환
-            boardfavoriteRVAdapter.setItemClickListener(object : BoardFavoriteRVAdapter.OnItemClickListener {
-                override fun onClick(v: View, position: Int) {
-                    //PostFragment에 data보내기
-                    val bundle = Bundle()
-                    bundle.putSerializable("board", datas[position])
-                    val passBundleBFragment = PostFragment()
-                    passBundleBFragment.arguments = bundle
-
-                    //fragment to fragment
-                    activity?.supportFragmentManager!!.beginTransaction()
-                        .replace(R.id.main_frm, passBundleBFragment)
-                        .commit()
-
-                }
-            })
-        } //testCode 끝
-
         //search boardName
         //검색어 입력
         binding.boardSearchEt.addTextChangedListener(object : TextWatcher {
@@ -185,6 +120,8 @@ class BoardFragment : Fragment(), BoardListView, ScrapBoardListView {
                     LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
                 boardRVAdapter = BoardRVAdapter()
                 binding.boardAllRv.adapter = boardRVAdapter
+
+                datas.clear()
 
                 //data : 전체
                 datas.apply {
