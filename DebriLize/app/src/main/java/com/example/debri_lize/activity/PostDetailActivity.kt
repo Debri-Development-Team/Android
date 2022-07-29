@@ -165,6 +165,78 @@ class PostDetailActivity : AppCompatActivity(), PostDetailView, CommentCreateVie
 
                 bottomSheetComplainDetailDialog.show()
 
+                //complain button
+                //광고,스팸
+                bottomSheetComplainDetailDialog.findViewById<TextView>(R.id.bottom_sheet_complain_page_tv1)!!
+                    .setOnClickListener {
+                        //토스트메세지 띄우기
+                        var reportToast = layoutInflater.inflate(R.layout.toast_report,null)
+                        var toast = Toast(this)
+                        toast.view = reportToast
+                        toast.setGravity(Gravity.CENTER_HORIZONTAL,0,0)
+                        toast.show()
+
+                        //다이얼로그 닫기
+                        bottomSheetComplainDetailDialog.dismiss()
+                        bottomSheetDialog.dismiss()
+                }
+                //낚시,도배
+                bottomSheetComplainDetailDialog.findViewById<TextView>(R.id.bottom_sheet_complain_page_tv2)!!
+                    .setOnClickListener {
+                        //토스트메세지 띄우기
+                        var reportToast = layoutInflater.inflate(R.layout.toast_report,null)
+                        var toast = Toast(this)
+                        toast.view = reportToast
+                        toast.setGravity(Gravity.CENTER_HORIZONTAL,0,0)
+                        toast.show()
+
+                        //다이얼로그 닫기
+                        bottomSheetComplainDetailDialog.dismiss()
+                        bottomSheetDialog.dismiss()
+                    }
+                //개발과 무관한 게시물
+                bottomSheetComplainDetailDialog.findViewById<TextView>(R.id.bottom_sheet_complain_page_tv3)!!
+                    .setOnClickListener {
+                        //토스트메세지 띄우기
+                        var reportToast = layoutInflater.inflate(R.layout.toast_report,null)
+                        var toast = Toast(this)
+                        toast.view = reportToast
+                        toast.setGravity(Gravity.CENTER_HORIZONTAL,0,0)
+                        toast.show()
+
+                        //다이얼로그 닫기
+                        bottomSheetComplainDetailDialog.dismiss()
+                        bottomSheetDialog.dismiss()
+                    }
+                //욕설,비하
+                bottomSheetComplainDetailDialog.findViewById<TextView>(R.id.bottom_sheet_complain_page_tv4)!!
+                    .setOnClickListener {
+                        //토스트메세지 띄우기
+                        var reportToast = layoutInflater.inflate(R.layout.toast_report,null)
+                        var toast = Toast(this)
+                        toast.view = reportToast
+                        toast.setGravity(Gravity.CENTER_HORIZONTAL,0,0)
+                        toast.show()
+
+                        //다이얼로그 닫기
+                        bottomSheetComplainDetailDialog.dismiss()
+                        bottomSheetDialog.dismiss()
+                    }
+                //기타
+                bottomSheetComplainDetailDialog.findViewById<TextView>(R.id.bottom_sheet_complain_page_tv5)!!
+                    .setOnClickListener {
+                        //토스트메세지 띄우기
+                        var reportToast = layoutInflater.inflate(R.layout.toast_report,null)
+                        var toast = Toast(this)
+                        toast.view = reportToast
+                        toast.setGravity(Gravity.CENTER_HORIZONTAL,0,0)
+                        toast.show()
+
+                        //다이얼로그 닫기
+                        bottomSheetComplainDetailDialog.dismiss()
+                        bottomSheetDialog.dismiss()
+                    }
+
                 //close button
                 bottomSheetComplainDetailView.findViewById<TextView>(R.id.bottom_sheet_close_tv).setOnClickListener {
                     bottomSheetComplainDetailDialog.dismiss()
@@ -188,6 +260,7 @@ class PostDetailActivity : AppCompatActivity(), PostDetailView, CommentCreateVie
     override fun onPostDetailSuccess(code: Int, result: PostDetail) {
         when(code){
             200->{
+                Log.d("PostDetailresult","$result")
                 postDetail = com.example.debri_lize.data.post.PostDetail(result.boardIdx, result.postIdx, result.authorIdx, result.authorName, result.postName, result.likeCnt, result.commentCnt, result.timeAfterCreated, result.postContents)
                 binding.postDetailTitleTv.text = result.postName
                 binding.postDetailTimeTv.text = result.timeAfterCreated.toString()+"분 전"

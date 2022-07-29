@@ -80,7 +80,9 @@ class PostCreateActivity : AppCompatActivity(), PostCreateView, EditPostView {
             //글 작성 다이얼로그
             val dialog = CustomDialog(this)
 
-            dialog.showWriteDlg()
+            if(edit) dialog.showEditDlg()   //edit==true 이면 editDialog 보여주기
+            else dialog.showWriteDlg()     //else writeDialog
+
             //작성 ok 버튼 클릭시
             dialog.setOnClickListener(object:CustomDialog.ButtonClickListener{
                 override fun onClicked(TF: Boolean) {
@@ -101,7 +103,9 @@ class PostCreateActivity : AppCompatActivity(), PostCreateView, EditPostView {
         binding.writePreviousIv.setOnClickListener {
             //다이얼로그 생성
             val dialog = CustomDialog(this)
-            dialog.showCancelDlg()
+
+            if(edit) dialog.showEditCancelDlg()
+            else dialog.showCancelDlg()
             dialog.setOnClickListener(object:CustomDialog.ButtonClickListener{
                 override fun onClicked(TF: Boolean) {
                     finish()
