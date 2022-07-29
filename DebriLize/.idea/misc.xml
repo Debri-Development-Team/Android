@@ -95,13 +95,17 @@
         <entry key="app/src/main/res/drawable/ic_scrap_darkmode.xml" value="0.1" />
         <entry key="app/src/main/res/drawable/ic_scrap_white.xml" value="0.1" />
         <entry key="app/src/main/res/drawable/ic_siren_red.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/activity_post_create.xml" value="0.1" />
         <entry key="app/src/main/res/layout/activity_post_detail.xml" value="0.25" />
+        <entry key="app/src/main/res/layout/dialog_cancel.xml" value="0.23802083333333332" />
         <entry key="app/src/main/res/layout/dialog_edit_cancel.xml" value="0.21920289855072464" />
+        <entry key="app/src/main/res/layout/dialog_edit_check.xml" value="0.335" />
         <entry key="app/src/main/res/layout/dialog_edit_write.xml" value="0.21920289855072464" />
-        <entry key="app/src/main/res/layout/dialog_write.xml" value="0.21920289855072464" />
+        <entry key="app/src/main/res/layout/dialog_write.xml" value="0.165" />
         <entry key="app/src/main/res/layout/fragment_board.xml" value="0.1" />
         <entry key="app/src/main/res/layout/fragment_bottom_sheet_complain.xml" value="0.21920289855072464" />
         <entry key="app/src/main/res/layout/fragment_bottom_sheet_complain_detail.xml" value="0.21920289855072464" />
+        <entry key="app/src/main/res/layout/fragment_bottom_sheet_edit_delete.xml" value="0.1" />
         <entry key="app/src/main/res/layout/toast_report.xml" value="0.25" />
         <entry key="app/src/main/res/layout/toast_scrap.xml" value="0.121875" />
       </map>

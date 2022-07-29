@@ -19,10 +19,10 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/dialog_memo_tv"
+        android:id="@+id/dialog_edit_check_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="글을 작성하시겠어요?"
+        android:text="수정하시겠어요?"
         android:fontFamily="@font/noto_sans_kr_bold"
         android:textSize="16sp"
         android:textColor="@color/black"
@@ -32,28 +32,28 @@
         app:layout_constraintTop_toTopOf="parent"/>
 
     <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/dialog_write_yes_btn"
+        android:id="@+id/dialog_edit_check_yes_btn"
         android:layout_width="80dp"
         android:layout_height="35dp"
         android:background="@drawable/border_round_transparent_debri_10"
         android:text="네"
         android:textColor="@color/white"
         android:fontFamily="@font/noto_sans_kr_bold"
-        android:includeFontPadding="false"
         android:layout_marginEnd="10dp"
-        app:layout_constraintEnd_toStartOf="@id/dialog_write_no_btn"
-        app:layout_constraintTop_toBottomOf="@id/dialog_memo_tv"/>
+        android:includeFontPadding="false"
+        app:layout_constraintEnd_toStartOf="@id/dialog_edit_check_no_btn"
+        app:layout_constraintTop_toBottomOf="@id/dialog_edit_check_tv"/>
 
     <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/dialog_write_no_btn"
+        android:id="@+id/dialog_edit_check_no_btn"
         android:layout_width="wrap_content"
         android:layout_height="35dp"
         android:background="@drawable/border_round_transparent_white_10"
         android:text="아니요"
         android:fontFamily="@font/noto_sans_kr_bold"
-        android:includeFontPadding="false"
         android:layout_marginEnd="20dp"
+        android:includeFontPadding="false"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/dialog_memo_tv"/>
+        app:layout_constraintTop_toBottomOf="@id/dialog_edit_check_tv"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
