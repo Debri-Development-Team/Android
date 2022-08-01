@@ -74,4 +74,5 @@ dependencies {
 
     //search
     implementation 'com.github.thorbenprimke:realm-searchview:0.9.1'
+
 }

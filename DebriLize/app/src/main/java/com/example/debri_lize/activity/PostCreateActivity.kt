@@ -1,5 +1,6 @@
 package com.example.debri_lize.activity
 
+import SpinnerAdapter
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -8,14 +9,11 @@ import android.widget.AdapterView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.debri_lize.CustomDialog
-import com.example.debri_lize.R
-import com.example.debri_lize.data.SpinnerModel
 import com.example.debri_lize.data.post.Post
 import com.example.debri_lize.service.PostService
 import com.example.debri_lize.view.post.PostCreateView
 import com.example.debri_lize.databinding.ActivityPostCreateBinding
 import com.example.debri_lize.utils.getUserIdx
-import com.example.debri_lize.SpinnerAdapter
 import com.example.debri_lize.data.post.EditPost
 import com.example.debri_lize.data.post.PostDetail
 import com.example.debri_lize.view.post.EditPostView
@@ -27,8 +25,7 @@ class PostCreateActivity : AppCompatActivity(), PostCreateView, EditPostView {
     lateinit var binding : ActivityPostCreateBinding
 
     //spinner
-    private lateinit var spinnerAdapterYear: SpinnerAdapter
-    private val listOfYear = ArrayList<SpinnerModel>()
+    private val items = ArrayList<String>()
 
     //api
     lateinit var postDetail : PostDetail
@@ -42,13 +39,6 @@ class PostCreateActivity : AppCompatActivity(), PostCreateView, EditPostView {
         setContentView(binding.root)
 
         binding.writeBtn.text = "작성하기"
-
-        //spinner : boardList
-        binding.writeOptionMenuLayout.setOnClickListener{
-            setupSpinnerYear()
-            setupSpinnerHandler()
-        }
-
 
         //자동으로 줄이 바뀌고 enter 엔터키를 누르면 다음줄로 이동
         binding.writeContentEt.setHorizontallyScrolling(false)
@@ -73,6 +63,12 @@ class PostCreateActivity : AppCompatActivity(), PostCreateView, EditPostView {
                 binding.writeContentEt.text = Editable.Factory.getInstance().newEditable(postDetail.postContents)
                 binding.writeBtn.text = "수정하기"
             }
+        }
+
+        //spinner : boardList
+        SpinnerboardList()
+        binding.writeOptionMenuLayout.setOnClickListener{
+
         }
 
         // 실행
@@ -117,32 +113,47 @@ class PostCreateActivity : AppCompatActivity(), PostCreateView, EditPostView {
 
     }
 
-    private fun setupSpinnerYear() {
-        val years = resources.getStringArray(R.array.spinner_year)
+    //spinner item 동적 추가
+    private fun SpinnerboardList() {
 
-        for (i in years.indices) {
-            val year = SpinnerModel(R.drawable.ic_favorite_on, years[i])
-            listOfYear.add(year)
-        }
-        spinnerAdapterYear = SpinnerAdapter(this, R.layout.item_spinner, listOfYear)
-        binding.spinnerYear.adapter = spinnerAdapterYear
-    }
+        items.add("야호1")
+        items.add("야호2")
+        items.add("야호3")
+        val myAdapter = SpinnerAdapter(this@PostCreateActivity, items)
+        binding.writeBoardListSpinner.adapter = myAdapter
 
+        binding.writeBoardListSpinner.setSelection(0)
 
-    private fun setupSpinnerHandler() {
-        binding.spinnerYear.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-            override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
-                val year = binding.spinnerYear.getItemAtPosition(position) as SpinnerModel
-                if (!year.name.equals("연도")) {
-                    binding.txtYear.text = "Selected: ${year.name}"
+        //click item
+        binding.writeBoardListSpinner.onItemSelectedListener =
+            object : AdapterView.OnItemSelectedListener {
+                override fun onItemSelected(
+                    parent: AdapterView<*>,
+                    view: View,
+                    position: Int,
+                    id: Long
+                ) {
+
+                    //아이템이 클릭 되면 맨 위부터 position 0번부터 순서대로 동작하게 됩니다.
+                    when (position) {
+                        0 -> {
+
+                        }
+                        1 -> {
+
+                        }
+                        //...
+                        else -> {
+
+                        }
+                    }
                 }
+
+                override fun onNothingSelected(parent: AdapterView<*>) {
+
+                }
+
             }
-
-            override fun onNothingSelected(p0: AdapterView<*>?) {
-
-            }
-        }
-
     }
 
     //count letter
