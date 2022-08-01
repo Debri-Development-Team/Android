@@ -6,9 +6,11 @@ import android.text.Editable
 import android.text.TextWatcher
 import android.view.View
 import android.widget.AdapterView
+import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.debri_lize.CustomDialog
+import com.example.debri_lize.R
 import com.example.debri_lize.data.post.Post
 import com.example.debri_lize.service.PostService
 import com.example.debri_lize.view.post.PostCreateView
@@ -67,9 +69,6 @@ class PostCreateActivity : AppCompatActivity(), PostCreateView, EditPostView {
 
         //spinner : boardList
         SpinnerboardList()
-        binding.writeOptionMenuLayout.setOnClickListener{
-
-        }
 
         // 실행
         binding.writeBtn.setOnClickListener{
@@ -115,13 +114,13 @@ class PostCreateActivity : AppCompatActivity(), PostCreateView, EditPostView {
 
     //spinner item 동적 추가
     private fun SpinnerboardList() {
+        items.clear()
 
         items.add("야호1")
         items.add("야호2")
         items.add("야호3")
-        val myAdapter = SpinnerAdapter(this@PostCreateActivity, items)
+        val myAdapter = SpinnerAdapter(this@PostCreateActivity,items)
         binding.writeBoardListSpinner.adapter = myAdapter
-
         binding.writeBoardListSpinner.setSelection(0)
 
         //click item

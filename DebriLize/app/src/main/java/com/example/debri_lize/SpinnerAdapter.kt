@@ -1,53 +1,47 @@
-
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ArrayAdapter
 import android.widget.BaseAdapter
-import com.example.debri_lize.databinding.CustomSpinnerBinding
+import android.widget.TextView
+import com.example.debri_lize.R
 
-class SpinnerAdapter(mContext: Context, var Data: List<String>?) : ArrayAdapter<SpinnerModel>() {
+class SpinnerAdapter(context: Context, datas: ArrayList<String>?) : BaseAdapter() {
 
-    lateinit var binding : CustomSpinnerBinding
-    private var Inflater: LayoutInflater = mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
+
+    var datas: ArrayList<String>? = datas
+    var inflater: LayoutInflater = context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
 
     override fun getCount(): Int {
-        return if (Data != null) Data!!.size else 0
+        return if(datas!=null) {
+            datas!!.size
+        } else {
+            0
+        }
     }
 
-    override fun getView( position: Int, convertView: View, parent: ViewGroup): View { //처음에 클릭전에 보여지는 레이아웃
-        var convertView = convertView
-        if (convertView == null) {
-            convertView = Inflater.inflate(com.example.debri_lize.R.layout.custom_spinner, parent, false)
+    override fun getView(position: Int, convertView: View?, parent: ViewGroup): View { //처음에 클릭전에 보여지는 레이아웃
+        var view = inflater.inflate(R.layout.spinner_custom, parent, false)
+
+        if (datas != null) {
+            val text = datas!![position]
+            (view.findViewById<View>(R.id.spinnerText) as TextView).text = text
         }
-        if (Data != null) {
-            val text = Data!![position]
-            binding.spinnerText.text = text
-        }
-        return convertView
+        return view
     }
 
-    override fun getDropDownView(
-        position: Int,
-        convertView: View,
-        parent: ViewGroup
-    ): View { //클릭 후 보여지는 레이아웃
-        var convertView = convertView
-        if (convertView == null) {
-            convertView = Inflater.inflate(com.example.debri_lize.R.layout.item_spinner, parent, false)
-        }
-        val text = Data!![position]
-        binding.spinnerText.text = text
-        return convertView
+    override fun getDropDownView(position: Int, convertView: View?, parent: ViewGroup): View { //클릭 후 보여지는 레이아웃
+        var view = inflater.inflate(R.layout.spinner_getview, parent, false)
+        val text = datas!![position]
+        (view.findViewById<View>(R.id.spinnerText) as TextView).text = text
+        return view
     }
 
     override fun getItem(position: Int): Any {
-        return Data!![position]
+        return datas!![position]
     }
 
     override fun getItemId(position: Int): Long {
         return position.toLong()
     }
-
 }

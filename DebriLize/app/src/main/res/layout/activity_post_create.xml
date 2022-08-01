@@ -77,19 +77,10 @@
         <Spinner
             android:id="@+id/write_boardList_spinner"
             android:padding="8dp"
-            android:layout_width="250dp"
+            android:layout_width="match_parent"
             android:layout_height="56dp"
-            android:layout_gravity="center_vertical"/>
-        <View
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:layout_weight="1" />
-
-        <ImageView
-            android:id="@+id/write_boardList_iv"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:src="@drawable/btn_list"/>
+            android:layout_gravity="center_vertical"
+            android:background="@null"/>
 
     </LinearLayout>
 
