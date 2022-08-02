@@ -18,8 +18,8 @@ class CustomDialog(context: Context) {
         dialog.window!!.setLayout(
             WindowManager.LayoutParams.MATCH_PARENT,
             WindowManager.LayoutParams.WRAP_CONTENT)
-        dialog.setCanceledOnTouchOutside(true)  //다이얼로그 바깥쪽 클릭하면 팝업창 꺼짐
-        dialog.setCancelable(true)
+        dialog.setCanceledOnTouchOutside(false)  //다이얼로그 바깥쪽 클릭 시 팝업창 꺼지지않게
+        dialog.setCancelable(false)
 
         //yes
         dialog.findViewById<Button>(R.id.dialog_write_yes_btn).setOnClickListener {
@@ -42,8 +42,8 @@ class CustomDialog(context: Context) {
         dialog.window!!.setLayout(
             WindowManager.LayoutParams.MATCH_PARENT,
             WindowManager.LayoutParams.WRAP_CONTENT)
-        dialog.setCanceledOnTouchOutside(true)
-        dialog.setCancelable(true)
+        dialog.setCanceledOnTouchOutside(false)
+        dialog.setCancelable(false)
 
         //yes
         dialog.findViewById<Button>(R.id.dialog_cancel_yes_btn).setOnClickListener {
@@ -66,8 +66,8 @@ class CustomDialog(context: Context) {
         dialog.window!!.setLayout(
             WindowManager.LayoutParams.MATCH_PARENT,
             WindowManager.LayoutParams.WRAP_CONTENT)
-        dialog.setCanceledOnTouchOutside(true)
-        dialog.setCancelable(true)
+        dialog.setCanceledOnTouchOutside(false)
+        dialog.setCancelable(false)
 
         //yes
         dialog.findViewById<Button>(R.id.dialog_edit_check_yes_btn).setOnClickListener {
@@ -90,8 +90,8 @@ class CustomDialog(context: Context) {
         dialog.window!!.setLayout(
             WindowManager.LayoutParams.MATCH_PARENT,
             WindowManager.LayoutParams.WRAP_CONTENT)
-        dialog.setCanceledOnTouchOutside(true)
-        dialog.setCancelable(true)
+        dialog.setCanceledOnTouchOutside(false)
+        dialog.setCancelable(false)
 
         //yes
         dialog.findViewById<Button>(R.id.dialog_edit_cancel_yes_btn).setOnClickListener {

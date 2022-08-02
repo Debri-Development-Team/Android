@@ -8,6 +8,8 @@ data class PostList(
     @SerializedName(value = "authorName") var authorName : String? = "",
     @SerializedName(value = "postName") var postName : String? = "",
     @SerializedName(value = "likeNumber") var likeCnt : Int? = 0,
+    @SerializedName(value = "likeStatus") var likeStatus : String? = "",
+    @SerializedName(value = "scrapStatus") var scrapStatus : String? = "",
     @SerializedName(value = "timeAfterCreated") val timeAfterCreated : Int? = 0,
     @SerializedName(value = "commentNumber") var commentCnt : Int? = 0
 )

@@ -16,6 +16,8 @@ data class Post(
     @SerializedName(value = "authorName") var authorName : String,
     @SerializedName(value = "postName") var postName : String,
     @SerializedName(value = "likeNumber") var likeCnt : Int,
+    @SerializedName(value = "likeStatus") var likeStatus : String,
+    @SerializedName(value = "scrapStatus") var scrapStatus : String,
     @SerializedName(value = "timeAfterCreated") var timeAfterCreated : Int,
     @SerializedName(value = "commentNumber") var commentCnt : Int
 )

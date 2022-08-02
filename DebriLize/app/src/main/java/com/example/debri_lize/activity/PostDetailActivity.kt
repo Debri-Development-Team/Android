@@ -1,7 +1,6 @@
 package com.example.debri_lize.activity
 
 import android.content.Intent
-import android.content.res.Resources
 import android.os.Bundle
 import android.util.Log
 import android.view.KeyEvent
@@ -16,19 +15,20 @@ import androidx.core.content.ContextCompat
 import com.example.debri_lize.R
 import com.example.debri_lize.data.post.Comment
 import com.example.debri_lize.data.post.CommentList
+import com.example.debri_lize.data.post.PostLikeCancel
+import com.example.debri_lize.data.post.PostLikeCreate
 import com.example.debri_lize.databinding.ActivityPostDetailBinding
-import com.example.debri_lize.response.Post
 import com.example.debri_lize.response.PostDetail
 import com.example.debri_lize.service.CommentService
 import com.example.debri_lize.service.PostService
-import com.example.debri_lize.utils.getUserIdx
-import com.example.debri_lize.utils.getUserName
+import com.example.debri_lize.utils.*
 import com.example.debri_lize.view.post.*
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import kotlin.properties.Delegates
 
 
-class PostDetailActivity : AppCompatActivity(), PostDetailView, CommentCreateView, ShowCommentView, DeletePostView {
+class PostDetailActivity : AppCompatActivity(), PostDetailView, CommentCreateView, ShowCommentView, DeletePostView,
+    CreatePostLikeView, CancelPostLikeView, CreatePostScrapView, CancelPostScrapView {
     lateinit var binding : ActivityPostDetailBinding
 
     var postIdx by Delegates.notNull<Int>()
@@ -49,7 +49,6 @@ class PostDetailActivity : AppCompatActivity(), PostDetailView, CommentCreateVie
     private var likeTF : Boolean = false
     private var scrapTF : Boolean = false
 
-    private fun Int.toPx(): Int = (this * Resources.getSystem().displayMetrics.density).toInt()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -78,20 +77,42 @@ class PostDetailActivity : AppCompatActivity(), PostDetailView, CommentCreateVie
             false
         }
 
-        //scrap
-        /* getBackground 함수가 없어서 현재 background 속성이 무엇인지 알 수 없음
-        *   -> Boolean 변수 사용하여 해결
-        *   -> 게시물 나갔다가 들어와도 유지되는지 확인 필요
-        */
+        //
+        //postdetail 새로 들어와도 likeStatus 상태 저장
+        Log.d("likestatus", likeTF.toString())
+        if(getLikeStatus()?.likeStatus =="LIKE" && getLikeStatus()?.postIdx == getPostIdx()){
+            likeTF = true
+            Log.d("likestatus","${getLikeStatus()}")
+            binding.postDetailMenuLikeLayout.setBackgroundResource(R.drawable.border_round_debri_darkmode_10)
+            binding.postDetailMenuLikeIv.setImageResource(R.drawable.ic_like_debri)
+        }else{
+            likeTF = false
+            binding.postDetailMenuLikeLayout.setBackgroundResource(R.drawable.border_round_white_transparent_10)
+            binding.postDetailMenuLikeIv.setImageResource(R.drawable.ic_like_white)
+        }
+
         //추천 버튼
         binding.postDetailMenuLikeLayout.setOnClickListener {
             likeTF = !likeTF
             if(likeTF) {
-                binding.postDetailMenuLikeLayout.setBackgroundResource(R.drawable.border_round_white_transparent_10)
-                binding.postDetailMenuLikeIv.setImageResource(R.drawable.ic_like_white)
-            }else {
                 binding.postDetailMenuLikeLayout.setBackgroundResource(R.drawable.border_round_debri_darkmode_10)
                 binding.postDetailMenuLikeIv.setImageResource(R.drawable.ic_like_debri)
+
+                saveLikeStatus("LIKE", getPostIdx()!!, getUserIdx()!!)
+
+                //api - createPostLike
+                postService.setCreatePostLikeView(this)
+                postService.createPostLike(getLikePost())
+
+            }else {
+                binding.postDetailMenuLikeLayout.setBackgroundResource(R.drawable.border_round_white_transparent_10)
+                binding.postDetailMenuLikeIv.setImageResource(R.drawable.ic_like_white)
+
+                saveLikeStatus("UNLIKE", getPostIdx()!!, getUserIdx()!!)
+
+                //api - cancelPostLike
+                postService.setCancelPostLikeView(this)
+                postService.cancelPostLike(getLikePostCancel())
             }
 
         }
@@ -101,15 +122,13 @@ class PostDetailActivity : AppCompatActivity(), PostDetailView, CommentCreateVie
         binding.postDetailMenuScrapLayout.setOnClickListener {
             scrapTF = !scrapTF
             if(scrapTF){
-                binding.postDetailMenuScrapLayout.setBackgroundResource(R.drawable.border_round_white_transparent_10)
-                binding.postDetailMenuScrapTv.setTextColor(ContextCompat.getColor(this@PostDetailActivity, R.color.white))
-                binding.postDetailMenuScrapIv.setImageResource(R.drawable.ic_scrap_white)
-            }else{
                 binding.postDetailMenuScrapLayout.setBackgroundResource(R.drawable.border_round_transparent_debri_10)
                 binding.postDetailMenuScrapTv.setTextColor(ContextCompat.getColor(this@PostDetailActivity, R.color.darkmode_background))
                 binding.postDetailMenuScrapIv.setImageResource(R.drawable.ic_scrap_darkmode)
 
-
+                //api - createPostScrap
+                postService.setCreatePostScrapView(this)
+                postService.createPostScrap(getPostIdx()!!)
 
                 //스크랩 확인 토스트메시지
                 var scrapToast = layoutInflater.inflate(R.layout.toast_scrap,null)
@@ -117,7 +136,14 @@ class PostDetailActivity : AppCompatActivity(), PostDetailView, CommentCreateVie
                 toast.view = scrapToast
                 toast.setGravity(Gravity.CENTER_HORIZONTAL,0,0)
                 toast.show()
+            }else{
+                binding.postDetailMenuScrapLayout.setBackgroundResource(R.drawable.border_round_white_transparent_10)
+                binding.postDetailMenuScrapTv.setTextColor(ContextCompat.getColor(this@PostDetailActivity, R.color.white))
+                binding.postDetailMenuScrapIv.setImageResource(R.drawable.ic_scrap_white)
 
+                //api - cancelPostScrap
+                postService.setCancelPostScrapView(this)
+                postService.cancelPostScrap(getPostIdx()!!)
             }
 
         }
@@ -225,6 +251,8 @@ class PostDetailActivity : AppCompatActivity(), PostDetailView, CommentCreateVie
                 //기타
                 bottomSheetComplainDetailDialog.findViewById<TextView>(R.id.bottom_sheet_complain_page_tv5)!!
                     .setOnClickListener {
+
+
                         //토스트메세지 띄우기
                         var reportToast = layoutInflater.inflate(R.layout.toast_report,null)
                         var toast = Toast(this)
@@ -261,13 +289,20 @@ class PostDetailActivity : AppCompatActivity(), PostDetailView, CommentCreateVie
         when(code){
             200->{
                 Log.d("PostDetailresult","$result")
-                postDetail = com.example.debri_lize.data.post.PostDetail(result.boardIdx, result.postIdx, result.authorIdx, result.authorName, result.postName, result.likeCnt, result.commentCnt, result.timeAfterCreated, result.postContents)
+                postDetail = com.example.debri_lize.data.post.PostDetail(result.boardIdx, result.postIdx, result.authorIdx, result.authorName, result.postName, result.likeCnt,
+                    result.likeStatus.toString(), result.scrapStatus.toString(), result.commentCnt, result.timeAfterCreated, result.postContents)
                 binding.postDetailTitleTv.text = result.postName
                 binding.postDetailTimeTv.text = result.timeAfterCreated.toString()+"분 전"
                 binding.postDetailAuthorTv.text = result.authorName
                 binding.postDetailContentTv.text = result.postContents
                 binding.postDetailCountCommentTv.text = "("+result.commentCnt.toString()+")"
                 authorIdx = result.authorIdx
+
+                if(result.likeCnt < 100)
+                    binding.postDetailMenuLikeNumTv.text = result.likeCnt.toString()
+                else
+                    binding.postDetailMenuLikeNumTv.text = "99+"
+
 
                 //bottom sheet
                 bottomSheet()
@@ -369,7 +404,80 @@ class PostDetailActivity : AppCompatActivity(), PostDetailView, CommentCreateVie
 
     }
 
+    private fun getLikePost() : PostLikeCreate {
+        val postIdx = getPostIdx()
+        val userIdx = getUserIdx() //변경필요
+        val likeStatus = "LIKE"
+        return PostLikeCreate(postIdx, userIdx, likeStatus)
+    }
 
+    override fun onCreatePostLikeSuccess(code: Int) {
+        when(code){
+            200->{
+                //좋아요 생성 성공
+                postDetail.likeCnt++
+                Log.d("postdetaillike","$postDetail")
+                if(postDetail.likeCnt < 100)
+                    binding.postDetailMenuLikeNumTv.text = postDetail.likeCnt.toString()
+                else
+                    binding.postDetailMenuLikeNumTv.text = "99+"
+
+            }
+        }
+    }
+
+    override fun onCreatePostLikeFailure(code: Int) {
+        Log.d("postlikefail","$code")
+    }
+
+    private fun getLikePostCancel() : PostLikeCancel {
+        val postIdx = getPostIdx()
+        val userIdx = getUserIdx() //변경필요
+        return PostLikeCancel(postIdx, userIdx)
+    }
+
+    override fun onCancelPostLikeSuccess(code: Int) {
+        when(code){
+            200->{
+                //좋아요 취소 성공
+                postDetail.likeCnt--
+                Log.d("postdetaillike","$postDetail")
+                if(postDetail.likeCnt < 100)
+                    binding.postDetailMenuLikeNumTv.text = postDetail.likeCnt.toString()
+                else
+                    binding.postDetailMenuLikeNumTv.text = "99+"
+
+            }
+        }
+    }
+
+    override fun onCancelPostLikeFailure(code: Int) {
+        Log.d("postlikecancelfail","$code")
+    }
+
+    override fun onCreatePostScrapSuccess(code: Int) {
+        when(code){
+            200 -> {
+
+            }
+        }
+    }
+
+    override fun onCreatePostScrapFailure(code: Int) {
+        Log.d("postscrapcreatefail","$code")
+    }
+
+    override fun onCancelPostScrapSuccess(code: Int) {
+        when(code){
+            200 -> {
+
+            }
+        }
+    }
+
+    override fun onCancelPostScrapFailure(code: Int) {
+        Log.d("postscrapcancelfail","$code")
+    }
 
 
 }
