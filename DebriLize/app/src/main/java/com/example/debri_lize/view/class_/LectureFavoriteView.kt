@@ -1,4 +1,4 @@
-package com.example.debri_lize.view.`class`
+package com.example.debri_lize.view.class_
 
 import com.example.debri_lize.response.Lecture
 

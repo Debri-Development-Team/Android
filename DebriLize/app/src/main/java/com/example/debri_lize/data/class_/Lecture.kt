@@ -1,4 +1,4 @@
-package com.example.debri_lize.data
+package com.example.debri_lize.data.class_
 
 import java.io.Serializable
 
