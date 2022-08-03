@@ -24,19 +24,38 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
-        android:id="@+id/class_class_list_tv"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:id="@+id/class_list_text_layout"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="30dp"
+        android:orientation="horizontal"
         android:layout_marginTop="35dp"
-        android:text="강의 리스트"
-        android:textColor="@color/white"
-        android:fontFamily="@font/noto_sans_kr_bold"
-        android:includeFontPadding="false"
-        android:textSize="18sp"
+        android:layout_marginStart="30dp"
+        android:layout_marginEnd="30dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/class_logo_debri_iv" />
+        app:layout_constraintTop_toBottomOf="@id/class_logo_debri_iv" >
+        <TextView
+            android:id="@+id/class_class_list_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="강의 리스트"
+            android:textColor="@color/white"
+            android:fontFamily="@font/noto_sans_kr_bold"
+            android:includeFontPadding="false"
+            android:textSize="18dp" />
+        <View
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_weight="1" />
+        <ImageView
+            android:id="@+id/class_filter_iv"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:src="@drawable/ic_filter"
+            android:layout_gravity="center"/>
+    </LinearLayout>
+
+
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -46,7 +65,7 @@
         android:layout_marginStart="30dp"
         android:layout_marginEnd="30dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/class_class_list_tv"
+        app:layout_constraintTop_toBottomOf="@+id/class_list_text_layout"
         android:gravity="center_vertical"
         android:background="@drawable/border_round_white_transparent_10">
 
@@ -66,7 +85,7 @@
             android:textColorHint="@color/white"
             android:textColor="@color/white"
             android:inputType="text"
-            android:textSize="15sp"
+            android:textSize="15dp"
             android:fontFamily="@font/noto_sans_kr_regular"
             android:includeFontPadding="false"
             android:layout_marginStart="10dp"/>
@@ -92,143 +111,74 @@
             android:orientation="vertical"
             android:id="@+id/class_curri_tag_language_layout"
             android:layout_marginEnd="5dp">
+
             <CheckBox
                 android:id="@+id/class_curri_tag_front_cb"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
-                android:text="프론트"
-                android:textColor="@drawable/selector_class_radio_text"
+                android:layout_marginBottom="7dp"
+                android:background="@drawable/selector_class_radio_front"
                 android:button="@null"
-                android:paddingStart="15dp"
-                android:visibility="visible"
+                android:drawableEnd="@drawable/selector_class_radio_text"
                 android:fontFamily="@font/noto_sans_kr_bold"
                 android:includeFontPadding="false"
-                android:textSize="16sp"
-                android:layout_marginBottom="7dp"
+                android:paddingStart="20dp"
                 android:paddingEnd="7dp"
-                android:drawableEnd="@drawable/selector_class_radio_text"
-                android:background="@drawable/btn_radio_class_selector"/>
+                android:text="Front"
+                android:textColor="@color/white"
+                android:textSize="16dp"
+                android:visibility="visible" />
             <CheckBox
                 android:id="@+id/class_curri_tag_back_cb"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
-                android:text="백"
+                android:text="Back"
                 android:textColor="@drawable/selector_class_radio_text"
                 android:button="@null"
-                android:paddingStart="15dp"
+                android:paddingStart="20dp"
                 android:visibility="visible"
                 android:fontFamily="@font/noto_sans_kr_bold"
                 android:includeFontPadding="false"
-                android:textSize="16sp"
+                android:textSize="16dp"
                 android:paddingEnd="7dp"
                 android:layout_marginBottom="7dp"
                 android:drawableEnd="@drawable/selector_class_radio_text"
-                android:background="@drawable/btn_radio_class_selector"/>
+                android:background="@drawable/selector_class_radio_back"/>
             <CheckBox
                 android:id="@+id/class_curri_tag_c_cb"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
-                android:text="C언어"
+                android:text="C 언어"
                 android:textColor="@drawable/selector_class_radio_text"
                 android:button="@null"
-                android:paddingStart="15dp"
+                android:paddingStart="20dp"
                 android:visibility="visible"
                 android:fontFamily="@font/noto_sans_kr_bold"
                 android:includeFontPadding="false"
-                android:textSize="16sp"
+                android:textSize="16dp"
                 android:paddingEnd="7dp"
                 android:layout_marginBottom="7dp"
                 android:drawableEnd="@drawable/selector_class_radio_text"
-                android:background="@drawable/btn_radio_class_selector"/>
+                android:background="@drawable/selector_class_radio_c"/>
             <CheckBox
                 android:id="@+id/class_curri_tag_python_cb"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
-                android:text="python"
+                android:text="Python"
                 android:textColor="@drawable/selector_class_radio_text"
                 android:button="@null"
-                android:paddingStart="15dp"
+                android:paddingStart="20dp"
                 android:visibility="visible"
                 android:fontFamily="@font/noto_sans_kr_bold"
                 android:includeFontPadding="false"
-                android:textSize="16sp"
+                android:textSize="16dp"
                 android:paddingEnd="7dp"
                 android:layout_marginBottom="7dp"
                 android:drawableEnd="@drawable/selector_class_radio_text"
-                android:background="@drawable/btn_radio_class_selector"/>
+                android:background="@drawable/selector_class_radio_python"/>
 
         </LinearLayout>
 
-
-<!--        <RadioGroup-->
-<!--            android:id="@+id/class_curri_tag_rg"-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:layout_weight="1">-->
-<!--            <RadioButton-->
-<!--                android:id="@+id/class_curri_tag_front_rb"-->
-<!--                android:layout_width="match_parent"-->
-<!--                android:layout_height="40dp"-->
-<!--                android:text="프론트"-->
-<!--                android:textColor="@color/white"-->
-<!--                android:button="@null"-->
-<!--                android:paddingStart="15dp"-->
-<!--                android:visibility="visible"-->
-<!--                android:fontFamily="@font/noto_sans_kr_bold"-->
-<!--                android:includeFontPadding="false"-->
-<!--                android:textSize="16sp"-->
-<!--                android:drawableEnd="@drawable/ic_add"-->
-<!--                android:paddingEnd="7dp"-->
-<!--                android:background="@drawable/border_round_white_transparent_18"/>-->
-<!--            <RadioButton-->
-<!--                android:id="@+id/class_curri_tag_back_rb"-->
-<!--                android:layout_width="match_parent"-->
-<!--                android:layout_height="40dp"-->
-<!--                android:text="백"-->
-<!--                android:textColor="@color/white"-->
-<!--                android:button="@null"-->
-<!--                android:paddingStart="15dp"-->
-<!--                android:visibility="visible"-->
-<!--                android:fontFamily="@font/noto_sans_kr_bold"-->
-<!--                android:includeFontPadding="false"-->
-<!--                android:textSize="16sp"-->
-<!--                android:drawableEnd="@drawable/ic_add"-->
-<!--                android:paddingEnd="7dp"-->
-<!--                android:layout_marginTop="5dp"-->
-<!--                android:background="@drawable/border_round_white_transparent_18"/>-->
-<!--            <RadioButton-->
-<!--                android:id="@+id/class_curri_tag_c_rb"-->
-<!--                android:layout_width="match_parent"-->
-<!--                android:layout_height="40dp"-->
-<!--                android:text="C언어"-->
-<!--                android:textColor="@color/white"-->
-<!--                android:button="@null"-->
-<!--                android:paddingStart="15dp"-->
-<!--                android:visibility="visible"-->
-<!--                android:fontFamily="@font/noto_sans_kr_bold"-->
-<!--                android:includeFontPadding="false"-->
-<!--                android:textSize="16sp"-->
-<!--                android:drawableEnd="@drawable/ic_add"-->
-<!--                android:paddingEnd="7dp"-->
-<!--                android:layout_marginTop="5dp"-->
-<!--                android:background="@drawable/border_round_white_transparent_18"/>-->
-<!--            <RadioButton-->
-<!--                android:id="@+id/class_curri_tag_python_rb"-->
-<!--                android:layout_width="match_parent"-->
-<!--                android:layout_height="40dp"-->
-<!--                android:text="python"-->
-<!--                android:textColor="@color/white"-->
-<!--                android:button="@null"-->
-<!--                android:paddingStart="15dp"-->
-<!--                android:visibility="visible"-->
-<!--                android:fontFamily="@font/noto_sans_kr_bold"-->
-<!--                android:includeFontPadding="false"-->
-<!--                android:textSize="16sp"-->
-<!--                android:drawableEnd="@drawable/ic_add"-->
-<!--                android:paddingEnd="7dp"-->
-<!--                android:layout_marginTop="5dp"-->
-<!--                android:background="@drawable/border_round_white_transparent_18"/>-->
-<!--        </RadioGroup>-->
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -245,15 +195,15 @@
                 android:text="서적"
                 android:textColor="@drawable/selector_class_radio_text"
                 android:button="@null"
-                android:paddingStart="15dp"
                 android:visibility="visible"
                 android:fontFamily="@font/noto_sans_kr_bold"
                 android:includeFontPadding="false"
-                android:textSize="16sp"
+                android:textSize="16dp"
                 android:layout_marginBottom="7dp"
                 android:paddingEnd="7dp"
+                android:paddingStart="20dp"
                 android:drawableEnd="@drawable/selector_class_radio_text"
-                android:background="@drawable/btn_radio_class_selector"/>
+                android:background="@drawable/selector_class_radio_media"/>
             <CheckBox
                 android:id="@+id/class_curri_tag_video_cb"
                 android:layout_width="match_parent"
@@ -261,84 +211,18 @@
                 android:text="영상"
                 android:textColor="@drawable/selector_class_radio_text"
                 android:button="@null"
-                android:paddingStart="15dp"
                 android:visibility="visible"
                 android:fontFamily="@font/noto_sans_kr_bold"
                 android:includeFontPadding="false"
-                android:textSize="16sp"
-                android:layout_marginBottom="7dp"
+                android:textSize="16dp"
                 android:drawableEnd="@drawable/selector_class_radio_text"
                 android:paddingEnd="7dp"
-                android:background="@drawable/btn_radio_class_selector"/>
+                android:paddingStart="20dp"
+                android:layout_marginBottom="7dp"
+                android:background="@drawable/selector_class_radio_media"/>
 
         </LinearLayout>
-<!--        <RadioGroup-->
-<!--            android:id="@+id/class_curri_tag_media_rg"-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:layout_marginStart="10dp"-->
-<!--            android:layout_weight="1">-->
-<!--            <androidx.constraintlayout.widget.ConstraintLayout-->
-<!--                android:layout_width="match_parent"-->
-<!--                android:layout_height="40dp">-->
-<!--                <RadioButton-->
-<!--                    android:id="@+id/class_curri_tag_book_rb"-->
-<!--                    android:layout_width="match_parent"-->
-<!--                    android:layout_height="match_parent"-->
-<!--                    android:text="서적"-->
-<!--                    android:textColor="@drawable/selector_class_radio_text"-->
-<!--                    android:button="@null"-->
-<!--                    android:paddingStart="15dp"-->
-<!--                    android:visibility="visible"-->
-<!--                    android:fontFamily="@font/noto_sans_kr_bold"-->
-<!--                    android:includeFontPadding="false"-->
-<!--                    android:textSize="16sp"-->
 
-<!--                    android:paddingEnd="7dp"-->
-<!--                    android:background="@drawable/btn_radio_class_selector"/>-->
-<!--                <ImageView-->
-<!--                    android:id="@+id/class_book_close_iv"-->
-<!--                    android:layout_width="wrap_content"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    android:src="@drawable/ic_add"-->
-<!--                    android:paddingEnd="7dp"-->
-<!--                    android:visibility="visible"-->
-<!--                    app:layout_constraintTop_toTopOf="parent"-->
-<!--                    app:layout_constraintBottom_toBottomOf="parent"-->
-<!--                    app:layout_constraintEnd_toEndOf="parent"/>-->
-<!--            </androidx.constraintlayout.widget.ConstraintLayout>-->
-<!--            <androidx.constraintlayout.widget.ConstraintLayout-->
-<!--                android:layout_width="match_parent"-->
-<!--                android:layout_height="40dp"-->
-<!--                android:layout_marginTop="5dp">-->
-<!--                <RadioButton-->
-<!--                    android:id="@+id/class_curri_tag_video_rb"-->
-<!--                    android:layout_width="match_parent"-->
-<!--                    android:layout_height="match_parent"-->
-<!--                    android:text="영상"-->
-<!--                    android:textColor="@drawable/selector_class_radio_text"-->
-<!--                    android:button="@null"-->
-<!--                    android:paddingStart="15dp"-->
-<!--                    android:visibility="visible"-->
-<!--                    android:fontFamily="@font/noto_sans_kr_bold"-->
-<!--                    android:includeFontPadding="false"-->
-<!--                    android:textSize="16sp"-->
-<!--                    android:drawableEnd="@drawable/selector_class_radio_text"-->
-<!--                    android:paddingEnd="7dp"-->
-<!--                    android:background="@drawable/btn_radio_class_selector"/>-->
-<!--                <ImageView-->
-<!--                    android:id="@+id/class_video_close_iv"-->
-<!--                    android:layout_width="wrap_content"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    android:src="@drawable/ic_close"-->
-<!--                    android:paddingEnd="7dp"-->
-<!--                    android:visibility="gone"-->
-<!--                    app:layout_constraintTop_toTopOf="parent"-->
-<!--                    app:layout_constraintBottom_toBottomOf="parent"-->
-<!--                    app:layout_constraintEnd_toEndOf="parent"/>-->
-<!--            </androidx.constraintlayout.widget.ConstraintLayout>-->
-
-<!--        </RadioGroup>-->
     <LinearLayout
         android:id="@+id/class_curri_tag_price_layout"
         android:layout_width="match_parent"
@@ -346,22 +230,23 @@
         android:layout_weight="1"
         android:orientation="vertical"
         android:layout_marginStart="5dp">
+
         <CheckBox
             android:id="@+id/class_price_tag_forfree_cb"
             android:layout_width="match_parent"
             android:layout_height="40dp"
-            android:text="무료"
-            android:textColor="@drawable/selector_class_radio_text"
+            android:layout_marginBottom="7dp"
+            android:background="@drawable/selector_class_radio_price"
             android:button="@null"
-            android:paddingStart="15dp"
-            android:visibility="visible"
+            android:drawableEnd="@drawable/selector_class_radio_text"
             android:fontFamily="@font/noto_sans_kr_bold"
             android:includeFontPadding="false"
-            android:textSize="16sp"
-            android:layout_marginBottom="7dp"
-            android:drawableEnd="@drawable/selector_class_radio_text"
+            android:paddingStart="20dp"
             android:paddingEnd="7dp"
-            android:background="@drawable/btn_radio_class_selector"/>
+            android:text="무료"
+            android:textColor="@drawable/selector_class_radio_text"
+            android:textSize="16dp"
+            android:visibility="visible" />
         <CheckBox
             android:id="@+id/class_price_tag_no_forfree_cb"
             android:layout_width="match_parent"
@@ -369,115 +254,56 @@
             android:text="유료"
             android:textColor="@drawable/selector_class_radio_text"
             android:button="@null"
-            android:paddingStart="15dp"
             android:visibility="visible"
             android:fontFamily="@font/noto_sans_kr_bold"
             android:includeFontPadding="false"
-            android:textSize="16sp"
+            android:textSize="16dp"
             android:layout_marginBottom="7dp"
             android:drawableEnd="@drawable/selector_class_radio_text"
             android:paddingEnd="7dp"
-            android:background="@drawable/btn_radio_class_selector"/>
+            android:paddingStart="20dp"
+            android:background="@drawable/selector_class_radio_price"/>
     </LinearLayout>
 
-<!--        <RadioGroup-->
-<!--            android:id="@+id/class_curri_tag_price_rg"-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:layout_marginStart="10dp"-->
-<!--            android:layout_weight="1">-->
-<!--            <androidx.constraintlayout.widget.ConstraintLayout-->
-<!--                android:layout_width="match_parent"-->
-<!--                android:layout_height="40dp">-->
-<!--                <RadioButton-->
-<!--                    android:id="@+id/class_price_tag_forfree_rb"-->
-<!--                    android:layout_width="match_parent"-->
-<!--                    android:layout_height="match_parent"-->
-<!--                    android:text="무료"-->
-<!--                    android:textColor="@drawable/selector_class_radio_text"-->
-<!--                    android:button="@null"-->
-<!--                    android:paddingStart="15dp"-->
-<!--                    android:visibility="visible"-->
-<!--                    android:fontFamily="@font/noto_sans_kr_bold"-->
-<!--                    android:includeFontPadding="false"-->
-<!--                    android:textSize="16sp"-->
-<!--                    android:drawableEnd="@drawable/selector_class_radio_text"-->
-<!--                    android:paddingEnd="7dp"-->
-<!--                    android:background="@drawable/btn_radio_class_selector"/>-->
-<!--                <ImageView-->
-<!--                    android:id="@+id/class_forfree_close_iv"-->
-<!--                    android:layout_width="wrap_content"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    android:src="@drawable/ic_close"-->
-<!--                    android:paddingEnd="7dp"-->
-<!--                    android:visibility="gone"-->
-<!--                    app:layout_constraintTop_toTopOf="parent"-->
-<!--                    app:layout_constraintBottom_toBottomOf="parent"-->
-<!--                    app:layout_constraintEnd_toEndOf="parent"/>-->
-<!--            </androidx.constraintlayout.widget.ConstraintLayout>-->
-<!--            <androidx.constraintlayout.widget.ConstraintLayout-->
-<!--                android:layout_width="match_parent"-->
-<!--                android:layout_height="40dp"-->
-<!--                android:layout_marginTop="5dp">-->
-<!--                <RadioButton-->
-<!--                    android:id="@+id/class_price_tag_no_forfree_rb"-->
-<!--                    android:layout_width="match_parent"-->
-<!--                    android:layout_height="match_parent"-->
-<!--                    android:text="유료"-->
-<!--                    android:textColor="@drawable/selector_class_radio_text"-->
-<!--                    android:button="@null"-->
-<!--                    android:paddingStart="15dp"-->
-<!--                    android:visibility="visible"-->
-<!--                    android:fontFamily="@font/noto_sans_kr_bold"-->
-<!--                    android:includeFontPadding="false"-->
-<!--                    android:textSize="16sp"-->
-<!--                    android:drawableEnd="@drawable/selector_class_radio_text"-->
-<!--                    android:paddingEnd="7dp"-->
-<!--                    android:background="@drawable/btn_radio_class_selector"/>-->
-<!--                <ImageView-->
-<!--                    android:id="@+id/class_no_forfree_close_iv"-->
-<!--                    android:layout_width="wrap_content"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    android:src="@drawable/ic_close"-->
-<!--                    android:paddingEnd="7dp"-->
-<!--                    android:visibility="gone"-->
-<!--                    app:layout_constraintTop_toTopOf="parent"-->
-<!--                    app:layout_constraintBottom_toBottomOf="parent"-->
-<!--                    app:layout_constraintEnd_toEndOf="parent"/>-->
-<!--            </androidx.constraintlayout.widget.ConstraintLayout>-->
-<!--        </RadioGroup>-->
     </LinearLayout>
 
-    <TextView
-        android:id="@+id/class_favorite_tv"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="40dp"
-        android:layout_marginStart="30dp"
-        android:text="즐겨찾기한 강의"
-        android:textColor="@color/white"
-        android:textSize="20sp"
-        android:fontFamily="@font/noto_sans_kr_bold"
-        android:includeFontPadding="false"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/class_radiogroup_linearlayout" />
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/class_favorite_rv"
+    <LinearLayout
+        android:id="@+id/class_favorite_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="15dp"
+        android:orientation="vertical"
         android:layout_marginStart="30dp"
         android:layout_marginEnd="30dp"
-        android:orientation="vertical"
-        android:overScrollMode="never"
-        android:nestedScrollingEnabled="false"
-        tools:listitem="item_board_favorite"
-        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/class_favorite_tv" />
+        android:layout_marginTop="40dp"
+        android:visibility="visible"
+        app:layout_constraintTop_toBottomOf="@id/class_radiogroup_linearlayout"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <TextView
+            android:id="@+id/class_favorite_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="즐겨찾기한 강의"
+            android:textColor="@color/white"
+            android:textSize="20dp"
+            android:fontFamily="@font/noto_sans_kr_bold"
+            android:includeFontPadding="false" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/class_favorite_rv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:orientation="vertical"
+            android:overScrollMode="never"
+            android:nestedScrollingEnabled="false"
+            tools:listitem="item_board_favorite"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"/>
+    </LinearLayout>
+
+
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/class_lecturelist_rv"
@@ -489,9 +315,10 @@
         android:orientation="vertical"
         android:overScrollMode="never"
         android:nestedScrollingEnabled="false"
+        android:visibility="visible"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/class_favorite_rv"/>
+        app:layout_constraintTop_toBottomOf="@id/class_favorite_layout"/>
 </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.core.widget.NestedScrollView>
 </androidx.constraintlayout.widget.ConstraintLayout>

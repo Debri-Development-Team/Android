@@ -71,12 +71,24 @@ interface RetrofitInterface {
     @POST("api/post/like")
     fun createPostLike(@Body postLikeCreate: PostLikeCreate, @Header("ACCESS-TOKEN") authToken: String) : Call<DeletePostResponse>
 
+    //게시물 좋아요 취소
     @PATCH("api/post/like/cancel")
     fun cancelPostLike(@Body postLikeCancel: PostLikeCancel, @Header("ACCESS-TOKEN") authToken: String) : Call<DeletePostResponse>
 
+    //게시물 스크랩 생성
     @POST("api/post/scrap/{postIdx}")
     fun createPostScrap(@Path("postIdx") postIdx: Int, @Header("ACCESS-TOKEN") authToken: String) : Call<DeletePostResponse>
 
+    //게시물 스크랩 해제
     @POST("api/post/unscrap/{postIdx}")
     fun cancelPostScrap(@Path("postIdx") postIdx: Int, @Header("ACCESS-TOKEN") authToken: String) : Call<DeletePostResponse>
+
+    //전체 강의 보여주기 (보류)
+    @GET("api/lecture/getLectureList")
+    fun showLectureList(@Header("ACCESS-TOKEN") authToken: String) : Call<LectureResponse>
+
+    @GET("api/lecture/getScrapList/{userIdx}")
+    fun showLectureFavorite(@Path("userIdx") userIdx: Int, @Header("ACCESS-TOKEN") authToken: String) : Call<LectureResponse>
+
+
 }
