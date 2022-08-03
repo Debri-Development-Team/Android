@@ -5,35 +5,36 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.example.debri_lize.data.board.Board
-import com.example.debri_lize.databinding.ItemBoardBinding
+import com.example.debri_lize.data.Lecture
+import com.example.debri_lize.databinding.ItemClassFavoriteBinding
 
-class BoardRVAdapter : RecyclerView.Adapter<BoardRVAdapter.ViewHolder>() {
+class ClassLectureRVAdapter : RecyclerView.Adapter<ClassLectureRVAdapter.ViewHolder>(){
+    var datas = mutableListOf<Lecture>()
 
-    var datas = mutableListOf<Board>()
+    inner class ViewHolder(val binding: ItemClassFavoriteBinding) : RecyclerView.ViewHolder(binding.root){
 
-    inner class ViewHolder(val binding : ItemBoardBinding) : RecyclerView.ViewHolder(binding.root){
+        val lectureName : TextView = binding.itemClassFavTitleTv
+        val chapterNum : TextView = binding.itemClassFavChapterTv
+        val language : TextView = binding.itemClassFavTagLanguageTv
+        val media : TextView = binding.itemClassFavMediaTagTv
+        val price : TextView = binding.itemClassFavPriceTagTv
 
-        val boardName : TextView = binding.itemBoardNameTv
-
-        fun bind(item: Board) {
-            boardName.text = item.boardName
+        fun bind(item: Lecture){
+            lectureName.text = item.lectureName
+            chapterNum.text = "(" + item.chapterNum.toString()+"챕터)"
+            language.text = item.language
+            media.text = "#" + item.media
+            price.text = "#" + item.price
         }
     }
 
     override fun onCreateViewHolder(viewGroup: ViewGroup, viewType: Int): ViewHolder {
-        val binding: ItemBoardBinding = ItemBoardBinding.inflate(LayoutInflater.from(viewGroup.context), viewGroup, false)
+        val binding: ItemClassFavoriteBinding = ItemClassFavoriteBinding.inflate(LayoutInflater.from(viewGroup.context), viewGroup, false)
         return ViewHolder(binding)
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.bind(datas[position])
-
-        var favoriteClick = holder.binding.itemBoardIv
-        favoriteClick.setOnClickListener{
-
-            favoriteClick.setImageResource(R.drawable.ic_favorite_on)
-        }
 
         //recyclerview item 클릭하면 fragment
         // (1) 리스트 내 항목 클릭 시 onClick() 호출
@@ -53,15 +54,5 @@ class BoardRVAdapter : RecyclerView.Adapter<BoardRVAdapter.ViewHolder>() {
     // (4) setItemClickListener로 설정한 함수 실행
     private lateinit var itemClickListener : OnItemClickListener
 
-
-
-    //
     override fun getItemCount(): Int = datas.size
-
-    //검색어 입력시 필터
-    fun filterList(filteredList: ArrayList<Board>) {
-        datas = filteredList
-        notifyDataSetChanged()
-    }
-
 }

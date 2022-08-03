@@ -21,6 +21,7 @@ import com.example.debri_lize.data.post.PostList
 import com.example.debri_lize.service.PostService
 import com.example.debri_lize.view.post.EachPostListView
 import com.example.debri_lize.databinding.FragmentPostBinding
+import com.example.debri_lize.utils.*
 import kotlin.properties.Delegates
 
 
@@ -113,11 +114,12 @@ class PostFragment : Fragment(), EachPostListView {
 
                 datas.clear()
 
+
                 //data
                 datas.apply {
 
                     for (i in result){
-                        datas.add(PostList(i.boardIdx, i.postIdx, i.authorName, i.postName, i.likeCnt, i.timeAfterCreated, i.commentCnt))
+                        datas.add(PostList(i.boardIdx, i.postIdx, i.authorName, i.postName, i.likeCnt, i.likeStatus, i.scrapStatus, i.timeAfterCreated, i.commentCnt))
                     }
 
                     postRVAdapter.datas = datas
@@ -128,11 +130,13 @@ class PostFragment : Fragment(), EachPostListView {
                         override fun onClick(v: View, position: Int) {
                             // 클릭 시 이벤트 작성
                             activity?.let {
+                                savePostIdx(datas[position].postIdx!!)
 
                                 //객체 자체를 보내는 방법 (data class)
                                 val intent = Intent(context, PostDetailActivity::class.java)
                                 intent.putExtra("postIdx", datas[position].postIdx)
                                 intent.putExtra("boardName", boardName)
+                                //intent.putExtra("likeStatus", getLikeStatus())
                                 startActivity(intent)
 
                             }
