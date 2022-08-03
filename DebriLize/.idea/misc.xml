@@ -92,7 +92,9 @@
         <entry key="..\:/Users/tptty/AndroidStudioProjects/Debri_final/Android/DebriLize/app/src/main/res/menu/post_menu.xml" value="0.17916666666666667" />
         <entry key="..\:/Users/tptty/AppData/Local/Android/Sdk/platforms/android-32/data/res/layout/simple_spinner_item.xml" value="0.17916666666666667" />
         <entry key="app/src/main/res/drawable-v24/border_round_transparent_white_10.xml" value="0.1355" />
+        <entry key="app/src/main/res/drawable/border_round_transparent_back_10.xml" value="0.1" />
         <entry key="app/src/main/res/drawable/border_round_transparent_c_10.xml" value="0.1" />
+        <entry key="app/src/main/res/drawable/border_round_transparent_python_10.xml" value="0.1" />
         <entry key="app/src/main/res/drawable/btn_radio_class_selector.xml" value="0.1" />
         <entry key="app/src/main/res/drawable/ic_close.xml" value="0.1" />
         <entry key="app/src/main/res/drawable/ic_dialog_mark_debri.xml" value="0.1395" />

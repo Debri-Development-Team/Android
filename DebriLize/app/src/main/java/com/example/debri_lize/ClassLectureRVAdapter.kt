@@ -5,7 +5,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.example.debri_lize.data.Lecture
+import com.example.debri_lize.data.class_.Lecture
 import com.example.debri_lize.databinding.ItemClassFavoriteBinding
 
 class ClassLectureRVAdapter : RecyclerView.Adapter<ClassLectureRVAdapter.ViewHolder>(){
@@ -25,6 +25,15 @@ class ClassLectureRVAdapter : RecyclerView.Adapter<ClassLectureRVAdapter.ViewHol
             language.text = item.language
             media.text = "#" + item.media
             price.text = "#" + item.price
+
+            when(language.text){
+                "Front" -> language.setBackgroundResource(R.drawable.border_round_transparent_front_10)
+                "Back" -> language.setBackgroundResource(R.drawable.border_round_transparent_back_10)
+                "C 언어" -> language.setBackgroundResource(R.drawable.border_round_transparent_c_10)
+                "Python" -> language.setBackgroundResource(R.drawable.border_round_transparent_python_10)
+            }
+
+
         }
     }
 

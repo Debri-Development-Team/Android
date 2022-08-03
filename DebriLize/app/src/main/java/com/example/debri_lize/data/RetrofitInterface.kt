@@ -2,6 +2,7 @@ package com.example.debri_lize.data
 
 import com.example.debri_lize.data.auth.UserLogin
 import com.example.debri_lize.data.auth.UserSignup
+import com.example.debri_lize.data.class_.LectureFilter
 import com.example.debri_lize.data.post.*
 import com.example.debri_lize.data.post.Comment
 import com.example.debri_lize.data.post.Post
@@ -83,12 +84,13 @@ interface RetrofitInterface {
     @POST("api/post/unscrap/{postIdx}")
     fun cancelPostScrap(@Path("postIdx") postIdx: Int, @Header("ACCESS-TOKEN") authToken: String) : Call<DeletePostResponse>
 
-    //전체 강의 보여주기 (보류)
-    @GET("api/lecture/getLectureList")
-    fun showLectureList(@Header("ACCESS-TOKEN") authToken: String) : Call<LectureResponse>
-
+    //즐겨찾는 강의 보여주기
     @GET("api/lecture/getScrapList/{userIdx}")
     fun showLectureFavorite(@Path("userIdx") userIdx: Int, @Header("ACCESS-TOKEN") authToken: String) : Call<LectureResponse>
+
+    //검색 강의 보여주기
+    @GET("api/lecture/search")
+    fun showLectureSearch(@Query ("lang") lang:String?,@Query ("type") type:String?,@Query ("price") price:String?,@Query ("key") key:String?, @Header("ACCESS-TOKEN") authToken: String) : Call<LectureResponse>
 
 
 }
