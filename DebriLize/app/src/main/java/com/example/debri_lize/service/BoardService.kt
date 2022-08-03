@@ -33,7 +33,7 @@ class BoardService {
             //응답이 왔을 때 처리
             override fun onResponse(call: Call<BoardResponse>, response: Response<BoardResponse>) {
                 Log.d("boardList", "response")
-
+                Log.d("boardlistresp","${response.body()}")
                 val resp:BoardResponse = response.body()!!
                 Log.d("boardListCode", resp.code.toString())
 

@@ -18,8 +18,8 @@ class CustomDialog(context: Context) {
         dialog.window!!.setLayout(
             WindowManager.LayoutParams.MATCH_PARENT,
             WindowManager.LayoutParams.WRAP_CONTENT)
-        dialog.setCanceledOnTouchOutside(true)  //다이얼로그 바깥쪽 클릭하면 팝업창 꺼짐
-        dialog.setCancelable(true)
+        dialog.setCanceledOnTouchOutside(false)  //다이얼로그 바깥쪽 클릭 시 팝업창 꺼지지않게
+        dialog.setCancelable(false)
 
         //yes
         dialog.findViewById<Button>(R.id.dialog_write_yes_btn).setOnClickListener {
@@ -42,8 +42,8 @@ class CustomDialog(context: Context) {
         dialog.window!!.setLayout(
             WindowManager.LayoutParams.MATCH_PARENT,
             WindowManager.LayoutParams.WRAP_CONTENT)
-        dialog.setCanceledOnTouchOutside(true)
-        dialog.setCancelable(true)
+        dialog.setCanceledOnTouchOutside(false)
+        dialog.setCancelable(false)
 
         //yes
         dialog.findViewById<Button>(R.id.dialog_cancel_yes_btn).setOnClickListener {
@@ -54,6 +54,78 @@ class CustomDialog(context: Context) {
 
         //no
         dialog.findViewById<Button>(R.id.dialog_cancel_no_btn).setOnClickListener {
+            dialog.dismiss()
+        }
+
+        dialog.show()
+    }
+
+    fun showEditDlg() {
+        dialog.setContentView(R.layout.dialog_edit_check)
+        dialog.window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+        dialog.window!!.setLayout(
+            WindowManager.LayoutParams.MATCH_PARENT,
+            WindowManager.LayoutParams.WRAP_CONTENT)
+        dialog.setCanceledOnTouchOutside(false)
+        dialog.setCancelable(false)
+
+        //yes
+        dialog.findViewById<Button>(R.id.dialog_edit_check_yes_btn).setOnClickListener {
+            //게시물 수정하기
+            onClickListener.onClicked(true)
+            dialog.dismiss()
+        }
+
+        //no
+        dialog.findViewById<Button>(R.id.dialog_edit_check_no_btn).setOnClickListener {
+            dialog.dismiss()
+        }
+
+        dialog.show()
+    }
+
+    fun showEditCancelDlg() {
+        dialog.setContentView(R.layout.dialog_edit_cancel)
+        dialog.window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+        dialog.window!!.setLayout(
+            WindowManager.LayoutParams.MATCH_PARENT,
+            WindowManager.LayoutParams.WRAP_CONTENT)
+        dialog.setCanceledOnTouchOutside(false)
+        dialog.setCancelable(false)
+
+        //yes
+        dialog.findViewById<Button>(R.id.dialog_edit_cancel_yes_btn).setOnClickListener {
+            //게시물 수정 취소
+            onClickListener.onClicked(true)
+            dialog.dismiss()
+        }
+
+        //no
+        dialog.findViewById<Button>(R.id.dialog_edit_cancel_no_btn).setOnClickListener {
+            dialog.dismiss()
+        }
+
+        dialog.show()
+    }
+
+    fun showReportDlg(){
+        dialog.setContentView(R.layout.dialog_report_text)
+        dialog.window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+        dialog.window!!.setLayout(
+            WindowManager.LayoutParams.MATCH_PARENT,
+            WindowManager.LayoutParams.WRAP_CONTENT)
+        dialog.setCanceledOnTouchOutside(false)
+        dialog.setCancelable(false)
+
+        //yes
+        dialog.findViewById<Button>(R.id.dialog_report_yes_btn).setOnClickListener {
+            //신고 사유
+            onClickListener.onClicked(true)
+            dialog.dismiss()
+        }
+
+        //no
+        dialog.findViewById<Button>(R.id.dialog_report_no_btn).setOnClickListener {
             dialog.dismiss()
         }
 
@@ -71,5 +143,8 @@ class CustomDialog(context: Context) {
     fun setOnClickListener(listener: ButtonClickListener){
         onClickListener = listener
     }
+
+
+
 
 }

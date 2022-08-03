@@ -10,6 +10,8 @@ data class PostDetail(
     var authorName : String,
     var postName : String,
     var likeCnt : Int,
+    var likeStatus : String?,
+    var scrapStatus : String?,
     var commentCnt : Int,
     var timeAfterCreated : Int,
     var postContents : String

@@ -4,6 +4,8 @@ import android.util.Log
 import com.example.debri_lize.data.post.Post
 import com.example.debri_lize.data.RetrofitInterface
 import com.example.debri_lize.data.post.EditPost
+import com.example.debri_lize.data.post.PostLikeCancel
+import com.example.debri_lize.data.post.PostLikeCreate
 import com.example.debri_lize.response.DeletePostResponse
 import com.example.debri_lize.response.PostDetailResponse
 import com.example.debri_lize.response.PostResponse
@@ -22,6 +24,12 @@ class PostService {
     private lateinit var postListView: PostListView
     private lateinit var eachPostListView: EachPostListView
     private lateinit var postDetailtView: PostDetailView
+
+    private lateinit var createPostLikeView: CreatePostLikeView
+    private lateinit var cancelPostLikeView: CancelPostLikeView
+
+    private lateinit var createPostScrapView: CreatePostScrapView
+    private lateinit var cancelPostScrapView: CancelPostScrapView
 
 
     fun setPostCreateView(postCreateView: PostCreateView){
@@ -46,6 +54,22 @@ class PostService {
 
     fun setPostDetailView(postDetailtView: PostDetailView){
         this.postDetailtView = postDetailtView
+    }
+
+    fun setCreatePostLikeView(createPostLikeView: CreatePostLikeView){
+        this.createPostLikeView = createPostLikeView
+    }
+
+    fun setCancelPostLikeView(cancelPostLikeView: CancelPostLikeView){
+        this.cancelPostLikeView = cancelPostLikeView
+    }
+
+    fun setCreatePostScrapView(createPostScrapView: CreatePostScrapView){
+        this.createPostScrapView = createPostScrapView
+    }
+
+    fun setCancelPostScrapView(cancelPostScrapView: CancelPostScrapView){
+        this.cancelPostScrapView = cancelPostScrapView
     }
 
 
@@ -81,6 +105,7 @@ class PostService {
             //응답이 왔을 때 처리
             override fun onResponse(call: Call<DeletePostResponse>, response: Response<DeletePostResponse>) {
                 Log.d("editPost", "response")
+                Log.d("posteditresp","${response.body()}")
                 val resp:DeletePostResponse = response.body()!!
                 Log.d("editPostCode", resp.code.toString())
                 when(resp.code){
@@ -189,5 +214,95 @@ class PostService {
         })
     }
 
+    fun createPostLike(postLike: PostLikeCreate){
+        Log.d("createPostLike", "enter")
+        val postService = getRetrofit().create(RetrofitInterface::class.java)
+        postService.createPostLike(postLike, getJwt()!!).enqueue(object: Callback<DeletePostResponse> {
+            //응답이 왔을 때 처리
+            override fun onResponse(call: Call<DeletePostResponse>, response: Response<DeletePostResponse>) {
+                Log.d("createPostLike", "response")
+                val resp:DeletePostResponse = response.body()!!
+                Log.d("createPostLikeCode", resp.code.toString())
+                when(resp.code){
+                    //API code값 사용
+                    200->createPostLikeView.onCreatePostLikeSuccess(resp.code) //result를 받아서 UI를 구현해야함
+                    else->createPostLikeView.onCreatePostLikeFailure(resp.code) //무슨 오류인지 알아야하므로 code가져가기
+                }
+            }
+            //실패했을 때 처리
+            override fun onFailure(call: Call<DeletePostResponse>, t: Throwable) {
+                Log.d("createPostLikefail", t.toString())
+            }
 
+        })
+    }
+
+    fun cancelPostLike(postLike: PostLikeCancel){
+        Log.d("cancelPostLike", "enter")
+        val postService = getRetrofit().create(RetrofitInterface::class.java)
+        postService.cancelPostLike(postLike, getJwt()!!).enqueue(object: Callback<DeletePostResponse> {
+            //응답이 왔을 때 처리
+            override fun onResponse(call: Call<DeletePostResponse>, response: Response<DeletePostResponse>) {
+                Log.d("cancelPostLike", "response")
+                val resp:DeletePostResponse = response.body()!!
+                Log.d("cancelPostLikeCode", resp.code.toString())
+                when(resp.code){
+                    //API code값 사용
+                    200->cancelPostLikeView.onCancelPostLikeSuccess(resp.code) //result를 받아서 UI를 구현해야함
+                    else->cancelPostLikeView.onCancelPostLikeFailure(resp.code) //무슨 오류인지 알아야하므로 code가져가기
+                }
+            }
+            //실패했을 때 처리
+            override fun onFailure(call: Call<DeletePostResponse>, t: Throwable) {
+                Log.d("cancelPostLikefail", t.toString())
+            }
+
+        })
+    }
+
+    fun createPostScrap(postIdx: Int){
+        Log.d("createPostScrap", "enter")
+        val postService = getRetrofit().create(RetrofitInterface::class.java)
+        postService.createPostScrap(postIdx, getJwt()!!).enqueue(object: Callback<DeletePostResponse> {
+            //응답이 왔을 때 처리
+            override fun onResponse(call: Call<DeletePostResponse>, response: Response<DeletePostResponse>) {
+                Log.d("createPostScrap", "response")
+                val resp:DeletePostResponse = response.body()!!
+                Log.d("createPostScrapCode", resp.code.toString())
+                when(resp.code){
+                    //API code값 사용
+                    200->createPostScrapView.onCreatePostScrapSuccess(resp.code) //result를 받아서 UI를 구현해야함
+                    else->createPostScrapView.onCreatePostScrapFailure(resp.code) //무슨 오류인지 알아야하므로 code가져가기
+                }
+            }
+            //실패했을 때 처리
+            override fun onFailure(call: Call<DeletePostResponse>, t: Throwable) {
+                Log.d("createPostLikefail", t.toString())
+            }
+
+        })
+    }
+
+    fun cancelPostScrap(postIdx: Int){
+        Log.d("cancelPostScrap", "enter")
+        val postService = getRetrofit().create(RetrofitInterface::class.java)
+        postService.cancelPostScrap(postIdx, getJwt()!!).enqueue(object: Callback<DeletePostResponse> {
+            //응답이 왔을 때 처리
+            override fun onResponse(call: Call<DeletePostResponse>, response: Response<DeletePostResponse>) {
+                Log.d("cancelPostScrap", "response")
+                val resp:DeletePostResponse = response.body()!!
+                Log.d("cancelPostScrapCode", resp.code.toString())
+                when(resp.code){
+                    //API code값 사용
+                    200->cancelPostScrapView.onCancelPostScrapSuccess(resp.code) //result를 받아서 UI를 구현해야함
+                    else->cancelPostScrapView.onCancelPostScrapFailure(resp.code) //무슨 오류인지 알아야하므로 code가져가기
+                }
+            }
+            //실패했을 때 처리
+            override fun onFailure(call: Call<DeletePostResponse>, t: Throwable) {
+                Log.d("createPostLikefail", t.toString())
+            }
+
+        })
+    }
 }

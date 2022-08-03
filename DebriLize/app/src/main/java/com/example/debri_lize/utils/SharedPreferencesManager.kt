@@ -1,5 +1,7 @@
 package com.example.debri_lize.utils
 
+import android.content.SharedPreferences
+import com.example.debri_lize.data.post.PostLikeCreate
 import com.example.debri_lize.utils.ApplicationClass.Companion.X_ACCESS_TOKEN
 import com.example.debri_lize.utils.ApplicationClass.Companion.mSharedPreferences
 
@@ -40,4 +42,27 @@ fun saveUserName(userName: String) {
 
 fun getUserName(): String? = mSharedPreferences.getString("userName", null)
 
+fun savePostIdx(postIdx: Int) {
+    val editor = mSharedPreferences.edit()
+    editor.putInt("postIdx", postIdx)
 
+    editor.apply()
+}
+
+fun getPostIdx(): Int? = mSharedPreferences.getInt("postIdx",0)
+
+fun saveLikeStatus(likeStatus: String, postIdx: Int, userIdx: Int){
+    val editor = mSharedPreferences.edit()
+    editor.putInt("postIdx", postIdx)
+    editor.putInt("userIdx", userIdx)
+    editor.putString("likeStatus", likeStatus)
+
+    editor.apply()
+}
+
+fun getLikeStatus(): PostLikeCreate? {
+    val postIdx = mSharedPreferences.getInt("postIdx",0)
+    val userIdx = mSharedPreferences.getInt("userIdx",0)
+    val likeStatus = mSharedPreferences.getString("likeStatus",null)
+    return PostLikeCreate(postIdx, userIdx, likeStatus)
+}

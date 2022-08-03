@@ -29,6 +29,12 @@ class BoardRVAdapter : RecyclerView.Adapter<BoardRVAdapter.ViewHolder>() {
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.bind(datas[position])
 
+        var favoriteClick = holder.binding.itemBoardIv
+        favoriteClick.setOnClickListener{
+
+            favoriteClick.setImageResource(R.drawable.ic_favorite_on)
+        }
+
         //recyclerview item 클릭하면 fragment
         // (1) 리스트 내 항목 클릭 시 onClick() 호출
         holder.itemView.setOnClickListener {
