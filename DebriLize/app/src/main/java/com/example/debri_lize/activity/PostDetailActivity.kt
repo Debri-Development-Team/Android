@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.debri_lize.CommentRVAdapter
 import android.view.Gravity
 import androidx.core.content.ContextCompat
+import com.example.debri_lize.CustomDialog
 import com.example.debri_lize.R
 import com.example.debri_lize.data.post.Comment
 import com.example.debri_lize.data.post.CommentList
@@ -49,6 +50,7 @@ class PostDetailActivity : AppCompatActivity(), PostDetailView, CommentCreateVie
     private var likeTF : Boolean = false
     private var scrapTF : Boolean = false
 
+    private var reportOK : Boolean = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -252,17 +254,34 @@ class PostDetailActivity : AppCompatActivity(), PostDetailView, CommentCreateVie
                 bottomSheetComplainDetailDialog.findViewById<TextView>(R.id.bottom_sheet_complain_page_tv5)!!
                     .setOnClickListener {
 
+                        //신고 사유 다이얼로그
+                        val dialog = CustomDialog(this)
+                        dialog.showReportDlg()
+                        //사유 적은 후 ok 버튼 클릭 시
+                        dialog.setOnClickListener(object:CustomDialog.ButtonClickListener{
+                            override fun onClicked(TF: Boolean) {
+                                reportOK = true
+                                //텍스트 받아 넘기기
+
+
+                                finish()
+                            }
+
+                        })
 
                         //토스트메세지 띄우기
-                        var reportToast = layoutInflater.inflate(R.layout.toast_report,null)
-                        var toast = Toast(this)
-                        toast.view = reportToast
-                        toast.setGravity(Gravity.CENTER_HORIZONTAL,0,0)
-                        toast.show()
+                        if(reportOK){
+                            var reportToast = layoutInflater.inflate(R.layout.toast_report,null)
+                            var toast = Toast(this)
+                            toast.view = reportToast
+                            toast.setGravity(Gravity.CENTER_HORIZONTAL,0,0)
+                            toast.show()
 
-                        //다이얼로그 닫기
-                        bottomSheetComplainDetailDialog.dismiss()
-                        bottomSheetDialog.dismiss()
+                            //bottom 다이얼로그 닫기
+                            bottomSheetComplainDetailDialog.dismiss()
+                            bottomSheetDialog.dismiss()
+                        }
+
                     }
 
                 //close button

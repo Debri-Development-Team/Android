@@ -108,6 +108,30 @@ class CustomDialog(context: Context) {
         dialog.show()
     }
 
+    fun showReportDlg(){
+        dialog.setContentView(R.layout.dialog_report_text)
+        dialog.window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+        dialog.window!!.setLayout(
+            WindowManager.LayoutParams.MATCH_PARENT,
+            WindowManager.LayoutParams.WRAP_CONTENT)
+        dialog.setCanceledOnTouchOutside(false)
+        dialog.setCancelable(false)
+
+        //yes
+        dialog.findViewById<Button>(R.id.dialog_report_yes_btn).setOnClickListener {
+            //신고 사유
+            onClickListener.onClicked(true)
+            dialog.dismiss()
+        }
+
+        //no
+        dialog.findViewById<Button>(R.id.dialog_report_no_btn).setOnClickListener {
+            dialog.dismiss()
+        }
+
+        dialog.show()
+    }
+
 
     interface ButtonClickListener{
         fun onClicked(TF: Boolean)
