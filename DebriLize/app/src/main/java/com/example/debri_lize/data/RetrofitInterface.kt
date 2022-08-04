@@ -14,7 +14,7 @@ interface RetrofitInterface {
 
     //token
     @PATCH("api/jwt/refresh")
-    fun token(@Body refreshToken : String): Call<TokenResponse>
+    fun token(@Header("ACCESS-TOKEN") authToken: String, @Body refreshToken : String): Call<TokenResponse>
 
     //회원가입
     @POST("api/user/signUp")
