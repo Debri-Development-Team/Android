@@ -64,4 +64,10 @@ class ClassLectureRVAdapter : RecyclerView.Adapter<ClassLectureRVAdapter.ViewHol
     private lateinit var itemClickListener : OnItemClickListener
 
     override fun getItemCount(): Int = datas.size
+
+    //검색어 입력시 필터
+    fun filterList(filteredList: ArrayList<Lecture>) {
+        datas = filteredList
+        notifyDataSetChanged()
+    }
 }
