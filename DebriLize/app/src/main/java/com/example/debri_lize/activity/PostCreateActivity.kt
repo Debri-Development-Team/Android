@@ -6,11 +6,9 @@ import android.text.Editable
 import android.text.TextWatcher
 import android.view.View
 import android.widget.AdapterView
-import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.debri_lize.CustomDialog
-import com.example.debri_lize.R
 import com.example.debri_lize.data.post.Post
 import com.example.debri_lize.service.PostService
 import com.example.debri_lize.view.post.PostCreateView
@@ -18,16 +16,19 @@ import com.example.debri_lize.databinding.ActivityPostCreateBinding
 import com.example.debri_lize.utils.getUserIdx
 import com.example.debri_lize.data.post.EditPost
 import com.example.debri_lize.data.post.PostDetail
+import com.example.debri_lize.response.Board
+import com.example.debri_lize.service.BoardService
+import com.example.debri_lize.view.board.BoardListView
 import com.example.debri_lize.view.post.EditPostView
 import kotlin.properties.Delegates
 
 
-class PostCreateActivity : AppCompatActivity(), PostCreateView, EditPostView {
+class PostCreateActivity : AppCompatActivity(), PostCreateView, EditPostView, BoardListView {
 
     lateinit var binding : ActivityPostCreateBinding
 
     //spinner
-    private val items = ArrayList<String>()
+    private val items = ArrayList<com.example.debri_lize.data.board.Board>()
 
     //api
     lateinit var postDetail : PostDetail
@@ -56,6 +57,11 @@ class PostCreateActivity : AppCompatActivity(), PostCreateView, EditPostView {
         boardIdx = intent.getIntExtra("boardIdx", 0)
         edit = intent.getBooleanExtra("edit", true)
 
+        //api - spinner
+        val boardService = BoardService()
+        boardService.setBoardListView(this)
+        boardService.showBoardList()
+
         //PostDetailAcitivy : edit -> data받아오기 (edit)
         if(edit==true){
             val intent = intent //전달할 데이터를 받을 Intent
@@ -66,9 +72,6 @@ class PostCreateActivity : AppCompatActivity(), PostCreateView, EditPostView {
                 binding.writeBtn.text = "수정하기"
             }
         }
-
-        //spinner : boardList
-        SpinnerboardList()
 
         // 실행
         binding.writeBtn.setOnClickListener{
@@ -112,49 +115,6 @@ class PostCreateActivity : AppCompatActivity(), PostCreateView, EditPostView {
 
     }
 
-    //spinner item 동적 추가
-    private fun SpinnerboardList() {
-        items.clear()
-
-        items.add("야호1")
-        items.add("야호2")
-        items.add("야호3")
-        val myAdapter = SpinnerAdapter(this@PostCreateActivity,items)
-        binding.writeBoardListSpinner.adapter = myAdapter
-        binding.writeBoardListSpinner.setSelection(0)
-
-        //click item
-        binding.writeBoardListSpinner.onItemSelectedListener =
-            object : AdapterView.OnItemSelectedListener {
-                override fun onItemSelected(
-                    parent: AdapterView<*>,
-                    view: View,
-                    position: Int,
-                    id: Long
-                ) {
-
-                    //아이템이 클릭 되면 맨 위부터 position 0번부터 순서대로 동작하게 됩니다.
-                    when (position) {
-                        0 -> {
-
-                        }
-                        1 -> {
-
-                        }
-                        //...
-                        else -> {
-
-                        }
-                    }
-                }
-
-                override fun onNothingSelected(parent: AdapterView<*>) {
-
-                }
-
-            }
-    }
-
     //count letter
     private fun countLetter(){
         binding.writeContentEt.addTextChangedListener(object : TextWatcher {
@@ -179,7 +139,7 @@ class PostCreateActivity : AppCompatActivity(), PostCreateView, EditPostView {
 
     //사용자가 입력한 값 가져오기
     private fun getPost() : Post {
-        val boardIdx : Int = 1 //변경필요
+
         val userIdx = getUserIdx() //변경필요
         val postContent : String = binding.writeContentEt.text.toString()
         var postName : String = binding.writeTitleEt.text.toString()
@@ -268,6 +228,53 @@ class PostCreateActivity : AppCompatActivity(), PostCreateView, EditPostView {
     }
 
     override fun onEditPostFailure(code: Int) {
+
+    }
+
+    //spinner
+    override fun onBoardListSuccess(code: Int, result: List<Board>) {
+        when(code){
+            200->{
+                //spinner : boardList
+                items.clear()
+
+                for (i in result){
+                    items.add(com.example.debri_lize.data.board.Board(i.boardIdx, i.boardName))
+                }
+
+                val myAdapter = SpinnerAdapter(this@PostCreateActivity,items)
+                binding.writeBoardListSpinner.adapter = myAdapter
+
+                //초기화
+               binding.writeBoardListSpinner.setSelection(boardIdx-1)
+
+                //click item
+                binding.writeBoardListSpinner.onItemSelectedListener =
+                    object : AdapterView.OnItemSelectedListener {
+                        override fun onItemSelected(parent: AdapterView<*>, view: View, position: Int, id: Long) {
+
+                            //아이템이 클릭 되면 맨 위부터 position 0번부터 순서대로 동작
+                            when (position) {
+                                0, 1 -> {
+                                    boardIdx = items[position].boardIdx
+                                }
+
+                                else -> {
+
+                                }
+                            }
+                        }
+
+                        override fun onNothingSelected(parent: AdapterView<*>) {
+
+                        }
+
+                    }
+            }
+        }
+    }
+
+    override fun onBoardListFailure(code: Int) {
 
     }
 

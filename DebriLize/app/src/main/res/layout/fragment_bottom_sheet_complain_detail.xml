@@ -34,8 +34,7 @@
             android:gravity="center"
             android:text="신고 사유"
             android:textColor="@color/black"
-            android:textSize="12sp"
-            android:background="@drawable/border_line_bottom"/>
+            android:textSize="12sp"/>
 
         <TextView
             android:id="@+id/bottom_sheet_complain_page_tv1"

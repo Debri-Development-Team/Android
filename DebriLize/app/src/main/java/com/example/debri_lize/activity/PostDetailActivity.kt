@@ -159,11 +159,15 @@ class PostDetailActivity : AppCompatActivity(), PostDetailView, CommentCreateVie
         val bottomSheetDialog = BottomSheetDialog(this)
 
         if(getUserIdx()==authorIdx){ //본인 글
-            bottomSheetView = layoutInflater.inflate(R.layout.fragment_bottom_sheet_edit_delete, null)
+            bottomSheetView = layoutInflater.inflate(R.layout.fragment_bottom_sheet_two, null)
             bottomSheetDialog.setContentView(bottomSheetView)
 
+            bottomSheetView.findViewById<TextView>(R.id.bottom_sheet_two_tv).text = "게시물 관리"
+            bottomSheetView.findViewById<TextView>(R.id.bottom_sheet_two_tv1).text = "수정하기"
+            bottomSheetView.findViewById<TextView>(R.id.bottom_sheet_two_tv2).text = "삭제하기"
+
             //click edit button
-            bottomSheetView.findViewById<TextView>(R.id.bottom_sheet_edit_tv).setOnClickListener {
+            bottomSheetView.findViewById<TextView>(R.id.bottom_sheet_two_tv1).setOnClickListener {
                 //PostCreateActivity에 값 전달
                 val intent = Intent(this, PostCreateActivity::class.java)
                 intent.putExtra("postDetail", postDetail)
@@ -172,7 +176,7 @@ class PostDetailActivity : AppCompatActivity(), PostDetailView, CommentCreateVie
                 finish()
             }
             //click delete button
-            bottomSheetView.findViewById<TextView>(R.id.bottom_sheet_delete_tv).setOnClickListener {
+            bottomSheetView.findViewById<TextView>(R.id.bottom_sheet_two_tv2).setOnClickListener {
                 postService.deletePost(postIdx)
                 bottomSheetDialog.dismiss()
                 //add dialog code
@@ -207,7 +211,7 @@ class PostDetailActivity : AppCompatActivity(), PostDetailView, CommentCreateVie
                         //다이얼로그 닫기
                         bottomSheetComplainDetailDialog.dismiss()
                         bottomSheetDialog.dismiss()
-                }
+                    }
                 //낚시,도배
                 bottomSheetComplainDetailDialog.findViewById<TextView>(R.id.bottom_sheet_complain_page_tv2)!!
                     .setOnClickListener {
