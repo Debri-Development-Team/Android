@@ -16,10 +16,10 @@ import com.example.debri_lize.activity.PostListActivity
 import com.example.debri_lize.data.board.Board
 import com.example.debri_lize.databinding.FragmentBoardBinding
 import com.example.debri_lize.service.BoardService
-import com.example.debri_lize.view.board.BoardListView
+import com.example.debri_lize.view.board.UnScrapBoardListView
 import com.example.debri_lize.view.board.ScrapBoardListView
 
-class BoardFragment : Fragment(), BoardListView, ScrapBoardListView {
+class BoardFragment : Fragment(), UnScrapBoardListView, ScrapBoardListView {
 
     lateinit var binding: FragmentBoardBinding
     lateinit var boardfavoriteRVAdapter: BoardFavoriteRVAdapter
@@ -50,8 +50,8 @@ class BoardFragment : Fragment(), BoardListView, ScrapBoardListView {
 
         //api
         val boardService = BoardService()
-        boardService.setBoardListView(this)
-        boardService.showBoardList()
+        boardService.setUnScrapBoardListView(this)
+        boardService.showUnScrapBoardList()
         boardService.setScrapBoardListView(this)
         boardService.showScrapBoardList()
 
@@ -112,7 +112,7 @@ class BoardFragment : Fragment(), BoardListView, ScrapBoardListView {
 
 
 
-    override fun onBoardListSuccess(code: Int, result: List<com.example.debri_lize.response.Board>) {
+    override fun onUnScrapBoardListSuccess(code: Int, result: List<com.example.debri_lize.response.Board>) {
         when(code){
             200->{
                 //전체 게시판 조회 (즐겨찾기된 게시판은 삭제)
@@ -155,7 +155,7 @@ class BoardFragment : Fragment(), BoardListView, ScrapBoardListView {
         }
     }
 
-    override fun onBoardListFailure(code: Int) {
+    override fun onUnScrapBoardListFailure(code: Int) {
 
     }
 
