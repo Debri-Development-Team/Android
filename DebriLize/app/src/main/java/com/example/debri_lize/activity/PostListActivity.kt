@@ -99,7 +99,8 @@ class PostListActivity : AppCompatActivity(), PostListView {
                 datas.apply {
                     Log.d("resultSize", result.size.toString())
                     for (i in result){
-                        datas.add(PostList(i.boardIdx, i.postIdx, i.authorName, i.postName, i.likeCnt, i.timeAfterCreated, i.commentCnt))
+                        Log.d("postlist","$result")
+                        datas.add(PostList(i.boardIdx, i.postIdx, i.authorName, i.postName, i.likeCnt, i.likeStatus,i.scrapStatus, i.timeAfterCreated, i.commentCnt))
                     }
 
                     postRVAdapter.datas = datas

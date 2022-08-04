@@ -2,9 +2,9 @@ package com.example.debri_lize.data
 
 import com.example.debri_lize.data.auth.UserLogin
 import com.example.debri_lize.data.auth.UserSignup
-import com.example.debri_lize.data.post.Cocomment
+import com.example.debri_lize.data.class_.LectureFilter
+import com.example.debri_lize.data.post.*
 import com.example.debri_lize.data.post.Comment
-import com.example.debri_lize.data.post.EditPost
 import com.example.debri_lize.data.post.Post
 import com.example.debri_lize.response.*
 import retrofit2.Call
@@ -67,4 +67,30 @@ interface RetrofitInterface {
     //댓글, 대댓글 조회
     @GET("api/comment/get/{postIdx}")
     fun showComment(@Path("postIdx") postIdx: Int) : Call<CommentListResponse>
+
+    //게시물 좋아요 생성
+    @POST("api/post/like")
+    fun createPostLike(@Body postLikeCreate: PostLikeCreate, @Header("ACCESS-TOKEN") authToken: String) : Call<DeletePostResponse>
+
+    //게시물 좋아요 취소
+    @PATCH("api/post/like/cancel")
+    fun cancelPostLike(@Body postLikeCancel: PostLikeCancel, @Header("ACCESS-TOKEN") authToken: String) : Call<DeletePostResponse>
+
+    //게시물 스크랩 생성
+    @POST("api/post/scrap/{postIdx}")
+    fun createPostScrap(@Path("postIdx") postIdx: Int, @Header("ACCESS-TOKEN") authToken: String) : Call<DeletePostResponse>
+
+    //게시물 스크랩 해제
+    @POST("api/post/unscrap/{postIdx}")
+    fun cancelPostScrap(@Path("postIdx") postIdx: Int, @Header("ACCESS-TOKEN") authToken: String) : Call<DeletePostResponse>
+
+    //즐겨찾는 강의 보여주기
+    @GET("api/lecture/getScrapList/{userIdx}")
+    fun showLectureFavorite(@Path("userIdx") userIdx: Int, @Header("ACCESS-TOKEN") authToken: String) : Call<LectureResponse>
+
+    //검색 강의 보여주기
+    @GET("api/lecture/search")
+    fun showLectureSearch(@Query ("lang") lang:String?,@Query ("type") type:String?,@Query ("price") price:String?,@Query ("key") key:String?, @Header("ACCESS-TOKEN") authToken: String) : Call<LectureResponse>
+
+
 }

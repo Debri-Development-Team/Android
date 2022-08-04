@@ -8,11 +8,10 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.debri_lize.data.class_.Lecture
 import com.example.debri_lize.databinding.ItemClassFavoriteBinding
 
-class ClassFavoriteRVAdapter : RecyclerView.Adapter<ClassFavoriteRVAdapter.ViewHolder>() {
+class ClassLectureRVAdapter : RecyclerView.Adapter<ClassLectureRVAdapter.ViewHolder>(){
+    var datas = mutableListOf<Lecture>()
 
-    var datas_classf = mutableListOf<Lecture>()
-
-    inner class ViewHolder(val binding:ItemClassFavoriteBinding) : RecyclerView.ViewHolder(binding.root){
+    inner class ViewHolder(val binding: ItemClassFavoriteBinding) : RecyclerView.ViewHolder(binding.root){
 
         val lectureName : TextView = binding.itemClassFavTitleTv
         val chapterNum : TextView = binding.itemClassFavChapterTv
@@ -33,9 +32,10 @@ class ClassFavoriteRVAdapter : RecyclerView.Adapter<ClassFavoriteRVAdapter.ViewH
                 "C 언어" -> language.setBackgroundResource(R.drawable.border_round_transparent_c_10)
                 "Python" -> language.setBackgroundResource(R.drawable.border_round_transparent_python_10)
             }
+
+
         }
     }
-
 
     override fun onCreateViewHolder(viewGroup: ViewGroup, viewType: Int): ViewHolder {
         val binding: ItemClassFavoriteBinding = ItemClassFavoriteBinding.inflate(LayoutInflater.from(viewGroup.context), viewGroup, false)
@@ -43,7 +43,7 @@ class ClassFavoriteRVAdapter : RecyclerView.Adapter<ClassFavoriteRVAdapter.ViewH
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.bind(datas_classf[position])
+        holder.bind(datas[position])
 
         //recyclerview item 클릭하면 fragment
         // (1) 리스트 내 항목 클릭 시 onClick() 호출
@@ -63,6 +63,5 @@ class ClassFavoriteRVAdapter : RecyclerView.Adapter<ClassFavoriteRVAdapter.ViewH
     // (4) setItemClickListener로 설정한 함수 실행
     private lateinit var itemClickListener : OnItemClickListener
 
-    override fun getItemCount(): Int = datas_classf.size
-
+    override fun getItemCount(): Int = datas.size
 }

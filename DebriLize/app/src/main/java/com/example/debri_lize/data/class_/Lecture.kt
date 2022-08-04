@@ -1,8 +1,9 @@
-package com.example.debri_lize.data
+package com.example.debri_lize.data.class_
 
 import java.io.Serializable
 
 data class Lecture(
+    val lectureIdx : Int? = 0,
     val lectureName : String? = "",
     val chapterNum : Int? = 0,
     val language : String? = "",

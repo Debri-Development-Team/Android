@@ -18,6 +18,8 @@
     <color name="c">#7F8B99</color>
     <color name="java">#F0DB4F</color>
     <color name="python">#4B8BBE</color>
+    <color name="front">#CB3953</color>
+    <color name="back">#53CB39</color>
     <color name="cocomment">#202E51</color>
     <color name="bottom_sheet">#8B95A1</color>
     <color name="red">#FF0000</color>
