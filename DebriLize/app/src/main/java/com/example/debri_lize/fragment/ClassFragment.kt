@@ -1,14 +1,21 @@
 package com.example.debri_lize.fragment
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.debri_lize.ClassFavoriteRVAdapter
 import com.example.debri_lize.ClassLectureRVAdapter
+import com.example.debri_lize.CustomDialog
+import com.example.debri_lize.R
+import com.example.debri_lize.activity.PostCreateActivity
 import com.example.debri_lize.data.class_.Lecture
 import com.example.debri_lize.data.class_.LectureFilter
 import com.example.debri_lize.databinding.FragmentClassBinding
@@ -16,6 +23,7 @@ import com.example.debri_lize.service.ClassService
 import com.example.debri_lize.utils.getUserIdx
 import com.example.debri_lize.view.class_.LectureFavoriteView
 import com.example.debri_lize.view.class_.LectureFilterView
+import com.google.android.material.bottomsheet.BottomSheetDialog
 
 class ClassFragment : Fragment(), LectureFavoriteView, LectureFilterView {
 
@@ -52,6 +60,46 @@ class ClassFragment : Fragment(), LectureFavoriteView, LectureFilterView {
         //강의 필터
         classService.setLectureFilterView(this)
 
+        //click filter btn
+        binding.classFilterIv.setOnClickListener{
+            //bottom sheet
+            bottomSheet()
+        }
+
+    }
+
+    //bottom sheet
+    private fun bottomSheet(){
+
+        val bottomSheetDialog = BottomSheetDialog(requireContext())
+
+        var bottomSheetView : View = layoutInflater.inflate(R.layout.fragment_bottom_sheet_two, null)
+        bottomSheetDialog.setContentView(bottomSheetView)
+
+        bottomSheetView.findViewById<TextView>(R.id.bottom_sheet_two_tv).text = "강의 정렬하기"
+        bottomSheetView.findViewById<TextView>(R.id.bottom_sheet_two_tv1).text = "가나다 순 정렬"
+        bottomSheetView.findViewById<TextView>(R.id.bottom_sheet_two_tv2).text = "좋아요 순 정렬"
+
+        //가나다 순
+        bottomSheetView.findViewById<TextView>(R.id.bottom_sheet_two_tv1).setOnClickListener {
+
+            bottomSheetDialog.dismiss()
+        }
+        //좋아요 순
+        bottomSheetView.findViewById<TextView>(R.id.bottom_sheet_two_tv2).setOnClickListener {
+
+            bottomSheetDialog.dismiss()
+        }
+
+
+        binding.classFilterIv.setOnClickListener {
+            bottomSheetDialog.show()
+        }
+
+        //close button
+        bottomSheetView.findViewById<TextView>(R.id.bottom_sheet_close_tv).setOnClickListener {
+            bottomSheetDialog.dismiss()
+        }
 
     }
 

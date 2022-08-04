@@ -70,7 +70,7 @@ class PostFragment : Fragment(), EachPostListView {
         postService.seteachPostListView(this)
         postService.showEachPostList(boardIdx) //변경필요
 
-        //게시글 작성하기 버튼
+        //create post
         binding.postWriteBtn.setOnClickListener{
             val intent = Intent(context, PostCreateActivity::class.java)
             intent.putExtra("boardIdx", boardIdx)

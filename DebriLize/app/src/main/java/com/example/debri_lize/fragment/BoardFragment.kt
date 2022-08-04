@@ -12,7 +12,9 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.debri_lize.BoardFavoriteRVAdapter
 import com.example.debri_lize.BoardRVAdapter
 import com.example.debri_lize.R
+import com.example.debri_lize.activity.PostCreateActivity
 import com.example.debri_lize.activity.PostListActivity
+import com.example.debri_lize.activity.auth.ProfileActivity
 import com.example.debri_lize.data.board.Board
 import com.example.debri_lize.databinding.FragmentBoardBinding
 import com.example.debri_lize.service.BoardService
@@ -42,6 +44,12 @@ class BoardFragment : Fragment(), UnScrapBoardListView, ScrapBoardListView {
 
     override fun onStart() {
         super.onStart()
+        //click userImg -> profile
+        binding.boardDebriUserIv.setOnClickListener{
+            val intent = Intent(context, ProfileActivity::class.java)
+            startActivity(intent)
+        }
+
         //search
         binding.boardSearchLayout.setOnClickListener{
             val intent = Intent(activity, PostListActivity::class.java)
@@ -79,6 +87,14 @@ class BoardFragment : Fragment(), UnScrapBoardListView, ScrapBoardListView {
             }
 
         })
+
+        //create post
+        binding.boardWriteBtn.setOnClickListener{
+            val intent = Intent(context, PostCreateActivity::class.java)
+            intent.putExtra("boardIdx", 1) //가장 첫번째 board로 자동 지정
+            intent.putExtra("edit", false)
+            startActivity(intent)
+        }
     }
 
     //search boardName
