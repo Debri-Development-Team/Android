@@ -64,8 +64,8 @@ interface RetrofitInterface {
     @POST("api/comment/replyOnPost/create")
     fun createComment(@Body comment: Comment): Call<CommentResponse>
 
-    //대댓글 작성성
-    @POST("api/comment/replyOnPost/create")
+    //대댓글 작성
+    @POST("api/comment/replyOnReply/create")
     fun createCocomment(@Body cocomment: Cocomment): Call<CommentResponse>
 
     //댓글, 대댓글 조회

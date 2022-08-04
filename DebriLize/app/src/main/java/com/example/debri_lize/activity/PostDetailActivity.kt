@@ -14,11 +14,9 @@ import android.view.Gravity
 import androidx.core.content.ContextCompat
 import com.example.debri_lize.CustomDialog
 import com.example.debri_lize.R
-import com.example.debri_lize.data.post.Comment
-import com.example.debri_lize.data.post.CommentList
-import com.example.debri_lize.data.post.PostLikeCancel
-import com.example.debri_lize.data.post.PostLikeCreate
+import com.example.debri_lize.data.post.*
 import com.example.debri_lize.databinding.ActivityPostDetailBinding
+import com.example.debri_lize.databinding.ItemCommentBinding
 import com.example.debri_lize.response.PostDetail
 import com.example.debri_lize.service.CommentService
 import com.example.debri_lize.service.PostService
@@ -71,6 +69,7 @@ class PostDetailActivity : AppCompatActivity(), PostDetailView, CommentCreateVie
         commentService.showComment(postIdx)
 
         //write comment <- enter
+        binding.postDetailWriteCommentEt.hint = "댓글쓰기"
         binding.postDetailWriteCommentEt.setOnKeyListener { v, keyCode, event ->
             if (event.action == KeyEvent.ACTION_DOWN && keyCode == KeyEvent.KEYCODE_ENTER) {
                 createComment()
@@ -360,6 +359,8 @@ class PostDetailActivity : AppCompatActivity(), PostDetailView, CommentCreateVie
 
     }
 
+
+
     override fun onCommentCreateSuccess(code: Int) {
         when(code){
             200->Toast.makeText(this, "comment ok", Toast.LENGTH_SHORT).show()
@@ -369,7 +370,6 @@ class PostDetailActivity : AppCompatActivity(), PostDetailView, CommentCreateVie
     override fun onCommentCreateFailure(code: Int) {
 
     }
-
 
     override fun onShowCommentSuccess(code: Int, result: List<com.example.debri_lize.response.CommentList>
     ) {
@@ -403,7 +403,7 @@ class PostDetailActivity : AppCompatActivity(), PostDetailView, CommentCreateVie
 
                 binding.postDetailCommentRv.layoutManager =
                     LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
-                commentRVAdapter = CommentRVAdapter().build(parentItemArrayList, childItemArrayListGroup)
+                commentRVAdapter = CommentRVAdapter().build(parentItemArrayList, childItemArrayListGroup, binding)
                 binding.postDetailCommentRv.adapter = commentRVAdapter
 
                 commentRVAdapter.notifyDataSetChanged()
@@ -501,6 +501,8 @@ class PostDetailActivity : AppCompatActivity(), PostDetailView, CommentCreateVie
     override fun onCancelPostScrapFailure(code: Int) {
         Log.d("postscrapcancelfail","$code")
     }
+
+
 
 
 }
