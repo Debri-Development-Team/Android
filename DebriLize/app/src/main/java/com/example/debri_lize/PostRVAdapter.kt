@@ -5,7 +5,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.example.debri_lize.data.post.Post
 import com.example.debri_lize.data.post.PostList
 import com.example.debri_lize.databinding.ItemPostBinding
 

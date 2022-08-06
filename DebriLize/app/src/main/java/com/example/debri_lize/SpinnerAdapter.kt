@@ -1,53 +1,48 @@
-package com.example.debri_lize
-
-import android.annotation.SuppressLint
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ArrayAdapter
-import androidx.annotation.LayoutRes
-import androidx.core.content.ContextCompat
-import com.example.debri_lize.data.SpinnerModel
-import com.example.debri_lize.databinding.ItemSpinnerBinding
+import android.widget.BaseAdapter
+import android.widget.TextView
+import com.example.debri_lize.R
+import com.example.debri_lize.data.board.Board
 
-class SpinnerAdapter(
-    context: Context,
-    @LayoutRes private val resId: Int,
-    private val values: MutableList<SpinnerModel>
-) : ArrayAdapter<SpinnerModel>(context, resId, values) {
-
-    override fun getCount() = values.size
+class SpinnerAdapter(context: Context, datas: ArrayList<Board>) : BaseAdapter() {
 
 
-    override fun getItem(position: Int) = values[position]
+    var datas: ArrayList<Board>? = datas
+    var inflater: LayoutInflater = context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
 
-    @SuppressLint("ViewHolder")
-    override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
-        val binding = ItemSpinnerBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-        val model = values[position]
-        try {
-            binding.imgSpinner.setImageResource(model.image)
-            binding.imgSpinner.setColorFilter(ContextCompat.getColor(context, R.color.white))
-            binding.txtName.text = model.name
-            binding.txtName.setTextColor(ContextCompat.getColor(context, R.color.white))
-        } catch (e: Exception) {
-            e.printStackTrace()
+    override fun getCount(): Int {
+        return if(datas!=null) {
+            datas!!.size
+        } else {
+            0
         }
-        return binding.root
     }
 
-    override fun getDropDownView(position: Int, convertView: View?, parent: ViewGroup): View {
-        val binding = ItemSpinnerBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-        val model = values[position]
-        try {
-            binding.imgSpinner.setImageResource(model.image)
-            binding.txtName.text = model.name
+    override fun getView(position: Int, convertView: View?, parent: ViewGroup): View { //처음에 클릭전에 보여지는 레이아웃
+        var view = inflater.inflate(R.layout.spinner_custom, parent, false)
 
-        } catch (e: Exception) {
-            e.printStackTrace()
+        if (datas != null) {
+            val text = datas!![position].boardName
+            (view.findViewById<View>(R.id.spinnerText) as TextView).text = text
         }
-        return binding.root
+        return view
     }
 
+    override fun getDropDownView(position: Int, convertView: View?, parent: ViewGroup): View { //클릭 후 보여지는 레이아웃
+        var view = inflater.inflate(R.layout.spinner_getview, parent, false)
+        val text = datas!![position].boardName
+        (view.findViewById<View>(R.id.spinnerText) as TextView).text = text
+        return view
+    }
+
+    override fun getItem(position: Int): Any {
+        return datas!![position]
+    }
+
+    override fun getItemId(position: Int): Long {
+        return position.toLong()
+    }
 }

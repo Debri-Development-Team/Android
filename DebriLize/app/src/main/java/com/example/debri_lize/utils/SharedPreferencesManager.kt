@@ -5,7 +5,7 @@ import com.example.debri_lize.data.post.PostLikeCreate
 import com.example.debri_lize.utils.ApplicationClass.Companion.X_ACCESS_TOKEN
 import com.example.debri_lize.utils.ApplicationClass.Companion.mSharedPreferences
 
-
+//accessToken
 fun saveJwt(jwtToken: String) {
     val editor = mSharedPreferences.edit()
     editor.putString("jwt", jwtToken)
@@ -15,6 +15,7 @@ fun saveJwt(jwtToken: String) {
 
 fun getJwt(): String? = mSharedPreferences.getString("jwt", null)
 
+//refreshToken
 fun saveRefreshToken(jwtToken: String) {
     val editor = mSharedPreferences.edit()
     editor.putString("refreshToken", jwtToken)
@@ -24,6 +25,7 @@ fun saveRefreshToken(jwtToken: String) {
 
 fun getRefreshToken(): String? = mSharedPreferences.getString("refreshToken", null)
 
+//userIdx
 fun saveUserIdx(userIdx: Int) {
     val editor = mSharedPreferences.edit()
     editor.putInt("userIdx", userIdx)
@@ -33,6 +35,7 @@ fun saveUserIdx(userIdx: Int) {
 
 fun getUserIdx(): Int? = mSharedPreferences.getInt("userIdx", 0)
 
+//userName
 fun saveUserName(userName: String) {
     val editor = mSharedPreferences.edit()
     editor.putString("userName", userName)
@@ -41,6 +44,15 @@ fun saveUserName(userName: String) {
 }
 
 fun getUserName(): String? = mSharedPreferences.getString("userName", null)
+
+//UI size
+fun saveUISize(key : String, size : Int){
+    val editor = mSharedPreferences.edit()
+    editor.putInt(key, size)
+    editor.apply()
+}
+
+fun getUISize(key : String) : Int = mSharedPreferences.getInt(key, 0)
 
 fun savePostIdx(postIdx: Int) {
     val editor = mSharedPreferences.edit()

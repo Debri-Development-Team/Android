@@ -11,7 +11,7 @@
     app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior">
 
     <LinearLayout
-        android:id="@+id/bottom_sheet_edit_delete_page_layout"
+        android:id="@+id/bottom_sheet_two_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
@@ -26,10 +26,9 @@
         app:layout_constraintBottom_toTopOf="@+id/bottom_sheet_close_tv">
 
         <TextView
-            android:id="@+id/bottom_sheet_edit_delete_page_tv"
+            android:id="@+id/bottom_sheet_two_tv"
             android:layout_width="match_parent"
             android:layout_height="48dp"
-            android:background="@drawable/border_line_bottom"
             android:fontFamily="@font/noto_sans_kr_regular"
             android:gravity="center"
             android:includeFontPadding="false"
@@ -38,7 +37,7 @@
             android:textSize="12sp" />
 
         <TextView
-            android:id="@+id/bottom_sheet_edit_tv"
+            android:id="@+id/bottom_sheet_two_tv1"
             android:layout_width="match_parent"
             android:layout_height="48dp"
             android:fontFamily="@font/noto_sans_kr_bold"
@@ -50,7 +49,7 @@
             android:background="@drawable/border_line_top"/>
 
         <TextView
-            android:id="@+id/bottom_sheet_delete_tv"
+            android:id="@+id/bottom_sheet_two_tv2"
             android:layout_width="match_parent"
             android:layout_height="48dp"
             android:fontFamily="@font/noto_sans_kr_bold"

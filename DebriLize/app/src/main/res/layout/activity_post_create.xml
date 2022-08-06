@@ -75,24 +75,12 @@
 
 
         <Spinner
-            android:id="@+id/spinner_year"
-            android:background="@drawable/bg_spinner_year"
+            android:id="@+id/write_boardList_spinner"
             android:padding="8dp"
-            android:layout_width="200dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="end" />
-
-
-        <TextView
-            android:id="@+id/txt_year"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="게시판"
-            android:fontFamily="@font/noto_sans_kr_regular"
-            android:includeFontPadding="false"
-            android:textColor="@color/white"
-            android:textSize="18sp"
-            android:gravity="center|right"/>
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:layout_gravity="center_vertical"
+            android:background="@null"/>
 
     </LinearLayout>
 
