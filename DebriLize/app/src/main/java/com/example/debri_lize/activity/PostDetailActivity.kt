@@ -1,5 +1,6 @@
 package com.example.debri_lize.activity
 
+import android.app.Dialog
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
@@ -11,6 +12,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.debri_lize.CommentRVAdapter
 import android.view.Gravity
+import android.widget.EditText
 import androidx.core.content.ContextCompat
 import com.example.debri_lize.CustomDialog
 import com.example.debri_lize.R
@@ -20,6 +22,7 @@ import com.example.debri_lize.databinding.ItemCommentBinding
 import com.example.debri_lize.response.PostDetail
 import com.example.debri_lize.service.CommentService
 import com.example.debri_lize.service.PostService
+import com.example.debri_lize.service.ReportService
 import com.example.debri_lize.utils.*
 import com.example.debri_lize.view.post.*
 import com.google.android.material.bottomsheet.BottomSheetDialog
@@ -27,7 +30,7 @@ import kotlin.properties.Delegates
 
 
 class PostDetailActivity : AppCompatActivity(), PostDetailView, CommentCreateView, ShowCommentView, DeletePostView,
-    CreatePostLikeView, CancelPostLikeView, CreatePostScrapView, CancelPostScrapView {
+    CreatePostLikeView, CancelPostLikeView, CreatePostScrapView, CancelPostScrapView, ReportPostView {
     lateinit var binding : ActivityPostDetailBinding
 
     var postIdx by Delegates.notNull<Int>()
@@ -38,6 +41,8 @@ class PostDetailActivity : AppCompatActivity(), PostDetailView, CommentCreateVie
 
     //api
     val postService = PostService()
+    val reportService = ReportService()
+
 
     //comment
     private lateinit var commentRVAdapter: CommentRVAdapter //Myadapter
@@ -47,8 +52,6 @@ class PostDetailActivity : AppCompatActivity(), PostDetailView, CommentCreateVie
     //like, scrap
     private var likeTF : Boolean = false
     private var scrapTF : Boolean = false
-
-    private var reportOK : Boolean = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -152,6 +155,7 @@ class PostDetailActivity : AppCompatActivity(), PostDetailView, CommentCreateVie
     //bottom sheet
     private fun bottomSheet(){
 
+
         lateinit var bottomSheetView : View
         val bottomSheetDialog = BottomSheetDialog(this)
 
@@ -192,18 +196,15 @@ class PostDetailActivity : AppCompatActivity(), PostDetailView, CommentCreateVie
                 val bottomSheetComplainDetailDialog = BottomSheetDialog(this)
                 bottomSheetComplainDetailDialog.setContentView(bottomSheetComplainDetailView)
 
+                reportService.setReportPostView(this)
                 bottomSheetComplainDetailDialog.show()
 
                 //complain button
                 //광고,스팸
                 bottomSheetComplainDetailDialog.findViewById<TextView>(R.id.bottom_sheet_complain_page_tv1)!!
                     .setOnClickListener {
-                        //토스트메세지 띄우기
-                        var reportToast = layoutInflater.inflate(R.layout.toast_report,null)
-                        var toast = Toast(this)
-                        toast.view = reportToast
-                        toast.setGravity(Gravity.CENTER_HORIZONTAL,0,0)
-                        toast.show()
+                        //api
+                        reportService.reportPost(PostReport(postIdx, "광고, 스팸"))
 
                         //다이얼로그 닫기
                         bottomSheetComplainDetailDialog.dismiss()
@@ -212,12 +213,8 @@ class PostDetailActivity : AppCompatActivity(), PostDetailView, CommentCreateVie
                 //낚시,도배
                 bottomSheetComplainDetailDialog.findViewById<TextView>(R.id.bottom_sheet_complain_page_tv2)!!
                     .setOnClickListener {
-                        //토스트메세지 띄우기
-                        var reportToast = layoutInflater.inflate(R.layout.toast_report,null)
-                        var toast = Toast(this)
-                        toast.view = reportToast
-                        toast.setGravity(Gravity.CENTER_HORIZONTAL,0,0)
-                        toast.show()
+                        //api
+                        reportService.reportPost(PostReport(postIdx, "낚시, 도배"))
 
                         //다이얼로그 닫기
                         bottomSheetComplainDetailDialog.dismiss()
@@ -226,12 +223,8 @@ class PostDetailActivity : AppCompatActivity(), PostDetailView, CommentCreateVie
                 //개발과 무관한 게시물
                 bottomSheetComplainDetailDialog.findViewById<TextView>(R.id.bottom_sheet_complain_page_tv3)!!
                     .setOnClickListener {
-                        //토스트메세지 띄우기
-                        var reportToast = layoutInflater.inflate(R.layout.toast_report,null)
-                        var toast = Toast(this)
-                        toast.view = reportToast
-                        toast.setGravity(Gravity.CENTER_HORIZONTAL,0,0)
-                        toast.show()
+                        //api
+                        reportService.reportPost(PostReport(postIdx, "개발과 무관한 게시물"))
 
                         //다이얼로그 닫기
                         bottomSheetComplainDetailDialog.dismiss()
@@ -240,12 +233,8 @@ class PostDetailActivity : AppCompatActivity(), PostDetailView, CommentCreateVie
                 //욕설,비하
                 bottomSheetComplainDetailDialog.findViewById<TextView>(R.id.bottom_sheet_complain_page_tv4)!!
                     .setOnClickListener {
-                        //토스트메세지 띄우기
-                        var reportToast = layoutInflater.inflate(R.layout.toast_report,null)
-                        var toast = Toast(this)
-                        toast.view = reportToast
-                        toast.setGravity(Gravity.CENTER_HORIZONTAL,0,0)
-                        toast.show()
+                        //api
+                        reportService.reportPost(PostReport(postIdx, "욕설, 비하"))
 
                         //다이얼로그 닫기
                         bottomSheetComplainDetailDialog.dismiss()
@@ -259,29 +248,20 @@ class PostDetailActivity : AppCompatActivity(), PostDetailView, CommentCreateVie
                         val dialog = CustomDialog(this)
                         dialog.showReportDlg()
                         //사유 적은 후 ok 버튼 클릭 시
-                        dialog.setOnClickListener(object:CustomDialog.ButtonClickListener{
-                            override fun onClicked(TF: Boolean) {
-                                reportOK = true
+                        dialog.setOnClickListenerETC(object:CustomDialog.ButtonClickListenerETC{
+                            override fun onClicked(TF: Boolean, reason : String) {
                                 //텍스트 받아 넘기기
-
+                                //api
+                                reportService.reportPost(PostReport(postIdx, reason))
 
                                 finish()
                             }
 
                         })
 
-                        //토스트메세지 띄우기
-                        if(reportOK){
-                            var reportToast = layoutInflater.inflate(R.layout.toast_report,null)
-                            var toast = Toast(this)
-                            toast.view = reportToast
-                            toast.setGravity(Gravity.CENTER_HORIZONTAL,0,0)
-                            toast.show()
-
-                            //bottom 다이얼로그 닫기
-                            bottomSheetComplainDetailDialog.dismiss()
-                            bottomSheetDialog.dismiss()
-                        }
+                        //bottom 다이얼로그 닫기
+                        bottomSheetComplainDetailDialog.dismiss()
+                        bottomSheetDialog.dismiss()
 
                     }
 
@@ -309,8 +289,6 @@ class PostDetailActivity : AppCompatActivity(), PostDetailView, CommentCreateVie
         when(code){
             200->{
                 Log.d("PostDetailresult","$result")
-                postDetail = com.example.debri_lize.data.post.PostDetail(result.boardIdx, result.postIdx, result.authorIdx, result.authorName, result.postName, result.likeCnt,
-                    result.likeStatus.toString(), result.scrapStatus.toString(), result.commentCnt, result.timeAfterCreated, result.postContents)
                 binding.postDetailTitleTv.text = result.postName
                 binding.postDetailTimeTv.text = result.timeAfterCreated.toString()+"분 전"
                 binding.postDetailAuthorTv.text = result.authorName
@@ -361,7 +339,13 @@ class PostDetailActivity : AppCompatActivity(), PostDetailView, CommentCreateVie
 
     override fun onCommentCreateSuccess(code: Int) {
         when(code){
-            200->Toast.makeText(this, "comment ok", Toast.LENGTH_SHORT).show()
+            200->{
+                Toast.makeText(this, "comment ok", Toast.LENGTH_SHORT).show()
+                finish()
+                overridePendingTransition(0, 0)
+                startActivity(intent)
+                overridePendingTransition(0, 0)
+            }
         }
     }
 
@@ -372,7 +356,6 @@ class PostDetailActivity : AppCompatActivity(), PostDetailView, CommentCreateVie
     override fun onShowCommentSuccess(code: Int, result: List<com.example.debri_lize.response.CommentList>
     ) {
         when(code){
-            //개발할 때는 userIdx 저장이 필요할수도
             200-> {
 
                 parentItemArrayList = ArrayList<CommentList>()
@@ -435,13 +418,10 @@ class PostDetailActivity : AppCompatActivity(), PostDetailView, CommentCreateVie
     override fun onCreatePostLikeSuccess(code: Int) {
         when(code){
             200->{
-                //좋아요 생성 성공
-                postDetail.likeCnt++
-                Log.d("postdetaillike","$postDetail")
-                if(postDetail.likeCnt < 100)
-                    binding.postDetailMenuLikeNumTv.text = postDetail.likeCnt.toString()
-                else
-                    binding.postDetailMenuLikeNumTv.text = "99+"
+                finish()
+                overridePendingTransition(0, 0)
+                startActivity(intent)
+                overridePendingTransition(0, 0)
 
             }
         }
@@ -460,14 +440,10 @@ class PostDetailActivity : AppCompatActivity(), PostDetailView, CommentCreateVie
     override fun onCancelPostLikeSuccess(code: Int) {
         when(code){
             200->{
-                //좋아요 취소 성공
-                postDetail.likeCnt--
-                Log.d("postdetaillike","$postDetail")
-                if(postDetail.likeCnt < 100)
-                    binding.postDetailMenuLikeNumTv.text = postDetail.likeCnt.toString()
-                else
-                    binding.postDetailMenuLikeNumTv.text = "99+"
-
+                finish()
+                overridePendingTransition(0, 0)
+                startActivity(intent)
+                overridePendingTransition(0, 0)
             }
         }
     }
@@ -500,7 +476,23 @@ class PostDetailActivity : AppCompatActivity(), PostDetailView, CommentCreateVie
         Log.d("postscrapcancelfail","$code")
     }
 
+    //신고하기 api
+    override fun onReportPostSuccess(code: Int) {
+        when(code){
+            200->{
+                //토스트메세지 띄우기
+                var reportToast = layoutInflater.inflate(R.layout.toast_report,null)
+                var toast = Toast(this)
+                toast.view = reportToast
+                toast.setGravity(Gravity.CENTER_HORIZONTAL,0,0)
+                toast.show()
+            }
+        }
+    }
 
+    override fun onReportPostFailure(code: Int) {
+
+    }
 
 
 }
