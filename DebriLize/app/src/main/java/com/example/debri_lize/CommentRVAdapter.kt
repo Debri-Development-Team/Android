@@ -69,11 +69,12 @@ class CommentRVAdapter : RecyclerView.Adapter<CommentRVAdapter.ViewHolder>(), Co
         //write cocomment
 
             holder.binding.itemCommentWriteIv.setOnClickListener {
-
+                Log.d("click write cocomment", "click")
                 //on cocomment editText
                 binding.postDetailWriteCommentEt.visibility = View.GONE
                 binding.postDetailWriteCocommentEt.visibility = View.VISIBLE
-
+                Log.d("click comment", binding.postDetailWriteCommentEt.visibility.toString())
+                Log.d("click cocomment", binding.postDetailWriteCocommentEt.visibility.toString())
                 binding.postDetailWriteCocommentEt.setOnKeyListener { v, keyCode, event ->
                     if (event.action == KeyEvent.ACTION_DOWN && keyCode == KeyEvent.KEYCODE_ENTER) {
                         createCocomment(
@@ -86,9 +87,6 @@ class CommentRVAdapter : RecyclerView.Adapter<CommentRVAdapter.ViewHolder>(), Co
                 }
                 Log.d("commentIdx", parentItemArrayList[position].commentIdx.toString())
                 Log.d("postIdx", parentItemArrayList[position].postIdx.toString())
-
-                binding.postDetailWriteCommentEt.visibility = View.VISIBLE
-                binding.postDetailWriteCocommentEt.visibility = View.GONE
             }
 
     }
@@ -121,6 +119,8 @@ class CommentRVAdapter : RecyclerView.Adapter<CommentRVAdapter.ViewHolder>(), Co
         when(code){
             200->{
                 binding.postDetailWriteCocommentEt.text.clear()
+                binding.postDetailWriteCommentEt.visibility = View.VISIBLE
+                binding.postDetailWriteCocommentEt.visibility = View.GONE
                 return
             }
         }

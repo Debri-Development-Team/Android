@@ -69,7 +69,6 @@ class PostDetailActivity : AppCompatActivity(), PostDetailView, CommentCreateVie
         commentService.showComment(postIdx)
 
         //write comment <- enter
-        binding.postDetailWriteCommentEt.hint = "댓글쓰기"
         binding.postDetailWriteCommentEt.setOnKeyListener { v, keyCode, event ->
             if (event.action == KeyEvent.ACTION_DOWN && keyCode == KeyEvent.KEYCODE_ENTER) {
                 createComment()
@@ -78,7 +77,6 @@ class PostDetailActivity : AppCompatActivity(), PostDetailView, CommentCreateVie
             false
         }
 
-        //
         //postdetail 새로 들어와도 likeStatus 상태 저장
         Log.d("likestatus", likeTF.toString())
         if(getLikeStatus()?.likeStatus =="LIKE" && getLikeStatus()?.postIdx == getPostIdx()){
