@@ -70,8 +70,8 @@ class CommentRVAdapter : RecyclerView.Adapter<CommentRVAdapter.ViewHolder>(), Co
 
             holder.binding.itemCommentWriteIv.setOnClickListener {
 
-                Log.d("cocomment click", "clicking")
-                binding.postDetailWriteCommentEt.hint = "대댓글쓰기"
+                binding.postDetailWriteCommentEt.visibility = View.GONE
+                
                 binding.postDetailWriteCommentEt.setOnKeyListener { v, keyCode, event ->
                     if (event.action == KeyEvent.ACTION_DOWN && keyCode == KeyEvent.KEYCODE_ENTER) {
                         createCocomment(
