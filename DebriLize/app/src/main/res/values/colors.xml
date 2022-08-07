@@ -23,4 +23,6 @@
     <color name="cocomment">#202E51</color>
     <color name="bottom_sheet">#8B95A1</color>
     <color name="red">#FF0000</color>
+    <color name="roadmap">#484848</color>
+    <color name="review">#D9D9D9</color>
 </resources>
