@@ -96,5 +96,8 @@ interface RetrofitInterface {
     @GET("api/lecture/search")
     fun showLectureSearch(@Query ("lang") lang:String?,@Query ("type") type:String?,@Query ("price") price:String?,@Query ("key") key:String?, @Header("ACCESS-TOKEN") authToken: String) : Call<LectureResponse>
 
+    //게시물 신고하기
+    @POST("api/report/postReport")
+    fun reportPost(@Body postReport: PostReport, @Header("ACCESS-TOKEN") authToken: String) : Call<ReportResponse>
 
 }

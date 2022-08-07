@@ -69,10 +69,13 @@ class CommentRVAdapter : RecyclerView.Adapter<CommentRVAdapter.ViewHolder>(), Co
         //write cocomment
 
             holder.binding.itemCommentWriteIv.setOnClickListener {
-
-                Log.d("cocomment click", "clicking")
-                binding.postDetailWriteCommentEt.hint = "대댓글쓰기"
-                binding.postDetailWriteCommentEt.setOnKeyListener { v, keyCode, event ->
+                Log.d("click write cocomment", "click")
+                //on cocomment editText
+                binding.postDetailWriteCommentEt.visibility = View.GONE
+                binding.postDetailWriteCocommentEt.visibility = View.VISIBLE
+                Log.d("click comment", binding.postDetailWriteCommentEt.visibility.toString())
+                Log.d("click cocomment", binding.postDetailWriteCocommentEt.visibility.toString())
+                binding.postDetailWriteCocommentEt.setOnKeyListener { v, keyCode, event ->
                     if (event.action == KeyEvent.ACTION_DOWN && keyCode == KeyEvent.KEYCODE_ENTER) {
                         createCocomment(
                             parentItemArrayList[position].commentIdx,
@@ -84,7 +87,6 @@ class CommentRVAdapter : RecyclerView.Adapter<CommentRVAdapter.ViewHolder>(), Co
                 }
                 Log.d("commentIdx", parentItemArrayList[position].commentIdx.toString())
                 Log.d("postIdx", parentItemArrayList[position].postIdx.toString())
-                return@setOnClickListener
             }
 
     }
@@ -92,14 +94,14 @@ class CommentRVAdapter : RecyclerView.Adapter<CommentRVAdapter.ViewHolder>(), Co
     override fun getItemCount(): Int = parentItemArrayList.size
 
     private fun getCocomment(commentIdx : Int, postIdx : Int) : Cocomment {
-        val cocommentContent : String = binding.postDetailWriteCommentEt.text.toString()
+        val cocommentContent : String = binding.postDetailWriteCocommentEt.text.toString()
 
         return Cocomment(getUserIdx(), postIdx,commentIdx, cocommentContent, getUserName())
     }
 
     private fun createCocomment(commentIdx : Int, postIdx : Int){
         //대댓글이 입력되지 않은 경우
-        if(binding.postDetailWriteCommentEt.text.toString().isEmpty()){
+        if(binding.postDetailWriteCocommentEt.text.toString().isEmpty()){
             //Toast.makeText(this, "대댓글을 입력해주세요", Toast.LENGTH_SHORT).show()
             return
         }
@@ -116,7 +118,9 @@ class CommentRVAdapter : RecyclerView.Adapter<CommentRVAdapter.ViewHolder>(), Co
     override fun onCocommentCreateSuccess(code: Int) {
         when(code){
             200->{
-                binding.postDetailWriteCommentEt.text.clear()
+                binding.postDetailWriteCocommentEt.text.clear()
+                binding.postDetailWriteCommentEt.visibility = View.VISIBLE
+                binding.postDetailWriteCocommentEt.visibility = View.GONE
                 return
             }
         }
