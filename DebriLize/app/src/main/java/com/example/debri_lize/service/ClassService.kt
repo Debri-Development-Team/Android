@@ -2,10 +2,14 @@ package com.example.debri_lize.service
 
 import android.util.Log
 import com.example.debri_lize.data.RetrofitInterface
+import com.example.debri_lize.data.class_.LectureScrap
 import com.example.debri_lize.data.class_.LectureFilter
+import com.example.debri_lize.response.DeletePostResponse
 import com.example.debri_lize.response.LectureResponse
 import com.example.debri_lize.utils.getJwt
 import com.example.debri_lize.utils.getRetrofit
+import com.example.debri_lize.view.class_.CancelLectureScrapView
+import com.example.debri_lize.view.class_.CreateLectureScrapView
 import com.example.debri_lize.view.class_.LectureFavoriteView
 import com.example.debri_lize.view.class_.LectureFilterView
 import retrofit2.Call
@@ -16,12 +20,24 @@ class ClassService {
     private lateinit var lectureFavoriteView: LectureFavoriteView
     private lateinit var lectureFilterView: LectureFilterView
 
+    private lateinit var createLectureScrapView: CreateLectureScrapView
+    private lateinit var cancelLectureScrapView: CancelLectureScrapView
+
+
     fun setLectureFavoriteView(lectureFavoriteView: LectureFavoriteView){
         this.lectureFavoriteView = lectureFavoriteView
     }
 
     fun setLectureFilterView(lectureFilterView: LectureFilterView){
         this.lectureFilterView = lectureFilterView
+    }
+
+    fun setCreateLectureScrapView(createLectureScrapView: CreateLectureScrapView){
+        this.createLectureScrapView = createLectureScrapView
+    }
+
+    fun setCancelLectureScrapView(cancelLectureScrapView: CancelLectureScrapView){
+        this.cancelLectureScrapView = cancelLectureScrapView
     }
 
     fun showLectureFavorite(userIdx : Int){
@@ -64,6 +80,50 @@ class ClassService {
             //실패했을 때 처리
             override fun onFailure(call: Call<LectureResponse>, t: Throwable) {
                 Log.d("lecturefilterFail",t.toString())
+            }
+        })
+    }
+
+    fun createLectureScrap(lectureScrap: LectureScrap){
+        Log.d("createLectureScrap", "enter")
+        val classService = getRetrofit().create(RetrofitInterface::class.java)
+        classService.createLectureScrap(lectureScrap, getJwt()!!).enqueue(object: Callback<DeletePostResponse> {
+            //응답이 왔을 때 처리
+            override fun onResponse(call: Call<DeletePostResponse>, response: Response<DeletePostResponse>) {
+                Log.d("createLectureScrap", "response")
+                val resp: DeletePostResponse = response.body()!!
+                Log.d("createLectureScrapCode", resp.code.toString())
+                when(resp.code){
+                    //API code값 사용
+                    200->createLectureScrapView.onCreateLectureScrapSuccess(resp.code)    //result를 받아서 UI를 구현해야함
+                    else->createLectureScrapView.onCreateLectureScrapFailure(resp.code)   //무슨 오류인지 알아야하므로 code가져가기
+                }
+            }
+            //실패했을 때 처리
+            override fun onFailure(call: Call<DeletePostResponse>, t: Throwable) {
+                Log.d("createLectureScrapFail",t.toString())
+            }
+        })
+    }
+
+    fun cancelLectureScrap(lectureScrap: LectureScrap){
+        Log.d("cancelLectureScrap", "enter")
+        val classService = getRetrofit().create(RetrofitInterface::class.java)
+        classService.cancelLectureScrap(lectureScrap, getJwt()!!).enqueue(object: Callback<DeletePostResponse> {
+            //응답이 왔을 때 처리
+            override fun onResponse(call: Call<DeletePostResponse>, response: Response<DeletePostResponse>) {
+                Log.d("cancelLectureScrap", "response")
+                val resp: DeletePostResponse = response.body()!!
+                Log.d("cancelLectureScrapCode", resp.code.toString())
+                when(resp.code){
+                    //API code값 사용
+                    200->cancelLectureScrapView.onCancelLectureScrapSuccess(resp.code)    //result를 받아서 UI를 구현해야함
+                    else->cancelLectureScrapView.onCancelLectureScrapFailure(resp.code)   //무슨 오류인지 알아야하므로 code가져가기
+                }
+            }
+            //실패했을 때 처리
+            override fun onFailure(call: Call<DeletePostResponse>, t: Throwable) {
+                Log.d("cancelLectureScrapFail",t.toString())
             }
         })
     }

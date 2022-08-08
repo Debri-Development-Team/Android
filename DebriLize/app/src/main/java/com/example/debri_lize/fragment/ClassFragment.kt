@@ -41,8 +41,6 @@ class ClassFragment : Fragment(), LectureFavoriteView, LectureFilterView {
     var filterNum : Int = 0
     var filterNum2 : Int = 0
 
-    private val filteredData = ArrayList<Lecture>() //검색했을 때 나타낼 데이터
-
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -144,6 +142,7 @@ class ClassFragment : Fragment(), LectureFavoriteView, LectureFilterView {
             //필터 강의 view -> VISIBLE
             binding.classLecturelistRv.visibility = View.VISIBLE
         }
+        classService.showLectureFavorite(getUserIdx()!!)
         classService.showLectureSearch(lectureFilter)
     }
 
@@ -317,7 +316,7 @@ class ClassFragment : Fragment(), LectureFavoriteView, LectureFilterView {
 
                 datas_f.apply {
                     for (i in result){
-                        datas_f.add(Lecture(i.lectureIdx, i.lectureName, i.chapterNumber, i.langTag, i.media, i.price))
+                        datas_f.add(Lecture(i.lectureIdx, i.lectureName, i.chapterNumber, i.langTag, i.media, i.price, i.userScrap))
                     }
 
                     classfavoriteRVAdapter.datas_classf = datas_f
@@ -351,7 +350,7 @@ class ClassFragment : Fragment(), LectureFavoriteView, LectureFilterView {
                 datas.apply {
                     for (i in result) {
                         datas.add(
-                            Lecture(i.lectureIdx, i.lectureName, i.chapterNumber, i.langTag, i.media, i.price)
+                            Lecture(i.lectureIdx, i.lectureName, i.chapterNumber, i.langTag, i.media, i.price, i.userScrap)
                         )
                     }
 

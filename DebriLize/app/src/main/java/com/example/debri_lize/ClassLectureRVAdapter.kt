@@ -1,14 +1,22 @@
 package com.example.debri_lize
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.example.debri_lize.data.class_.LectureScrap
 import com.example.debri_lize.data.class_.Lecture
 import com.example.debri_lize.databinding.ItemClassFavoriteBinding
+import com.example.debri_lize.service.ClassService
+import com.example.debri_lize.utils.getLectureIdx
+import com.example.debri_lize.utils.getUserIdx
+import com.example.debri_lize.utils.saveLectureIdx
+import com.example.debri_lize.view.class_.CreateLectureScrapView
 
-class ClassLectureRVAdapter : RecyclerView.Adapter<ClassLectureRVAdapter.ViewHolder>(){
+class ClassLectureRVAdapter : RecyclerView.Adapter<ClassLectureRVAdapter.ViewHolder>(),
+    CreateLectureScrapView {
     var datas = mutableListOf<Lecture>()
 
     inner class ViewHolder(val binding: ItemClassFavoriteBinding) : RecyclerView.ViewHolder(binding.root){
@@ -33,6 +41,11 @@ class ClassLectureRVAdapter : RecyclerView.Adapter<ClassLectureRVAdapter.ViewHol
                 "Python" -> language.setBackgroundResource(R.drawable.border_round_transparent_python_10)
             }
 
+            Log.d("lectureitem",item.toString())
+
+            if(item.userScrap)   binding.itemClassFavoriteIv.setImageResource(R.drawable.ic_favorite_on)
+            else    binding.itemClassFavoriteIv.setImageResource(R.drawable.ic_favorite_off)
+
 
         }
     }
@@ -44,6 +57,23 @@ class ClassLectureRVAdapter : RecyclerView.Adapter<ClassLectureRVAdapter.ViewHol
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.bind(datas[position])
+
+
+
+        //즐겨찾기 생성
+        holder.binding.itemClassFavoriteIv.setOnClickListener {
+            holder.binding.itemClassFavoriteIv.setImageResource(R.drawable.ic_favorite_on)
+
+            var createLectureScrap = LectureScrap(getUserIdx()!!, datas[position].lectureIdx!!)
+
+            Log.d("createlecturescrap",createLectureScrap.toString())
+
+
+            //api
+            val classService = ClassService()
+            classService.setCreateLectureScrapView(this)
+            classService.createLectureScrap(createLectureScrap)
+        }
 
         //recyclerview item 클릭하면 fragment
         // (1) 리스트 내 항목 클릭 시 onClick() 호출
@@ -65,9 +95,13 @@ class ClassLectureRVAdapter : RecyclerView.Adapter<ClassLectureRVAdapter.ViewHol
 
     override fun getItemCount(): Int = datas.size
 
-    //검색어 입력시 필터
-    fun filterList(filteredList: ArrayList<Lecture>) {
-        datas = filteredList
-        notifyDataSetChanged()
+
+    override fun onCreateLectureScrapSuccess(code: Int) {
+
     }
+
+    override fun onCreateLectureScrapFailure(code: Int) {
+
+    }
+
 }

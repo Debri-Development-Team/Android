@@ -2,7 +2,7 @@ package com.example.debri_lize.data
 
 import com.example.debri_lize.data.auth.UserLogin
 import com.example.debri_lize.data.auth.UserSignup
-import com.example.debri_lize.data.class_.LectureFilter
+import com.example.debri_lize.data.class_.LectureScrap
 import com.example.debri_lize.data.post.*
 import com.example.debri_lize.data.post.Comment
 import com.example.debri_lize.data.post.Post
@@ -72,6 +72,10 @@ interface RetrofitInterface {
     @GET("api/comment/get/{postIdx}")
     fun showComment(@Path("postIdx") postIdx: Int) : Call<CommentListResponse>
 
+    //댓글, 대댓글 삭제
+    @PATCH("api/comment/delete/{commentIdx}")
+    fun deleteComment(@Path("commentIdx") commentIdx: Int, @Header("ACCESS-TOKEN") authToken: String) : Call<CommentResponse>
+
     //게시물 좋아요 생성
     @POST("api/post/like")
     fun createPostLike(@Body postLikeCreate: PostLikeCreate, @Header("ACCESS-TOKEN") authToken: String) : Call<DeletePostResponse>
@@ -98,6 +102,18 @@ interface RetrofitInterface {
 
     //게시물 신고하기
     @POST("api/report/postReport")
-    fun reportPost(@Body postReport: PostReport, @Header("ACCESS-TOKEN") authToken: String) : Call<ReportResponse>
+    fun reportPost(@Body report: ReportPost, @Header("ACCESS-TOKEN") authToken: String) : Call<ReportResponse>
+
+    //댓글, 대댓글 신고하기
+    @POST("api/report/commentReport")
+    fun reportComment(@Body report: ReportComment, @Header("ACCESS-TOKEN") authToken: String) : Call<ReportResponse>
+
+    //강의 즐겨찾기 생성
+    @POST("api/lecture/scrap/create")
+    fun createLectureScrap(@Body lectureScrap: LectureScrap, @Header("ACCESS-TOKEN") authToken: String) : Call<DeletePostResponse>
+
+    //강의 즐겨찾기 해제
+    @PATCH("api/lecture/scrap/delete")
+    fun cancelLectureScrap(@Body lectureScrap: LectureScrap, @Header("ACCESS-TOKEN") authToken: String) : Call<DeletePostResponse>
 
 }
