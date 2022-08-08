@@ -1,6 +1,5 @@
 package com.example.debri_lize.activity
 
-import android.app.Dialog
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
@@ -12,13 +11,11 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.debri_lize.CommentRVAdapter
 import android.view.Gravity
-import android.widget.EditText
 import androidx.core.content.ContextCompat
 import com.example.debri_lize.CustomDialog
 import com.example.debri_lize.R
 import com.example.debri_lize.data.post.*
 import com.example.debri_lize.databinding.ActivityPostDetailBinding
-import com.example.debri_lize.databinding.ItemCommentBinding
 import com.example.debri_lize.response.PostDetail
 import com.example.debri_lize.service.CommentService
 import com.example.debri_lize.service.PostService
@@ -42,6 +39,7 @@ class PostDetailActivity : AppCompatActivity(), PostDetailView, CommentCreateVie
     //api
     val postService = PostService()
     val reportService = ReportService()
+    val commentService = CommentService()
 
 
     //comment
@@ -330,7 +328,6 @@ class PostDetailActivity : AppCompatActivity(), PostDetailView, CommentCreateVie
             return
         }
 
-        val commentService = CommentService()
         commentService.setCommentCreateView(this)
         commentService.createComment(getComment())
 
@@ -342,10 +339,9 @@ class PostDetailActivity : AppCompatActivity(), PostDetailView, CommentCreateVie
         when(code){
             200->{
                 Toast.makeText(this, "comment ok", Toast.LENGTH_SHORT).show()
-                finish()
-                overridePendingTransition(0, 0)
-                startActivity(intent)
-                overridePendingTransition(0, 0)
+                binding.postDetailWriteCommentEt.text.clear()
+                commentService.setShowCommentView(this)
+                commentService.showComment(postIdx)
             }
         }
     }
@@ -397,10 +393,10 @@ class PostDetailActivity : AppCompatActivity(), PostDetailView, CommentCreateVie
 
                 binding.postDetailCommentRv.layoutManager =
                     LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
-                commentRVAdapter = CommentRVAdapter().build(parentItemArrayList, childItemArrayListGroup, binding)
+                commentRVAdapter = CommentRVAdapter(this)
+                commentRVAdapter.build(parentItemArrayList, childItemArrayListGroup, binding, postIdx)
                 binding.postDetailCommentRv.adapter = commentRVAdapter
 
-                commentRVAdapter.notifyDataSetChanged()
             }
         }
     }
