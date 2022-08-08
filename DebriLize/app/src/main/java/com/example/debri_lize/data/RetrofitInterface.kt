@@ -2,7 +2,7 @@ package com.example.debri_lize.data
 
 import com.example.debri_lize.data.auth.UserLogin
 import com.example.debri_lize.data.auth.UserSignup
-import com.example.debri_lize.data.class_.LectureFilter
+import com.example.debri_lize.data.class_.LectureScrap
 import com.example.debri_lize.data.post.*
 import com.example.debri_lize.data.post.Comment
 import com.example.debri_lize.data.post.Post
@@ -99,5 +99,13 @@ interface RetrofitInterface {
     //게시물 신고하기
     @POST("api/report/postReport")
     fun reportPost(@Body postReport: PostReport, @Header("ACCESS-TOKEN") authToken: String) : Call<ReportResponse>
+
+    //강의 즐겨찾기 생성
+    @POST("api/lecture/scrap/create")
+    fun createLectureScrap(@Body lectureScrap: LectureScrap, @Header("ACCESS-TOKEN") authToken: String) : Call<DeletePostResponse>
+
+    //강의 즐겨찾기 해제
+    @PATCH("api/lecture/scrap/delete")
+    fun cancelLectureScrap(@Body lectureScrap: LectureScrap, @Header("ACCESS-TOKEN") authToken: String) : Call<DeletePostResponse>
 
 }

@@ -1,18 +1,27 @@
 package com.example.debri_lize
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.debri_lize.data.class_.Lecture
+import com.example.debri_lize.data.class_.LectureScrap
+import com.example.debri_lize.databinding.FragmentClassBinding
 import com.example.debri_lize.databinding.ItemClassFavoriteBinding
+import com.example.debri_lize.service.ClassService
+import com.example.debri_lize.utils.getUserIdx
+import com.example.debri_lize.view.class_.CancelLectureScrapView
 
-class ClassFavoriteRVAdapter : RecyclerView.Adapter<ClassFavoriteRVAdapter.ViewHolder>() {
+class ClassFavoriteRVAdapter : RecyclerView.Adapter<ClassFavoriteRVAdapter.ViewHolder>(), CancelLectureScrapView {
 
     var datas_classf = mutableListOf<Lecture>()
+    lateinit var binding: FragmentClassBinding
+
 
     inner class ViewHolder(val binding:ItemClassFavoriteBinding) : RecyclerView.ViewHolder(binding.root){
+
 
         val lectureName : TextView = binding.itemClassFavTitleTv
         val chapterNum : TextView = binding.itemClassFavChapterTv
@@ -33,6 +42,9 @@ class ClassFavoriteRVAdapter : RecyclerView.Adapter<ClassFavoriteRVAdapter.ViewH
                 "C 언어" -> language.setBackgroundResource(R.drawable.border_round_transparent_c_10)
                 "Python" -> language.setBackgroundResource(R.drawable.border_round_transparent_python_10)
             }
+            Log.d("fav",item.toString())
+
+            binding.itemClassFavoriteIv.setImageResource(R.drawable.ic_favorite_on)
         }
     }
 
@@ -44,6 +56,23 @@ class ClassFavoriteRVAdapter : RecyclerView.Adapter<ClassFavoriteRVAdapter.ViewH
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.bind(datas_classf[position])
+
+        //즐겨찾기 해제
+        holder.binding.itemClassFavoriteIv.setOnClickListener {
+            holder.binding.itemClassFavoriteIv.setImageResource(R.drawable.ic_favorite_off)
+
+            val cancelLectureScrap = LectureScrap(getUserIdx()!!, datas_classf[position].lectureIdx!!)
+
+            datas_classf.removeAt(position)
+            notifyItemRemoved(position)
+
+            //api
+            val classService = ClassService()
+            classService.setCancelLectureScrapView(this)
+            classService.cancelLectureScrap(cancelLectureScrap)
+
+        }
+
 
         //recyclerview item 클릭하면 fragment
         // (1) 리스트 내 항목 클릭 시 onClick() 호출
@@ -63,6 +92,20 @@ class ClassFavoriteRVAdapter : RecyclerView.Adapter<ClassFavoriteRVAdapter.ViewH
     // (4) setItemClickListener로 설정한 함수 실행
     private lateinit var itemClickListener : OnItemClickListener
 
+
     override fun getItemCount(): Int = datas_classf.size
+
+
+    override fun onCancelLectureScrapSuccess(code: Int) {
+        when(code){
+            200->{
+
+            }
+        }
+    }
+
+    override fun onCancelLectureScrapFailure(code: Int) {
+
+    }
 
 }

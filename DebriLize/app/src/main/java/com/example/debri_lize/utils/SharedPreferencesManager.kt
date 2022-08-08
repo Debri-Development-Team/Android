@@ -78,3 +78,12 @@ fun getLikeStatus(): PostLikeCreate? {
     val likeStatus = mSharedPreferences.getString("likeStatus",null)
     return PostLikeCreate(postIdx, userIdx, likeStatus)
 }
+
+fun saveLectureIdx(lectureIdx: Int){
+    val editor = mSharedPreferences.edit()
+    editor.putInt("lectureIdx",lectureIdx)
+
+    editor.apply()
+}
+
+fun getLectureIdx(): Int? = mSharedPreferences.getInt("lectureIdx",0)

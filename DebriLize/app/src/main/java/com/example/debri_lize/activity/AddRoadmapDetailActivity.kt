@@ -42,9 +42,9 @@ class AddRoadmapDetailActivity : AppCompatActivity() {
         //data : 전체
         datas.apply {
 
-            datas.add(Lecture(1, "야호", 1, "야호", "야호", "야호"))
-            datas.add(Lecture(1, "야호", 1, "야호", "야호", "야호"))
-            datas.add(Lecture(1, "야호", 1, "야호", "야호", "야호"))
+            datas.add(Lecture(1, "야호", 1, "야호", "야호", "야호",false))
+            datas.add(Lecture(1, "야호", 1, "야호", "야호", "야호",false))
+            datas.add(Lecture(1, "야호", 1, "야호", "야호", "야호",false))
 
             classLectureRVAdapter.datas = datas
             classLectureRVAdapter.notifyDataSetChanged()
