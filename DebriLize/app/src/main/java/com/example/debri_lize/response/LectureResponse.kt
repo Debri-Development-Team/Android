@@ -15,5 +15,6 @@ data class Lecture(
     @SerializedName(value = "chapterNumber") var chapterNumber : Int,
     @SerializedName(value = "langTag") var langTag : String,
     @SerializedName(value = "pricing") var price : String,
-    @SerializedName(value = "materialType") var media : String
+    @SerializedName(value = "materialType") var media : String,
+    @SerializedName(value = "userScrap") var userScrap : Boolean,
 )
