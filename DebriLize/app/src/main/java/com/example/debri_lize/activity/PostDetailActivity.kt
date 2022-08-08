@@ -10,12 +10,10 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.debri_lize.CommentRVAdapter
 import android.view.Gravity
 import android.widget.EditText
 import androidx.core.content.ContextCompat
-import com.example.debri_lize.CustomDialog
-import com.example.debri_lize.R
+import com.example.debri_lize.*
 import com.example.debri_lize.data.post.*
 import com.example.debri_lize.databinding.ActivityPostDetailBinding
 import com.example.debri_lize.databinding.ItemCommentBinding
@@ -45,9 +43,8 @@ class PostDetailActivity : AppCompatActivity(), PostDetailView, CommentCreateVie
 
 
     //comment
-    private lateinit var commentRVAdapter: CommentRVAdapter //Myadapter
-    lateinit var parentItemArrayList: ArrayList<CommentList>
-    lateinit var childItemArrayList: ArrayList<CommentList>
+    private lateinit var parentRVAdapter: ParentRVAdapter //Myadapter
+    private val datas = ArrayList<CommentList>()
 
     //like, scrap
     private var likeTF : Boolean = false
@@ -357,37 +354,33 @@ class PostDetailActivity : AppCompatActivity(), PostDetailView, CommentCreateVie
     ) {
         when(code){
             200-> {
+                binding.postDetailCommentRv.layoutManager =
+                    LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
+                parentRVAdapter = ParentRVAdapter()
+                binding.postDetailCommentRv.adapter = parentRVAdapter
 
-                parentItemArrayList = ArrayList<CommentList>()
-                var childItemArrayListGroup = ArrayList<ArrayList<CommentList>>()
-                var commentGroup by Delegates.notNull<Int>()
-
-                for (i in result) {
-                    childItemArrayList = ArrayList<CommentList>()
-
-                    if(i.commentLevel==0){
-                        commentGroup = i.commentGroup
-                        parentItemArrayList.add(CommentList(i.commentIdx, i.authorIdx, i.postIdx, i.commentLevel, i.commentOrder, i.commentGroup, i.commentContent, i.authorName))
-                    }
-
-                    //Child Item Object
-                    for(j in result){
-                        if (j.commentLevel==1 && j.commentGroup==commentGroup) {
-                            childItemArrayList.add(CommentList(j.commentIdx, j.authorIdx, j.postIdx, j.commentLevel, j.commentOrder, j.commentGroup, j.commentContent, j.authorName))
+                //data
+                datas.clear()
+                datas.apply {
+                    Log.d("commentSize", result.size.toString())
+                    for (i in result){
+                        if(i.commentLevel==0){
+                            datas.add(CommentList(i.commentIdx,i.authorIdx,i.postIdx,i.commentLevel,i.commentOrder,i.commentGroup,i.commentContent,i.authorName))
                         }
                     }
 
-                    childItemArrayListGroup.add(childItemArrayList)
+                    parentRVAdapter.datas = datas
+                    parentRVAdapter.notifyDataSetChanged()
+
+                    //recyclerview item 클릭하면 activity 전환
+                    parentRVAdapter.setItemClickListener(object : ParentRVAdapter.OnItemClickListener {
+                        override fun onClick(v: View, position: Int) {
+
+                        }
+                    })
+
+
                 }
-                Log.d("parent", parentItemArrayList.toString())
-                Log.d("child", childItemArrayListGroup.toString())
-
-                binding.postDetailCommentRv.layoutManager =
-                    LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
-                commentRVAdapter = CommentRVAdapter().build(parentItemArrayList, childItemArrayListGroup, binding)
-                binding.postDetailCommentRv.adapter = commentRVAdapter
-
-                commentRVAdapter.notifyDataSetChanged()
             }
         }
     }
