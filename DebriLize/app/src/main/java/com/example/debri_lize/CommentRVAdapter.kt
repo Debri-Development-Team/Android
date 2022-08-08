@@ -54,7 +54,7 @@ class CommentRVAdapter(context: PostDetailActivity) : RecyclerView.Adapter<Comme
 
         fun bind(item: CommentList) {
             commentContent.text = item.commentContent
-            authorName.text = item.authorName
+            authorName.text = item.authorName + " >"
             Log.d("itemCommentList", item.toString())
         }
     }
@@ -76,6 +76,7 @@ class CommentRVAdapter(context: PostDetailActivity) : RecyclerView.Adapter<Comme
 
         holder.binding.itemCommentMenuIv.setOnClickListener{
             //bottom sheet
+            Log.d("click menu", "click")
             activity.bottomSheetComment(parentItemArrayList[position].authorIdx, parentItemArrayList[position].commentIdx)
         }
 

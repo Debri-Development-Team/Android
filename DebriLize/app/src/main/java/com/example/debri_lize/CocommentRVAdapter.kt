@@ -26,10 +26,11 @@ class CocommentRVAdapter(context: PostDetailActivity) : RecyclerView.Adapter<Coc
 
         val cocommentContent : TextView = binding.itemCocommentTv
         val authorName : TextView = binding.itemCocommentProfileTv
+        val time : TextView = binding.itemCocommentTimeTv //연결필요
 
         fun bind(item: CommentList) {
             cocommentContent.text = item.commentContent
-            authorName.text = item.authorName
+            authorName.text = item.authorName + " >"
         }
     }
 

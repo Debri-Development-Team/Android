@@ -1,5 +1,6 @@
 package com.example.debri_lize.fragment
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -7,6 +8,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.debri_lize.R
+import com.example.debri_lize.activity.auth.ProfileActivity
 import com.example.debri_lize.adapter.home.CurriculumProgressImgRVAdapter
 import com.example.debri_lize.adapter.home.CurriculumProgressRVAdapter
 import com.example.debri_lize.data.curriculum.CurriculumLecture
@@ -36,6 +38,13 @@ class HomeFragment : Fragment() {
 
     override fun onStart() {
         super.onStart()
+
+        //click userImg -> profile
+        binding.homeDebriUserIv.setOnClickListener{
+            val intent = Intent(context, ProfileActivity::class.java)
+            startActivity(intent)
+        }
+
         initRecyclerView()
     }
 
