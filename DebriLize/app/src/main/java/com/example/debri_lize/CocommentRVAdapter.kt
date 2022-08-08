@@ -14,6 +14,7 @@ class CocommentRVAdapter : RecyclerView.Adapter<CocommentRVAdapter.ViewHolder>()
     var childItemArrayList = ArrayList<CommentList>()
 
     fun build(child : ArrayList<CommentList>): CocommentRVAdapter {
+        childItemArrayList.clear()
         childItemArrayList = child
         return this
     }
@@ -26,8 +27,6 @@ class CocommentRVAdapter : RecyclerView.Adapter<CocommentRVAdapter.ViewHolder>()
         fun bind(item: CommentList) {
             cocommentContent.text = item.commentContent
             authorName.text = item.authorName
-
-            Log.d("childItemArrayList", item.toString())
         }
     }
 
@@ -38,9 +37,6 @@ class CocommentRVAdapter : RecyclerView.Adapter<CocommentRVAdapter.ViewHolder>()
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.bind(childItemArrayList[position])
-
-        Log.d("childItemArrayList", childItemArrayList[position].toString())
-        Log.d("childItemArrayList", position.toString())
     }
 
     override fun getItemCount(): Int = childItemArrayList.size

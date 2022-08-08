@@ -48,6 +48,7 @@ class PostDetailActivity : AppCompatActivity(), PostDetailView, CommentCreateVie
     private lateinit var commentRVAdapter: CommentRVAdapter //Myadapter
     lateinit var parentItemArrayList: ArrayList<CommentList>
     lateinit var childItemArrayList: ArrayList<CommentList>
+    private var temp = ArrayList<CommentList>()
 
     //like, scrap
     private var likeTF : Boolean = false
@@ -358,6 +359,11 @@ class PostDetailActivity : AppCompatActivity(), PostDetailView, CommentCreateVie
         when(code){
             200-> {
 
+                temp.clear()
+                for(i in result){
+                    temp.add(CommentList(i.commentIdx, i.authorIdx, i.postIdx, i.commentLevel, i.commentOrder, i.commentGroup, i.commentContent, i.authorName))
+                }
+
                 parentItemArrayList = ArrayList<CommentList>()
                 var childItemArrayListGroup = ArrayList<ArrayList<CommentList>>()
                 var commentGroup by Delegates.notNull<Int>()
@@ -371,15 +377,22 @@ class PostDetailActivity : AppCompatActivity(), PostDetailView, CommentCreateVie
                     }
 
                     //Child Item Object
-                    for(j in result){
-                        if (j.commentLevel==1 && j.commentGroup==commentGroup) {
-                            childItemArrayList.add(CommentList(j.commentIdx, j.authorIdx, j.postIdx, j.commentLevel, j.commentOrder, j.commentGroup, j.commentContent, j.authorName))
+                    val iterator = temp.iterator()
+                    while(iterator.hasNext()){
+                        val item = iterator.next()
+                        if (item.commentLevel==1 && item.commentGroup==commentGroup) {
+                                childItemArrayList.add(CommentList(item.commentIdx, item.authorIdx, item.postIdx, item.commentLevel, item.commentOrder, item.commentGroup, item.commentContent, item.authorName))
+                            Log.d("childList", childItemArrayList.toString())
                         }
                     }
 
-                    childItemArrayListGroup.add(childItemArrayList)
+                    if(i.commentLevel==0){
+                        childItemArrayListGroup.add(childItemArrayList)
+                        Log.d("childGroup", childItemArrayListGroup.toString())
+                    }
+
+
                 }
-                Log.d("parent", parentItemArrayList.toString())
                 Log.d("child", childItemArrayListGroup.toString())
 
                 binding.postDetailCommentRv.layoutManager =

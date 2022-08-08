@@ -1,5 +1,7 @@
 package com.example.debri_lize
 
+import android.app.Activity
+import android.content.Intent
 import android.util.Log
 import android.view.KeyEvent
 import android.view.LayoutInflater
@@ -7,6 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import android.widget.Toast
+import androidx.core.content.ContextCompat.startActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.debri_lize.activity.PostDetailActivity
@@ -26,7 +29,6 @@ class CommentRVAdapter : RecyclerView.Adapter<CommentRVAdapter.ViewHolder>(), Co
 
     var parentItemArrayList = ArrayList<CommentList>()
     var childItemArrayListGroup = ArrayList<ArrayList<CommentList>>()
-
 
     fun build(parent: ArrayList<CommentList>, child : ArrayList<ArrayList<CommentList>>, binding: ActivityPostDetailBinding): CommentRVAdapter {
         parentItemArrayList = parent
@@ -70,26 +72,26 @@ class CommentRVAdapter : RecyclerView.Adapter<CommentRVAdapter.ViewHolder>(), Co
 
         //write cocomment
 
-            holder.binding.itemCommentWriteIv.setOnClickListener {
-                Log.d("click write cocomment", "click")
-                //on cocomment editText
-                binding.postDetailWriteCommentEt.visibility = View.GONE
-                binding.postDetailWriteCocommentEt.visibility = View.VISIBLE
-                Log.d("click comment", binding.postDetailWriteCommentEt.visibility.toString())
-                Log.d("click cocomment", binding.postDetailWriteCocommentEt.visibility.toString())
-                binding.postDetailWriteCocommentEt.setOnKeyListener { v, keyCode, event ->
-                    if (event.action == KeyEvent.ACTION_DOWN && keyCode == KeyEvent.KEYCODE_ENTER) {
-                        createCocomment(
-                            parentItemArrayList[position].commentIdx,
-                            parentItemArrayList[position].postIdx
-                        )
-                        true
-                    }
-                    false
+        holder.binding.itemCommentWriteIv.setOnClickListener {
+            Log.d("click write cocomment", "click")
+            //on cocomment editText
+            binding.postDetailWriteCommentEt.visibility = View.GONE
+            binding.postDetailWriteCocommentEt.visibility = View.VISIBLE
+            Log.d("click comment", binding.postDetailWriteCommentEt.visibility.toString())
+            Log.d("click cocomment", binding.postDetailWriteCocommentEt.visibility.toString())
+            binding.postDetailWriteCocommentEt.setOnKeyListener { v, keyCode, event ->
+                if (event.action == KeyEvent.ACTION_DOWN && keyCode == KeyEvent.KEYCODE_ENTER) {
+                    createCocomment(
+                        parentItemArrayList[position].commentIdx,
+                        parentItemArrayList[position].postIdx
+                    )
+                    true
                 }
-                Log.d("commentIdx", parentItemArrayList[position].commentIdx.toString())
-                Log.d("postIdx", parentItemArrayList[position].postIdx.toString())
+                false
             }
+            Log.d("commentIdx", parentItemArrayList[position].commentIdx.toString())
+            Log.d("postIdx", parentItemArrayList[position].postIdx.toString())
+        }
 
     }
 
@@ -123,6 +125,7 @@ class CommentRVAdapter : RecyclerView.Adapter<CommentRVAdapter.ViewHolder>(), Co
                 binding.postDetailWriteCocommentEt.text.clear()
                 binding.postDetailWriteCommentEt.visibility = View.VISIBLE
                 binding.postDetailWriteCocommentEt.visibility = View.GONE
+
                 return
             }
         }
