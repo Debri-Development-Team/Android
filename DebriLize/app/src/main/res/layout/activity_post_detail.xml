@@ -344,7 +344,7 @@
                 android:orientation="vertical"
                 android:overScrollMode="never"
                 android:nestedScrollingEnabled="false"
-                tools:listitem="item_comment"
+                tools:listitem="@layout/item_comment"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
