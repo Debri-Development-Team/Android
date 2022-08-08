@@ -30,6 +30,7 @@ class CommentRVAdapter : RecyclerView.Adapter<CommentRVAdapter.ViewHolder>(), Co
 
     fun build(parent: ArrayList<CommentList>, child : ArrayList<ArrayList<CommentList>>, binding: ActivityPostDetailBinding): CommentRVAdapter {
         parentItemArrayList = parent
+        Log.d("parentItemArrayList", parentItemArrayList.toString())
         childItemArrayListGroup = child
         this.binding = binding
         return this
@@ -43,6 +44,7 @@ class CommentRVAdapter : RecyclerView.Adapter<CommentRVAdapter.ViewHolder>(), Co
         fun bind(item: CommentList) {
             commentContent.text = item.commentContent
             authorName.text = item.authorName
+            Log.d("itemCommentList", item.toString())
         }
     }
 

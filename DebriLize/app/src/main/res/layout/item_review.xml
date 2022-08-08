@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="40dp"
+    android:id="@+id/profile_curriculum_layout"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toTopOf="parent"
+    app:layout_constraintBottom_toBottomOf="parent"
+    android:gravity="center_vertical"
+    android:orientation="horizontal"
+    android:background="@drawable/border_round_transparent_review_6"
+    android:layout_marginBottom="5dp"
+    android:paddingStart="10dp"
+    android:paddingEnd="10dp">
+
+    <TextView
+        android:id="@+id/item_review_content_tv"
+        android:layout_width="230dp"
+        android:layout_height="wrap_content"
+        android:text="자바가 너무 쉬워졌어요 어떡하죠?"
+        android:fontFamily="@font/noto_sans_kr_regular"
+        android:includeFontPadding="false"
+        android:textColor="@color/black"
+        android:textSize="12dp"
+        android:maxLines="1"
+        android:ellipsize="end"/>
+
+    <View
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_weight="1" />
+
+    <TextView
+        android:id="@+id/item_review_author_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="by 데브리짱짱걸"
+        android:fontFamily="@font/noto_sans_kr_bold"
+        android:includeFontPadding="false"
+        android:textColor="@color/black"
+        android:textSize="12dp"/>
+
+</LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

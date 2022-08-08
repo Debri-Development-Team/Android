@@ -1,5 +1,6 @@
 package com.example.debri_lize
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.TextView
@@ -25,6 +26,8 @@ class CocommentRVAdapter : RecyclerView.Adapter<CocommentRVAdapter.ViewHolder>()
         fun bind(item: CommentList) {
             cocommentContent.text = item.commentContent
             authorName.text = item.authorName
+
+            Log.d("childItemArrayList", item.toString())
         }
     }
 
@@ -35,6 +38,9 @@ class CocommentRVAdapter : RecyclerView.Adapter<CocommentRVAdapter.ViewHolder>()
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.bind(childItemArrayList[position])
+
+        Log.d("childItemArrayList", childItemArrayList[position].toString())
+        Log.d("childItemArrayList", position.toString())
     }
 
     override fun getItemCount(): Int = childItemArrayList.size

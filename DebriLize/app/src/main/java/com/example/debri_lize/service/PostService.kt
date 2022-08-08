@@ -225,7 +225,7 @@ class PostService {
                 Log.d("createPostLikeCode", resp.code.toString())
                 when(resp.code){
                     //API code값 사용
-                    200->createPostLikeView.onCreatePostLikeSuccess(resp.code) //result를 받아서 UI를 구현해야함
+                    200->createPostLikeView.onCreatePostLikeSuccess(resp.code)
                     else->createPostLikeView.onCreatePostLikeFailure(resp.code) //무슨 오류인지 알아야하므로 code가져가기
                 }
             }
