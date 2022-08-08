@@ -16,12 +16,13 @@
         android:paddingBottom="15dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:gravity="center_vertical">
+        android:gravity="center_vertical"
+        android:padding="10dp">
 
         <ImageView
             android:id="@+id/item_cocomment_iv"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="19dp"
+            android:layout_height="19dp"
             android:src="@drawable/ic_cocomment"
             android:layout_marginEnd="10dp"
             />
@@ -42,7 +43,7 @@
                 android:includeFontPadding="false"
                 android:text="지금 장난 둘 ^^"
                 android:textColor="@color/white"
-                android:textSize="13sp" />
+                android:textSize="12dp" />
 
 
             <LinearLayout
@@ -61,7 +62,7 @@
                     android:fontFamily="@font/noto_sans_kr_regular"
                     android:includeFontPadding="false"
                     android:textColor="@color/white"
-                    android:textSize="12sp" />
+                    android:textSize="10dp" />
 
                 <TextView
                     android:id="@+id/item_cocomment_time_tv"
@@ -71,7 +72,7 @@
                     android:fontFamily="@font/noto_sans_kr_regular"
                     android:includeFontPadding="false"
                     android:textColor="@color/white"
-                    android:textSize="12sp"
+                    android:textSize="10dp"
                     android:layout_marginStart="15dp"/>
 
                 <View
@@ -95,7 +96,7 @@
                     android:fontFamily="@font/noto_sans_kr_regular"
                     android:includeFontPadding="false"
                     android:textColor="@color/white"
-                    android:textSize="12sp"
+                    android:textSize="10dp"
                     android:layout_marginEnd="5dp"
                     />
 
@@ -107,7 +108,7 @@
 
                 <ImageView
                     android:id="@+id/item_cocomment_menu_iv"
-                    android:layout_width="15dp"
+                    android:layout_width="18dp"
                     android:layout_height="15dp"
                     android:src="@drawable/ic_menu"
                     />

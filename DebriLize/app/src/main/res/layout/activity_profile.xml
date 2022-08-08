@@ -133,7 +133,7 @@
             android:id="@+id/profile_curriculum_add_iv"
             android:layout_width="76dp"
             android:layout_height="76dp"
-            android:src="@drawable/ic_previous"
+            android:src="@drawable/ic_circle_plus"
             android:layout_marginEnd="20dp"
             />
 

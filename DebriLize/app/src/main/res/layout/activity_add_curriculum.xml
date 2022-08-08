@@ -62,9 +62,9 @@
 
     <ImageView
         android:id="@+id/add_curriculum_add_iv"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/ic_add"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:src="@drawable/ic_plus"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"

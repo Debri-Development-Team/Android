@@ -147,6 +147,8 @@ class LoginActivity:AppCompatActivity(), LoginView, TokenView {
                 Log.d("jwt", getJwt().toString())
                 Log.d("jwt", getUserName().toString())
 
+                finish()
+
                 //startActivity(Intent(this, AddCurriculumActivity::class.java))
                 //test
                 startActivity(Intent(this, MainActivity::class.java))
