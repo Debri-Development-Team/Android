@@ -5,11 +5,12 @@ import android.view.ViewGroup
 import android.widget.BaseAdapter
 import android.widget.TextView
 import com.example.debri_lize.R
+import com.example.debri_lize.data.board.Board
 
-class SpinnerAdapter(context: Context, datas: ArrayList<String>?) : BaseAdapter() {
+class SpinnerAdapter(context: Context, datas: ArrayList<Board>) : BaseAdapter() {
 
 
-    var datas: ArrayList<String>? = datas
+    var datas: ArrayList<Board>? = datas
     var inflater: LayoutInflater = context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
 
     override fun getCount(): Int {
@@ -24,7 +25,7 @@ class SpinnerAdapter(context: Context, datas: ArrayList<String>?) : BaseAdapter(
         var view = inflater.inflate(R.layout.spinner_custom, parent, false)
 
         if (datas != null) {
-            val text = datas!![position]
+            val text = datas!![position].boardName
             (view.findViewById<View>(R.id.spinnerText) as TextView).text = text
         }
         return view
@@ -32,7 +33,7 @@ class SpinnerAdapter(context: Context, datas: ArrayList<String>?) : BaseAdapter(
 
     override fun getDropDownView(position: Int, convertView: View?, parent: ViewGroup): View { //클릭 후 보여지는 레이아웃
         var view = inflater.inflate(R.layout.spinner_getview, parent, false)
-        val text = datas!![position]
+        val text = datas!![position].boardName
         (view.findViewById<View>(R.id.spinnerText) as TextView).text = text
         return view
     }

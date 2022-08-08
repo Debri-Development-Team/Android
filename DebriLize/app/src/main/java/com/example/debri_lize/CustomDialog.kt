@@ -6,11 +6,10 @@ import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.view.WindowManager
 import android.widget.Button
-import com.example.debri_lize.activity.PostCreateActivity
+import android.widget.EditText
 
 class CustomDialog(context: Context) {
     private val dialog = Dialog(context)
-    lateinit var binding:PostCreateActivity
 
     fun showWriteDlg(){
         dialog.setContentView(R.layout.dialog_write)
@@ -120,7 +119,7 @@ class CustomDialog(context: Context) {
         //yes
         dialog.findViewById<Button>(R.id.dialog_report_yes_btn).setOnClickListener {
             //신고 사유
-            onClickListener.onClicked(true)
+            onClickListenerETC.onClicked(true, dialog.findViewById<EditText>(R.id.dialog_report_text_et).text.toString())
             dialog.dismiss()
         }
 
@@ -137,11 +136,20 @@ class CustomDialog(context: Context) {
         fun onClicked(TF: Boolean)
     }
 
+    interface ButtonClickListenerETC{
+        fun onClicked(TF: Boolean, reason : String)
+    }
+
 
     private lateinit var onClickListener: ButtonClickListener
+    private lateinit var onClickListenerETC: ButtonClickListenerETC
 
     fun setOnClickListener(listener: ButtonClickListener){
         onClickListener = listener
+    }
+
+    fun setOnClickListenerETC(listener: ButtonClickListenerETC){
+        onClickListenerETC = listener
     }
 
 

@@ -1,9 +1,12 @@
 package com.example.debri_lize.activity
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.MotionEvent
 import android.view.View
+import androidx.core.content.ContextCompat
+import com.example.debri_lize.R
 import com.example.debri_lize.databinding.ActivityAddCurriculumBinding
 
 class AddCurriculumActivity : AppCompatActivity() {
@@ -13,6 +16,11 @@ class AddCurriculumActivity : AppCompatActivity() {
         binding = ActivityAddCurriculumBinding.inflate(layoutInflater) //binding 초기화
         setContentView(binding.root)
 
+        binding.addCurriculumCircleIv.setOnClickListener{
+            val intent = Intent(this, AddCurriculumChooseActivity::class.java)
+            startActivity(intent)
+            finish()
+        }
 
         binding.addCurriculumCircleIv.setOnTouchListener(object : View.OnTouchListener {
             override fun onTouch(view: View?, event: MotionEvent?): Boolean {
@@ -21,18 +29,19 @@ class AddCurriculumActivity : AppCompatActivity() {
                         binding.addCurriculumCircleIv.visibility = View.GONE
                         binding.addCurriculumCircleTouchIv.visibility = View.VISIBLE
                     }
-                    MotionEvent.ACTION_MOVE -> {
-                        binding.addCurriculumCircleIv.visibility = View.GONE
-                        binding.addCurriculumCircleTouchIv.visibility = View.VISIBLE
-                    }
                     MotionEvent.ACTION_UP -> {
                         binding.addCurriculumCircleIv.visibility = View.VISIBLE
                         binding.addCurriculumCircleTouchIv.visibility = View.GONE
+                        binding.addCurriculumCircleIv.performClick()
                     }
                 }
+
+
                 //리턴값이 false면 동작 안됨
                 return true //or false
             }
+
+
         })
 
     }

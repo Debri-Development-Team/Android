@@ -1,12 +1,16 @@
 package com.example.debri_lize.activity.auth
 
+import android.app.Activity
 import android.content.Intent
+import android.graphics.Insets
+import android.os.Build
 import android.os.Bundle
+import android.util.DisplayMetrics
 import android.util.Log
-import android.view.MotionEvent
-import android.view.View
+import android.view.*
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import com.example.debri_lize.R
 import com.example.debri_lize.activity.MainActivity
@@ -21,13 +25,19 @@ import com.example.debri_lize.view.auth.LoginView
 import com.example.debri_lize.view.auth.TokenView
 
 
-public class LoginActivity:AppCompatActivity(), LoginView, TokenView {
+class LoginActivity:AppCompatActivity(), LoginView, TokenView {
     lateinit var binding: ActivityLoginBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        //set UI size
+        var screenWidth = getScreenWidth(this) / getDeviceDpi() // px to dp
+        Log.d("screenWidth", screenWidth.toString())
+        saveSize(screenWidth)
+        setSize()
 
         setFocus() //focus effect
         setMouseEvent() //mouse event
@@ -44,7 +54,62 @@ public class LoginActivity:AppCompatActivity(), LoginView, TokenView {
 
     }
 
+    //get screenWidth (pixel)
+    private fun getScreenWidth(activity: Activity): Int {
+        return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+            val windowMetrics = activity.windowManager.currentWindowMetrics
+            val insets: Insets = windowMetrics.windowInsets
+                .getInsetsIgnoringVisibility(WindowInsets.Type.systemBars())
+            windowMetrics.bounds.width() - insets.left - insets.right
+        } else {
+            val displayMetrics = DisplayMetrics()
+            activity.windowManager.defaultDisplay.getMetrics(displayMetrics)
+            displayMetrics.widthPixels
+        }
+    }
+
+    //get screen density (DPI)
+    private fun getDeviceDpi(): Int {
+
+        val density = resources.displayMetrics.density.toInt()
+        val result = when {
+            density >= 4.0 -> "xxxhdpi"
+            density >= 3.0 -> "xxhdpi"
+            density >= 2.0 -> "xhdpi"
+            density >= 1.5 -> "hdpi"
+            density >= 1.0 -> "mdpi"
+            else -> "ldpi"
+        }
+        Log.d("density", density.toString())
+        return density
+    }
+
+    //save UI Size (dp)
+    private fun saveSize(screenWidth : Int){
+
+        //dp to px : px = dp * density
+        //px to dp : dp = px / density
+        //signUp, login button
+        saveUISize("authButton", ((screenWidth-60)/2 - 10) * getDeviceDpi()) //dimens.xml에서 margin, padding값 가져올 것
+    }
+
+    //set UI Size (px)
+    private fun setSize(){
+        //signUp button
+        binding.loginSignUpBtn.layoutParams = binding.loginSignUpBtn.layoutParams.apply {
+            this.width = getUISize("authButton")
+        }
+
+        //login button
+        binding.loginBtn.layoutParams = binding.loginBtn.layoutParams.apply {
+            this.width = getUISize("authButton")
+        }
+    }
+
+    //set UI Size
+
     private fun login(){
+
         //ID가 입력되지 않은 경우
         if(binding.loginIdEt.text.toString().isEmpty()){
             Toast.makeText(this, "아이디를 입력해주세요.", Toast.LENGTH_SHORT).show()

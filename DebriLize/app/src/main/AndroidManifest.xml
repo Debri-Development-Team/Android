@@ -27,16 +27,19 @@
         </activity>
         <activity
             android:name=".activity.auth.SignUpActivity"
-            android:exported="true" >
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
+            android:exported="true" />
         <activity
             android:name=".activity.AddCurriculumActivity"
-            android:exported="true" />
+            android:exported="true"/>
+        <activity
+            android:name=".activity.AddCurriculumChooseActivity"
+            android:exported="true"/>
+        <activity
+            android:name=".activity.AddRoadmapDetailActivity"
+            android:exported="true"/>
+        <activity
+            android:name=".activity.AddCurriculumDetailActivity"
+            android:exported="true"/>
         <activity
             android:name=".activity.PostListActivity"
             android:exported="true"/>
@@ -48,6 +51,9 @@
             android:exported="true"/>
         <activity
             android:name=".activity.MainActivity"
+            android:exported="true"/>
+        <activity
+            android:name=".activity.auth.ProfileActivity"
             android:exported="true"/>
 
 

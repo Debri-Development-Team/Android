@@ -1,21 +1,33 @@
 package com.example.debri_lize.fragment
 
+import android.content.Intent
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.util.Log
+import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
+import android.widget.Toast
+import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.debri_lize.ClassFavoriteRVAdapter
 import com.example.debri_lize.ClassLectureRVAdapter
+import com.example.debri_lize.CustomDialog
+import com.example.debri_lize.R
+import com.example.debri_lize.activity.PostCreateActivity
 import com.example.debri_lize.data.class_.Lecture
 import com.example.debri_lize.data.class_.LectureFilter
+import com.example.debri_lize.data.post.PostList
 import com.example.debri_lize.databinding.FragmentClassBinding
 import com.example.debri_lize.service.ClassService
 import com.example.debri_lize.utils.getUserIdx
 import com.example.debri_lize.view.class_.LectureFavoriteView
 import com.example.debri_lize.view.class_.LectureFilterView
+import com.google.android.material.bottomsheet.BottomSheetDialog
 
 class ClassFragment : Fragment(), LectureFavoriteView, LectureFilterView {
 
@@ -27,6 +39,9 @@ class ClassFragment : Fragment(), LectureFavoriteView, LectureFilterView {
     val lectureFilter = LectureFilter()
 
     var filterNum : Int = 0
+    var filterNum2 : Int = 0
+
+    private val filteredData = ArrayList<Lecture>() //검색했을 때 나타낼 데이터
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -52,11 +67,73 @@ class ClassFragment : Fragment(), LectureFavoriteView, LectureFilterView {
         //강의 필터
         classService.setLectureFilterView(this)
 
+        //click filter btn
+        binding.classFilterIv.setOnClickListener{
+            //bottom sheet
+            bottomSheet()
+        }
 
     }
 
+    //bottom sheet
+    private fun bottomSheet(){
+
+        val bottomSheetDialog = BottomSheetDialog(requireContext())
+
+        var bottomSheetView : View = layoutInflater.inflate(R.layout.fragment_bottom_sheet_two, null)
+        bottomSheetDialog.setContentView(bottomSheetView)
+
+        bottomSheetView.findViewById<TextView>(R.id.bottom_sheet_two_tv).text = "강의 정렬하기"
+        bottomSheetView.findViewById<TextView>(R.id.bottom_sheet_two_tv1).text = "가나다 순 정렬"
+        bottomSheetView.findViewById<TextView>(R.id.bottom_sheet_two_tv2).text = "좋아요 순 정렬"
+
+        //가나다 순
+        bottomSheetView.findViewById<TextView>(R.id.bottom_sheet_two_tv1).setOnClickListener {
+
+            bottomSheetDialog.dismiss()
+        }
+        //좋아요 순
+        bottomSheetView.findViewById<TextView>(R.id.bottom_sheet_two_tv2).setOnClickListener {
+
+            bottomSheetDialog.dismiss()
+        }
+
+
+        binding.classFilterIv.setOnClickListener {
+            bottomSheetDialog.show()
+        }
+
+        //close button
+        bottomSheetView.findViewById<TextView>(R.id.bottom_sheet_close_tv).setOnClickListener {
+            bottomSheetDialog.dismiss()
+        }
+
+        //검색어 입력 : search Lecture
+        binding.classSearchEt.addTextChangedListener(object : TextWatcher{
+            //입력이 끝날 때
+            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+
+            }
+            //입력하기 전에
+            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+
+            }
+            //타이핑되는 텍스트에 변화가 있을 때
+            override fun afterTextChanged(p0: Editable?) {
+                val searchText: String = binding.classSearchEt.text.toString()
+                //Log.d("editText","$searchText")
+                lectureFilter.key = searchText
+                if(searchText=="")  filterNum2 = 0
+                else filterNum2 = 1
+                showList()
+            }
+
+        })
+    }
+
+
     private fun showList(){
-        if(filterNum==0){
+        if(filterNum+filterNum2==0){
             //즐겨찾기 강의 view -> VISIBLE
             binding.classFavoriteLayout.visibility = View.VISIBLE
             //필터 강의 리스트 view -> GONE
@@ -291,6 +368,8 @@ class ClassFragment : Fragment(), LectureFavoriteView, LectureFilterView {
                     })
 
                 }
+
+
             }
         }
     }

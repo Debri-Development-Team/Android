@@ -14,7 +14,7 @@ interface RetrofitInterface {
 
     //token
     @PATCH("api/jwt/refresh")
-    fun token(@Body refreshToken : String): Call<TokenResponse>
+    fun token(@Header("ACCESS-TOKEN") authToken: String, @Body refreshToken : String): Call<TokenResponse>
 
     //회원가입
     @POST("api/user/signUp")
@@ -24,9 +24,9 @@ interface RetrofitInterface {
     @POST("api/auth/login")
     fun login(@Body user : UserLogin): Call<AuthResponse>
 
-    //전체 게시판 보여주기
+    //즐겨찾기 안한 게시판 보여주기
     @GET("api/board/unscrap/getList")
-    fun showBoardList(@Header("ACCESS-TOKEN") authToken: String) : Call<BoardResponse>
+    fun showUnScrapBoardList(@Header("ACCESS-TOKEN") authToken: String) : Call<BoardResponse>
 
     //즐겨찾기 게시판 보여주기
     @GET("api/board/scrap/getList")
@@ -39,6 +39,10 @@ interface RetrofitInterface {
     //게시물 수정하기
     @PATCH("api/post/{postIdx}")
     fun editPost(@Body editPost : EditPost, @Path("postIdx") postIdx: Int, @Header("ACCESS-TOKEN") authToken: String) : Call<DeletePostResponse>
+
+    //전체 게시판 모음
+    @GET("api/board/allList")
+    fun showBoardList(@Header("ACCESS-TOKEN") authToken: String) : Call<BoardResponse>
 
     //게시물 삭제
     @PATCH("api/post/{postIdx}/status")
@@ -60,8 +64,8 @@ interface RetrofitInterface {
     @POST("api/comment/replyOnPost/create")
     fun createComment(@Body comment: Comment): Call<CommentResponse>
 
-    //대댓글 작성성
-    @POST("api/comment/replyOnPost/create")
+    //대댓글 작성
+    @POST("api/comment/replyOnReply/create")
     fun createCocomment(@Body cocomment: Cocomment): Call<CommentResponse>
 
     //댓글, 대댓글 조회
@@ -92,5 +96,8 @@ interface RetrofitInterface {
     @GET("api/lecture/search")
     fun showLectureSearch(@Query ("lang") lang:String?,@Query ("type") type:String?,@Query ("price") price:String?,@Query ("key") key:String?, @Header("ACCESS-TOKEN") authToken: String) : Call<LectureResponse>
 
+    //게시물 신고하기
+    @POST("api/report/postReport")
+    fun reportPost(@Body postReport: PostReport, @Header("ACCESS-TOKEN") authToken: String) : Call<ReportResponse>
 
 }
