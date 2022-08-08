@@ -1,20 +1,23 @@
 package com.example.debri_lize
 
+import android.content.Context
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.example.debri_lize.activity.PostDetailActivity
 import com.example.debri_lize.data.post.CommentList
 import com.example.debri_lize.databinding.ItemCocommentBinding
 import com.example.debri_lize.databinding.ItemCommentBinding
 
-class CocommentRVAdapter : RecyclerView.Adapter<CocommentRVAdapter.ViewHolder>() {
+class CocommentRVAdapter(context: PostDetailActivity) : RecyclerView.Adapter<CocommentRVAdapter.ViewHolder>() {
 
     var childItemArrayList = ArrayList<CommentList>()
+    var activity = context
 
     fun build(child : ArrayList<CommentList>): CocommentRVAdapter {
-        childItemArrayList.clear()
+
         childItemArrayList = child
         return this
     }
@@ -37,6 +40,11 @@ class CocommentRVAdapter : RecyclerView.Adapter<CocommentRVAdapter.ViewHolder>()
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.bind(childItemArrayList[position])
+
+        holder.binding.itemCocommentMenuIv.setOnClickListener{
+            //bottom sheet
+            activity.bottomSheetComment(childItemArrayList[position].authorIdx, childItemArrayList[position].commentIdx)
+        }
     }
 
     override fun getItemCount(): Int = childItemArrayList.size

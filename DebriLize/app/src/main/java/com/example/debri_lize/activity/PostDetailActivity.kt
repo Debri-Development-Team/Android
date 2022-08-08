@@ -27,7 +27,7 @@ import kotlin.properties.Delegates
 
 
 class PostDetailActivity : AppCompatActivity(), PostDetailView, CommentCreateView, ShowCommentView, DeletePostView,
-    CreatePostLikeView, CancelPostLikeView, CreatePostScrapView, CancelPostScrapView, ReportPostView {
+    CreatePostLikeView, CancelPostLikeView, CreatePostScrapView, CancelPostScrapView, ReportPostView, DeleteCommentView, ReportCommentView {
     lateinit var binding : ActivityPostDetailBinding
 
     var postIdx by Delegates.notNull<Int>()
@@ -38,9 +38,8 @@ class PostDetailActivity : AppCompatActivity(), PostDetailView, CommentCreateVie
 
     //api
     val postService = PostService()
-    val reportService = ReportService()
     val commentService = CommentService()
-
+    val reportService = ReportService()
 
     //comment
     private lateinit var commentRVAdapter: CommentRVAdapter //Myadapter
@@ -152,8 +151,7 @@ class PostDetailActivity : AppCompatActivity(), PostDetailView, CommentCreateVie
     }
 
     //bottom sheet
-    private fun bottomSheet(){
-
+    private fun bottomSheetPost(){
 
         lateinit var bottomSheetView : View
         val bottomSheetDialog = BottomSheetDialog(this)
@@ -203,7 +201,7 @@ class PostDetailActivity : AppCompatActivity(), PostDetailView, CommentCreateVie
                 bottomSheetComplainDetailDialog.findViewById<TextView>(R.id.bottom_sheet_complain_page_tv1)!!
                     .setOnClickListener {
                         //api
-                        reportService.reportPost(PostReport(postIdx, "광고, 스팸"))
+                        reportService.reportPost(ReportPost(postIdx, "광고, 스팸"))
 
                         //다이얼로그 닫기
                         bottomSheetComplainDetailDialog.dismiss()
@@ -213,7 +211,7 @@ class PostDetailActivity : AppCompatActivity(), PostDetailView, CommentCreateVie
                 bottomSheetComplainDetailDialog.findViewById<TextView>(R.id.bottom_sheet_complain_page_tv2)!!
                     .setOnClickListener {
                         //api
-                        reportService.reportPost(PostReport(postIdx, "낚시, 도배"))
+                        reportService.reportPost(ReportPost(postIdx, "낚시, 도배"))
 
                         //다이얼로그 닫기
                         bottomSheetComplainDetailDialog.dismiss()
@@ -223,7 +221,7 @@ class PostDetailActivity : AppCompatActivity(), PostDetailView, CommentCreateVie
                 bottomSheetComplainDetailDialog.findViewById<TextView>(R.id.bottom_sheet_complain_page_tv3)!!
                     .setOnClickListener {
                         //api
-                        reportService.reportPost(PostReport(postIdx, "개발과 무관한 게시물"))
+                        reportService.reportPost(ReportPost(postIdx, "개발과 무관한 게시물"))
 
                         //다이얼로그 닫기
                         bottomSheetComplainDetailDialog.dismiss()
@@ -233,7 +231,7 @@ class PostDetailActivity : AppCompatActivity(), PostDetailView, CommentCreateVie
                 bottomSheetComplainDetailDialog.findViewById<TextView>(R.id.bottom_sheet_complain_page_tv4)!!
                     .setOnClickListener {
                         //api
-                        reportService.reportPost(PostReport(postIdx, "욕설, 비하"))
+                        reportService.reportPost(ReportPost(postIdx, "욕설, 비하"))
 
                         //다이얼로그 닫기
                         bottomSheetComplainDetailDialog.dismiss()
@@ -251,7 +249,7 @@ class PostDetailActivity : AppCompatActivity(), PostDetailView, CommentCreateVie
                             override fun onClicked(TF: Boolean, reason : String) {
                                 //텍스트 받아 넘기기
                                 //api
-                                reportService.reportPost(PostReport(postIdx, reason))
+                                reportService.reportPost(ReportPost(postIdx, reason))
 
                                 finish()
                             }
@@ -282,6 +280,123 @@ class PostDetailActivity : AppCompatActivity(), PostDetailView, CommentCreateVie
 
     }
 
+    //bottom sheet comment, cocomment
+    fun bottomSheetComment(authorIdx : Int, commentIdx : Int){
+
+        lateinit var bottomSheetView : View
+        val bottomSheetDialog = BottomSheetDialog(this)
+
+        if(getUserIdx()==authorIdx){ //본인 댓글
+            bottomSheetView = layoutInflater.inflate(R.layout.fragment_bottom_sheet_one, null)
+            bottomSheetDialog.setContentView(bottomSheetView)
+
+            bottomSheetView.findViewById<TextView>(R.id.bottom_sheet_two_tv).text = "댓글 관리"
+            bottomSheetView.findViewById<TextView>(R.id.bottom_sheet_two_tv1).text = "삭제하기"
+
+            bottomSheetDialog.show()
+            //click delete button
+            bottomSheetView.findViewById<TextView>(R.id.bottom_sheet_two_tv1).setOnClickListener {
+                commentService.setDeleteCommentView(this)
+                commentService.deleteComment(commentIdx)
+                bottomSheetDialog.dismiss()
+                //add dialog code
+
+            }
+        }
+        else{ //타인 댓글
+            bottomSheetView = layoutInflater.inflate(R.layout.fragment_bottom_sheet_complain, null)
+            bottomSheetDialog.setContentView(bottomSheetView)
+            bottomSheetDialog.show()
+
+            //click complain button
+            bottomSheetView.findViewById<TextView>(R.id.bottom_sheet_complain_tv).setOnClickListener {
+                val bottomSheetComplainDetailView = layoutInflater.inflate(R.layout.fragment_bottom_sheet_complain_detail, null)
+                val bottomSheetComplainDetailDialog = BottomSheetDialog(this)
+                bottomSheetComplainDetailDialog.setContentView(bottomSheetComplainDetailView)
+
+                reportService.setReportCommentView(this)
+                bottomSheetComplainDetailDialog.show()
+
+                //complain button
+                //광고,스팸
+                bottomSheetComplainDetailDialog.findViewById<TextView>(R.id.bottom_sheet_complain_page_tv1)!!
+                    .setOnClickListener {
+                        //api
+                        reportService.reportComment(ReportComment(commentIdx, "광고, 스팸"))
+
+                        //다이얼로그 닫기
+                        bottomSheetComplainDetailDialog.dismiss()
+                        bottomSheetDialog.dismiss()
+                    }
+                //낚시,도배
+                bottomSheetComplainDetailDialog.findViewById<TextView>(R.id.bottom_sheet_complain_page_tv2)!!
+                    .setOnClickListener {
+                        //api
+                        reportService.reportComment(ReportComment(commentIdx, "낚시, 도배"))
+
+                        //다이얼로그 닫기
+                        bottomSheetComplainDetailDialog.dismiss()
+                        bottomSheetDialog.dismiss()
+                    }
+                //개발과 무관한 게시물
+                bottomSheetComplainDetailDialog.findViewById<TextView>(R.id.bottom_sheet_complain_page_tv3)!!
+                    .setOnClickListener {
+                        //api
+                        reportService.reportComment(ReportComment(commentIdx, "개발과 무관한 게시물"))
+
+                        //다이얼로그 닫기
+                        bottomSheetComplainDetailDialog.dismiss()
+                        bottomSheetDialog.dismiss()
+                    }
+                //욕설,비하
+                bottomSheetComplainDetailDialog.findViewById<TextView>(R.id.bottom_sheet_complain_page_tv4)!!
+                    .setOnClickListener {
+                        //api
+                        reportService.reportComment(ReportComment(commentIdx, "욕설, 비하"))
+
+                        //다이얼로그 닫기
+                        bottomSheetComplainDetailDialog.dismiss()
+                        bottomSheetDialog.dismiss()
+                    }
+                //기타
+                bottomSheetComplainDetailDialog.findViewById<TextView>(R.id.bottom_sheet_complain_page_tv5)!!
+                    .setOnClickListener {
+
+                        //신고 사유 다이얼로그
+                        val dialog = CustomDialog(this)
+                        dialog.showReportDlg()
+                        //사유 적은 후 ok 버튼 클릭 시
+                        dialog.setOnClickListenerETC(object:CustomDialog.ButtonClickListenerETC{
+                            override fun onClicked(TF: Boolean, reason : String) {
+                                //텍스트 받아 넘기기
+                                //api
+                                reportService.reportComment(ReportComment(commentIdx, reason))
+
+                                finish()
+                            }
+
+                        })
+
+                        //bottom 다이얼로그 닫기
+                        bottomSheetComplainDetailDialog.dismiss()
+                        bottomSheetDialog.dismiss()
+
+                    }
+
+                //close button
+                bottomSheetComplainDetailView.findViewById<TextView>(R.id.bottom_sheet_close_tv).setOnClickListener {
+                    bottomSheetComplainDetailDialog.dismiss()
+                }
+            }
+        }
+
+        //close button
+        bottomSheetView.findViewById<TextView>(R.id.bottom_sheet_close_tv).setOnClickListener {
+            bottomSheetDialog.dismiss()
+        }
+
+    }
+
     //api
     //postDetail
     override fun onPostDetailSuccess(code: Int, result: PostDetail) {
@@ -302,7 +417,7 @@ class PostDetailActivity : AppCompatActivity(), PostDetailView, CommentCreateVie
 
 
                 //bottom sheet
-                bottomSheet()
+                bottomSheetPost()
                 postService.setDeletePostView(this@PostDetailActivity)
             }
         }
@@ -500,6 +615,37 @@ class PostDetailActivity : AppCompatActivity(), PostDetailView, CommentCreateVie
     }
 
     override fun onReportPostFailure(code: Int) {
+
+    }
+
+    override fun onDeleteCommentSuccess(code: Int) {
+        when(code){
+            200->{
+                commentService.setShowCommentView(this)
+                commentService.showComment(postIdx)
+            }
+        }
+
+    }
+
+    override fun onDeleteCommentFailure(code: Int) {
+
+    }
+
+    override fun onReportCommentSuccess(code: Int) {
+        when(code){
+            200->{
+                //토스트메세지 띄우기
+                var reportToast = layoutInflater.inflate(R.layout.toast_report,null)
+                var toast = Toast(this)
+                toast.view = reportToast
+                toast.setGravity(Gravity.CENTER_HORIZONTAL,0,0)
+                toast.show()
+            }
+        }
+    }
+
+    override fun onReportCommentFailure(code: Int) {
 
     }
 

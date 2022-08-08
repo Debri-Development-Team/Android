@@ -35,7 +35,7 @@ class CommentRVAdapter(context: PostDetailActivity) : RecyclerView.Adapter<Comme
 
     //activity
     var postIdx by Delegates.notNull<Int>()
-    var context = context
+    var activity = context
 
     fun build(parent: ArrayList<CommentList>, child : ArrayList<ArrayList<CommentList>>, binding: ActivityPostDetailBinding, postIdx : Int): CommentRVAdapter {
         parentItemArrayList = parent
@@ -70,17 +70,16 @@ class CommentRVAdapter(context: PostDetailActivity) : RecyclerView.Adapter<Comme
         holder.binding.itemCommentCocommentRv.apply {
             layoutManager =
                 LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
-            cocommentRVAdapter = CocommentRVAdapter().build(childItemArrayListGroup[position])
+            cocommentRVAdapter = CocommentRVAdapter(activity).build(childItemArrayListGroup[position])
             adapter = cocommentRVAdapter
         }
 
         holder.binding.itemCommentMenuIv.setOnClickListener{
             //bottom sheet
-            //bottomSheet()
+            activity.bottomSheetComment(parentItemArrayList[position].authorIdx, parentItemArrayList[position].commentIdx)
         }
 
         //write cocomment
-
         holder.binding.itemCommentWriteIv.setOnClickListener {
             Log.d("click write cocomment", "click")
             //on cocomment editText
@@ -135,7 +134,7 @@ class CommentRVAdapter(context: PostDetailActivity) : RecyclerView.Adapter<Comme
                 binding.postDetailWriteCommentEt.visibility = View.VISIBLE
                 binding.postDetailWriteCocommentEt.visibility = View.GONE
 
-                val activity: PostDetailActivity = context
+                val activity: PostDetailActivity = activity
                 val commentService = CommentService()
                 commentService.setShowCommentView(activity)
                 commentService.showComment(postIdx)
@@ -147,5 +146,7 @@ class CommentRVAdapter(context: PostDetailActivity) : RecyclerView.Adapter<Comme
     override fun onCocommentCreateFailure(code: Int) {
 
     }
+
+
 
 }

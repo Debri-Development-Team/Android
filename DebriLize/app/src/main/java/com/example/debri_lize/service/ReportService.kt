@@ -2,11 +2,12 @@ package com.example.debri_lize.service
 
 import android.util.Log
 import com.example.debri_lize.data.RetrofitInterface
-import com.example.debri_lize.data.post.PostReport
+import com.example.debri_lize.data.post.ReportComment
+import com.example.debri_lize.data.post.ReportPost
 import com.example.debri_lize.response.ReportResponse
-import com.example.debri_lize.response.TokenResponse
 import com.example.debri_lize.utils.getJwt
 import com.example.debri_lize.utils.getRetrofit
+import com.example.debri_lize.view.post.ReportCommentView
 import com.example.debri_lize.view.post.ReportPostView
 import retrofit2.Call
 import retrofit2.Callback
@@ -15,16 +16,22 @@ import retrofit2.Response
 class ReportService {
     private lateinit var reportPostView: ReportPostView
 
+    private lateinit var reportCommentView: ReportCommentView
+
     fun setReportPostView(reportPostView: ReportPostView){
         this.reportPostView = reportPostView
     }
 
-    fun reportPost(postReport: PostReport){
+    fun setReportCommentView(reportCommentView: ReportCommentView){
+        this.reportCommentView = reportCommentView
+    }
+
+    fun reportPost(report: ReportPost){
         Log.d("reportPost", "enter")
         //서비스 객체 생성
         val reportService = getRetrofit().create(RetrofitInterface::class.java)
 
-        reportService.reportPost(postReport, getJwt()!!).enqueue(object: Callback<ReportResponse> {
+        reportService.reportPost(report, getJwt()!!).enqueue(object: Callback<ReportResponse> {
             //응답이 왔을 때 처리
 
             override fun onResponse(call: Call<ReportResponse>, response: Response<ReportResponse>) {
@@ -42,6 +49,33 @@ class ReportService {
             //실패했을 때 처리
             override fun onFailure(call: Call<ReportResponse>, t: Throwable) {
                 Log.d("reportPostFail", t.toString())
+            }
+
+        })
+    }
+
+    fun reportComment(report: ReportComment){
+        Log.d("reportComment", "enter")
+        //서비스 객체 생성
+        val reportService = getRetrofit().create(RetrofitInterface::class.java)
+        reportService.reportComment(report, getJwt()!!).enqueue(object: Callback<ReportResponse> {
+            //응답이 왔을 때 처리
+
+            override fun onResponse(call: Call<ReportResponse>, response: Response<ReportResponse>) {
+                Log.d("reportComment", "response")
+                val resp:ReportResponse = response.body()!!
+                Log.d("reportCommentCode", resp.code.toString())
+                when(val code = resp.code){
+                    //API code값 사용
+                    200->reportCommentView.onReportCommentSuccess(code)
+                    else-> reportCommentView.onReportCommentFailure(code)
+
+                }
+            }
+
+            //실패했을 때 처리
+            override fun onFailure(call: Call<ReportResponse>, t: Throwable) {
+                Log.d("reportCommentFail", t.toString())
             }
 
         })
