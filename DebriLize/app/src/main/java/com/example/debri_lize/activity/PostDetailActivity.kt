@@ -76,7 +76,7 @@ class PostDetailActivity : AppCompatActivity(), PostDetailView, CommentCreateVie
             }
             false
         }
-        
+
 
         //추천 버튼
         binding.postDetailMenuLikeLayout.setOnClickListener {
@@ -95,11 +95,11 @@ class PostDetailActivity : AppCompatActivity(), PostDetailView, CommentCreateVie
 
         //스크랩 버튼
         binding.postDetailMenuScrapLayout.setOnClickListener {
-            scrapTF = !scrapTF
-            if(scrapTF){
-                binding.postDetailMenuScrapLayout.setBackgroundResource(R.drawable.border_round_transparent_debri_10)
-                binding.postDetailMenuScrapTv.setTextColor(ContextCompat.getColor(this@PostDetailActivity, R.color.darkmode_background))
-                binding.postDetailMenuScrapIv.setImageResource(R.drawable.ic_scrap_darkmode)
+            //scrapTF = !scrapTF
+            if(!scrapTF){
+//                binding.postDetailMenuScrapLayout.setBackgroundResource(R.drawable.border_round_transparent_debri_10)
+//                binding.postDetailMenuScrapTv.setTextColor(ContextCompat.getColor(this@PostDetailActivity, R.color.darkmode_background))
+//                binding.postDetailMenuScrapIv.setImageResource(R.drawable.ic_scrap_darkmode)
 
                 //api - createPostScrap
                 postService.setCreatePostScrapView(this)
@@ -112,9 +112,9 @@ class PostDetailActivity : AppCompatActivity(), PostDetailView, CommentCreateVie
                 toast.setGravity(Gravity.CENTER_HORIZONTAL,0,0)
                 toast.show()
             }else{
-                binding.postDetailMenuScrapLayout.setBackgroundResource(R.drawable.border_round_white_transparent_10)
-                binding.postDetailMenuScrapTv.setTextColor(ContextCompat.getColor(this@PostDetailActivity, R.color.white))
-                binding.postDetailMenuScrapIv.setImageResource(R.drawable.ic_scrap_white)
+//                binding.postDetailMenuScrapLayout.setBackgroundResource(R.drawable.border_round_white_transparent_10)
+//                binding.postDetailMenuScrapTv.setTextColor(ContextCompat.getColor(this@PostDetailActivity, R.color.white))
+//                binding.postDetailMenuScrapIv.setImageResource(R.drawable.ic_scrap_white)
 
                 //api - cancelPostScrap
                 postService.setCancelPostScrapView(this)
@@ -395,6 +395,7 @@ class PostDetailActivity : AppCompatActivity(), PostDetailView, CommentCreateVie
                 postService.setDeletePostView(this@PostDetailActivity)
 
                 likeTF = result.likeStatus!!
+                scrapTF = result.scrapStatus!!
 
                 //postdetail 새로 들어와도 likeStatus 상태 저장
                 if(result.likeStatus!!){
@@ -404,6 +405,18 @@ class PostDetailActivity : AppCompatActivity(), PostDetailView, CommentCreateVie
                     binding.postDetailMenuLikeLayout.setBackgroundResource(R.drawable.border_round_white_transparent_10)
                     binding.postDetailMenuLikeIv.setImageResource(R.drawable.ic_like_white)
                 }
+
+                //postdeatil 새로 들어와도 scrapStatus 상태 저장
+                if(result.scrapStatus!!){
+                    binding.postDetailMenuScrapLayout.setBackgroundResource(R.drawable.border_round_transparent_debri_10)
+                    binding.postDetailMenuScrapTv.setTextColor(ContextCompat.getColor(this@PostDetailActivity, R.color.darkmode_background))
+                    binding.postDetailMenuScrapIv.setImageResource(R.drawable.ic_scrap_darkmode)
+                }else{
+                    binding.postDetailMenuScrapLayout.setBackgroundResource(R.drawable.border_round_white_transparent_10)
+                    binding.postDetailMenuScrapTv.setTextColor(ContextCompat.getColor(this@PostDetailActivity, R.color.white))
+                    binding.postDetailMenuScrapIv.setImageResource(R.drawable.ic_scrap_white)
+                }
+
             }
         }
     }
@@ -568,7 +581,7 @@ class PostDetailActivity : AppCompatActivity(), PostDetailView, CommentCreateVie
     override fun onCreatePostScrapSuccess(code: Int) {
         when(code){
             200 -> {
-
+                postService.showPostDetail(postIdx)
             }
         }
     }
@@ -580,7 +593,7 @@ class PostDetailActivity : AppCompatActivity(), PostDetailView, CommentCreateVie
     override fun onCancelPostScrapSuccess(code: Int) {
         when(code){
             200 -> {
-
+                postService.showPostDetail(postIdx)
             }
         }
     }
