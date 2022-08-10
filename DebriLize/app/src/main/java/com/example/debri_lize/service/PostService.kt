@@ -1,14 +1,9 @@
 package com.example.debri_lize.service
 
 import android.util.Log
-import com.example.debri_lize.data.post.Post
-import com.example.debri_lize.data.RetrofitInterface
-import com.example.debri_lize.data.post.EditPost
-import com.example.debri_lize.data.post.PostLikeCancel
-import com.example.debri_lize.data.post.PostLikeCreate
-import com.example.debri_lize.response.DeletePostResponse
-import com.example.debri_lize.response.PostDetailResponse
-import com.example.debri_lize.response.PostResponse
+import com.example.debri_lize.utils.RetrofitInterface
+import com.example.debri_lize.data.post.*
+import com.example.debri_lize.base.BaseResponse
 import com.example.debri_lize.utils.getJwt
 import com.example.debri_lize.utils.getRetrofit
 import com.example.debri_lize.view.post.*
@@ -78,10 +73,10 @@ class PostService {
         //서비스 객체 생성
         val postService = getRetrofit().create(RetrofitInterface::class.java)
 
-        postService.createPost(post, getJwt()!!).enqueue(object: Callback<PostResponse> {
+        postService.createPost(post, getJwt()!!).enqueue(object: Callback<BaseResponse<Post>> {
             //응답이 왔을 때 처리
-            override fun onResponse(call: Call<PostResponse>, response: Response<PostResponse>) {
-                val resp:PostResponse = response.body()!!
+            override fun onResponse(call: Call<BaseResponse<Post>>, response: Response<BaseResponse<Post>>) {
+                val resp: BaseResponse<Post> = response.body()!!
                 Log.d("postcreate", resp.code.toString())
                 Log.d("post", resp.result.toString())
                 when(resp.code){
@@ -91,7 +86,7 @@ class PostService {
                 }
             }
             //실패했을 때 처리
-            override fun onFailure(call: Call<PostResponse>, t: Throwable) {
+            override fun onFailure(call: Call<BaseResponse<Post>>, t: Throwable) {
 
             }
 
@@ -101,12 +96,12 @@ class PostService {
     fun editPost(editPost: EditPost, postIdx : Int){
         Log.d("editPost", "enter")
         val postService = getRetrofit().create(RetrofitInterface::class.java)
-        postService.editPost(editPost, postIdx, getJwt()!!).enqueue(object: Callback<DeletePostResponse> {
+        postService.editPost(editPost, postIdx, getJwt()!!).enqueue(object: Callback<BaseResponse<String>> {
             //응답이 왔을 때 처리
-            override fun onResponse(call: Call<DeletePostResponse>, response: Response<DeletePostResponse>) {
+            override fun onResponse(call: Call<BaseResponse<String>>, response: Response<BaseResponse<String>>) {
                 Log.d("editPost", "response")
                 Log.d("posteditresp","${response.body()}")
-                val resp:DeletePostResponse = response.body()!!
+                val resp: BaseResponse<String> = response.body()!!
                 Log.d("editPostCode", resp.code.toString())
                 when(resp.code){
                     //API code값 사용
@@ -115,7 +110,7 @@ class PostService {
                 }
             }
             //실패했을 때 처리
-            override fun onFailure(call: Call<DeletePostResponse>, t: Throwable) {
+            override fun onFailure(call: Call<BaseResponse<String>>, t: Throwable) {
                 Log.d("editPostFail", t.toString())
             }
 
@@ -125,11 +120,11 @@ class PostService {
     fun deletePost(postIdx : Int){
         Log.d("deletePost", "enter")
         val postService = getRetrofit().create(RetrofitInterface::class.java)
-        postService.deletePost(postIdx, getJwt()!!).enqueue(object: Callback<DeletePostResponse> {
+        postService.deletePost(postIdx, getJwt()!!).enqueue(object: Callback<BaseResponse<String>> {
             //응답이 왔을 때 처리
-            override fun onResponse(call: Call<DeletePostResponse>, response: Response<DeletePostResponse>) {
+            override fun onResponse(call: Call<BaseResponse<String>>, response: Response<BaseResponse<String>>) {
                 Log.d("deletePost", "response")
-                val resp:DeletePostResponse = response.body()!!
+                val resp: BaseResponse<String> = response.body()!!
                 Log.d("deletePostCode", resp.code.toString())
                 when(resp.code){
                     //API code값 사용
@@ -138,7 +133,7 @@ class PostService {
                 }
             }
             //실패했을 때 처리
-            override fun onFailure(call: Call<DeletePostResponse>, t: Throwable) {
+            override fun onFailure(call: Call<BaseResponse<String>>, t: Throwable) {
                 Log.d("deletePostFail", t.toString())
             }
 
@@ -148,11 +143,11 @@ class PostService {
     fun showPostList(keyword : String){
         Log.d("postList", "enter")
         val postService = getRetrofit().create(RetrofitInterface::class.java)
-        postService.showPostList(keyword, getJwt()!!).enqueue(object: Callback<PostResponse> {
+        postService.showPostList(keyword, getJwt()!!).enqueue(object: Callback<BaseResponse<List<PostList>>> {
             //응답이 왔을 때 처리
-            override fun onResponse(call: Call<PostResponse>, response: Response<PostResponse>) {
+            override fun onResponse(call: Call<BaseResponse<List<PostList>>>, response: Response<BaseResponse<List<PostList>>>) {
                 Log.d("postList", "response")
-                val resp:PostResponse = response.body()!!
+                val resp: BaseResponse<List<PostList>> = response.body()!!
                 Log.d("postListCode", resp.code.toString())
                 when(resp.code){
                     //API code값 사용
@@ -161,7 +156,7 @@ class PostService {
                 }
             }
             //실패했을 때 처리
-            override fun onFailure(call: Call<PostResponse>, t: Throwable) {
+            override fun onFailure(call: Call<BaseResponse<List<PostList>>>, t: Throwable) {
                 Log.d("postListFail", t.toString())
             }
 
@@ -171,11 +166,11 @@ class PostService {
     fun showEachPostList(boardIdx:Int){
         Log.d("eachpostlist", "enter")
         val postService = getRetrofit().create(RetrofitInterface::class.java)
-        postService.showEachPostList(boardIdx, getJwt()!!).enqueue(object: Callback<PostResponse> {
+        postService.showEachPostList(boardIdx, getJwt()!!).enqueue(object: Callback<BaseResponse<List<PostList>>> {
             //응답이 왔을 때 처리
-            override fun onResponse(call: Call<PostResponse>, response: Response<PostResponse>) {
+            override fun onResponse(call: Call<BaseResponse<List<PostList>>>, response: Response<BaseResponse<List<PostList>>>) {
                 Log.d("eachpostlist", "response")
-                val resp:PostResponse = response.body()!!
+                val resp: BaseResponse<List<PostList>> = response.body()!!
                 Log.d("eachpostlistCode", resp.code.toString())
                 when(resp.code){
                     //API code값 사용
@@ -184,7 +179,7 @@ class PostService {
                 }
             }
             //실패했을 때 처리
-            override fun onFailure(call: Call<PostResponse>, t: Throwable) {
+            override fun onFailure(call: Call<BaseResponse<List<PostList>>>, t: Throwable) {
                 Log.d("postlistfail", t.toString())
             }
 
@@ -194,11 +189,11 @@ class PostService {
     fun showPostDetail(postIdx:Int){
         Log.d("postdetail", "enter")
         val postService = getRetrofit().create(RetrofitInterface::class.java)
-        postService.showPostDetail(postIdx, getJwt()!!).enqueue(object: Callback<PostDetailResponse> {
+        postService.showPostDetail(postIdx, getJwt()!!).enqueue(object: Callback<BaseResponse<PostDetail>> {
             //응답이 왔을 때 처리
-            override fun onResponse(call: Call<PostDetailResponse>, response: Response<PostDetailResponse>) {
+            override fun onResponse(call: Call<BaseResponse<PostDetail>>, response: Response<BaseResponse<PostDetail>>) {
                 Log.d("postdetail", "response")
-                val resp:PostDetailResponse = response.body()!!
+                val resp: BaseResponse<PostDetail> = response.body()!!
                 Log.d("postdetailCode", resp.code.toString())
                 when(resp.code){
                     //API code값 사용
@@ -207,7 +202,7 @@ class PostService {
                 }
             }
             //실패했을 때 처리
-            override fun onFailure(call: Call<PostDetailResponse>, t: Throwable) {
+            override fun onFailure(call: Call<BaseResponse<PostDetail>>, t: Throwable) {
                 Log.d("postdetailfail", t.toString())
             }
 
@@ -217,11 +212,11 @@ class PostService {
     fun createPostLike(postLike: PostLikeCreate){
         Log.d("createPostLike", "enter")
         val postService = getRetrofit().create(RetrofitInterface::class.java)
-        postService.createPostLike(postLike, getJwt()!!).enqueue(object: Callback<DeletePostResponse> {
+        postService.createPostLike(postLike, getJwt()!!).enqueue(object: Callback<BaseResponse<String>> {
             //응답이 왔을 때 처리
-            override fun onResponse(call: Call<DeletePostResponse>, response: Response<DeletePostResponse>) {
+            override fun onResponse(call: Call<BaseResponse<String>>, response: Response<BaseResponse<String>>) {
                 Log.d("createPostLike", "response")
-                val resp:DeletePostResponse = response.body()!!
+                val resp: BaseResponse<String> = response.body()!!
                 Log.d("createPostLikeCode", resp.code.toString())
                 when(resp.code){
                     //API code값 사용
@@ -230,7 +225,7 @@ class PostService {
                 }
             }
             //실패했을 때 처리
-            override fun onFailure(call: Call<DeletePostResponse>, t: Throwable) {
+            override fun onFailure(call: Call<BaseResponse<String>>, t: Throwable) {
                 Log.d("createPostLikefail", t.toString())
             }
 
@@ -240,11 +235,11 @@ class PostService {
     fun cancelPostLike(postLike: PostLikeCancel){
         Log.d("cancelPostLike", "enter")
         val postService = getRetrofit().create(RetrofitInterface::class.java)
-        postService.cancelPostLike(postLike, getJwt()!!).enqueue(object: Callback<DeletePostResponse> {
+        postService.cancelPostLike(postLike, getJwt()!!).enqueue(object: Callback<BaseResponse<String>> {
             //응답이 왔을 때 처리
-            override fun onResponse(call: Call<DeletePostResponse>, response: Response<DeletePostResponse>) {
+            override fun onResponse(call: Call<BaseResponse<String>>, response: Response<BaseResponse<String>>) {
                 Log.d("cancelPostLike", "response")
-                val resp:DeletePostResponse = response.body()!!
+                val resp: BaseResponse<String> = response.body()!!
                 Log.d("cancelPostLikeCode", resp.code.toString())
                 when(resp.code){
                     //API code값 사용
@@ -253,7 +248,7 @@ class PostService {
                 }
             }
             //실패했을 때 처리
-            override fun onFailure(call: Call<DeletePostResponse>, t: Throwable) {
+            override fun onFailure(call: Call<BaseResponse<String>>, t: Throwable) {
                 Log.d("cancelPostLikefail", t.toString())
             }
 
@@ -263,11 +258,11 @@ class PostService {
     fun createPostScrap(postIdx: Int){
         Log.d("createPostScrap", "enter")
         val postService = getRetrofit().create(RetrofitInterface::class.java)
-        postService.createPostScrap(postIdx, getJwt()!!).enqueue(object: Callback<DeletePostResponse> {
+        postService.createPostScrap(postIdx, getJwt()!!).enqueue(object: Callback<BaseResponse<String>> {
             //응답이 왔을 때 처리
-            override fun onResponse(call: Call<DeletePostResponse>, response: Response<DeletePostResponse>) {
+            override fun onResponse(call: Call<BaseResponse<String>>, response: Response<BaseResponse<String>>) {
                 Log.d("createPostScrap", "response")
-                val resp:DeletePostResponse = response.body()!!
+                val resp: BaseResponse<String> = response.body()!!
                 Log.d("createPostScrapCode", resp.code.toString())
                 when(resp.code){
                     //API code값 사용
@@ -276,7 +271,7 @@ class PostService {
                 }
             }
             //실패했을 때 처리
-            override fun onFailure(call: Call<DeletePostResponse>, t: Throwable) {
+            override fun onFailure(call: Call<BaseResponse<String>>, t: Throwable) {
                 Log.d("createPostLikefail", t.toString())
             }
 
@@ -286,11 +281,11 @@ class PostService {
     fun cancelPostScrap(postIdx: Int){
         Log.d("cancelPostScrap", "enter")
         val postService = getRetrofit().create(RetrofitInterface::class.java)
-        postService.cancelPostScrap(postIdx, getJwt()!!).enqueue(object: Callback<DeletePostResponse> {
+        postService.cancelPostScrap(postIdx, getJwt()!!).enqueue(object: Callback<BaseResponse<String>> {
             //응답이 왔을 때 처리
-            override fun onResponse(call: Call<DeletePostResponse>, response: Response<DeletePostResponse>) {
+            override fun onResponse(call: Call<BaseResponse<String>>, response: Response<BaseResponse<String>>) {
                 Log.d("cancelPostScrap", "response")
-                val resp:DeletePostResponse = response.body()!!
+                val resp: BaseResponse<String> = response.body()!!
                 Log.d("cancelPostScrapCode", resp.code.toString())
                 when(resp.code){
                     //API code값 사용
@@ -299,7 +294,7 @@ class PostService {
                 }
             }
             //실패했을 때 처리
-            override fun onFailure(call: Call<DeletePostResponse>, t: Throwable) {
+            override fun onFailure(call: Call<BaseResponse<String>>, t: Throwable) {
                 Log.d("createPostLikefail", t.toString())
             }
 

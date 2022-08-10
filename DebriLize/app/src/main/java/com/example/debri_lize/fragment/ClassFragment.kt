@@ -303,7 +303,7 @@ class ClassFragment : Fragment(), LectureFavoriteView, LectureFilterView {
 
 
 
-    override fun onLectureFavoriteSuccess(code: Int, result: List<com.example.debri_lize.response.Lecture>) {
+    override fun onLectureFavoriteSuccess(code: Int, result: List<Lecture>) {
         when(code){
             200->{
                 val datas_f = ArrayList<Lecture>()
@@ -316,7 +316,7 @@ class ClassFragment : Fragment(), LectureFavoriteView, LectureFilterView {
 
                 datas_f.apply {
                     for (i in result){
-                        datas_f.add(Lecture(i.lectureIdx, i.lectureName, i.chapterNumber, i.langTag, i.media, i.price, i.userScrap))
+                        datas_f.add(Lecture(i.lectureIdx, i.lectureName, i.chapterNum, i.language, i.media, i.price, i.userScrap))
                     }
 
                     classfavoriteRVAdapter.datas_classf = datas_f
@@ -339,7 +339,7 @@ class ClassFragment : Fragment(), LectureFavoriteView, LectureFilterView {
         Log.d("lecturefavoritefail","$code")
     }
 
-    override fun onLectureFilterSuccess(code: Int, result: List<com.example.debri_lize.response.Lecture>) {
+    override fun onLectureFilterSuccess(code: Int, result: List<Lecture>) {
         when(code){
             200->{
                 val datas = ArrayList<Lecture>()
@@ -350,7 +350,7 @@ class ClassFragment : Fragment(), LectureFavoriteView, LectureFilterView {
                 datas.apply {
                     for (i in result) {
                         datas.add(
-                            Lecture(i.lectureIdx, i.lectureName, i.chapterNumber, i.langTag, i.media, i.price, i.userScrap)
+                            Lecture(i.lectureIdx, i.lectureName, i.chapterNum, i.language, i.media, i.price, i.userScrap)
                         )
                     }
 

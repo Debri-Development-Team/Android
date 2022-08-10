@@ -5,15 +5,12 @@ import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
-import android.view.KeyEvent
-import android.view.KeyEvent.KEYCODE_ENTER
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.debri_lize.PostRVAdapter
 import com.example.debri_lize.data.post.PostList
 import com.example.debri_lize.databinding.ActivityPostListBinding
-import com.example.debri_lize.response.Post
 import com.example.debri_lize.service.PostService
 import com.example.debri_lize.view.post.PostListView
 
@@ -33,30 +30,12 @@ class PostListActivity : AppCompatActivity(), PostListView {
     override fun onStart() {
         super.onStart()
 
-
-
         //fragment to fragment
         binding.postListPreviousIv.setOnClickListener{
             finish()
         }
 
-        //search 방법1.
-//        binding.postListSearchEt.setOnKeyListener { v, keyCode, event ->
-//            if (event.action == KeyEvent.ACTION_DOWN && keyCode == KEYCODE_ENTER) {
-//                // 엔터 눌렀을때 행동
-//                //api
-//                val postService = PostService()
-//                postService.setPostListView(this)
-//                Log.d("et", binding.postListSearchEt.text.toString())
-//                postService.showPostList(binding.postListSearchEt.text.toString())
-//                true
-//            }
-//
-//            false
-//        }
-
-        //search 방법2. 실시간 검색 가능
-        //search post
+        //search post : 실시간 검색기능
         //검색어 입력
         binding.postListSearchEt.addTextChangedListener(object : TextWatcher {
             //입력이 끝날 때
@@ -85,7 +64,7 @@ class PostListActivity : AppCompatActivity(), PostListView {
 
     }
 
-    override fun onPostListSuccess(code: Int, result: List<Post>) {
+    override fun onPostListSuccess(code: Int, result: List<PostList>) {
         when(code){
             //개발할 때는 userIdx 저장이 필요할수도
             200-> {

@@ -11,6 +11,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.debri_lize.CustomDialog
 import com.example.debri_lize.activity.auth.ProfileActivity
+import com.example.debri_lize.data.board.Board
 import com.example.debri_lize.data.post.Post
 import com.example.debri_lize.service.PostService
 import com.example.debri_lize.view.post.PostCreateView
@@ -18,7 +19,6 @@ import com.example.debri_lize.databinding.ActivityPostCreateBinding
 import com.example.debri_lize.utils.getUserIdx
 import com.example.debri_lize.data.post.EditPost
 import com.example.debri_lize.data.post.PostDetail
-import com.example.debri_lize.response.Board
 import com.example.debri_lize.service.BoardService
 import com.example.debri_lize.view.board.BoardListView
 import com.example.debri_lize.view.post.EditPostView

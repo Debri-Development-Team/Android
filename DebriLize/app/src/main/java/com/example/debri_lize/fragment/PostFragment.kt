@@ -102,7 +102,7 @@ class PostFragment : Fragment(), EachPostListView {
         postRVAdapter.filterList(filteredData)
     }
 
-    override fun onEachPostListSuccess(code: Int, result: List<com.example.debri_lize.response.Post>) {
+    override fun onEachPostListSuccess(code: Int, result: List<PostList>) {
         when(code){
             //개발할 때는 userIdx 저장이 필요할수도
             200-> {

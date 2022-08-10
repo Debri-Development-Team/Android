@@ -11,7 +11,6 @@ import com.example.debri_lize.data.auth.UserSignup
 import com.example.debri_lize.service.AuthService
 import com.example.debri_lize.view.auth.SignUpView
 import com.example.debri_lize.databinding.ActivitySignupBinding
-import com.example.debri_lize.utils.getUserName
 import java.util.regex.Matcher
 import java.util.regex.Pattern
 
