@@ -1,10 +1,10 @@
 package com.example.debri_lize.service
 
 import android.util.Log
-import com.example.debri_lize.data.RetrofitInterface
+import com.example.debri_lize.utils.RetrofitInterface
 import com.example.debri_lize.data.post.ReportComment
 import com.example.debri_lize.data.post.ReportPost
-import com.example.debri_lize.response.ReportResponse
+import com.example.debri_lize.base.BaseResponse
 import com.example.debri_lize.utils.getJwt
 import com.example.debri_lize.utils.getRetrofit
 import com.example.debri_lize.view.post.ReportCommentView
@@ -31,12 +31,12 @@ class ReportService {
         //서비스 객체 생성
         val reportService = getRetrofit().create(RetrofitInterface::class.java)
 
-        reportService.reportPost(report, getJwt()!!).enqueue(object: Callback<ReportResponse> {
+        reportService.reportPost(report, getJwt()!!).enqueue(object: Callback<BaseResponse<String>> {
             //응답이 왔을 때 처리
 
-            override fun onResponse(call: Call<ReportResponse>, response: Response<ReportResponse>) {
+            override fun onResponse(call: Call<BaseResponse<String>>, response: Response<BaseResponse<String>>) {
                 Log.d("reportPost", "response")
-                val resp:ReportResponse = response.body()!!
+                val resp: BaseResponse<String> = response.body()!!
                 Log.d("reportPostCode", resp.code.toString())
                 when(val code = resp.code){
                     //API code값 사용
@@ -47,7 +47,7 @@ class ReportService {
             }
 
             //실패했을 때 처리
-            override fun onFailure(call: Call<ReportResponse>, t: Throwable) {
+            override fun onFailure(call: Call<BaseResponse<String>>, t: Throwable) {
                 Log.d("reportPostFail", t.toString())
             }
 
@@ -58,12 +58,12 @@ class ReportService {
         Log.d("reportComment", "enter")
         //서비스 객체 생성
         val reportService = getRetrofit().create(RetrofitInterface::class.java)
-        reportService.reportComment(report, getJwt()!!).enqueue(object: Callback<ReportResponse> {
+        reportService.reportComment(report, getJwt()!!).enqueue(object: Callback<BaseResponse<String>> {
             //응답이 왔을 때 처리
 
-            override fun onResponse(call: Call<ReportResponse>, response: Response<ReportResponse>) {
+            override fun onResponse(call: Call<BaseResponse<String>>, response: Response<BaseResponse<String>>) {
                 Log.d("reportComment", "response")
-                val resp:ReportResponse = response.body()!!
+                val resp: BaseResponse<String> = response.body()!!
                 Log.d("reportCommentCode", resp.code.toString())
                 when(val code = resp.code){
                     //API code값 사용
@@ -74,7 +74,7 @@ class ReportService {
             }
 
             //실패했을 때 처리
-            override fun onFailure(call: Call<ReportResponse>, t: Throwable) {
+            override fun onFailure(call: Call<BaseResponse<String>>, t: Throwable) {
                 Log.d("reportCommentFail", t.toString())
             }
 

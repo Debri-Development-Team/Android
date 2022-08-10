@@ -16,7 +16,6 @@ import com.example.debri_lize.CustomDialog
 import com.example.debri_lize.R
 import com.example.debri_lize.data.post.*
 import com.example.debri_lize.databinding.ActivityPostDetailBinding
-import com.example.debri_lize.response.PostDetail
 import com.example.debri_lize.service.CommentService
 import com.example.debri_lize.service.PostService
 import com.example.debri_lize.service.ReportService
@@ -465,7 +464,7 @@ class PostDetailActivity : AppCompatActivity(), PostDetailView, CommentCreateVie
 
     }
 
-    override fun onShowCommentSuccess(code: Int, result: List<com.example.debri_lize.response.CommentList>
+    override fun onShowCommentSuccess(code: Int, result: List<CommentList>
     ) {
         when(code){
             200-> {

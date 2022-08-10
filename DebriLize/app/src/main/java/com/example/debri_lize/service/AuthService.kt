@@ -1,10 +1,11 @@
 package com.example.debri_lize.service
 
 import android.util.Log
-import com.example.debri_lize.data.RetrofitInterface
+import com.example.debri_lize.utils.RetrofitInterface
+import com.example.debri_lize.data.auth.User
 import com.example.debri_lize.data.auth.UserLogin
 import com.example.debri_lize.data.auth.UserSignup
-import com.example.debri_lize.response.AuthResponse
+import com.example.debri_lize.base.BaseResponse
 import com.example.debri_lize.view.auth.LoginView
 import com.example.debri_lize.view.auth.SignUpView
 import com.example.debri_lize.utils.getRetrofit
@@ -29,12 +30,12 @@ class AuthService {
         //서비스 객체 생성
         val authService = getRetrofit().create(RetrofitInterface::class.java)
 
-        authService.signUp(user).enqueue(object: Callback<AuthResponse> {
+        authService.signUp(user).enqueue(object: Callback<BaseResponse<User>> {
             //응답이 왔을 때 처리
-            override fun onResponse(call: Call<AuthResponse>, response: Response<AuthResponse>) {
+            override fun onResponse(call: Call<BaseResponse<User>>, response: Response<BaseResponse<User>>) {
                 Log.d("signup", "response")
                 Log.d("signupResponse", response.body().toString())
-                val resp:AuthResponse = response.body()!!
+                val resp: BaseResponse<User> = response.body()!!
                 Log.d("signupCode", resp.code.toString())
                 when(resp.code){
                     //API code값 사용
@@ -43,7 +44,7 @@ class AuthService {
                 }
             }
             //실패했을 때 처리
-            override fun onFailure(call: Call<AuthResponse>, t: Throwable) {
+            override fun onFailure(call: Call<BaseResponse<User>>, t: Throwable) {
 
             }
 
@@ -55,13 +56,12 @@ class AuthService {
         //서비스 객체 생성
         val authService = getRetrofit().create(RetrofitInterface::class.java)
 
-        authService.login(user).enqueue(object: Callback<AuthResponse> {
+        authService.login(user).enqueue(object: Callback<BaseResponse<User>> {
             //응답이 왔을 때 처리
-
-            override fun onResponse(call: Call<AuthResponse>, response: Response<AuthResponse>) {
+            override fun onResponse(call: Call<BaseResponse<User>>, response: Response<BaseResponse<User>>) {
                 Log.d("loginSuccess", "response")
                 Log.d("response", response.body().toString())
-                val resp:AuthResponse = response.body()!!
+                val resp: BaseResponse<User> = response.body()!!
                 Log.d("code", resp.code.toString())
                 when(val code = resp.code){
                     //API code값 사용
@@ -72,7 +72,7 @@ class AuthService {
             }
 
             //실패했을 때 처리
-            override fun onFailure(call: Call<AuthResponse>, t: Throwable) {
+            override fun onFailure(call: Call<BaseResponse<User>>, t: Throwable) {
                 Log.d("loginfail", t.toString())
             }
 

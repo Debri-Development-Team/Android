@@ -126,7 +126,7 @@ class BoardFragment : Fragment(), UnScrapBoardListView, ScrapBoardListView {
 
 
 
-    override fun onUnScrapBoardListSuccess(code: Int, result: List<com.example.debri_lize.response.Board>) {
+    override fun onUnScrapBoardListSuccess(code: Int, result: List<Board>) {
         when(code){
             200->{
                 //전체 게시판 조회 (즐겨찾기된 게시판은 삭제)
@@ -173,7 +173,7 @@ class BoardFragment : Fragment(), UnScrapBoardListView, ScrapBoardListView {
 
     }
 
-    override fun onScrapBoardListSuccess(code: Int, result: List<com.example.debri_lize.response.Board>) {
+    override fun onScrapBoardListSuccess(code: Int, result: List<Board>) {
         when(code){
             200->{
                 //즐겨찾기 게시판 조회

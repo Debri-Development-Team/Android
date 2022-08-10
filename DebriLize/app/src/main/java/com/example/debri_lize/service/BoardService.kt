@@ -1,8 +1,9 @@
 package com.example.debri_lize.service
 
 import android.util.Log
-import com.example.debri_lize.data.RetrofitInterface
-import com.example.debri_lize.response.BoardResponse
+import com.example.debri_lize.utils.RetrofitInterface
+import com.example.debri_lize.data.board.Board
+import com.example.debri_lize.base.BaseResponse
 import com.example.debri_lize.utils.getJwt
 import com.example.debri_lize.utils.getRetrofit
 import com.example.debri_lize.view.board.BoardListView
@@ -35,11 +36,11 @@ class BoardService {
     fun showBoardList(){
         Log.d("boardList", "enter")
         val boardService = getRetrofit().create(RetrofitInterface::class.java)
-        boardService.showBoardList(getJwt()!!).enqueue(object: Callback<BoardResponse> {
+        boardService.showBoardList(getJwt()!!).enqueue(object: Callback<BaseResponse<List<Board>>> {
             //응답이 왔을 때 처리
-            override fun onResponse(call: Call<BoardResponse>, response: Response<BoardResponse>) {
+            override fun onResponse(call: Call<BaseResponse<List<Board>>>, response: Response<BaseResponse<List<Board>>>) {
                 Log.d("boardList", "response")
-                val resp:BoardResponse = response.body()!!
+                val resp: BaseResponse<List<Board>> = response.body()!!
                 Log.d("boardListCode", resp.code.toString())
 
                 when(resp.code){
@@ -49,7 +50,7 @@ class BoardService {
                 }
             }
             //실패했을 때 처리
-            override fun onFailure(call: Call<BoardResponse>, t: Throwable) {
+            override fun onFailure(call: Call<BaseResponse<List<Board>>>, t: Throwable) {
                 Log.d("boardListFail", t.toString())
             }
 
@@ -59,11 +60,11 @@ class BoardService {
     fun showUnScrapBoardList(){
         Log.d("unScrapBoardList", "enter")
         val boardService = getRetrofit().create(RetrofitInterface::class.java)
-        boardService.showUnScrapBoardList(getJwt()!!).enqueue(object: Callback<BoardResponse> {
+        boardService.showUnScrapBoardList(getJwt()!!).enqueue(object: Callback<BaseResponse<List<Board>>> {
             //응답이 왔을 때 처리
-            override fun onResponse(call: Call<BoardResponse>, response: Response<BoardResponse>) {
+            override fun onResponse(call: Call<BaseResponse<List<Board>>>, response: Response<BaseResponse<List<Board>>>) {
                 Log.d("unScrapBoardList", "response")
-                val resp:BoardResponse = response.body()!!
+                val resp: BaseResponse<List<Board>> = response.body()!!
                 Log.d("unScrapBoardListCode", resp.code.toString())
 
                 when(resp.code){
@@ -73,7 +74,7 @@ class BoardService {
                 }
             }
             //실패했을 때 처리
-            override fun onFailure(call: Call<BoardResponse>, t: Throwable) {
+            override fun onFailure(call: Call<BaseResponse<List<Board>>>, t: Throwable) {
                 Log.d("unScrapBoardListFail", t.toString())
             }
 
@@ -83,12 +84,12 @@ class BoardService {
     fun showScrapBoardList(){
         Log.d("scrapBoardList", "enter")
         val boardService = getRetrofit().create(RetrofitInterface::class.java)
-        boardService.showScrapBoardList(getJwt()!!).enqueue(object: Callback<BoardResponse> {
+        boardService.showScrapBoardList(getJwt()!!).enqueue(object: Callback<BaseResponse<List<Board>>> {
             //응답이 왔을 때 처리
-            override fun onResponse(call: Call<BoardResponse>, response: Response<BoardResponse>) {
+            override fun onResponse(call: Call<BaseResponse<List<Board>>>, response: Response<BaseResponse<List<Board>>>) {
                 Log.d("scrapBoardList", "response")
 
-                val resp:BoardResponse = response.body()!!
+                val resp: BaseResponse<List<Board>> = response.body()!!
                 Log.d("scrapBoardListCode", resp.code.toString())
 
                 when(resp.code){
@@ -98,7 +99,7 @@ class BoardService {
                 }
             }
             //실패했을 때 처리
-            override fun onFailure(call: Call<BoardResponse>, t: Throwable) {
+            override fun onFailure(call: Call<BaseResponse<List<Board>>>, t: Throwable) {
                 Log.d("scrapBoardListFail", t.toString())
             }
 
