@@ -12,6 +12,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import com.example.debri_lize.R
+import com.example.debri_lize.activity.AddCurriculumActivity
 import com.example.debri_lize.activity.MainActivity
 import com.example.debri_lize.data.auth.Token
 import com.example.debri_lize.data.auth.User
@@ -143,14 +144,14 @@ class LoginActivity:AppCompatActivity(), LoginView, TokenView {
                 saveUserIdx(result!!.userIdx)
                 saveUserName(result!!.userName)
                 saveRefreshToken(result!!.refreshToken)
-                Log.d("jwt", getJwt().toString())
-                Log.d("jwt", getUserName().toString())
 
                 finish()
-
-                //startActivity(Intent(this, AddCurriculumActivity::class.java))
-                //test
                 startActivity(Intent(this, MainActivity::class.java))
+
+                if(result!!.firstLogin){ //최초 로그인
+                    startActivity(Intent(this, AddCurriculumActivity::class.java))
+                }
+
             }
         }
     }
