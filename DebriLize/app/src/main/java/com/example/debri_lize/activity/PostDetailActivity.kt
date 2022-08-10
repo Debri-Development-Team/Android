@@ -47,7 +47,7 @@ class PostDetailActivity : AppCompatActivity(), PostDetailView, CommentCreateVie
     private var temp = ArrayList<CommentList>()
 
     //like, scrap
-    private var likeTF : Boolean = false
+    var likeTF by Delegates.notNull<Boolean>()
     private var scrapTF : Boolean = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -76,44 +76,20 @@ class PostDetailActivity : AppCompatActivity(), PostDetailView, CommentCreateVie
             }
             false
         }
-
-        //postdetail 새로 들어와도 likeStatus 상태 저장
-        Log.d("likestatus", likeTF.toString())
-        if(getLikeStatus()?.likeStatus =="LIKE" && getLikeStatus()?.postIdx == getPostIdx()){
-            likeTF = true
-            Log.d("likestatus","${getLikeStatus()}")
-            binding.postDetailMenuLikeLayout.setBackgroundResource(R.drawable.border_round_debri_darkmode_10)
-            binding.postDetailMenuLikeIv.setImageResource(R.drawable.ic_like_debri)
-        }else{
-            likeTF = false
-            binding.postDetailMenuLikeLayout.setBackgroundResource(R.drawable.border_round_white_transparent_10)
-            binding.postDetailMenuLikeIv.setImageResource(R.drawable.ic_like_white)
-        }
+        
 
         //추천 버튼
         binding.postDetailMenuLikeLayout.setOnClickListener {
-            likeTF = !likeTF
-            if(likeTF) {
-                binding.postDetailMenuLikeLayout.setBackgroundResource(R.drawable.border_round_debri_darkmode_10)
-                binding.postDetailMenuLikeIv.setImageResource(R.drawable.ic_like_debri)
-
-                saveLikeStatus("LIKE", getPostIdx()!!, getUserIdx()!!)
-
+            if(!likeTF) {
                 //api - createPostLike
                 postService.setCreatePostLikeView(this)
                 postService.createPostLike(getLikePost())
 
             }else {
-                binding.postDetailMenuLikeLayout.setBackgroundResource(R.drawable.border_round_white_transparent_10)
-                binding.postDetailMenuLikeIv.setImageResource(R.drawable.ic_like_white)
-
-                saveLikeStatus("UNLIKE", getPostIdx()!!, getUserIdx()!!)
-
                 //api - cancelPostLike
                 postService.setCancelPostLikeView(this)
                 postService.cancelPostLike(getLikePostCancel())
             }
-
         }
 
 
@@ -414,10 +390,20 @@ class PostDetailActivity : AppCompatActivity(), PostDetailView, CommentCreateVie
                 else
                     binding.postDetailMenuLikeNumTv.text = "99+"
 
-
                 //bottom sheet
                 bottomSheetPost()
                 postService.setDeletePostView(this@PostDetailActivity)
+
+                likeTF = result.likeStatus!!
+
+                //postdetail 새로 들어와도 likeStatus 상태 저장
+                if(result.likeStatus!!){
+                    binding.postDetailMenuLikeLayout.setBackgroundResource(R.drawable.border_round_debri_darkmode_10)
+                    binding.postDetailMenuLikeIv.setImageResource(R.drawable.ic_like_debri)
+                }else{
+                    binding.postDetailMenuLikeLayout.setBackgroundResource(R.drawable.border_round_white_transparent_10)
+                    binding.postDetailMenuLikeIv.setImageResource(R.drawable.ic_like_white)
+                }
             }
         }
     }
@@ -541,10 +527,12 @@ class PostDetailActivity : AppCompatActivity(), PostDetailView, CommentCreateVie
     override fun onCreatePostLikeSuccess(code: Int) {
         when(code){
             200->{
-                finish()
-                overridePendingTransition(0, 0)
-                startActivity(intent)
-                overridePendingTransition(0, 0)
+                postService.showPostDetail(postIdx)
+
+//                finish()
+//                overridePendingTransition(0, 0)
+//                startActivity(intent)
+//                overridePendingTransition(0, 0)
 
             }
         }
@@ -563,10 +551,12 @@ class PostDetailActivity : AppCompatActivity(), PostDetailView, CommentCreateVie
     override fun onCancelPostLikeSuccess(code: Int) {
         when(code){
             200->{
-                finish()
-                overridePendingTransition(0, 0)
-                startActivity(intent)
-                overridePendingTransition(0, 0)
+                postService.showPostDetail(postIdx)
+
+//                finish()
+//                overridePendingTransition(0, 0)
+//                startActivity(intent)
+//                overridePendingTransition(0, 0)
             }
         }
     }

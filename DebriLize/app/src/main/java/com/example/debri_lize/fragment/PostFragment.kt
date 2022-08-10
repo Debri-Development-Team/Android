@@ -92,12 +92,12 @@ class PostFragment : Fragment(), EachPostListView {
         //제목으로밖에 검색이 안됨
 
         //현재 data중 게시글 제목이 null인게 있어 error발생
-//        for (i in 0 until datas.size) {
-//            //타이틀, content 필터 / 공백 제거 안함
-//            if (datas[i].postName!!.lowercase().contains(searchText.lowercase())) {
-//                filteredData.add(datas[i])
-//            }
-//        }
+        for (i in 0 until datas.size) {
+            //타이틀 필터
+            if (datas[i].postName!!.lowercase().trim().contains(searchText.lowercase().trim())) {
+                filteredData.add(datas[i])
+            }
+        }
 
         postRVAdapter.filterList(filteredData)
     }
