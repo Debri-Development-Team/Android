@@ -1,12 +1,11 @@
 package com.example.debri_lize.service
 
 import android.util.Log
-import com.example.debri_lize.data.RetrofitInterface
+import com.example.debri_lize.utils.RetrofitInterface
 import com.example.debri_lize.data.post.Cocomment
 import com.example.debri_lize.data.post.Comment
-import com.example.debri_lize.response.CommentListResponse
-import com.example.debri_lize.response.CommentResponse
-import com.example.debri_lize.response.DeletePostResponse
+import com.example.debri_lize.data.post.CommentList
+import com.example.debri_lize.base.BaseResponse
 import com.example.debri_lize.utils.getJwt
 import com.example.debri_lize.utils.getRetrofit
 import com.example.debri_lize.view.post.CocommentCreateView
@@ -44,10 +43,10 @@ class CommentService {
         //서비스 객체 생성
         val commentService = getRetrofit().create(RetrofitInterface::class.java)
 
-        commentService.createComment(comment).enqueue(object: Callback<CommentResponse> {
+        commentService.createComment(comment).enqueue(object: Callback<BaseResponse<Comment>> {
             //응답이 왔을 때 처리
-            override fun onResponse(call: Call<CommentResponse>, response: Response<CommentResponse>) {
-                val resp:CommentResponse = response.body()!!
+            override fun onResponse(call: Call<BaseResponse<Comment>>, response: Response<BaseResponse<Comment>>) {
+                val resp: BaseResponse<Comment> = response.body()!!
                 Log.d("commentCode", resp.code.toString())
                 Log.d("comment", resp.result.toString())
                 when(resp.code){
@@ -57,7 +56,7 @@ class CommentService {
                 }
             }
             //실패했을 때 처리
-            override fun onFailure(call: Call<CommentResponse>, t: Throwable) {
+            override fun onFailure(call: Call<BaseResponse<Comment>>, t: Throwable) {
                 Log.d("comment", t.toString())
             }
 
@@ -68,10 +67,10 @@ class CommentService {
         //서비스 객체 생성
         val commentService = getRetrofit().create(RetrofitInterface::class.java)
 
-        commentService.createCocomment(cocomment).enqueue(object: Callback<CommentResponse> {
+        commentService.createCocomment(cocomment).enqueue(object: Callback<BaseResponse<Comment>> {
             //응답이 왔을 때 처리
-            override fun onResponse(call: Call<CommentResponse>, response: Response<CommentResponse>) {
-                val resp:CommentResponse = response.body()!!
+            override fun onResponse(call: Call<BaseResponse<Comment>>, response: Response<BaseResponse<Comment>>) {
+                val resp: BaseResponse<Comment> = response.body()!!
                 Log.d("cocommentCode", resp.code.toString())
                 Log.d("cocomment", resp.result.toString())
                 when(resp.code){
@@ -81,7 +80,7 @@ class CommentService {
                 }
             }
             //실패했을 때 처리
-            override fun onFailure(call: Call<CommentResponse>, t: Throwable) {
+            override fun onFailure(call: Call<BaseResponse<Comment>>, t: Throwable) {
                 Log.d("cocommentFail", t.toString())
             }
 
@@ -91,11 +90,11 @@ class CommentService {
     fun showComment(postIdx:Int){
         Log.d("showComment", "enter")
         val commentService = getRetrofit().create(RetrofitInterface::class.java)
-        commentService.showComment(postIdx).enqueue(object: Callback<CommentListResponse> {
+        commentService.showComment(postIdx).enqueue(object: Callback<BaseResponse<List<CommentList>>> {
             //응답이 왔을 때 처리
-            override fun onResponse(call: Call<CommentListResponse>, response: Response<CommentListResponse>) {
+            override fun onResponse(call: Call<BaseResponse<List<CommentList>>>, response: Response<BaseResponse<List<CommentList>>>) {
                 Log.d("showComment", "response")
-                val resp:CommentListResponse = response.body()!!
+                val resp: BaseResponse<List<CommentList>> = response.body()!!
                 Log.d("showCommentCode", resp.code.toString())
                 when(resp.code){
                     //API code값 사용
@@ -104,7 +103,7 @@ class CommentService {
                 }
             }
             //실패했을 때 처리
-            override fun onFailure(call: Call<CommentListResponse>, t: Throwable) {
+            override fun onFailure(call: Call<BaseResponse<List<CommentList>>>, t: Throwable) {
                 Log.d("showComment", t.toString())
             }
 
@@ -114,11 +113,11 @@ class CommentService {
     fun deleteComment(commentIdx : Int){
         Log.d("deleteComment", "enter")
         val commentService = getRetrofit().create(RetrofitInterface::class.java)
-        commentService.deleteComment(commentIdx, getJwt()!!).enqueue(object: Callback<CommentResponse> {
+        commentService.deleteComment(commentIdx, getJwt()!!).enqueue(object: Callback<BaseResponse<Comment>> {
             //응답이 왔을 때 처리
-            override fun onResponse(call: Call<CommentResponse>, response: Response<CommentResponse>) {
+            override fun onResponse(call: Call<BaseResponse<Comment>>, response: Response<BaseResponse<Comment>>) {
                 Log.d("deleteComment", "response")
-                val resp: CommentResponse = response.body()!!
+                val resp: BaseResponse<Comment> = response.body()!!
                 Log.d("deleteCommentCode", resp.code.toString())
                 when(resp.code){
                     //API code값 사용
@@ -127,7 +126,7 @@ class CommentService {
                 }
             }
             //실패했을 때 처리
-            override fun onFailure(call: Call<CommentResponse>, t: Throwable) {
+            override fun onFailure(call: Call<BaseResponse<Comment>>, t: Throwable) {
                 Log.d("deletePostFail", t.toString())
             }
 

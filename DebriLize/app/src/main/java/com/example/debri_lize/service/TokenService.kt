@@ -1,14 +1,10 @@
 package com.example.debri_lize.service
 
 import android.util.Log
-import com.example.debri_lize.data.RetrofitInterface
-import com.example.debri_lize.data.auth.UserLogin
-import com.example.debri_lize.data.auth.UserSignup
-import com.example.debri_lize.response.AuthResponse
-import com.example.debri_lize.response.TokenResponse
+import com.example.debri_lize.utils.RetrofitInterface
+import com.example.debri_lize.data.auth.Token
+import com.example.debri_lize.base.BaseResponse
 import com.example.debri_lize.utils.getJwt
-import com.example.debri_lize.view.auth.LoginView
-import com.example.debri_lize.view.auth.SignUpView
 import com.example.debri_lize.utils.getRetrofit
 import com.example.debri_lize.view.auth.TokenView
 import retrofit2.Call
@@ -27,12 +23,12 @@ class TokenService {
         //서비스 객체 생성
         val tokenService = getRetrofit().create(RetrofitInterface::class.java)
 
-        tokenService.token(getJwt()!!, refreshToken).enqueue(object: Callback<TokenResponse> {
+        tokenService.token(getJwt()!!, refreshToken).enqueue(object: Callback<BaseResponse<Token>> {
             //응답이 왔을 때 처리
 
-            override fun onResponse(call: Call<TokenResponse>, response: Response<TokenResponse>) {
+            override fun onResponse(call: Call<BaseResponse<Token>>, response: Response<BaseResponse<Token>>) {
                 Log.d("token", "response")
-                val resp:TokenResponse = response.body()!!
+                val resp: BaseResponse<Token> = response.body()!!
                 Log.d("tokenCode", resp.code.toString())
                 when(val code = resp.code){
                     //API code값 사용
@@ -43,7 +39,7 @@ class TokenService {
             }
 
             //실패했을 때 처리
-            override fun onFailure(call: Call<TokenResponse>, t: Throwable) {
+            override fun onFailure(call: Call<BaseResponse<Token>>, t: Throwable) {
                 Log.d("tokenFail", t.toString())
             }
 

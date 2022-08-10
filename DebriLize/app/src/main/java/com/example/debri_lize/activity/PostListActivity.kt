@@ -5,15 +5,12 @@ import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
-import android.view.KeyEvent
-import android.view.KeyEvent.KEYCODE_ENTER
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.debri_lize.PostRVAdapter
 import com.example.debri_lize.data.post.PostList
 import com.example.debri_lize.databinding.ActivityPostListBinding
-import com.example.debri_lize.response.Post
 import com.example.debri_lize.service.PostService
 import com.example.debri_lize.view.post.PostListView
 
@@ -85,7 +82,7 @@ class PostListActivity : AppCompatActivity(), PostListView {
 
     }
 
-    override fun onPostListSuccess(code: Int, result: List<Post>) {
+    override fun onPostListSuccess(code: Int, result: List<PostList>) {
         when(code){
             //개발할 때는 userIdx 저장이 필요할수도
             200-> {

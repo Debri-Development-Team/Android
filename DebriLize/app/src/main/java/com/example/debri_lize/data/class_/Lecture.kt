@@ -1,13 +1,14 @@
 package com.example.debri_lize.data.class_
 
+import com.google.gson.annotations.SerializedName
 import java.io.Serializable
 
 data class Lecture(
-    val lectureIdx : Int? = 0,
-    val lectureName : String? = "",
-    val chapterNum : Int? = 0,
-    val language : String? = "",
-    val media : String? = "",   //서적 or 영상
-    val price : String? = "",    //무료 or 유료
-    val userScrap : Boolean
+    @SerializedName(value = "lectureIdx") var lectureIdx : Int,
+    @SerializedName(value = "lectureName") var lectureName : String,
+    @SerializedName(value = "chapterNumber") var chapterNum : Int,
+    @SerializedName(value = "langTag") var language : String,
+    @SerializedName(value = "materialType") var media : String,
+    @SerializedName(value = "pricing") var price : String,
+    @SerializedName(value = "userScrap") var userScrap : Boolean
 ) : Serializable

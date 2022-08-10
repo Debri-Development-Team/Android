@@ -58,8 +58,6 @@ class ClassLectureRVAdapter : RecyclerView.Adapter<ClassLectureRVAdapter.ViewHol
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.bind(datas[position])
 
-
-
         //즐겨찾기 생성
         holder.binding.itemClassFavoriteIv.setOnClickListener {
             holder.binding.itemClassFavoriteIv.setImageResource(R.drawable.ic_favorite_on)

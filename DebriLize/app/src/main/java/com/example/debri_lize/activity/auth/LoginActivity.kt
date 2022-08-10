@@ -10,14 +10,13 @@ import android.util.Log
 import android.view.*
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import com.example.debri_lize.R
 import com.example.debri_lize.activity.MainActivity
+import com.example.debri_lize.data.auth.Token
+import com.example.debri_lize.data.auth.User
 import com.example.debri_lize.data.auth.UserLogin
 import com.example.debri_lize.databinding.ActivityLoginBinding
-import com.example.debri_lize.response.Result
-import com.example.debri_lize.response.Token
 import com.example.debri_lize.service.AuthService
 import com.example.debri_lize.service.TokenService
 import com.example.debri_lize.utils.*
@@ -136,7 +135,7 @@ class LoginActivity:AppCompatActivity(), LoginView, TokenView {
 
     }
 
-    override fun onLoginSuccess(code:Int, result: Result?) {
+    override fun onLoginSuccess(code:Int, result: User?) {
         when(code){
             200-> {
 
