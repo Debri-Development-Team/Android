@@ -66,16 +66,14 @@
             android:layout_marginStart="15dp"
             />
 
-        <EditText
+        <TextView
             android:id="@+id/board_search_et"
             android:layout_width="280dp"
             android:layout_height="wrap_content"
             android:background="@null"
-            android:hint="검색어를 입력하세요"
-            android:textColorHint="@color/white"
+            android:text="검색어를 입력하세요"
             android:textColor="@color/white"
-            android:inputType="text"
-            android:textSize="15sp"
+            android:textSize="15dp"
             android:fontFamily="@font/noto_sans_kr_regular"
             android:includeFontPadding="false"
             android:layout_marginStart="10dp"/>

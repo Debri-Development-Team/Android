@@ -30,30 +30,12 @@ class PostListActivity : AppCompatActivity(), PostListView {
     override fun onStart() {
         super.onStart()
 
-
-
         //fragment to fragment
         binding.postListPreviousIv.setOnClickListener{
             finish()
         }
 
-        //search 방법1.
-//        binding.postListSearchEt.setOnKeyListener { v, keyCode, event ->
-//            if (event.action == KeyEvent.ACTION_DOWN && keyCode == KEYCODE_ENTER) {
-//                // 엔터 눌렀을때 행동
-//                //api
-//                val postService = PostService()
-//                postService.setPostListView(this)
-//                Log.d("et", binding.postListSearchEt.text.toString())
-//                postService.showPostList(binding.postListSearchEt.text.toString())
-//                true
-//            }
-//
-//            false
-//        }
-
-        //search 방법2. 실시간 검색 가능
-        //search post
+        //search post : 실시간 검색기능
         //검색어 입력
         binding.postListSearchEt.addTextChangedListener(object : TextWatcher {
             //입력이 끝날 때
