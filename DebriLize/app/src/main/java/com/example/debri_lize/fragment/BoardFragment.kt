@@ -4,32 +4,42 @@ import android.content.Intent
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.debri_lize.BoardRVAdapter
+import com.example.debri_lize.adapter.board.BoardRVAdapter
 import com.example.debri_lize.R
 import com.example.debri_lize.activity.PostCreateActivity
 import com.example.debri_lize.activity.PostListActivity
 import com.example.debri_lize.activity.auth.ProfileActivity
+import com.example.debri_lize.adapter.board.BoardFavoriteRVAdapter
 import com.example.debri_lize.data.board.Board
+import com.example.debri_lize.data.board.BoardFavorite
 import com.example.debri_lize.databinding.FragmentBoardBinding
 import com.example.debri_lize.service.BoardService
-import com.example.debri_lize.view.board.UnScrapBoardListView
+import com.example.debri_lize.view.board.CancelScrapBoardView
+import com.example.debri_lize.view.board.CreateScrapBoardView
 import com.example.debri_lize.view.board.ScrapBoardListView
+import com.example.debri_lize.view.board.UnScrapBoardListView
 
-class BoardFragment : Fragment(), UnScrapBoardListView, ScrapBoardListView {
+class BoardFragment : Fragment(), UnScrapBoardListView, ScrapBoardListView, CancelScrapBoardView,
+    CreateScrapBoardView {
 
     lateinit var binding: FragmentBoardBinding
     lateinit var boardRVAdapter: BoardRVAdapter
-    val datas_f = ArrayList<Board>()
+    lateinit var boardFavRVAdapter: BoardFavoriteRVAdapter
+    val datas_f = ArrayList<BoardFavorite>()
     val datas = ArrayList<Board>()
 
     //search boardName
     private val filteredData = ArrayList<Board>() //검색했을 때 나타낼 데이터
     private val filteredFavoriteData = ArrayList<Board>()
+
+    //api
+    val boardService = BoardService()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -55,11 +65,15 @@ class BoardFragment : Fragment(), UnScrapBoardListView, ScrapBoardListView {
         }
 
         //api
-        val boardService = BoardService()
         boardService.setUnScrapBoardListView(this)
         boardService.showUnScrapBoardList()
         boardService.setScrapBoardListView(this)
         boardService.showScrapBoardList()
+
+        //api - 게시판 즐찾 생성, 해제
+        boardService.setCreateScrapBoardView(this)
+        boardService.setCancelScrapBoardView(this)
+
 
         //search boardName
         //검색어 입력
@@ -163,6 +177,16 @@ class BoardFragment : Fragment(), UnScrapBoardListView, ScrapBoardListView {
 
                         }
                     })
+
+                    boardRVAdapter.setAllItemClickListener(object : BoardRVAdapter.OnAllItemClickListener{
+                        override fun onClick(v: View, position: Int) {
+                            //api - 즐겨찾기 생성
+                            Log.d("data.position","${datas[position]}")
+                            boardService.createScrapBoard(datas[position].boardIdx)
+
+                        }
+
+                    })
                 }
 
             }
@@ -170,34 +194,35 @@ class BoardFragment : Fragment(), UnScrapBoardListView, ScrapBoardListView {
     }
 
     override fun onUnScrapBoardListFailure(code: Int) {
-
+        Log.d("unscrapboardlistfail","$code")
     }
 
-    override fun onScrapBoardListSuccess(code: Int, result: List<Board>) {
+    override fun onScrapBoardListSuccess(code: Int, result: List<BoardFavorite>) {
         when(code){
             200->{
                 //즐겨찾기 게시판 조회
                 binding.boardFavoriteRv.layoutManager =
                     LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
-                boardRVAdapter = BoardRVAdapter()
-                binding.boardFavoriteRv.adapter = boardRVAdapter
+                boardFavRVAdapter = BoardFavoriteRVAdapter()
+                binding.boardFavoriteRv.adapter = boardFavRVAdapter
 
+                datas_f.clear()
 
                 //datas_f : 즐겨찾기
                 datas_f.apply {
                     for (i in result){
-                        datas_f.add(Board(i.boardIdx, i.boardName))
+                        datas_f.add(BoardFavorite(i.boardIdx, i.boardName, i.status))
                     }
 
-                    boardRVAdapter.datas = datas_f
-                    boardRVAdapter.notifyDataSetChanged()
+                    boardFavRVAdapter.datas = datas_f
+                    boardFavRVAdapter.notifyDataSetChanged()
 
                     //recyclerview item 클릭하면 fragment 전환
-                    boardRVAdapter.setItemClickListener(object : BoardRVAdapter.OnItemClickListener {
+                    boardFavRVAdapter.setItemClickListener(object : BoardFavoriteRVAdapter.OnItemClickListener {
                         override fun onClick(v: View, position: Int) {
                             //PostFragment에 data보내기
                             val bundle = Bundle()
-                            bundle.putSerializable("board", datas[position])
+                            bundle.putSerializable("boardFav", datas_f[position])
                             val passBundleBFragment = PostFragment()
                             passBundleBFragment.arguments = bundle
 
@@ -208,13 +233,65 @@ class BoardFragment : Fragment(), UnScrapBoardListView, ScrapBoardListView {
 
                         }
                     })
+
+                    boardFavRVAdapter.setFavItemClickListener(object : BoardFavoriteRVAdapter.OnFavItemClickListener{
+                        override fun onClick(v: View, position: Int) {
+                            //api - 즐겨찾기 해제
+                            Log.d("datas_f.position","${datas_f[position]}")
+                            boardService.cancelScrapBoard(datas_f[position].boardIdx)
+
+                        }
+
+                    })
                 }
             }
         }
     }
 
     override fun onScrapBoardListFailure(code: Int) {
+        when(code){
+            3066 -> {
+                binding.boardFavoriteRv.layoutManager =
+                    LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
+                boardFavRVAdapter = BoardFavoriteRVAdapter()
+                binding.boardFavoriteRv.adapter = boardFavRVAdapter
+            }
+        }
+    }
+
+    override fun onCreateScrapBoardSuccess(code: Int) {
+        when(code){
+            200-> {
+                Log.d("scrapCreateBoardSuccess","$code")
+
+                boardService.showScrapBoardList()
+                boardService.showUnScrapBoardList()
+            }
+        }
 
     }
+
+    override fun onCreateScrapBoardFailure(code: Int) {
+        Log.d("scrapCreateBoardFail","$code")
+    }
+
+    override fun onCancelScrapBoardSuccess(code: Int) {
+        when(code){
+            200->{
+                Log.d("scrapCancelBoardSuccess","$code")
+                boardService.showScrapBoardList()
+                boardService.showUnScrapBoardList()
+
+            }
+        }
+
+
+    }
+
+    override fun onCancelScrapBoardFailure(code: Int) {
+        Log.d("scrapCancelBoardFail","$code")
+    }
+
+
 
 }
