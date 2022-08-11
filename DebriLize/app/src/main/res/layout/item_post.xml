@@ -16,13 +16,30 @@
         android:gravity="center_vertical"
         android:background="@drawable/border_line_bottom">
 
-        <ImageView
-            android:id="@+id/item_post_like_iv"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/ic_like_off"
+        <FrameLayout
+            android:id="@+id/item_post_like_layout"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
             android:layout_marginEnd="20dp"
-            />
+            android:visibility="visible">
+            <ImageView
+                android:id="@+id/item_post_like_iv"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:src="@drawable/ic_like_off"
+                />
+            <TextView
+                android:id="@+id/post_likeNum_tv"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="99+"
+                android:fontFamily="@font/noto_sans_kr_regular"
+                android:includeFontPadding="false"
+                android:textSize="10sp"
+                android:gravity="center"
+                android:textColor="@color/darkmode_background"/>
+        </FrameLayout>
+
 
 
         <LinearLayout
