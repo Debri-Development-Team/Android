@@ -33,7 +33,7 @@ class PostDetailActivity : AppCompatActivity(), PostDetailView, CommentCreateVie
     var authorIdx by Delegates.notNull<Int>()
 
     //data
-    lateinit var postDetail : com.example.debri_lize.data.post.PostDetail
+    lateinit var postDetail : PostDetail
 
     //api
     val postService = PostService()
@@ -125,6 +125,13 @@ class PostDetailActivity : AppCompatActivity(), PostDetailView, CommentCreateVie
 
     }
 
+    override fun onResume() {
+        super.onResume()
+        //api - post
+        postService.setPostDetailView(this)
+        postService.showPostDetail(postIdx)
+    }
+
     //bottom sheet
     private fun bottomSheetPost(){
 
@@ -146,7 +153,7 @@ class PostDetailActivity : AppCompatActivity(), PostDetailView, CommentCreateVie
                 intent.putExtra("postDetail", postDetail)
                 startActivity(intent)
                 bottomSheetDialog.dismiss()
-                finish()
+                //finish()
             }
             //click delete button
             bottomSheetView.findViewById<TextView>(R.id.bottom_sheet_two_tv2).setOnClickListener {
@@ -378,6 +385,7 @@ class PostDetailActivity : AppCompatActivity(), PostDetailView, CommentCreateVie
         when(code){
             200->{
                 Log.d("PostDetailresult","$result")
+                postDetail = result
                 binding.postDetailTitleTv.text = result.postName
                 binding.postDetailTimeTv.text = result.timeAfterCreated.toString()+"분 전"
                 binding.postDetailAuthorTv.text = result.authorName

@@ -65,6 +65,7 @@
         <entry key="..\:/Users/tptty/AndroidStudioProjects/Debri_final/Android/DebriLize/app/src/main/res/drawable-v24/border_line_bottom.xml" value="0.1175" />
         <entry key="..\:/Users/tptty/AndroidStudioProjects/Debri_final/Android/DebriLize/app/src/main/res/drawable-v24/border_round_white_darkmode_10.xml" value="0.11" />
         <entry key="..\:/Users/tptty/AndroidStudioProjects/Debri_final/Android/DebriLize/app/src/main/res/drawable-v24/btm_color_selector.xml" value="0.1255" />
+        <entry key="..\:/Users/tptty/AndroidStudioProjects/Debri_final/Android/DebriLize/app/src/main/res/drawable/avd_anim.xml" value="0.1" />
         <entry key="..\:/Users/tptty/AndroidStudioProjects/Debri_final/Android/DebriLize/app/src/main/res/drawable/bg_spinner_board.xml" value="0.1" />
         <entry key="..\:/Users/tptty/AndroidStudioProjects/Debri_final/Android/DebriLize/app/src/main/res/drawable/bg_spinner_year.xml" value="0.1" />
         <entry key="..\:/Users/tptty/AndroidStudioProjects/Debri_final/Android/DebriLize/app/src/main/res/drawable/border_line_right.xml" value="0.1175" />
@@ -93,6 +94,8 @@
         <entry key="..\:/Users/tptty/AndroidStudioProjects/Debri_final/Android/DebriLize/app/src/main/res/layout/activity_post_list.xml" value="0.22" />
         <entry key="..\:/Users/tptty/AndroidStudioProjects/Debri_final/Android/DebriLize/app/src/main/res/layout/activity_profile.xml" value="0.22" />
         <entry key="..\:/Users/tptty/AndroidStudioProjects/Debri_final/Android/DebriLize/app/src/main/res/layout/activity_signup.xml" value="0.17916666666666667" />
+        <entry key="..\:/Users/tptty/AndroidStudioProjects/Debri_final/Android/DebriLize/app/src/main/res/layout/activity_splash.xml" value="0.17916666666666667" />
+        <entry key="..\:/Users/tptty/AndroidStudioProjects/Debri_final/Android/DebriLize/app/src/main/res/layout/activity_test.xml" value="0.17916666666666667" />
         <entry key="..\:/Users/tptty/AndroidStudioProjects/Debri_final/Android/DebriLize/app/src/main/res/layout/custom_spinner.xml" value="0.178125" />
         <entry key="..\:/Users/tptty/AndroidStudioProjects/Debri_final/Android/DebriLize/app/src/main/res/layout/custom_spinner_board_list.xml" value="0.17916666666666667" />
         <entry key="..\:/Users/tptty/AndroidStudioProjects/Debri_final/Android/DebriLize/app/src/main/res/layout/dialog_cancel.xml" value="0.17916666666666667" />
@@ -109,7 +112,7 @@
         <entry key="..\:/Users/tptty/AndroidStudioProjects/Debri_final/Android/DebriLize/app/src/main/res/layout/fragment_class.xml" value="0.1" />
         <entry key="..\:/Users/tptty/AndroidStudioProjects/Debri_final/Android/DebriLize/app/src/main/res/layout/fragment_home.xml" value="0.22" />
         <entry key="..\:/Users/tptty/AndroidStudioProjects/Debri_final/Android/DebriLize/app/src/main/res/layout/fragment_menu.xml" value="0.17916666666666667" />
-        <entry key="..\:/Users/tptty/AndroidStudioProjects/Debri_final/Android/DebriLize/app/src/main/res/layout/fragment_post.xml" value="0.12" />
+        <entry key="..\:/Users/tptty/AndroidStudioProjects/Debri_final/Android/DebriLize/app/src/main/res/layout/fragment_post.xml" value="0.22" />
         <entry key="..\:/Users/tptty/AndroidStudioProjects/Debri_final/Android/DebriLize/app/src/main/res/layout/item_board.xml" value="0.1" />
         <entry key="..\:/Users/tptty/AndroidStudioProjects/Debri_final/Android/DebriLize/app/src/main/res/layout/item_board_favorite.xml" value="0.17916666666666667" />
         <entry key="..\:/Users/tptty/AndroidStudioProjects/Debri_final/Android/DebriLize/app/src/main/res/layout/item_bottom_sheet.xml" value="0.17916666666666667" />
