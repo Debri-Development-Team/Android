@@ -16,6 +16,7 @@ import com.example.debri_lize.activity.MainActivity
 import com.example.debri_lize.activity.PostCreateActivity
 import com.example.debri_lize.activity.PostDetailActivity
 import com.example.debri_lize.data.board.Board
+import com.example.debri_lize.data.board.BoardFavorite
 import com.example.debri_lize.data.post.PostList
 import com.example.debri_lize.service.PostService
 import com.example.debri_lize.view.post.EachPostListView
@@ -50,13 +51,21 @@ class PostFragment : Fragment(), EachPostListView {
 
         //data 받아오기 (BoardFragment -> BoardDetailFragment) : 게시판 이름
         var board = arguments?.getSerializable("board") as Board?
+        var boardFav = arguments?.getSerializable("boardFav") as BoardFavorite?
         //받아온 data로 변경
         Log.d("board", board.toString())
+        Log.d("boardFav", boardFav.toString())
         if (board != null) {
             //게시판 이름 변경
             binding.postNameTv.text = board.boardName
             boardName = board.boardName
             boardIdx = board.boardIdx
+        }
+        if(boardFav != null) {
+            //게시판 이름 변경
+            binding.postNameTv.text = boardFav.boardName
+            boardName = boardFav.boardName
+            boardIdx = boardFav.boardIdx
         }
 
         //fragment to fragment
@@ -92,12 +101,12 @@ class PostFragment : Fragment(), EachPostListView {
         //제목으로밖에 검색이 안됨
 
         //현재 data중 게시글 제목이 null인게 있어 error발생
-//        for (i in 0 until datas.size) {
-//            //타이틀, content 필터 / 공백 제거 안함
-//            if (datas[i].postName!!.lowercase().contains(searchText.lowercase())) {
-//                filteredData.add(datas[i])
-//            }
-//        }
+        for (i in 0 until datas.size) {
+            //타이틀 필터
+            if (datas[i].postName!!.lowercase().trim().contains(searchText.lowercase().trim())) {
+                filteredData.add(datas[i])
+            }
+        }
 
         postRVAdapter.filterList(filteredData)
     }
