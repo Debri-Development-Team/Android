@@ -17,12 +17,20 @@ class PostRVAdapter : RecyclerView.Adapter<PostRVAdapter.ViewHolder>() {
         val title : TextView = binding.itemPostTitle
         val time : TextView = binding.itemPostTimeTv
         var commentCnt : TextView = binding.itemPostCountCommentTv
-        //var likeCnt : TextView = binding.
+        var likeCnt : TextView = binding.postLikeNumTv
 
         fun bind(item: PostList) {
             title.text = item.postName
             time.text = item.timeAfterCreated.toString()+"분 전"
             commentCnt.text = "("+item.commentCnt.toString()+")"
+
+            if(item.likeCnt!! > 99) likeCnt.text = "99+"
+            else if(item.likeCnt!! < 1) binding.itemPostLikeLayout.visibility = View.INVISIBLE
+            else likeCnt.text = item.likeCnt.toString()
+
+            if(item.likeStatus == "LIKE")   binding.itemPostLikeIv.setImageResource(R.drawable.ic_like_on)
+            else binding.itemPostLikeIv.setImageResource(R.drawable.ic_like_off)
+
         }
     }
 
