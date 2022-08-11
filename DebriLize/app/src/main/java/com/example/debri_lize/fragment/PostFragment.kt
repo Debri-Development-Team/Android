@@ -16,6 +16,7 @@ import com.example.debri_lize.activity.MainActivity
 import com.example.debri_lize.activity.PostCreateActivity
 import com.example.debri_lize.activity.PostDetailActivity
 import com.example.debri_lize.data.board.Board
+import com.example.debri_lize.data.board.BoardFavorite
 import com.example.debri_lize.data.post.PostList
 import com.example.debri_lize.service.PostService
 import com.example.debri_lize.view.post.EachPostListView
@@ -50,13 +51,21 @@ class PostFragment : Fragment(), EachPostListView {
 
         //data 받아오기 (BoardFragment -> BoardDetailFragment) : 게시판 이름
         var board = arguments?.getSerializable("board") as Board?
+        var boardFav = arguments?.getSerializable("boardFav") as BoardFavorite?
         //받아온 data로 변경
         Log.d("board", board.toString())
+        Log.d("boardFav", boardFav.toString())
         if (board != null) {
             //게시판 이름 변경
             binding.postNameTv.text = board.boardName
             boardName = board.boardName
             boardIdx = board.boardIdx
+        }
+        if(boardFav != null) {
+            //게시판 이름 변경
+            binding.postNameTv.text = boardFav.boardName
+            boardName = boardFav.boardName
+            boardIdx = boardFav.boardIdx
         }
 
         //fragment to fragment

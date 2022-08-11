@@ -4,11 +4,10 @@ import android.util.Log
 import com.example.debri_lize.utils.RetrofitInterface
 import com.example.debri_lize.data.board.Board
 import com.example.debri_lize.base.BaseResponse
+import com.example.debri_lize.data.board.BoardFavorite
 import com.example.debri_lize.utils.getJwt
 import com.example.debri_lize.utils.getRetrofit
-import com.example.debri_lize.view.board.BoardListView
-import com.example.debri_lize.view.board.UnScrapBoardListView
-import com.example.debri_lize.view.board.ScrapBoardListView
+import com.example.debri_lize.view.board.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -21,6 +20,9 @@ class BoardService {
 
     private lateinit var scrapBoardListView: ScrapBoardListView
 
+    private lateinit var createScrapBoardView: CreateScrapBoardView
+    private lateinit var cancelScrapBoardView: CancelScrapBoardView
+
     fun setBoardListView(boardListView: BoardListView){
         this.boardListView = boardListView
     }
@@ -31,6 +33,14 @@ class BoardService {
 
     fun setScrapBoardListView(scrapBoardListView: ScrapBoardListView){
         this.scrapBoardListView = scrapBoardListView
+    }
+
+    fun setCreateScrapBoardView(createScrapBoardView: CreateScrapBoardView){
+        this.createScrapBoardView = createScrapBoardView
+    }
+
+    fun setCancelScrapBoardView(cancelScrapBoardView: CancelScrapBoardView){
+        this.cancelScrapBoardView = cancelScrapBoardView
     }
 
     fun showBoardList(){
@@ -84,12 +94,12 @@ class BoardService {
     fun showScrapBoardList(){
         Log.d("scrapBoardList", "enter")
         val boardService = getRetrofit().create(RetrofitInterface::class.java)
-        boardService.showScrapBoardList(getJwt()!!).enqueue(object: Callback<BaseResponse<List<Board>>> {
+        boardService.showScrapBoardList(getJwt()!!).enqueue(object: Callback<BaseResponse<List<BoardFavorite>>> {
             //응답이 왔을 때 처리
-            override fun onResponse(call: Call<BaseResponse<List<Board>>>, response: Response<BaseResponse<List<Board>>>) {
+            override fun onResponse(call: Call<BaseResponse<List<BoardFavorite>>>, response: Response<BaseResponse<List<BoardFavorite>>>) {
                 Log.d("scrapBoardList", "response")
 
-                val resp: BaseResponse<List<Board>> = response.body()!!
+                val resp: BaseResponse<List<BoardFavorite>> = response.body()!!
                 Log.d("scrapBoardListCode", resp.code.toString())
 
                 when(resp.code){
@@ -99,8 +109,58 @@ class BoardService {
                 }
             }
             //실패했을 때 처리
-            override fun onFailure(call: Call<BaseResponse<List<Board>>>, t: Throwable) {
+            override fun onFailure(call: Call<BaseResponse<List<BoardFavorite>>>, t: Throwable) {
                 Log.d("scrapBoardListFail", t.toString())
+            }
+
+        })
+    }
+
+    fun createScrapBoard(boardIdx: Int){
+        Log.d("createScrapBoard", "enter")
+        val boardService = getRetrofit().create(RetrofitInterface::class.java)
+        boardService.createScrapBoard(boardIdx, getJwt()!!).enqueue(object: Callback<BaseResponse<String>> {
+            //응답이 왔을 때 처리
+            override fun onResponse(call: Call<BaseResponse<String>>, response: Response<BaseResponse<String>>) {
+                Log.d("createScrapBoard", "response")
+
+                val resp: BaseResponse<String> = response.body()!!
+                Log.d("createScrapBoardCode", resp.code.toString())
+
+                when(resp.code){
+                    //API code값 사용
+                    200->createScrapBoardView.onCreateScrapBoardSuccess(resp.code)
+                    else->createScrapBoardView.onCreateScrapBoardFailure(resp.code)
+                }
+            }
+            //실패했을 때 처리
+            override fun onFailure(call: Call<BaseResponse<String>>, t: Throwable) {
+                Log.d("createScrapBoardFail", t.toString())
+            }
+
+        })
+    }
+
+    fun cancelScrapBoard(boardIdx: Int){
+        Log.d("cancelScrapBoard", "enter")
+        val boardService = getRetrofit().create(RetrofitInterface::class.java)
+        boardService.cancelScrapBoard(boardIdx, getJwt()!!).enqueue(object: Callback<BaseResponse<String>> {
+            //응답이 왔을 때 처리
+            override fun onResponse(call: Call<BaseResponse<String>>, response: Response<BaseResponse<String>>) {
+                Log.d("cancelScrapBoard", "response")
+
+                val resp: BaseResponse<String> = response.body()!!
+                Log.d("cancelScrapBoardCode", resp.code.toString())
+
+                when(resp.code){
+                    //API code값 사용
+                    200->cancelScrapBoardView.onCancelScrapBoardSuccess(resp.code)
+                    else->cancelScrapBoardView.onCancelScrapBoardFailure(resp.code)
+                }
+            }
+            //실패했을 때 처리
+            override fun onFailure(call: Call<BaseResponse<String>>, t: Throwable) {
+                Log.d("cancelScrapBoardFail", t.toString())
             }
 
         })

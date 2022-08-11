@@ -6,6 +6,7 @@ import com.example.debri_lize.data.auth.User
 import com.example.debri_lize.data.auth.UserLogin
 import com.example.debri_lize.data.auth.UserSignup
 import com.example.debri_lize.data.board.Board
+import com.example.debri_lize.data.board.BoardFavorite
 import com.example.debri_lize.data.class_.Lecture
 import com.example.debri_lize.data.class_.LectureScrap
 import com.example.debri_lize.data.post.*
@@ -29,9 +30,17 @@ interface RetrofitInterface {
     @POST("api/auth/login")
     fun login(@Body user : UserLogin): Call<BaseResponse<User>>
 
+    //2.1 게시판 즐겨찾기 생성 api
+    @POST("api/board/scrap/{boardIdx}")
+    fun createScrapBoard(@Path("boardIdx") boardIdx: Int, @Header("ACCESS-TOKEN") authToken: String) : Call<BaseResponse<String>>
+
+    //2.2 게시판 즐겨찾기 해제 api
+    @PATCH("api/board/scrap/cancel/{boardIdx}")
+    fun cancelScrapBoard(@Path("boardIdx") boardIdx: Int, @Header("ACCESS-TOKEN") authToken: String) : Call<BaseResponse<String>>
+
     //2.3 게시판 즐겨찾기 한 리스트 조회 api
     @GET("api/board/scrap/getList")
-    fun showScrapBoardList(@Header("ACCESS-TOKEN") authToken: String) : Call<BaseResponse<List<Board>>>
+    fun showScrapBoardList(@Header("ACCESS-TOKEN") authToken: String) : Call<BaseResponse<List<BoardFavorite>>>
 
     //2.4 게시판 즐겨찾기 안한 리스트 조회 api
     @GET("api/board/unscrap/getList")
@@ -120,4 +129,5 @@ interface RetrofitInterface {
     //7.4.1 강의 검색 api
     @GET("api/lecture/search")
     fun showLectureSearch(@Query ("lang") lang:String?,@Query ("type") type:String?,@Query ("price") price:String?,@Query ("key") key:String?, @Header("ACCESS-TOKEN") authToken: String) : Call<BaseResponse<List<Lecture>>>
+
 }
