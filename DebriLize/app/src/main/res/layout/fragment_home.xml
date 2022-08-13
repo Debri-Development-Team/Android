@@ -19,7 +19,7 @@
                 android:id="@+id/home_debri_layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="40dp"
+                android:layout_marginTop="26dp"
                 android:layout_marginStart="30dp"
                 android:layout_marginEnd="30dp"
                 app:layout_constraintTop_toTopOf="parent"
@@ -120,8 +120,8 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:layout_marginEnd="30dp"
-                app:layout_constraintEnd_toStartOf="@+id/home_curriculum_dday_tv"
+                android:layout_marginStart="18dp"
+                app:layout_constraintStart_toEndOf="@+id/home_curriculum_dday_tv"
                 app:layout_constraintTop_toTopOf="@+id/home_curriculum_dday_tv"
                 app:layout_constraintBottom_toBottomOf="@+id/home_curriculum_dday_tv">
 
@@ -213,16 +213,6 @@
 
             </LinearLayout>
 
-            <ImageView
-                android:id="@+id/home_curriculum_setting_iv"
-                android:layout_width="48dp"
-                android:layout_height="48dp"
-                android:src="@drawable/ic_setting"
-                android:layout_marginStart="15dp"
-                app:layout_constraintStart_toEndOf="@+id/home_curriculum_dday_tv"
-                app:layout_constraintTop_toTopOf="@+id/home_curriculum_dday_tv"
-                app:layout_constraintBottom_toBottomOf="@+id/home_curriculum_progress_layout"/>
-
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/home_curriculum_lecture_img_rv"
                 android:layout_width="match_parent"
@@ -240,12 +230,121 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/home_curriculum_progress_layout" />
 
+            <View
+                android:id="@+id/border_line"
+                android:layout_width="match_parent"
+                android:layout_height="3dp"
+                android:background="@drawable/border_line_bottom_dark_green"
+                android:layout_marginTop="45dp"
+                android:layout_marginStart="80dp"
+                android:layout_marginEnd="80dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/home_curriculum_lecture_img_rv"/>
+
+            <View
+                android:id="@+id/home_curriculum_inactive_circle"
+                android:layout_width="150dp"
+                android:layout_height="150dp"
+                android:background="@drawable/circle_red_opacity_30"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/home_curriculum_progress_layout"
+                />
+
+            <View
+                android:id="@+id/home_curriculum_active_circle"
+                android:layout_width="320dp"
+                android:layout_height="320dp"
+                android:background="@drawable/circle_debri_opacity_30"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/home_curriculum_progress_layout"
+                />
+
+            <LinearLayout
+                android:id="@+id/home_curriculum_inactive_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:layout_marginTop="42dp"
+                android:layout_marginStart="30dp"
+                android:layout_marginEnd="30dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/home_curriculum_progress_layout">
+
+                <TextView
+                    android:id="@+id/home_curriculum_inactive_tv1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/noto_sans_kr_regular"
+                    android:includeFontPadding="false"
+                    android:text="커리큘럼 비활성화 중"
+                    android:textColor="@color/white"
+                    android:textSize="30dp" />
+
+                <TextView
+                    android:id="@+id/home_curriculum_inactive_tv2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/noto_sans_kr_regular"
+                    android:includeFontPadding="false"
+                    android:text="한번에 하나의 커리큘럼만 잔행할 수 있어요 "
+                    android:textColor="@color/white"
+                    android:textSize="12dp"
+                    android:layout_marginTop="7dp"/>
+
+                <LinearLayout
+                    android:id="@+id/home_curriculum_active_layout"
+                    android:layout_width="147dp"
+                    android:layout_height="44dp"
+                    android:background="@drawable/border_round_white_transparent_10"
+                    android:gravity="center"
+                    android:orientation="horizontal"
+                    android:layout_marginTop="15dp">
+
+                    <ImageView
+                        android:id="@+id/home_curriculum_active_iv"
+                        android:layout_width="11.75dp"
+                        android:layout_height="14.86dp"
+                        android:layout_marginEnd="10dp"
+                        android:src="@drawable/ic_setting" />
+
+                    <TextView
+                        android:id="@+id/home_curriculum_active_tv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/noto_sans_kr_regular"
+                        android:includeFontPadding="false"
+                        android:text="커리큘럼 활성화"
+                        android:textColor="@color/white"
+                        android:textSize="10dp" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <TextView
+            android:id="@+id/home_lecture_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="40dp"
+            android:layout_marginStart="30dp"
+            android:text="관련 강의자료"
+            android:textColor="@color/white"
+            android:textSize="12dp"
+            android:fontFamily="@font/noto_sans_kr_regular"
+            android:includeFontPadding="false"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/border_line" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/home_curriculum_lecture_rv"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="30dp"
+                android:layout_marginTop="20dp"
                 android:layout_marginEnd="30dp"
                 android:orientation="vertical"
                 android:overScrollMode="never"
@@ -255,8 +354,74 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/home_curriculum_lecture_img_rv" />
+                app:layout_constraintTop_toBottomOf="@+id/home_lecture_tv" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="70dp"
+                android:id="@+id/home_curriculum_add_lecture_layout"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/home_curriculum_lecture_rv"
+                android:layout_marginEnd="30dp"
+                android:layout_marginTop="10dp"
+                android:gravity="center_vertical"
+                android:background="@drawable/border_round_right_white_transparent_2">
+
+                <ImageView
+                    android:id="@+id/item_curriculum_lecture_progress_tv"
+                    android:layout_width="75dp"
+                    android:layout_height="60dp"
+                    android:padding="20dp"
+                    android:gravity="center"
+                    android:src="@drawable/ic_plus"
+                    android:background="@drawable/border_line_right"/>
+
+                <TextView
+                    android:id="@+id/item_curriculum_lecture_img_tag_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/noto_sans_kr_bold"
+                    android:includeFontPadding="false"
+                    android:text="새로운 강의 추가하기"
+                    android:textSize="14dp"
+                    android:textColor="@color/white"
+                    android:layout_marginStart="20dp"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/home_curriculum_setting_layout"
+                android:layout_width="147dp"
+                android:layout_height="44dp"
+                android:background="@drawable/border_round_white_transparent_10"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="30dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/home_curriculum_add_lecture_layout">
+
+                <ImageView
+                    android:id="@+id/home_curriculum_setting_iv"
+                    android:layout_width="15.48dp"
+                    android:layout_height="16.5dp"
+                    android:layout_marginEnd="10dp"
+                    android:src="@drawable/ic_setting" />
+
+                <TextView
+                    android:id="@+id/home_curriculum_setting_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/noto_sans_kr_regular"
+                    android:includeFontPadding="false"
+                    android:text="설정 변경"
+                    android:textColor="@color/white"
+                    android:textSize="12dp" />
+
+            </LinearLayout>
+
 
         </androidx.constraintlayout.widget.ConstraintLayout>
+
     </androidx.core.widget.NestedScrollView>
 </androidx.constraintlayout.widget.ConstraintLayout>

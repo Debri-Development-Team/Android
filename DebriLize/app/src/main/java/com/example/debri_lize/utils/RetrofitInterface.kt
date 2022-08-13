@@ -9,6 +9,9 @@ import com.example.debri_lize.data.board.Board
 import com.example.debri_lize.data.board.BoardFavorite
 import com.example.debri_lize.data.class_.Lecture
 import com.example.debri_lize.data.class_.LectureScrap
+import com.example.debri_lize.data.curriculum.AddLecture
+import com.example.debri_lize.data.curriculum.Curriculum
+import com.example.debri_lize.data.curriculum.CurriculumDetail
 import com.example.debri_lize.data.post.*
 import com.example.debri_lize.data.post.Comment
 import com.example.debri_lize.data.post.Post
@@ -134,4 +137,19 @@ interface RetrofitInterface {
     @GET("api/lecture/search")
     fun showLectureSearch(@Query ("lang") lang:String?,@Query ("type") type:String?,@Query ("price") price:String?,@Query ("key") key:String?, @Header("ACCESS-TOKEN") authToken: String) : Call<BaseResponse<List<Lecture>>>
 
+    //8.2 커리큘럼 리스트 조회 api : 내가 추가한 커리큘럼들
+    @GET("/api/curri/getList")
+    fun myCurriculumList(@Header("ACCESS-TOKEN") authToken: String) : Call<BaseResponse<List<Curriculum>>>
+
+    //8.3 커리큘럼 상세 조회 api : 홈
+    @GET("api/curri/getThisCurri")
+    fun showCurriculumDetail(@Body curriIdx : Int, @Header("ACCESS-TOKEN") authToken: String) : Call<BaseResponse<CurriculumDetail>>
+
+    //8.5 강의자료 추가 api : 홈 > 새로운 강의자료 추가하기
+    @POST("api/curri/insertLecture")
+    fun addLectureInCurriculum(@Body addLecture: AddLecture, @Header("ACCESS-TOKEN") authToken: String) : Call<BaseResponse<String>>
+
+    //8.6 커리큘럼 삭제 api
+    @POST("/api/curri/delete/{curriIdx}")
+    fun deleteCurriculum(@Path("curriIdx") curriIdx: Int, @Header("ACCESS-TOKEN") authToken: String) : Call<BaseResponse<String>>
 }

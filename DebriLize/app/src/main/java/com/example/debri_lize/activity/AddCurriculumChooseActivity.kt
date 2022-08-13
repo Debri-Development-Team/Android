@@ -5,18 +5,20 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.debri_lize.adapter.start.RoadmapRVAdapter
+import com.example.debri_lize.adapter.start.CurriculumListRVAdapter
 import com.example.debri_lize.data.curriculum.Curriculum
 import com.example.debri_lize.databinding.ActivityAddCurriculumChooseBinding
+import com.example.debri_lize.service.CurriculumService
+import com.example.debri_lize.view.curriculum.MyCurriculumListView
 
-class AddCurriculumChooseActivity : AppCompatActivity() {
+class AddCurriculumChooseActivity : AppCompatActivity(){
     lateinit var binding : ActivityAddCurriculumChooseBinding
 
-    lateinit var roadmapRVAdapter : RoadmapRVAdapter
-    lateinit var roadmapTopRVAdapter : RoadmapRVAdapter
+    lateinit var roadmapRVAdapter : CurriculumListRVAdapter
+    lateinit var roadmapTopRVAdapter : CurriculumListRVAdapter
 
     val datas = ArrayList<Curriculum>()
-    val tops = ArrayList<Curriculum>()
+    val top10 = ArrayList<Curriculum>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -26,10 +28,14 @@ class AddCurriculumChooseActivity : AppCompatActivity() {
         initRecyclerView()
     }
 
+    override fun onResume() {
+        super.onResume()
+    }
+
     private fun initRecyclerView(){
         binding.addCurriculumChooseRoadmapAdminRv.layoutManager =
             LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
-        roadmapRVAdapter = RoadmapRVAdapter()
+        roadmapRVAdapter = CurriculumListRVAdapter()
         binding.addCurriculumChooseRoadmapAdminRv.adapter = roadmapRVAdapter
 
         datas.clear()
@@ -37,15 +43,15 @@ class AddCurriculumChooseActivity : AppCompatActivity() {
         //data : 전체
         datas.apply {
 
-            datas.add(Curriculum("서버 로드맵"))
-            datas.add(Curriculum("안드로이드 로드맵"))
+            datas.add(Curriculum(1, "서버 로드맵", "야호"))
+            datas.add(Curriculum(1, "안드로이드 로드맵", "야호"))
 
 
             roadmapRVAdapter.datas = datas
             roadmapRVAdapter.notifyDataSetChanged()
 
             //click recyclerview item
-            roadmapRVAdapter.setItemClickListener(object : RoadmapRVAdapter.OnItemClickListener {
+            roadmapRVAdapter.setItemClickListener(object : CurriculumListRVAdapter.OnItemClickListener {
                 override fun onClick(v: View, position: Int) {
                     val intent = Intent(this@AddCurriculumChooseActivity, AddRoadmapDetailActivity::class.java)
                     startActivity(intent)
@@ -55,32 +61,31 @@ class AddCurriculumChooseActivity : AppCompatActivity() {
 
         binding.addCurriculumChooseTopRv.layoutManager =
             LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
-        roadmapTopRVAdapter = RoadmapRVAdapter()
+        roadmapTopRVAdapter = CurriculumListRVAdapter()
         binding.addCurriculumChooseTopRv.adapter = roadmapTopRVAdapter
 
-        tops.clear()
+        top10.clear()
 
         //data : 전체
-        tops.apply {
+        top10.apply {
 
+            top10.add(Curriculum(1,"야호","야호"))
+            top10.add(Curriculum(1,"야호","야호"))
+            top10.add(Curriculum(1,"야호","야호"))
 
-            tops.add(Curriculum("자바의 정석"))
-            tops.add(Curriculum("자바의 정석"))
-            tops.add(Curriculum("자바의 정석"))
-
-            roadmapTopRVAdapter.datas = tops
+            roadmapTopRVAdapter.datas = top10
             roadmapTopRVAdapter.notifyDataSetChanged()
 
             //click recyclerview item
-            roadmapTopRVAdapter.setItemClickListener(object : RoadmapRVAdapter.OnItemClickListener {
+            roadmapTopRVAdapter.setItemClickListener(object : CurriculumListRVAdapter.OnItemClickListener {
                 override fun onClick(v: View, position: Int) {
                     val intent = Intent(this@AddCurriculumChooseActivity, AddCurriculumDetailActivity::class.java)
                     startActivity(intent)
                 }
             })
         }
+
+
     }
-
-
 
 }
