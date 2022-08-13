@@ -95,12 +95,7 @@ class PostDetailActivity : AppCompatActivity(), PostDetailView, CommentCreateVie
 
         //스크랩 버튼
         binding.postDetailMenuScrapLayout.setOnClickListener {
-            //scrapTF = !scrapTF
             if(!scrapTF){
-//                binding.postDetailMenuScrapLayout.setBackgroundResource(R.drawable.border_round_transparent_debri_10)
-//                binding.postDetailMenuScrapTv.setTextColor(ContextCompat.getColor(this@PostDetailActivity, R.color.darkmode_background))
-//                binding.postDetailMenuScrapIv.setImageResource(R.drawable.ic_scrap_darkmode)
-
                 //api - createPostScrap
                 postService.setCreatePostScrapView(this)
                 postService.createPostScrap(getPostIdx()!!)
@@ -112,10 +107,6 @@ class PostDetailActivity : AppCompatActivity(), PostDetailView, CommentCreateVie
                 toast.setGravity(Gravity.CENTER_HORIZONTAL,0,0)
                 toast.show()
             }else{
-//                binding.postDetailMenuScrapLayout.setBackgroundResource(R.drawable.border_round_white_transparent_10)
-//                binding.postDetailMenuScrapTv.setTextColor(ContextCompat.getColor(this@PostDetailActivity, R.color.white))
-//                binding.postDetailMenuScrapIv.setImageResource(R.drawable.ic_scrap_white)
-
                 //api - cancelPostScrap
                 postService.setCancelPostScrapView(this)
                 postService.cancelPostScrap(getPostIdx()!!)
