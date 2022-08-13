@@ -58,7 +58,18 @@ class HomeFragment : Fragment() {
         //bottomSheet
         bottomSheetSetting()
 
+        //recycler view : 수정예정
         initRecyclerView()
+
+        //click next -> AddCurriculumFragment
+        //커리큘럼 리스트 개수가 끝났을 때 진행해야함 : 추후 조건문 추가
+        binding.homeCurriculumNextIv.setOnClickListener{
+            val passBundleBFragment = AddCurriculumFragment()
+            //fragment to fragment
+            activity?.supportFragmentManager!!.beginTransaction()
+                .replace(R.id.main_frm, passBundleBFragment)
+                .commit()
+        }
     }
 
     //context 받아오기기
