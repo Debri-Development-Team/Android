@@ -74,7 +74,7 @@ interface RetrofitInterface {
     @GET("api/post/getList/{boardIdx}")
     fun showEachPostList(@Path("boardIdx") boardIdx: Int, @Header("ACCESS-TOKEN") authToken: String) : Call<BaseResponse<List<PostList>>>
 
-    //3.7.1 [특정 게시판(키워드 검색)] 게시물 리스트 조회 api
+    //3.7.1 [전체 범위(키워드 검색)] 게시물 리스트 조회 api
     @POST("api/post/getSearchList")
     fun showPostList(@Body keyword: String, @Header("ACCESS-TOKEN") authToken: String) : Call<BaseResponse<List<PostList>>>
 
@@ -86,9 +86,13 @@ interface RetrofitInterface {
     @POST("api/post/scrap/{postIdx}")
     fun createPostScrap(@Path("postIdx") postIdx: Int, @Header("ACCESS-TOKEN") authToken: String) : Call<BaseResponse<String>>
 
-    //3.9.1 게시물 스크랩 해제
+    //3.9.1 게시물 스크랩 해제 api
     @POST("api/post/unscrap/{postIdx}")
     fun cancelPostScrap(@Path("postIdx") postIdx: Int, @Header("ACCESS-TOKEN") authToken: String) : Call<BaseResponse<String>>
+
+    //3.9.2 스크랩 게시물 조회 api
+    @GET("api/post/getMyScrap")
+    fun showScrapPostList(@Header("ACCESS-TOKEN") authToken: String) : Call<BaseResponse<List<PostList>>>
 
     //4.1 게시물 댓글 작성 api
     @POST("api/comment/replyOnPost/create")
