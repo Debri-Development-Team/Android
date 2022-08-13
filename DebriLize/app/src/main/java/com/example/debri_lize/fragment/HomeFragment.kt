@@ -100,7 +100,7 @@ class HomeFragment : Fragment(), MyCurriculumListView, ShowCurriculumDetailView,
         bottomSheetView = layoutInflater.inflate(R.layout.fragment_bottom_sheet_four, null)
         bottomSheetDialog.setContentView(bottomSheetView)
 
-        if(status=="INACTIVE"){ //현재 커리큘럼 : 비공개
+        if(status=="INACTIVE"){ //현재 커리큘럼 : 비공개 
 
             bottomSheetView.findViewById<TextView>(R.id.bottom_sheet_four_tv1).text = "공개로 전환하기"
 
@@ -163,6 +163,12 @@ class HomeFragment : Fragment(), MyCurriculumListView, ShowCurriculumDetailView,
         return date+"에 완성함"
     }
 
+    private fun waveAnimation(progressRate : Int){
+        binding.waveLoadingView.setProgressValue(progressRate);
+        binding.waveLoadingView.setAnimDuration(3000);
+        binding.waveLoadingView.startAnimation()
+    }
+
     //api
     //8.2 커리큘럼 리스트 조회 api : 내가 추가한 커리큘럼들 (데이터만 사용)
     override fun onMyCurriculumListSuccess(code: Int, result: List<Curriculum>) {
@@ -186,6 +192,7 @@ class HomeFragment : Fragment(), MyCurriculumListView, ShowCurriculumDetailView,
                     //api - 8.3 커리큘럼 상세 조회 api : 홈
                     curriculumService.setShowCurriculumDetailView(this)
                     curriculumService.showCurriculumDetail(result[0].curriculumIdx)
+
                 }
             }
         }
@@ -265,6 +272,7 @@ class HomeFragment : Fragment(), MyCurriculumListView, ShowCurriculumDetailView,
                 //dday
 
                 //progress rate
+                waveAnimation(result.progressRate.toInt())
                 binding.homeCurriculumProgressTv2.text = result.progressRate.toString()
 
                 //활성 or 비활성화
