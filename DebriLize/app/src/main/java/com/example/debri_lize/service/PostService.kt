@@ -18,6 +18,7 @@ class PostService {
 
     private lateinit var postListView: PostListView
     private lateinit var eachPostListView: EachPostListView
+    private lateinit var showScrapPostListView: ShowScrapPostListView
     private lateinit var postDetailtView: PostDetailView
 
     private lateinit var createPostLikeView: CreatePostLikeView
@@ -45,6 +46,10 @@ class PostService {
 
     fun seteachPostListView(eachPostListView: EachPostListView){
         this.eachPostListView = eachPostListView
+    }
+
+    fun setShowScrapPostListView(showScrapPostListView: ShowScrapPostListView){
+        this.showScrapPostListView = showScrapPostListView
     }
 
     fun setPostDetailView(postDetailtView: PostDetailView){
@@ -181,6 +186,29 @@ class PostService {
             //실패했을 때 처리
             override fun onFailure(call: Call<BaseResponse<List<PostList>>>, t: Throwable) {
                 Log.d("postlistfail", t.toString())
+            }
+
+        })
+    }
+
+    fun showScrapPostList(){
+        Log.d("showScrapPostList", "enter")
+        val postService = getRetrofit().create(RetrofitInterface::class.java)
+        postService.showScrapPostList(getJwt()!!).enqueue(object: Callback<BaseResponse<List<PostList>>> {
+            //응답이 왔을 때 처리
+            override fun onResponse(call: Call<BaseResponse<List<PostList>>>, response: Response<BaseResponse<List<PostList>>>) {
+                Log.d("showScrapPostList", "response")
+                val resp: BaseResponse<List<PostList>> = response.body()!!
+                Log.d("showScrapPostListCode", resp.code.toString())
+                when(resp.code){
+                    //API code값 사용
+                    200->showScrapPostListView.onShowScrapPostListSuccess(resp.code, resp.result)
+                    else->showScrapPostListView.onShowScrapPostListFailure(resp.code)
+                }
+            }
+            //실패했을 때 처리
+            override fun onFailure(call: Call<BaseResponse<List<PostList>>>, t: Throwable) {
+                Log.d("showScrapPostListFail", t.toString())
             }
 
         })

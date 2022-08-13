@@ -60,23 +60,69 @@
 
         <ImageView
             android:id="@+id/board_search_iv"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="20.4dp"
+            android:layout_height="20.4dp"
             android:src="@drawable/btm_nav_search"
             android:layout_marginStart="15dp"
             />
 
         <TextView
-            android:id="@+id/board_search_et"
+            android:id="@+id/board_search_tv"
             android:layout_width="280dp"
             android:layout_height="wrap_content"
             android:background="@null"
             android:text="검색어를 입력하세요"
             android:textColor="@color/white"
-            android:textSize="15dp"
+            android:textSize="14dp"
             android:fontFamily="@font/noto_sans_kr_regular"
             android:includeFontPadding="false"
-            android:layout_marginStart="10dp"/>
+            android:layout_marginStart="16.8dp"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:id="@+id/board_post_scrap_layout"
+        android:layout_marginTop="26dp"
+        android:layout_marginStart="30dp"
+        android:layout_marginEnd="30dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/board_search_layout"
+        android:gravity="center_vertical"
+        android:background="@drawable/border_round_debri_transparent_10">
+
+        <ImageView
+            android:id="@+id/board_post_scrap_iv"
+            android:layout_width="17dp"
+            android:layout_height="19.12dp"
+            android:src="@drawable/ic_scrap_on"
+            android:layout_marginStart="15dp"
+            />
+
+        <TextView
+            android:id="@+id/board_post_scrap_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@null"
+            android:text="내가 스크랩한 게시물"
+            android:textColor="@color/white"
+            android:textSize="14dp"
+            android:fontFamily="@font/noto_sans_kr_bold"
+            android:includeFontPadding="false"
+            android:layout_marginStart="19.5dp"/>
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_weight="1" />
+
+        <ImageView
+            android:id="@+id/item_board_next_iv"
+            android:layout_width="9.44dp"
+            android:layout_height="16.96dp"
+            android:src="@drawable/btn_next"
+            android:layout_marginEnd="15.9dp" />
 
     </LinearLayout>
 
@@ -84,22 +130,22 @@
         android:id="@+id/board_favorite_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="28dp"
         android:layout_marginStart="30dp"
         android:text="즐겨찾기된 게시판"
         android:textColor="@color/white"
-        android:textSize="20sp"
+        android:textSize="18dp"
         android:fontFamily="@font/noto_sans_kr_bold"
         android:includeFontPadding="false"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/board_search_layout" />
+        app:layout_constraintTop_toBottomOf="@+id/board_post_scrap_layout" />
 
     <ImageView
         android:id="@+id/board_favorite_on_off_iv"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="16.72dp"
+        android:layout_height="9.96dp"
         android:src="@drawable/ic_screen_on"
-        android:layout_marginStart="25dp"
+        android:layout_marginStart="22.67dp"
         app:layout_constraintStart_toEndOf="@+id/board_favorite_tv"
         app:layout_constraintTop_toTopOf="@+id/board_favorite_tv"
         app:layout_constraintBottom_toBottomOf="@+id/board_favorite_tv"
@@ -130,7 +176,7 @@
         android:layout_marginStart="30dp"
         android:text="전체 게시판"
         android:textColor="@color/white"
-        android:textSize="20sp"
+        android:textSize="18dp"
         android:fontFamily="@font/noto_sans_kr_bold"
         android:includeFontPadding="false"
         app:layout_constraintStart_toStartOf="parent"
@@ -169,7 +215,7 @@
         android:text="글쓰기"
         android:textColor="@color/darkmode_background"
         android:fontFamily="@font/noto_sans_kr_black"
-        android:textSize="16sp"
+        android:textSize="14dp"
         android:textStyle="bold"
         android:includeFontPadding="false"
         android:layout_marginBottom="40dp"
