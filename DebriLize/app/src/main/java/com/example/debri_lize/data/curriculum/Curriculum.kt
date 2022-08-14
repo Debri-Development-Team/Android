@@ -16,7 +16,7 @@ data class Curriculum(
 data class CurriculumDetail(
     @SerializedName(value = "curriIdx") val curriculumIdx: Int,
     @SerializedName(value = "curriName") val curriculumName: String? = "",
-    @SerializedName(value = "visibleStatus") val visibleStatus: String? = "",
+    @SerializedName(value = "visibleStatus") val visibleStatus: String,
     @SerializedName(value = "langTag") val language: String? = "",
     @SerializedName(value = "progressRate") val progressRate: Float,
     @SerializedName(value = "status") val status: String,
@@ -31,25 +31,37 @@ data class LectureList(
     @SerializedName(value = "lectureIdx") val lectureIdx: Int? = 0,
     @SerializedName(value = "lectureName") val lectureName: String? = "",
     @SerializedName(value = "langTag") val language: String? = "",
-    @SerializedName(value = "chNumber") val chNum: String? = "",
+    @SerializedName(value = "chNumber") val chNum: Int,
     @SerializedName(value = "progressRate") val progressRate: Float
 )
 
 data class ChapterList(
     @SerializedName(value = "chIdx") val chIdx: Int? = 0,
     @SerializedName(value = "chName") val chName: String? = "",
-    @SerializedName(value = "chNumber") val chNum: String? = "",
+    @SerializedName(value = "chNumber") val chNum: Int?,
     @SerializedName(value = "langTag") val language: String? = "",
-    @SerializedName(value = "chComplete") val chComplete: Float,
-    @SerializedName(value = "progressOrder") val progressOrder: String? = "",
-    @SerializedName(value = "completeChNumber") val completeChNum: String? = "",
+    @SerializedName(value = "chComplete") val chComplete: String?,
+    @SerializedName(value = "progressOrder") val progressOrder: Int?,
+    @SerializedName(value = "completeChNumber") val completeChNum: Int?,
     val chapterImg : Int?
 )
 
 
 //@Body
+//8.4.1 커리큘럼 제목 수정 api
+data class EditCurriculumName(
+    @SerializedName(value = "curriIdx") val curriculumIdx: Int? = 0,
+    @SerializedName(value = "curriName") val curriculumName: String?
+) : Serializable
+
+data class EditCurriculumVisible(
+    @SerializedName(value = "curriIdx") val curriculumIdx: Int? = 0,
+    @SerializedName(value = "visibleStatus") val visibleStatus: String?
+) : Serializable
+
 //8.5 강의자료 추가 api
 data class AddLecture(
     @SerializedName(value = "curriIdx") val curriculumIdx: Int? = 0,
     @SerializedName(value = "lectureIdx") val lectureIdx: Int? = 0
 ) : Serializable
+

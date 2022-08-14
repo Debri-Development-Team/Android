@@ -3,15 +3,10 @@ package com.example.debri_lize.service
 import android.util.Log
 import com.example.debri_lize.utils.RetrofitInterface
 import com.example.debri_lize.base.BaseResponse
-import com.example.debri_lize.data.curriculum.AddLecture
-import com.example.debri_lize.data.curriculum.Curriculum
-import com.example.debri_lize.data.curriculum.CurriculumDetail
+import com.example.debri_lize.data.curriculum.*
 import com.example.debri_lize.utils.getJwt
 import com.example.debri_lize.utils.getRetrofit
-import com.example.debri_lize.view.curriculum.AddLectureInCurriculumView
-import com.example.debri_lize.view.curriculum.DeleteCurriculumView
-import com.example.debri_lize.view.curriculum.ShowCurriculumDetailView
-import com.example.debri_lize.view.curriculum.MyCurriculumListView
+import com.example.debri_lize.view.curriculum.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -20,6 +15,10 @@ class CurriculumService {
     private lateinit var myCurriculumListView: MyCurriculumListView
     private lateinit var addLectureInCurriculumView: AddLectureInCurriculumView
     private lateinit var showCurriculumDetailView: ShowCurriculumDetailView
+
+    private lateinit var editCurriculumNameView: EditCurriculumNameView
+    private lateinit var editCurriculumVisibleView: EditCurriculumVisibleView
+
     private lateinit var deleteCurriculumView: DeleteCurriculumView
 
     fun setMyCurriculumListView(myCurriculumListView: MyCurriculumListView){
@@ -28,6 +27,14 @@ class CurriculumService {
 
     fun setShowCurriculumDetailView(showCurriculumDetailView: ShowCurriculumDetailView){
         this.showCurriculumDetailView = showCurriculumDetailView
+    }
+
+    fun setEditCurriculumNameView(editCurriculumNameView: EditCurriculumNameView){
+        this.editCurriculumNameView = editCurriculumNameView
+    }
+
+    fun setEditCurriculumVisibleView(editCurriculumVisibleView: EditCurriculumVisibleView){
+        this.editCurriculumVisibleView = editCurriculumVisibleView
     }
 
     fun setAddLectureInCurriculumView(addLectureInCurriculumView: AddLectureInCurriculumView){
@@ -81,6 +88,54 @@ class CurriculumService {
             //실패했을 때 처리
             override fun onFailure(call: Call<BaseResponse<CurriculumDetail>>, t: Throwable) {
                 Log.d("showCurriDetailFail", t.toString())
+            }
+
+        })
+    }
+
+    //8.4.1 커리큘럼 제목 수정 api
+    fun editCurriculumName(editCurriculumName : EditCurriculumName){
+        val curriculumService = getRetrofit().create(RetrofitInterface::class.java)
+
+        curriculumService.editCurriculumName(editCurriculumName, getJwt()!!).enqueue(object: Callback<BaseResponse<String>> {
+            //응답이 왔을 때 처리
+            override fun onResponse(call: Call<BaseResponse<String>>, response: Response<BaseResponse<String>>) {
+                Log.d("editCurriName", "response")
+                val resp: BaseResponse<String> = response.body()!!
+                Log.d("editCurriNameCode", resp.code.toString())
+                when(resp.code){
+                    //API code값 사용
+                    200->editCurriculumNameView.onEditCurriculumNameSuccess(resp.code)
+                    else->editCurriculumNameView.onEditCurriculumNameFailure(resp.code)
+                }
+            }
+            //실패했을 때 처리
+            override fun onFailure(call: Call<BaseResponse<String>>, t: Throwable) {
+                Log.d("editCurriNameFail", t.toString())
+            }
+
+        })
+    }
+
+    //8.4.2 커리큘럼 공유 상태 수정 api
+    fun editCurriculumVisible(editCurriculumVisible : EditCurriculumVisible){
+        val curriculumService = getRetrofit().create(RetrofitInterface::class.java)
+
+        curriculumService.editCurriculumVisible(editCurriculumVisible, getJwt()!!).enqueue(object: Callback<BaseResponse<String>> {
+            //응답이 왔을 때 처리
+            override fun onResponse(call: Call<BaseResponse<String>>, response: Response<BaseResponse<String>>) {
+                Log.d("editCurriVisible", "response")
+                val resp: BaseResponse<String> = response.body()!!
+                Log.d("editCurriVisibleCode", resp.code.toString())
+                when(resp.code){
+                    //API code값 사용
+                    200->editCurriculumVisibleView.onEditCurriculumVisibleSuccess(resp.code)
+                    else->editCurriculumVisibleView.onEditCurriculumVisibleFailure(resp.code)
+                }
+            }
+            //실패했을 때 처리
+            override fun onFailure(call: Call<BaseResponse<String>>, t: Throwable) {
+                Log.d("editCurriVisibleFail", t.toString())
             }
 
         })

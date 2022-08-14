@@ -15,6 +15,18 @@ interface ShowCurriculumDetailView {
     fun onShowCurriculumDetailFailure(code : Int)
 }
 
+//8.4.1 커리큘럼 제목 수정 api
+interface EditCurriculumNameView {
+    fun onEditCurriculumNameSuccess(code: Int)
+    fun onEditCurriculumNameFailure(code : Int)
+}
+
+//8.4.2 커리큘럼 공유 상태 수정 api
+interface EditCurriculumVisibleView {
+    fun onEditCurriculumVisibleSuccess(code: Int)
+    fun onEditCurriculumVisibleFailure(code : Int)
+}
+
 //8.5 강의자료 추가 api : 홈 > 새로운 강의자료 추가하기
 interface AddLectureInCurriculumView {
     fun onAddLectureInCurriculumSuccess(code: Int)

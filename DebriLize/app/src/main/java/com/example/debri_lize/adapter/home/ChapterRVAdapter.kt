@@ -26,8 +26,8 @@ class ChapterRVAdapter : RecyclerView.Adapter<ChapterRVAdapter.ViewHolder>() {
         fun bind(item: ChapterList, position: Int) {
             chapterName.text = item.chName
             item.chapterImg?.let { chapterImg.setImageResource(it) }
-            chapterNum.text = item.chNum //현재 진행된 chapter 수
-            completeChapterNum.text = item.completeChNum //총 chapter 수
+            chapterNum.text = item.chNum.toString() //현재 진행된 chapter 수
+            completeChapterNum.text = item.completeChNum.toString() //총 chapter 수
             language.text = item.language
 
             when(language.text){

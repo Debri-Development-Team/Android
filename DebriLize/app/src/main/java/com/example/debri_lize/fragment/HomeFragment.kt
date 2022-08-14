@@ -18,15 +18,14 @@ import com.example.debri_lize.adapter.home.LectureRVAdapter
 import com.example.debri_lize.data.curriculum.*
 import com.example.debri_lize.databinding.FragmentHomeBinding
 import com.example.debri_lize.service.CurriculumService
-import com.example.debri_lize.view.curriculum.DeleteCurriculumView
-import com.example.debri_lize.view.curriculum.MyCurriculumListView
-import com.example.debri_lize.view.curriculum.ShowCurriculumDetailView
+import com.example.debri_lize.view.curriculum.*
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import java.sql.Timestamp
 import java.text.SimpleDateFormat
 import kotlin.properties.Delegates
 
-class HomeFragment : Fragment(), MyCurriculumListView, ShowCurriculumDetailView, DeleteCurriculumView {
+class HomeFragment : Fragment(), MyCurriculumListView, ShowCurriculumDetailView, EditCurriculumNameView,
+    EditCurriculumVisibleView, DeleteCurriculumView {
 
     lateinit var context: MainActivity
 
@@ -41,7 +40,6 @@ class HomeFragment : Fragment(), MyCurriculumListView, ShowCurriculumDetailView,
 
     val myCurriculum = ArrayList<Curriculum>() //my curriculum list
     private var curriculumIdx by Delegates.notNull<Int>()
-    private lateinit var status : String
 
     //api
     val curriculumService = CurriculumService()
@@ -65,8 +63,9 @@ class HomeFragment : Fragment(), MyCurriculumListView, ShowCurriculumDetailView,
             startActivity(intent)
         }
 
-        //bottomSheet
-        bottomSheetSetting()
+        //api - 8.2 커리큘럼 리스트 조회 api : 내가 추가한 커리큘럼들
+        curriculumService.setMyCurriculumListView(this)
+        curriculumService.myCurriculumList()
 
         //click next -> AddCurriculumFragment : 수정예정
         binding.homeCurriculumNextIv.setOnClickListener{
@@ -78,50 +77,42 @@ class HomeFragment : Fragment(), MyCurriculumListView, ShowCurriculumDetailView,
         }
     }
 
-    override fun onResume() {
-        super.onResume()
-
-        //api - 8.2 커리큘럼 리스트 조회 api : 내가 추가한 커리큘럼들
-        curriculumService.setMyCurriculumListView(this)
-        curriculumService.myCurriculumList()
-    }
-
-    //context 받아오기기
+    //context 받아오기
     override fun onAttach(context: Context) {
         super.onAttach(context)
         this.context = context as MainActivity
     }
 
     //bottom sheet
-    private fun bottomSheetSetting(){
-
+    private fun bottomSheetSetting(visibleStatus : String){
         lateinit var bottomSheetView : View
         val bottomSheetDialog = BottomSheetDialog(context)
         bottomSheetView = layoutInflater.inflate(R.layout.fragment_bottom_sheet_four, null)
         bottomSheetDialog.setContentView(bottomSheetView)
 
-        if(status=="INACTIVE"){ //현재 커리큘럼 : 비공개 
-
+        if(visibleStatus=="INACTIVE"){ //현재 커리큘럼 : 비공개
             bottomSheetView.findViewById<TextView>(R.id.bottom_sheet_four_tv1).text = "공개로 전환하기"
-
-            //비공개 -> 공개
-            bottomSheetView.findViewById<TextView>(R.id.bottom_sheet_four_tv1).setOnClickListener {
-                binding.homeCurriculumHideTv.text = "공개 중"
-                binding.homeCurriculumHideIv.setImageResource(R.drawable.ic_open)
-                bottomSheetDialog.dismiss()
-            }
-
-
-        }
+                    }
         else{ //현재 커리큘럼 : 공개
             bottomSheetView.findViewById<TextView>(R.id.bottom_sheet_four_tv1).text = "비공개로 전환하기"
+        }
 
+        bottomSheetView.findViewById<TextView>(R.id.bottom_sheet_four_tv1).setOnClickListener {
 
+            //api - 8.4.2 커리큘럼 공유 상태 수정 api
+            curriculumService.setEditCurriculumVisibleView(this)
+            curriculumService.editCurriculumVisible(EditCurriculumVisible(curriculumIdx, visibleStatus))
+
+            bottomSheetDialog.dismiss()
         }
 
         //커리큘럼 이름 변경하기
         bottomSheetView.findViewById<TextView>(R.id.bottom_sheet_four_tv2).setOnClickListener {
             //add dialog code
+
+            //api - 8.4.1 커리큘럼 제목 수정 api
+            curriculumService.setEditCurriculumNameView(this)
+            curriculumService.editCurriculumName(EditCurriculumName(curriculumIdx, "야호"))
 
             bottomSheetDialog.dismiss()
         }
@@ -164,8 +155,9 @@ class HomeFragment : Fragment(), MyCurriculumListView, ShowCurriculumDetailView,
     }
 
     private fun waveAnimation(progressRate : Int){
-        binding.waveLoadingView.setProgressValue(progressRate);
-        binding.waveLoadingView.setAnimDuration(3000);
+        binding.waveLoadingView.setProgressValue(progressRate)
+        binding.waveLoadingView.setAmplitudeRatio(50)
+        binding.waveLoadingView.setAnimDuration(8000)
         binding.waveLoadingView.startAnimation()
     }
 
@@ -192,7 +184,6 @@ class HomeFragment : Fragment(), MyCurriculumListView, ShowCurriculumDetailView,
                     //api - 8.3 커리큘럼 상세 조회 api : 홈
                     curriculumService.setShowCurriculumDetailView(this)
                     curriculumService.showCurriculumDetail(result[0].curriculumIdx)
-
                 }
             }
         }
@@ -276,7 +267,6 @@ class HomeFragment : Fragment(), MyCurriculumListView, ShowCurriculumDetailView,
                 binding.homeCurriculumProgressTv2.text = result.progressRate.toString()
 
                 //활성 or 비활성화
-                status = result.status
                 if(result.status=="ACTIVE"){
                     //활성화
                     binding.homeCurriculumLectureImgRv.visibility = View.VISIBLE
@@ -353,12 +343,44 @@ class HomeFragment : Fragment(), MyCurriculumListView, ShowCurriculumDetailView,
                     })
                 }
 
+                //bottomSheet
+                bottomSheetSetting(result.visibleStatus)
 
             }
         }
     }
 
     override fun onShowCurriculumDetailFailure(code: Int) {
+
+    }
+
+    //8.4.1 커리큘럼 제목 수정 api
+    override fun onEditCurriculumNameSuccess(code: Int) {
+        when(code){
+            200->{
+                //api - 8.3 커리큘럼 상세 조회 api : 홈
+                curriculumService.setShowCurriculumDetailView(this)
+                curriculumService.showCurriculumDetail(curriculumIdx)
+            }
+        }
+    }
+
+    override fun onEditCurriculumNameFailure(code: Int) {
+
+    }
+
+    //8.4.2 커리큘럼 공유 상태 수정 api
+    override fun onEditCurriculumVisibleSuccess(code: Int) {
+        when(code){
+            200->{
+                //api - 8.3 커리큘럼 상세 조회 api : 홈
+                curriculumService.setShowCurriculumDetailView(this)
+                curriculumService.showCurriculumDetail(curriculumIdx)
+            }
+        }
+    }
+
+    override fun onEditCurriculumVisibleFailure(code: Int) {
 
     }
 
