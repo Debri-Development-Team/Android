@@ -6,21 +6,36 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.example.debri_lize.data.curriculum.CurriculumLectureImg
+import com.example.debri_lize.R
+import com.example.debri_lize.data.curriculum.ChapterList
 import com.example.debri_lize.databinding.ItemCurriculumLectureImgBinding
+import org.w3c.dom.Text
 
-class CurriculumProgressImgRVAdapter : RecyclerView.Adapter<CurriculumProgressImgRVAdapter.ViewHolder>() {
+class ChapterRVAdapter : RecyclerView.Adapter<ChapterRVAdapter.ViewHolder>() {
 
-    var datas = mutableListOf<CurriculumLectureImg>()
+    var datas = ArrayList<ChapterList>()
 
     inner class ViewHolder(val binding : ItemCurriculumLectureImgBinding) : RecyclerView.ViewHolder(binding.root){
 
-        val lectureName : TextView = binding.itemCurriculumLectureImgTitleTv
-        val lectureImg : ImageView = binding.itemCurriculumLectureImgIv
+        val chapterName : TextView = binding.itemCurriculumLectureImgTitleTv
+        val chapterImg : ImageView = binding.itemCurriculumLectureImgIv
+        val chapterNum : TextView = binding.itemCurriculumLectureImgProgressTv1
+        val completeChapterNum : TextView = binding.itemCurriculumLectureImgProgressTv3
+        val language : TextView = binding.itemCurriculumLectureImgTagTv
 
-        fun bind(item: CurriculumLectureImg, position: Int) {
-            lectureName.text = item.lectureName
-            lectureImg.setImageResource(item.lectureImg)
+        fun bind(item: ChapterList, position: Int) {
+            chapterName.text = item.chName
+            item.chapterImg?.let { chapterImg.setImageResource(it) }
+            chapterNum.text = item.chNum.toString() //현재 진행된 chapter 수
+            completeChapterNum.text = item.completeChNum.toString() //총 chapter 수
+            language.text = item.language
+
+            when(language.text){
+                "Front" -> language.setBackgroundResource(R.drawable.border_round_transparent_front_10)
+                "Back" -> language.setBackgroundResource(R.drawable.border_round_transparent_back_10)
+                "C 언어" -> language.setBackgroundResource(R.drawable.border_round_transparent_c_10)
+                "Python" -> language.setBackgroundResource(R.drawable.border_round_transparent_python_10)
+            }
 
             if(position%2==0){
                 binding.paddingLeft.visibility = View.VISIBLE

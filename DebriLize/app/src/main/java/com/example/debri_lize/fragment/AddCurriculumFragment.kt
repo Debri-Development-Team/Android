@@ -7,25 +7,12 @@ import android.view.LayoutInflater
 import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
-import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
-import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.debri_lize.CustomDialog
 import com.example.debri_lize.R
 import com.example.debri_lize.activity.AddCurriculumChooseActivity
 import com.example.debri_lize.activity.MainActivity
-import com.example.debri_lize.activity.PostCreateActivity
 import com.example.debri_lize.activity.auth.ProfileActivity
-import com.example.debri_lize.adapter.home.CurriculumProgressImgRVAdapter
-import com.example.debri_lize.adapter.home.CurriculumProgressRVAdapter
-import com.example.debri_lize.data.curriculum.CurriculumLecture
-import com.example.debri_lize.data.curriculum.CurriculumLectureImg
-import com.example.debri_lize.data.post.ReportPost
 import com.example.debri_lize.databinding.FragmentAddCurriculumBinding
-import com.example.debri_lize.databinding.FragmentHomeBinding
-import com.example.debri_lize.utils.getUserIdx
-import com.google.android.material.bottomsheet.BottomSheetDialog
 
 class AddCurriculumFragment : Fragment() {
 
