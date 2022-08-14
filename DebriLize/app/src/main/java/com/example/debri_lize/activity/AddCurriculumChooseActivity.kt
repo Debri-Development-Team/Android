@@ -7,11 +7,13 @@ import android.view.View
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.debri_lize.adapter.start.CurriculumListRVAdapter
 import com.example.debri_lize.data.curriculum.Curriculum
+import com.example.debri_lize.data.curriculum.NewCurriculum
 import com.example.debri_lize.databinding.ActivityAddCurriculumChooseBinding
 import com.example.debri_lize.service.CurriculumService
+import com.example.debri_lize.view.curriculum.CreateCurriculumView
 import com.example.debri_lize.view.curriculum.MyCurriculumListView
 
-class AddCurriculumChooseActivity : AppCompatActivity(){
+class AddCurriculumChooseActivity : AppCompatActivity(), CreateCurriculumView{
     lateinit var binding : ActivityAddCurriculumChooseBinding
 
     lateinit var roadmapRVAdapter : CurriculumListRVAdapter
@@ -26,6 +28,18 @@ class AddCurriculumChooseActivity : AppCompatActivity(){
         setContentView(binding.root)
 
         initRecyclerView()
+    }
+
+    override fun onStart() {
+        super.onStart()
+        binding.addCurriculumChooseNewIv.setOnClickListener{
+            //add dialog code
+
+            //api
+            var curriculumService = CurriculumService()
+            curriculumService.setCreateCurriculumView(this)
+            curriculumService.createCurriculum(NewCurriculum("curriName", "curriAuthor", "visible", "language"))
+        }
     }
 
     override fun onResume() {
@@ -85,6 +99,18 @@ class AddCurriculumChooseActivity : AppCompatActivity(){
             })
         }
 
+
+    }
+
+    override fun onCreateCurriculumSuccess(code: Int) {
+        when(code){
+            200->{
+
+            }
+        }
+    }
+
+    override fun onCreateCurriculumFailure(code: Int) {
 
     }
 

@@ -90,7 +90,7 @@ class LoginActivity:AppCompatActivity(), LoginView, TokenView {
         //dp to px : px = dp * density
         //px to dp : dp = px / density
         //signUp, login button
-        saveUISize("authButton", ((screenWidth-60)/2 - 10) * getDeviceDpi()) //dimens.xml에서 margin, padding값 가져올 것
+        saveUISize("authButton", ((screenWidth-60)/2 - 15) * getDeviceDpi()) //dimens.xml에서 margin, padding값 가져올 것
     }
 
     //set UI Size (px)
@@ -263,7 +263,7 @@ class LoginActivity:AppCompatActivity(), LoginView, TokenView {
             }
         })
 
-        //google
+        /*//google
         binding.loginGoogleLayout.setOnTouchListener(object : View.OnTouchListener {
             override fun onTouch(view: View?, event: MotionEvent?): Boolean {
                 when (event?.action) {
@@ -315,7 +315,7 @@ class LoginActivity:AppCompatActivity(), LoginView, TokenView {
                 //리턴값이 false면 동작 안됨
                 return true //or false
             }
-        })
+        })*/
     }
 
 

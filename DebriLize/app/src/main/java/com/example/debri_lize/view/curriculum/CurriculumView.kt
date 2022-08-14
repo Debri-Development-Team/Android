@@ -3,6 +3,12 @@ package com.example.debri_lize.view.curriculum
 import com.example.debri_lize.data.curriculum.Curriculum
 import com.example.debri_lize.data.curriculum.CurriculumDetail
 
+//8.1 커리큘럼 생성 api
+interface CreateCurriculumView {
+    fun onCreateCurriculumSuccess(code: Int)
+    fun onCreateCurriculumFailure(code : Int)
+}
+
 //8.2 커리큘럼 리스트 조회 api : 내가 추가한 커리큘럼들
 interface MyCurriculumListView {
     fun onMyCurriculumListSuccess(code: Int, result: List<Curriculum>)
@@ -25,6 +31,12 @@ interface EditCurriculumNameView {
 interface EditCurriculumVisibleView {
     fun onEditCurriculumVisibleSuccess(code: Int)
     fun onEditCurriculumVisibleFailure(code : Int)
+}
+
+//8.4.3 커리큘럼 활성 상태 수정 api
+interface EditCurriculumStatusView {
+    fun onEditCurriculumStatusSuccess(code: Int)
+    fun onEditCurriculumStatusFailure(code : Int)
 }
 
 //8.5 강의자료 추가 api : 홈 > 새로운 강의자료 추가하기

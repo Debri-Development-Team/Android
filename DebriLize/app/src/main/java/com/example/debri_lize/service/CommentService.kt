@@ -43,7 +43,7 @@ class CommentService {
         //서비스 객체 생성
         val commentService = getRetrofit().create(RetrofitInterface::class.java)
 
-        commentService.createComment(comment).enqueue(object: Callback<BaseResponse<Comment>> {
+        commentService.createComment(comment, getJwt()!!).enqueue(object: Callback<BaseResponse<Comment>> {
             //응답이 왔을 때 처리
             override fun onResponse(call: Call<BaseResponse<Comment>>, response: Response<BaseResponse<Comment>>) {
                 val resp: BaseResponse<Comment> = response.body()!!
@@ -67,7 +67,7 @@ class CommentService {
         //서비스 객체 생성
         val commentService = getRetrofit().create(RetrofitInterface::class.java)
 
-        commentService.createCocomment(cocomment).enqueue(object: Callback<BaseResponse<Comment>> {
+        commentService.createCocomment(cocomment, getJwt()!!).enqueue(object: Callback<BaseResponse<Comment>> {
             //응답이 왔을 때 처리
             override fun onResponse(call: Call<BaseResponse<Comment>>, response: Response<BaseResponse<Comment>>) {
                 val resp: BaseResponse<Comment> = response.body()!!
@@ -90,7 +90,7 @@ class CommentService {
     fun showComment(postIdx:Int){
         Log.d("showComment", "enter")
         val commentService = getRetrofit().create(RetrofitInterface::class.java)
-        commentService.showComment(postIdx).enqueue(object: Callback<BaseResponse<List<CommentList>>> {
+        commentService.showComment(postIdx, getJwt()!!).enqueue(object: Callback<BaseResponse<List<CommentList>>> {
             //응답이 왔을 때 처리
             override fun onResponse(call: Call<BaseResponse<List<CommentList>>>, response: Response<BaseResponse<List<CommentList>>>) {
                 Log.d("showComment", "response")

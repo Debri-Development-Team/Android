@@ -79,7 +79,7 @@ class PostListActivity : AppCompatActivity(), PostListView {
                     Log.d("resultSize", result.size.toString())
                     for (i in result){
                         Log.d("postlist","$result")
-                        datas.add(PostList(i.boardIdx, i.postIdx, i.authorName, i.postName, i.likeCnt, i.likeStatus,i.scrapStatus, i.timeAfterCreated, i.commentCnt))
+                        datas.add(PostList(i.boardIdx, i.postIdx, i.authorName, i.postName, i.likeCnt, i.likeStatus,i.scrapStatus, i.timeAfterCreated, i.commentCnt, i.boardName))
                     }
 
                     postRVAdapter.datas = datas
@@ -92,6 +92,7 @@ class PostListActivity : AppCompatActivity(), PostListView {
                             //객체 자체를 보내는 방법 (data class)
                             val intent = Intent(this@PostListActivity, PostDetailActivity::class.java)
                             intent.putExtra("postIdx", datas[position].postIdx)
+                            intent.putExtra("boardName", datas[position].boardName)
                             startActivity(intent)
 
 

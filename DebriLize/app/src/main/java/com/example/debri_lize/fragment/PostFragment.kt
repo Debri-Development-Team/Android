@@ -127,7 +127,7 @@ class PostFragment : Fragment(), EachPostListView {
                 datas.apply {
 
                     for (i in result){
-                        datas.add(PostList(i.boardIdx, i.postIdx, i.authorName, i.postName, i.likeCnt, i.likeStatus, i.scrapStatus, i.timeAfterCreated, i.commentCnt))
+                        datas.add(PostList(i.boardIdx, i.postIdx, i.authorName, i.postName, i.likeCnt, i.likeStatus, i.scrapStatus, i.timeAfterCreated, i.commentCnt, i.boardName))
                     }
 
                     postRVAdapter.datas = datas
@@ -143,8 +143,6 @@ class PostFragment : Fragment(), EachPostListView {
                                 //객체 자체를 보내는 방법 (data class)
                                 val intent = Intent(context, PostDetailActivity::class.java)
                                 intent.putExtra("postIdx", datas[position].postIdx)
-                                intent.putExtra("boardName", boardName)
-                                //intent.putExtra("likeStatus", getLikeStatus())
                                 startActivity(intent)
 
                             }
@@ -181,7 +179,7 @@ class PostFragment : Fragment(), EachPostListView {
     }
 
     override fun onEachPostListFailure(code: Int) {
-        TODO("Not yet implemented")
+
     }
 
 }

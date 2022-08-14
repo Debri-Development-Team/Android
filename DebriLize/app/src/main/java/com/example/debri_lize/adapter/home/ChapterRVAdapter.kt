@@ -19,8 +19,8 @@ class ChapterRVAdapter : RecyclerView.Adapter<ChapterRVAdapter.ViewHolder>() {
 
         val chapterName : TextView = binding.itemCurriculumLectureImgTitleTv
         val chapterImg : ImageView = binding.itemCurriculumLectureImgIv
-        val chapterNum : TextView = binding.itemCurriculumLectureImgProgressTv1
-        val completeChapterNum : TextView = binding.itemCurriculumLectureImgProgressTv3
+        val chapterNum : TextView = binding.itemCurriculumLectureImgProgressTv3
+        val completeChapterNum : TextView = binding.itemCurriculumLectureImgProgressTv1
         val language : TextView = binding.itemCurriculumLectureImgTagTv
 
         fun bind(item: ChapterList, position: Int) {

@@ -12,14 +12,21 @@ import retrofit2.Callback
 import retrofit2.Response
 
 class CurriculumService {
+    private lateinit var createCurriculumView: CreateCurriculumView
+
     private lateinit var myCurriculumListView: MyCurriculumListView
     private lateinit var addLectureInCurriculumView: AddLectureInCurriculumView
     private lateinit var showCurriculumDetailView: ShowCurriculumDetailView
 
     private lateinit var editCurriculumNameView: EditCurriculumNameView
     private lateinit var editCurriculumVisibleView: EditCurriculumVisibleView
+    private lateinit var editCurriculumStatusView: EditCurriculumStatusView
 
     private lateinit var deleteCurriculumView: DeleteCurriculumView
+
+    fun setCreateCurriculumView(createCurriculumView: CreateCurriculumView){
+        this.createCurriculumView = createCurriculumView
+    }
 
     fun setMyCurriculumListView(myCurriculumListView: MyCurriculumListView){
         this.myCurriculumListView = myCurriculumListView
@@ -29,6 +36,7 @@ class CurriculumService {
         this.showCurriculumDetailView = showCurriculumDetailView
     }
 
+    //edit
     fun setEditCurriculumNameView(editCurriculumNameView: EditCurriculumNameView){
         this.editCurriculumNameView = editCurriculumNameView
     }
@@ -37,12 +45,39 @@ class CurriculumService {
         this.editCurriculumVisibleView = editCurriculumVisibleView
     }
 
+    fun setEditCurriculumStatusView(editCurriculumStatusView: EditCurriculumStatusView){
+        this.editCurriculumStatusView = editCurriculumStatusView
+    }
+
     fun setAddLectureInCurriculumView(addLectureInCurriculumView: AddLectureInCurriculumView){
         this.addLectureInCurriculumView = addLectureInCurriculumView
     }
 
     fun setDeleteCurriculumView(deleteCurriculumView: DeleteCurriculumView){
         this.deleteCurriculumView = deleteCurriculumView
+    }
+
+    //8.1 커리큘럼 생성 api
+    fun createCurriculum(newCurriculum : NewCurriculum){
+        val curriculumService = getRetrofit().create(RetrofitInterface::class.java)
+        curriculumService.createCurriculum(newCurriculum, getJwt()!!).enqueue(object: Callback<BaseResponse<CurriIdx>> {
+            //응답이 왔을 때 처리
+            override fun onResponse(call: Call<BaseResponse<CurriIdx>>, response: Response<BaseResponse<CurriIdx>>) {
+                Log.d("createCurri", "response")
+                val resp: BaseResponse<CurriIdx> = response.body()!!
+                Log.d("createCurriCode", resp.code.toString())
+                when(resp.code){
+                    //API code값 사용
+                    200->createCurriculumView.onCreateCurriculumSuccess(resp.code)
+                    else->createCurriculumView.onCreateCurriculumFailure(resp.code)
+                }
+            }
+            //실패했을 때 처리
+            override fun onFailure(call: Call<BaseResponse<CurriIdx>>, t: Throwable) {
+                Log.d("createCurriFail", t.toString())
+            }
+
+        })
     }
 
     //8.2 커리큘럼 리스트 조회 api : 내가 추가한 커리큘럼들
@@ -140,6 +175,31 @@ class CurriculumService {
 
         })
     }
+
+    //8.4.3 커리큘럼 활성 상태 수정 api
+    fun editCurriculumStatus(editCurriculumStatus : EditCurriculumStatus){
+        val curriculumService = getRetrofit().create(RetrofitInterface::class.java)
+
+        curriculumService.editCurriculumStatus(editCurriculumStatus, getJwt()!!).enqueue(object: Callback<BaseResponse<String>> {
+            //응답이 왔을 때 처리
+            override fun onResponse(call: Call<BaseResponse<String>>, response: Response<BaseResponse<String>>) {
+                Log.d("editCurriStatus", "response")
+                val resp: BaseResponse<String> = response.body()!!
+                Log.d("editCurriStatusCode", resp.code.toString())
+                when(resp.code){
+                    //API code값 사용
+                    200->editCurriculumStatusView.onEditCurriculumStatusSuccess(resp.code)
+                    else->editCurriculumStatusView.onEditCurriculumStatusFailure(resp.code)
+                }
+            }
+            //실패했을 때 처리
+            override fun onFailure(call: Call<BaseResponse<String>>, t: Throwable) {
+                Log.d("editCurriStatusFail", t.toString())
+            }
+
+        })
+    }
+
 
     //8.5 강의자료 추가 api : 홈 > 새로운 강의자료 추가하기
     fun addLectureInCurriculum(addLecture: AddLecture){

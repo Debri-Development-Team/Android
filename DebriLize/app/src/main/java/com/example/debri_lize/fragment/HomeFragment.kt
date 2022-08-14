@@ -3,6 +3,7 @@ package com.example.debri_lize.fragment
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
@@ -28,7 +29,7 @@ import java.text.SimpleDateFormat
 import kotlin.properties.Delegates
 
 class HomeFragment : Fragment(), MyCurriculumListView, ShowCurriculumDetailView, EditCurriculumNameView,
-    EditCurriculumVisibleView, DeleteCurriculumView {
+    EditCurriculumVisibleView, EditCurriculumStatusView, DeleteCurriculumView {
 
     lateinit var context: MainActivity
 
@@ -110,6 +111,10 @@ class HomeFragment : Fragment(), MyCurriculumListView, ShowCurriculumDetailView,
                 publicToast.findViewById<ImageView>(R.id.toast_curri_public_mark_iv).setImageResource(R.drawable.ic_open)
                 toast.show()
 
+                //api - 8.4.2 커리큘럼 공유 상태 수정 api
+                curriculumService.setEditCurriculumVisibleView(this)
+                curriculumService.editCurriculumVisible(EditCurriculumVisible(curriculumIdx, "ACTIVE"))
+
                 bottomSheetDialog.dismiss()
             }
 
@@ -119,20 +124,20 @@ class HomeFragment : Fragment(), MyCurriculumListView, ShowCurriculumDetailView,
            bottomSheetView.findViewById<TextView>(R.id.bottom_sheet_four_tv1).text = "비공개로 전환하기"
 
            //공개 -> 비공개
-           bottomSheetView.findViewById<TextView>(R.id.bottom_sheet_four_tv2).setOnClickListener{
+           bottomSheetView.findViewById<TextView>(R.id.bottom_sheet_four_tv1).setOnClickListener{
                //비공개 완료 토스트메세지
                publicToast.findViewById<TextView>(R.id.toast_curri_public_tv).text = "커리큘럼이 비공개로 변경되었습니다!"
                publicToast.findViewById<ImageView>(R.id.toast_curri_public_mark_iv).setImageResource(R.drawable.ic_hide)
                toast.show()
 
+               //api - 8.4.2 커리큘럼 공유 상태 수정 api
+               curriculumService.setEditCurriculumVisibleView(this)
+               curriculumService.editCurriculumVisible(EditCurriculumVisible(curriculumIdx, "INACTIVE"))
+
                bottomSheetDialog.dismiss()
            }
 
-            //api - 8.4.2 커리큘럼 공유 상태 수정 api
-            curriculumService.setEditCurriculumVisibleView(this)
-            curriculumService.editCurriculumVisible(EditCurriculumVisible(curriculumIdx, visibleStatus))
 
-            bottomSheetDialog.dismiss()
         }
 
         //커리큘럼 이름 변경하기
@@ -145,9 +150,9 @@ class HomeFragment : Fragment(), MyCurriculumListView, ShowCurriculumDetailView,
             //이름 적은 후 ok 버튼 클릭 시
             dialog.setOnClickListenerETC(object:CustomDialog.ButtonClickListenerETC{
                 override fun onClicked(TF: Boolean, reason : String) {
-                    //텍스트 받아 넘기기
+
                     //api - 8.4.1 커리큘럼 제목 수정 api
-                    curriculumService.editCurriculumName(EditCurriculumName(curriculumIdx, "야호"))
+                    curriculumService.editCurriculumName(EditCurriculumName(curriculumIdx, reason))
                 }
 
             })
@@ -232,10 +237,12 @@ class HomeFragment : Fragment(), MyCurriculumListView, ShowCurriculumDetailView,
                         .commit()
 
                 }else{ //있으면
-
+                    Log.d("mycurri", myCurriculum.toString())
+                    Log.d("mycurri", myCurriculum.size.toString())
                     //api - 8.3 커리큘럼 상세 조회 api : 홈
                     curriculumService.setShowCurriculumDetailView(this)
-                    curriculumService.showCurriculumDetail(result[0].curriculumIdx)
+                    curriculumService.showCurriculumDetail(49) //test
+                    //curriculumService.showCurriculumDetail(result[0].curriculumIdx)
                 }
             }
         }
@@ -249,13 +256,16 @@ class HomeFragment : Fragment(), MyCurriculumListView, ShowCurriculumDetailView,
     override fun onShowCurriculumDetailSuccess(code: Int, result: CurriculumDetail) {
         when(code){
             200->{
+
                 if(myCurriculum.size==1){
                     //커리큘럼 개수 1개
                     if(myCurriculum[0].curriculumIdx==result.curriculumIdx){
                         //첫번째 커리큘럼일 경우
                         binding.homeCurriculumPreviousIv.visibility = View.INVISIBLE
                         binding.homeCurriculumNextIv.setOnClickListener{
+
                             val passBundleBFragment = AddCurriculumFragment()
+
                             //fragment to fragment
                             activity?.supportFragmentManager!!.beginTransaction()
                                 .replace(R.id.main_frm, passBundleBFragment)
@@ -280,6 +290,7 @@ class HomeFragment : Fragment(), MyCurriculumListView, ShowCurriculumDetailView,
                             curriculumService.showCurriculumDetail(result.curriculumIdx-1)
                         }
                         binding.homeCurriculumNextIv.setOnClickListener{
+
                             val passBundleBFragment = AddCurriculumFragment()
                             //fragment to fragment
                             activity?.supportFragmentManager!!.beginTransaction()
@@ -313,6 +324,7 @@ class HomeFragment : Fragment(), MyCurriculumListView, ShowCurriculumDetailView,
                 }
 
                 //dday
+                binding.homeCurriculumDdayTv.text = "D-"+result.dday.toString()
 
                 //progress rate
                 waveAnimation(result.progressRate.toInt())
@@ -334,19 +346,22 @@ class HomeFragment : Fragment(), MyCurriculumListView, ShowCurriculumDetailView,
 
                     chapter.clear()
 
+                    var j = 0
+
                     chapter.apply {
 
-                        for((j, i) in result.chapterListResList!!.withIndex()){
+                        for(i in result.chapterListResList!!){
                             //else if로 변경
                             if(j%3==0){
                                 chapter.add(ChapterList(i.chIdx,i.chName,i.chNum,i.language,i.chComplete,i.progressOrder,i.completeChNum,arrayImg[0]))
                             }
                             if(j%3==1){
-                                chapter.add(ChapterList(i.chIdx,i.chName,i.chNum,i.language,i.chComplete,i.progressOrder,i.completeChNum,arrayImg[0]))
+                                chapter.add(ChapterList(i.chIdx,i.chName,i.chNum,i.language,i.chComplete,i.progressOrder,i.completeChNum,arrayImg[1]))
                             }
                             if(j%3==2){
-                                chapter.add(ChapterList(i.chIdx,i.chName,i.chNum,i.language,i.chComplete,i.progressOrder,i.completeChNum,arrayImg[0]))
+                                chapter.add(ChapterList(i.chIdx,i.chName,i.chNum,i.language,i.chComplete,i.progressOrder,i.completeChNum,arrayImg[2]))
                             }
+                            j++
                         }
 
                         chapterRVAdapter.datas = chapter
@@ -367,6 +382,12 @@ class HomeFragment : Fragment(), MyCurriculumListView, ShowCurriculumDetailView,
                     binding.homeCurriculumActiveCircle.visibility = View.GONE
                     binding.homeCurriculumInactiveCircle.visibility = View.VISIBLE
                     binding.homeCurriculumInactiveLayout.visibility = View.VISIBLE
+
+                    binding.homeCurriculumActiveLayout.setOnClickListener{
+                        //8.4.3 커리큘럼 활성 상태 수정 api
+                        curriculumService.setEditCurriculumStatusView(this)
+                        curriculumService.editCurriculumStatus(EditCurriculumStatus(curriculumIdx, "ACTIVE"))
+                    }
 
                 }
 
@@ -436,6 +457,20 @@ class HomeFragment : Fragment(), MyCurriculumListView, ShowCurriculumDetailView,
 
     }
 
+    //8.4.3 커리큘럼 활성 상태 수정 api
+    override fun onEditCurriculumStatusSuccess(code: Int) {
+        when(code){
+            200->{
+
+            }
+        }
+    }
+
+    override fun onEditCurriculumStatusFailure(code: Int) {
+
+    }
+
+    //8.6 커리큘럼 삭제 api
     override fun onDeleteCurriculumViewSuccess(code: Int) {
         when(code){
             200->{
