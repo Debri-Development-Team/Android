@@ -50,12 +50,31 @@ class CommentRVAdapter(context: PostDetailActivity) : RecyclerView.Adapter<Comme
     inner class ViewHolder(val binding : ItemCommentBinding) : RecyclerView.ViewHolder(binding.root){
 
         val commentContent : TextView = binding.itemCommentTv
+        val time : TextView = binding.itemCommentTimeTv
         val authorName : TextView = binding.itemCommentProfileTv
 
         fun bind(item: CommentList) {
             commentContent.text = item.commentContent
             authorName.text = item.authorName + " >"
-            Log.d("itemCommentList", item.toString())
+
+            if(item.timeAfterCreated == 0){
+                time.text = "방금 전"
+            }else if (item.timeAfterCreated < 60) {
+                time.text = item.timeAfterCreated.toString() + "분 전"
+            }else if (item.timeAfterCreated < 1440){
+                var hour = item.timeAfterCreated/60
+                time.text = hour.toString() + "시간 전"
+            }else if (item.timeAfterCreated < 43200){
+                var day = item.timeAfterCreated/1440
+                time.text = day.toString() + "일 전"
+            }else if (item.timeAfterCreated < 525600){
+                var month = item.timeAfterCreated/43200
+                time.text = month.toString() + "달 전"
+            }else{
+                var year = item.timeAfterCreated/525600
+                time.text = year.toString() + "년 전"
+            }
+
         }
     }
 

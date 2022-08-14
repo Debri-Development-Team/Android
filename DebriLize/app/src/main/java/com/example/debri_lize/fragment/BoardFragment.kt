@@ -34,6 +34,9 @@ class BoardFragment : Fragment(), UnScrapBoardListView, ScrapBoardListView, Canc
     val datas_f = ArrayList<BoardFavorite>()
     val datas = ArrayList<Board>()
 
+    //즐겨찾기 게시판 on/off
+    var boardTF = true //true : on, false : off
+
     //api
     val boardService = BoardService()
 
@@ -52,6 +55,17 @@ class BoardFragment : Fragment(), UnScrapBoardListView, ScrapBoardListView, Canc
         binding.boardDebriUserIv.setOnClickListener{
             val intent = Intent(context, ProfileActivity::class.java)
             startActivity(intent)
+        }
+
+        binding.boardFavoriteOnOffIv.setOnClickListener{
+            if(boardTF){
+                binding.boardFavoriteRv.visibility = View.GONE
+                binding.boardFavoriteOnOffIv.setImageResource(R.drawable.ic_screen_off)
+            }else{
+                binding.boardFavoriteRv.visibility = View.VISIBLE
+                binding.boardFavoriteOnOffIv.setImageResource(R.drawable.ic_screen_on)
+            }
+            boardTF = !boardTF
         }
 
         //search - 전체 게시물 검색

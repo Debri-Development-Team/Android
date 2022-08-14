@@ -470,7 +470,7 @@ class PostDetailActivity : AppCompatActivity(), PostDetailView, CommentCreateVie
 
                 temp.clear()
                 for(i in result){
-                    temp.add(CommentList(i.commentIdx, i.authorIdx, i.postIdx, i.commentLevel, i.commentOrder, i.commentGroup, i.commentContent, i.authorName))
+                    temp.add(CommentList(i.commentIdx, i.authorIdx, i.postIdx, i.commentLevel, i.commentOrder, i.commentGroup, i.commentContent, i.authorName, i.timeAfterCreated))
                 }
 
                 parentItemArrayList = ArrayList<CommentList>()
@@ -482,7 +482,7 @@ class PostDetailActivity : AppCompatActivity(), PostDetailView, CommentCreateVie
 
                     if(i.commentLevel==0){
                         commentGroup = i.commentGroup
-                        parentItemArrayList.add(CommentList(i.commentIdx, i.authorIdx, i.postIdx, i.commentLevel, i.commentOrder, i.commentGroup, i.commentContent, i.authorName))
+                        parentItemArrayList.add(CommentList(i.commentIdx, i.authorIdx, i.postIdx, i.commentLevel, i.commentOrder, i.commentGroup, i.commentContent, i.authorName, i.timeAfterCreated))
                     }
 
                     //Child Item Object
@@ -490,7 +490,7 @@ class PostDetailActivity : AppCompatActivity(), PostDetailView, CommentCreateVie
                     while(iterator.hasNext()){
                         val item = iterator.next()
                         if (item.commentLevel==1 && item.commentGroup==commentGroup) {
-                                childItemArrayList.add(CommentList(item.commentIdx, item.authorIdx, item.postIdx, item.commentLevel, item.commentOrder, item.commentGroup, item.commentContent, item.authorName))
+                                childItemArrayList.add(CommentList(item.commentIdx, item.authorIdx, item.postIdx, item.commentLevel, item.commentOrder, item.commentGroup, item.commentContent, item.authorName, i.timeAfterCreated))
                             Log.d("childList", childItemArrayList.toString())
                         }
                     }

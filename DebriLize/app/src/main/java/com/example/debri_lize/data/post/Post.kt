@@ -14,7 +14,7 @@ data class PostList(
     @SerializedName(value = "likeNumber") var likeCnt : Int? = 0,
     @SerializedName(value = "likeStatus") var likeStatus : String? = "",
     @SerializedName(value = "scrapStatus") var scrapStatus : String? = "",
-    @SerializedName(value = "timeAfterCreated") val timeAfterCreated : Int? = 0,
+    @SerializedName(value = "timeAfterCreated") val timeAfterCreated : Int,
     @SerializedName(value = "commentNumber") var commentCnt : Int? = 0,
     @SerializedName(value = "boardName") var boardName : String?
 )
