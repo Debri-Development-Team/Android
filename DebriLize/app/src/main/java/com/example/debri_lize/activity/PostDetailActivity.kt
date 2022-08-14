@@ -60,7 +60,8 @@ class PostDetailActivity : AppCompatActivity(), PostDetailView, CommentCreateVie
 
         val intent = intent //전달할 데이터를 받을 Intent
         postIdx = intent.getIntExtra("postIdx", 0)
-        binding.postDetailBoardNameTv.text = intent.getStringExtra("boardName")
+        var boardName = intent.getStringExtra("boardName")
+        binding.postDetailBoardNameTv.text = boardName
         postService.showPostDetail(postIdx)
 
         //api - comment

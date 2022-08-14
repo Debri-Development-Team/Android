@@ -97,15 +97,15 @@ interface RetrofitInterface {
 
     //4.1 게시물 댓글 작성 api
     @POST("api/comment/replyOnPost/create")
-    fun createComment(@Body comment: Comment): Call<BaseResponse<Comment>>
+    fun createComment(@Body comment: Comment, @Header("ACCESS-TOKEN") authToken: String): Call<BaseResponse<Comment>>
 
     //4.2 대댓글 작성 api
     @POST("api/comment/replyOnReply/create")
-    fun createCocomment(@Body cocomment: Cocomment): Call<BaseResponse<Comment>>
+    fun createCocomment(@Body cocomment: Cocomment, @Header("ACCESS-TOKEN") authToken: String): Call<BaseResponse<Comment>>
 
     //4.3 댓글/대댓글 조회 api
     @GET("api/comment/get/{postIdx}")
-    fun showComment(@Path("postIdx") postIdx: Int) : Call<BaseResponse<List<CommentList>>>
+    fun showComment(@Path("postIdx") postIdx: Int, @Header("ACCESS-TOKEN") authToken: String) : Call<BaseResponse<List<CommentList>>>
 
     //4.4 댓글, 대댓글 삭제
     @PATCH("api/comment/delete/{commentIdx}")
@@ -135,6 +135,10 @@ interface RetrofitInterface {
     @GET("api/lecture/search")
     fun showLectureSearch(@Query ("lang") lang:String?,@Query ("type") type:String?,@Query ("price") price:String?,@Query ("key") key:String?, @Header("ACCESS-TOKEN") authToken: String) : Call<BaseResponse<List<Lecture>>>
 
+    //8.1 커리큘럼 생성 api
+    @POST("api/curri/create")
+    fun createCurriculum(@Body newCurriculum : NewCurriculum, @Header("ACCESS-TOKEN") authToken: String) : Call<BaseResponse<CurriIdx>>
+
     //8.2 커리큘럼 리스트 조회 api : 내가 추가한 커리큘럼들
     @GET("api/curri/getList")
     fun myCurriculumList(@Header("ACCESS-TOKEN") authToken: String) : Call<BaseResponse<List<Curriculum>>>
@@ -150,6 +154,10 @@ interface RetrofitInterface {
     //8.4.2 커리큘럼 공유 상태 수정 api
     @PATCH("api/curri/modify/visibleStatus")
     fun editCurriculumVisible(@Body editCurriculumVisible : EditCurriculumVisible, @Header("ACCESS-TOKEN") authToken: String) : Call<BaseResponse<String>>
+
+    //8.4.3 커리큘럼 활성 상태 수정 api
+    @PATCH("api/curri/modify/status")
+    fun editCurriculumStatus(@Body editCurriculumStatus : EditCurriculumStatus, @Header("ACCESS-TOKEN") authToken: String) : Call<BaseResponse<String>>
 
     //8.5 강의자료 추가 api : 홈 > 새로운 강의자료 추가하기
     @POST("api/curri/insertLecture")

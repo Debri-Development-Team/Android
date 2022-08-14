@@ -1,14 +1,15 @@
 package com.example.debri_lize.activity
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
+import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.debri_lize.ClassLectureRVAdapter
 import com.example.debri_lize.adapter.start.ReviewRVAdapter
 import com.example.debri_lize.data.class_.Lecture
 import com.example.debri_lize.data.curriculum.Review
 import com.example.debri_lize.databinding.ActivityAddCurriculumDetailBinding
+import kotlin.concurrent.thread
 
 class AddCurriculumDetailActivity : AppCompatActivity() {
     lateinit var binding : ActivityAddCurriculumDetailBinding
@@ -61,30 +62,29 @@ class AddCurriculumDetailActivity : AppCompatActivity() {
         reviewRVAdapter = ReviewRVAdapter()
         binding.addCurriculumDetailReviewRv.adapter = reviewRVAdapter
 
-        review.clear()
 
-        //data : 전체
-        review.apply {
+        thread(start = true) {
 
-            review.add(Review("자바가 너무 쉬워졌어요 어떡하죠?", "by 데브리짱짱걸"))
-            review.add(Review("나쁘지 않습니다...저에겐 너무 쉽군요", "by 데브리짱짱걸"))
-            review.add(Review("기본을 다지기에 좋은 커리큘럼 입니다.", "by 데브리짱짱걸"))
+            while(true){
+                runOnUiThread{
+                    review.clear()
 
-            reviewRVAdapter.datas = review
-            reviewRVAdapter.notifyDataSetChanged()
+                    review.apply {
 
-            //click recyclerview item
-            reviewRVAdapter.setItemClickListener(object :
-                ReviewRVAdapter.OnItemClickListener {
-                override fun onClick(v: View, position: Int) {
+                        review.add(Review("자바가 너무 쉬워졌어요 어떡하죠?", "by 데브리짱짱걸"))
+                        review.add(Review("나쁘지 않습니다...저에겐 너무 쉽군요", "by 데브리짱짱걸"))
+                        review.add(Review("기본을 다지기에 좋은 커리큘럼 입니다.", "by 데브리짱짱걸"))
 
-
+                    }
+                    reviewRVAdapter.datas = review
+                    reviewRVAdapter.notifyDataSetChanged()
+                    binding.addCurriculumDetailReviewRv.startLayoutAnimation()
                 }
-            })
+                Thread.sleep(5000)
+            }
         }
+
+
     }
-
-
-
 
 }
