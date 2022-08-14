@@ -2,7 +2,9 @@ package com.example.debri_lize.fragment
 
 import android.content.Context
 import android.content.Intent
+import android.graphics.Color
 import android.os.Bundle
+import android.util.Log
 import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
@@ -25,6 +27,7 @@ import com.example.debri_lize.data.post.ReportComment
 import com.example.debri_lize.data.post.ReportPost
 import com.example.debri_lize.databinding.FragmentHomeBinding
 import com.example.debri_lize.utils.getUserIdx
+import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
 
 class HomeFragment : Fragment() {
@@ -147,6 +150,9 @@ class HomeFragment : Fragment() {
         bottomSheetView = layoutInflater.inflate(R.layout.fragment_bottom_sheet_four, null)
         bottomSheetDialog.setContentView(bottomSheetView)
 
+
+
+        //toast message
         var publicToast = layoutInflater.inflate(R.layout.toast_curri_public,null)
         var toast = Toast(context)
         toast.view = publicToast

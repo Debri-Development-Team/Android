@@ -139,6 +139,7 @@
         <entry key="app/src/main/res/drawable/ic_scrap_white.xml" value="0.1" />
         <entry key="app/src/main/res/drawable/ic_siren_red.xml" value="0.1" />
         <entry key="app/src/main/res/layout/activity_add_curriculum.xml" value="0.146875" />
+        <entry key="app/src/main/res/layout/activity_login.xml" value="0.23802083333333332" />
         <entry key="app/src/main/res/layout/activity_post_create.xml" value="0.1" />
         <entry key="app/src/main/res/layout/activity_post_detail.xml" value="0.11828859060402684" />
         <entry key="app/src/main/res/layout/dialog_cancel.xml" value="0.23802083333333332" />

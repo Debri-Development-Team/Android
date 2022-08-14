@@ -11,6 +11,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.debri_lize.CommentRVAdapter
 import android.view.Gravity
+import android.view.MotionEvent
 import androidx.core.content.ContextCompat
 import com.example.debri_lize.CustomDialog
 import com.example.debri_lize.R
@@ -22,6 +23,7 @@ import com.example.debri_lize.service.ReportService
 import com.example.debri_lize.utils.*
 import com.example.debri_lize.view.post.*
 import com.google.android.material.bottomsheet.BottomSheetDialog
+import org.w3c.dom.Text
 import kotlin.properties.Delegates
 
 
@@ -283,6 +285,9 @@ class PostDetailActivity : AppCompatActivity(), PostDetailView, CommentCreateVie
 
             //click complain button
             bottomSheetView.findViewById<TextView>(R.id.bottom_sheet_complain_tv).setOnClickListener {
+                //클릭 시 글자색 white (왜 안됨?)
+                bottomSheetView.findViewById<TextView>(R.id.bottom_sheet_complain_tv).setTextColor(ContextCompat.getColor(this@PostDetailActivity, R.color.white))
+
                 val bottomSheetComplainDetailView = layoutInflater.inflate(R.layout.fragment_bottom_sheet_complain_detail, null)
                 val bottomSheetComplainDetailDialog = BottomSheetDialog(this)
                 bottomSheetComplainDetailDialog.setContentView(bottomSheetComplainDetailView)
@@ -369,6 +374,8 @@ class PostDetailActivity : AppCompatActivity(), PostDetailView, CommentCreateVie
         }
 
     }
+
+
 
     //api
     //postDetail
