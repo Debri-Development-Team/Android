@@ -36,19 +36,22 @@
             android:layout_marginTop="3dp">
             <TextView
                 android:id="@+id/item_class_fav_title_tv"
-                android:layout_width="wrap_content"
+                android:layout_width="200dp"
                 android:layout_height="wrap_content"
                 android:text="C의 정석"
                 android:textColor="@color/white"
                 android:fontFamily="@font/noto_sans_kr_regular"
                 android:includeFontPadding="false"
-                android:textSize="17dp"/>
+                android:textSize="17dp"
+                android:ellipsize="end"
+                android:maxLines="1"/>
             <TextView
                 android:id="@+id/item_class_fav_chapter_tv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="(15챕터)"
-                android:layout_marginStart="5dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
                 android:textColor="@color/white"
                 android:textSize="11dp"/>
         </LinearLayout>
@@ -59,10 +62,12 @@
             android:gravity="center"
             android:layout_marginTop="5dp">
             <ImageView
+                android:id="@+id/item_class_like_iv"
                 android:layout_width="12dp"
                 android:layout_height="12dp"
                 android:src="@drawable/ic_like_off"/>
             <TextView
+                android:id="@+id/item_class_likenum_tv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="103"
@@ -78,6 +83,7 @@
                 android:layout_gravity="center"
                 android:layout_marginStart="10dp"/>
             <TextView
+                android:id="@+id/item_class_usedCount_tv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="84"

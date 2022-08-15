@@ -64,7 +64,8 @@ class PostDetailActivity : AppCompatActivity(), PostDetailView, CommentCreateVie
 
         val intent = intent //전달할 데이터를 받을 Intent
         postIdx = intent.getIntExtra("postIdx", 0)
-        binding.postDetailBoardNameTv.text = intent.getStringExtra("boardName")
+        var boardName = intent.getStringExtra("boardName")
+        binding.postDetailBoardNameTv.text = boardName
         postService.showPostDetail(postIdx)
 
         //api - comment
@@ -479,7 +480,7 @@ class PostDetailActivity : AppCompatActivity(), PostDetailView, CommentCreateVie
             200-> {
                 temp.clear()
                 for(i in result){
-                    temp.add(CommentList(i.commentIdx, i.authorIdx, i.postIdx, i.commentLevel, i.commentOrder, i.commentGroup, i.commentContent, i.authorName, i.likeStatus, i.likeCount))
+                    temp.add(CommentList(i.commentIdx, i.authorIdx, i.postIdx, i.commentLevel, i.commentOrder, i.commentGroup, i.commentContent, i.authorName, i.timeAfterCreated, i.likeStatus, i.likeCount))
                 }
 
 
@@ -492,7 +493,7 @@ class PostDetailActivity : AppCompatActivity(), PostDetailView, CommentCreateVie
 
                     if(i.commentLevel==0){
                         commentGroup = i.commentGroup
-                        parentItemArrayList.add(CommentList(i.commentIdx, i.authorIdx, i.postIdx, i.commentLevel, i.commentOrder, i.commentGroup, i.commentContent, i.authorName, i.likeStatus, i.likeCount))
+                        parentItemArrayList.add(CommentList(i.commentIdx, i.authorIdx, i.postIdx, i.commentLevel, i.commentOrder, i.commentGroup, i.commentContent, i.authorName, i.timeAfterCreated, i.likeStatus, i.likeCount))
                     }
 
                     //Child Item Object
@@ -500,7 +501,7 @@ class PostDetailActivity : AppCompatActivity(), PostDetailView, CommentCreateVie
                     while(iterator.hasNext()){
                         val item = iterator.next()
                         if (item.commentLevel==1 && item.commentGroup==commentGroup) {
-                                childItemArrayList.add(CommentList(item.commentIdx, item.authorIdx, item.postIdx, item.commentLevel, item.commentOrder, item.commentGroup, item.commentContent, item.authorName, i.likeStatus, i.likeCount))
+                            childItemArrayList.add(CommentList(item.commentIdx, item.authorIdx, item.postIdx, item.commentLevel, item.commentOrder, item.commentGroup, item.commentContent, item.authorName, i.timeAfterCreated, i.likeStatus, i.likeCount))
                             Log.d("childList", childItemArrayList.toString())
                         }
                     }

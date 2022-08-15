@@ -11,7 +11,7 @@ import com.example.debri_lize.R
 import com.example.debri_lize.data.curriculum.Curriculum
 import com.example.debri_lize.databinding.ItemCurriculumBinding
 
-class RoadmapRVAdapter : RecyclerView.Adapter<RoadmapRVAdapter.ViewHolder>() {
+class CurriculumListRVAdapter : RecyclerView.Adapter<CurriculumListRVAdapter.ViewHolder>() {
 
     var datas = mutableListOf<Curriculum>()
 
@@ -19,10 +19,12 @@ class RoadmapRVAdapter : RecyclerView.Adapter<RoadmapRVAdapter.ViewHolder>() {
 
         val statusImg : ImageView = binding.itemCurriculumStatusIv
         val curriculumName : TextView = binding.itemCurriculumNameTv
+        val curriculumAuthor : TextView = binding.itemCurriculumAuthorTv
 
         fun bind(item: Curriculum) {
             Glide.with(itemView).load(R.raw.curriculum).into(statusImg)
             curriculumName.text = item.curriculumName
+            curriculumAuthor.text = item.curriculumAuthor
         }
     }
 

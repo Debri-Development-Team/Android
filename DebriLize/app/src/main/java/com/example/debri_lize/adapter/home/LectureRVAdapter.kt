@@ -3,21 +3,38 @@ package com.example.debri_lize.adapter.home
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ProgressBar
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.example.debri_lize.data.curriculum.CurriculumLecture
+import com.example.debri_lize.R
+import com.example.debri_lize.data.curriculum.LectureList
 import com.example.debri_lize.databinding.ItemCurriculumLectureBinding
 
-class CurriculumProgressRVAdapter : RecyclerView.Adapter<CurriculumProgressRVAdapter.ViewHolder>() {
+class LectureRVAdapter : RecyclerView.Adapter<LectureRVAdapter.ViewHolder>() {
 
-    var datas = mutableListOf<CurriculumLecture>()
+    var datas = ArrayList<LectureList>()
 
     inner class ViewHolder(val binding : ItemCurriculumLectureBinding) : RecyclerView.ViewHolder(binding.root){
 
         val lectureName : TextView = binding.homeCurriculumTitleTv
+        val language : TextView = binding.itemCurriculumLectureImgTagTv
+        val progress : TextView = binding.itemCurriculumLectureProgressTv
+        val progressBar : ProgressBar = binding.homeLectureProgressBar
+        val chapterNum : TextView = binding.homeLectureChapterNumTv
 
-        fun bind(item: CurriculumLecture) {
+        fun bind(item: LectureList) {
             lectureName.text = item.lectureName
+            language.text = item.language
+            progress.text = item.progressRate.toInt().toString() + "%"
+            progressBar.progress = item.progressRate.toInt()
+            chapterNum.text = "(1강~"+item.chNum.toString()+"강)"
+
+            when(language.text){
+                "Front" -> language.setBackgroundResource(R.drawable.border_round_transparent_front_10)
+                "Back" -> language.setBackgroundResource(R.drawable.border_round_transparent_back_10)
+                "C 언어" -> language.setBackgroundResource(R.drawable.border_round_transparent_c_10)
+                "Python" -> language.setBackgroundResource(R.drawable.border_round_transparent_python_10)
+            }
         }
     }
 

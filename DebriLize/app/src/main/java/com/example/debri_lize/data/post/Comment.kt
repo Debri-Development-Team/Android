@@ -12,6 +12,7 @@ data class CommentList(
     @SerializedName(value = "commentGroup") var commentGroup : Int, //대댓글의 뿌리댓글
     @SerializedName(value = "commentContent") var commentContent : String,
     @SerializedName(value = "authorName") var authorName : String,
+    @SerializedName(value = "timeAfterCreated") var timeAfterCreated : Int,
     @SerializedName(value = "likeStatus") var likeStatus : Boolean,
     @SerializedName(value = "likeCount") var likeCount : Int
 )

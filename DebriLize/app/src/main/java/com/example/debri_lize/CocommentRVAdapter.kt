@@ -26,11 +26,30 @@ class CocommentRVAdapter(context: PostDetailActivity) : RecyclerView.Adapter<Coc
 
         val cocommentContent : TextView = binding.itemCocommentTv
         val authorName : TextView = binding.itemCocommentProfileTv
-        val time : TextView = binding.itemCocommentTimeTv //연결필요
+        val time : TextView = binding.itemCocommentTimeTv
 
         fun bind(item: CommentList) {
             cocommentContent.text = item.commentContent
             authorName.text = item.authorName + " >"
+
+            if(item.timeAfterCreated == 0){
+                time.text = "방금 전"
+            }else if (item.timeAfterCreated < 60) {
+                time.text = item.timeAfterCreated.toString() + "분 전"
+            }else if (item.timeAfterCreated < 1440){
+                var hour = item.timeAfterCreated/60
+                time.text = hour.toString() + "시간 전"
+            }else if (item.timeAfterCreated < 43200){
+                var day = item.timeAfterCreated/1440
+                time.text = day.toString() + "일 전"
+            }else if (item.timeAfterCreated < 525600){
+                var month = item.timeAfterCreated/43200
+                time.text = month.toString() + "달 전"
+            }else{
+                var year = item.timeAfterCreated/525600
+                time.text = year.toString() + "년 전"
+            }
+
         }
     }
 

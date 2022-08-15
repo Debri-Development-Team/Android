@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -95,7 +96,7 @@ class ScrapPostFragment : Fragment(), ShowScrapPostListView {
                 datas.apply {
 
                     for (i in result){
-                        datas.add(PostList(i.boardIdx, i.postIdx, i.authorName, i.postName, i.likeCnt, i.likeStatus, i.scrapStatus, i.timeAfterCreated, i.commentCnt))
+                        datas.add(PostList(i.boardIdx, i.postIdx, i.authorName, i.postName, i.likeCnt, i.likeStatus, i.scrapStatus, i.timeAfterCreated, i.commentCnt, i.boardName))
                     }
 
                     postRVAdapter.datas = datas
@@ -111,7 +112,7 @@ class ScrapPostFragment : Fragment(), ShowScrapPostListView {
                                 //객체 자체를 보내는 방법 (data class)
                                 val intent = Intent(context, PostDetailActivity::class.java)
                                 intent.putExtra("postIdx", datas[position].postIdx)
-                                //intent.putExtra("boardName", datas[position].boardName)
+                                intent.putExtra("boardName", datas[position].boardName)
                                 startActivity(intent)
 
                             }

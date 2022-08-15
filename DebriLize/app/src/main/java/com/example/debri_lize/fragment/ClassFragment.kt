@@ -316,7 +316,7 @@ class ClassFragment : Fragment(), LectureFavoriteView, LectureFilterView {
 
                 datas_f.apply {
                     for (i in result){
-                        datas_f.add(Lecture(i.lectureIdx, i.lectureName, i.chapterNum, i.language, i.media, i.price, i.userScrap))
+                        datas_f.add(Lecture(i.lectureIdx, i.lectureName, i.chapterNum, i.language, i.media, i.price, i.userScrap, i.scrapNumber, i.usedCount, i.likeNumber, i.userLike))
                     }
 
                     classfavoriteRVAdapter.datas_classf = datas_f
@@ -350,7 +350,7 @@ class ClassFragment : Fragment(), LectureFavoriteView, LectureFilterView {
                 datas.apply {
                     for (i in result) {
                         datas.add(
-                            Lecture(i.lectureIdx, i.lectureName, i.chapterNum, i.language, i.media, i.price, i.userScrap)
+                            Lecture(i.lectureIdx, i.lectureName, i.chapterNum, i.language, i.media, i.price, i.userScrap, i.scrapNumber, i.usedCount, i.likeNumber, i.userLike)
                         )
                     }
 

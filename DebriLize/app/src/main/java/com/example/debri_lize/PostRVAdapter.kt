@@ -21,7 +21,6 @@ class PostRVAdapter : RecyclerView.Adapter<PostRVAdapter.ViewHolder>() {
 
         fun bind(item: PostList) {
             title.text = item.postName
-            time.text = item.timeAfterCreated.toString()+"분 전"
             commentCnt.text = "("+item.commentCnt.toString()+")"
 
             if(item.likeCnt!! > 99) likeCnt.text = "99+"
@@ -30,6 +29,25 @@ class PostRVAdapter : RecyclerView.Adapter<PostRVAdapter.ViewHolder>() {
 
             if(item.likeStatus == "LIKE")   binding.itemPostLikeIv.setImageResource(R.drawable.ic_like_on)
             else binding.itemPostLikeIv.setImageResource(R.drawable.ic_like_off)
+
+            if(item.timeAfterCreated == 0){
+                time.text = "방금 전"
+            }else if (item.timeAfterCreated < 60) {
+                time.text = item.timeAfterCreated.toString() + "분 전"
+            }else if (item.timeAfterCreated < 1440){
+                var hour = item.timeAfterCreated/60
+                time.text = hour.toString() + "시간 전"
+            }else if (item.timeAfterCreated < 43200){
+                var day = item.timeAfterCreated/1440
+                time.text = day.toString() + "일 전"
+            }else if (item.timeAfterCreated < 525600){
+                var month = item.timeAfterCreated/43200
+                time.text = month.toString() + "달 전"
+            }else{
+                var year = item.timeAfterCreated/525600
+                time.text = year.toString() + "년 전"
+            }
+
 
         }
     }

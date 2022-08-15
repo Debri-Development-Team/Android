@@ -26,6 +26,8 @@ class ClassLectureRVAdapter : RecyclerView.Adapter<ClassLectureRVAdapter.ViewHol
         val language : TextView = binding.itemClassFavTagLanguageTv
         val media : TextView = binding.itemClassFavMediaTagTv
         val price : TextView = binding.itemClassFavPriceTagTv
+        val likeNum : TextView = binding.itemClassLikenumTv
+        val usedCount : TextView = binding.itemClassUsedCountTv
 
         fun bind(item: Lecture){
             lectureName.text = item.lectureName
@@ -33,6 +35,8 @@ class ClassLectureRVAdapter : RecyclerView.Adapter<ClassLectureRVAdapter.ViewHol
             language.text = item.language
             media.text = "#" + item.media
             price.text = "#" + item.price
+            likeNum.text = item.likeNumber.toString()
+            usedCount.text = item.usedCount.toString()
 
             when(language.text){
                 "Front" -> language.setBackgroundResource(R.drawable.border_round_transparent_front_10)
@@ -45,6 +49,9 @@ class ClassLectureRVAdapter : RecyclerView.Adapter<ClassLectureRVAdapter.ViewHol
 
             if(item.userScrap)   binding.itemClassFavoriteIv.setImageResource(R.drawable.ic_favorite_on)
             else    binding.itemClassFavoriteIv.setImageResource(R.drawable.ic_favorite_off)
+
+            if(item.userLike)   binding.itemClassLikeIv.setImageResource(R.drawable.ic_like_on)
+            else    binding.itemClassLikeIv.setImageResource(R.drawable.ic_like_off)
 
 
         }
