@@ -11,7 +11,6 @@ import com.example.debri_lize.ClassLectureRVAdapter
 import com.example.debri_lize.adapter.start.ReviewRVAdapter
 import com.example.debri_lize.data.class_.Lecture
 import com.example.debri_lize.data.curriculum.Review
-import com.example.debri_lize.data.post.CommentList
 import com.example.debri_lize.databinding.ActivityAddCurriculumDetailBinding
 import com.example.debri_lize.service.ReviewService
 import com.example.debri_lize.utils.getUserName
