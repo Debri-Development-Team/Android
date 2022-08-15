@@ -19,57 +19,54 @@ import com.example.debri_lize.activity.MainActivity
 import com.example.debri_lize.activity.auth.ProfileActivity
 import com.example.debri_lize.adapter.home.ChapterRVAdapter
 import com.example.debri_lize.adapter.home.LectureRVAdapter
+import com.example.debri_lize.data.board.Board
 import com.example.debri_lize.data.curriculum.*
 import com.example.debri_lize.databinding.FragmentHomeBinding
 import com.example.debri_lize.databinding.FragmentHomeInactiveBinding
 import com.example.debri_lize.service.CurriculumService
-import com.example.debri_lize.utils.getCurriIdx
-import com.example.debri_lize.utils.getIsFirst
 import com.example.debri_lize.utils.saveCurriIdx
-import com.example.debri_lize.utils.saveIsFirst
 import com.example.debri_lize.view.curriculum.*
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import java.sql.Timestamp
 import java.text.SimpleDateFormat
 import kotlin.properties.Delegates
 
-class HomeFragment : Fragment(), MyCurriculumListView, ShowCurriculumDetailView, EditCurriculumNameView,
+class HomeInactiveFragment : Fragment(), ShowCurriculumDetailView, EditCurriculumNameView,
     EditCurriculumVisibleView, EditCurriculumStatusView, DeleteCurriculumView {
 
     lateinit var context: MainActivity
 
-    lateinit var binding: FragmentHomeBinding
+    lateinit var binding: FragmentHomeInactiveBinding
 
-    lateinit var chapterRVAdapter: ChapterRVAdapter
     lateinit var lectureRVAdapter: LectureRVAdapter
 
-    var arrayImg = arrayOf(R.drawable.ic_lecture_green, R.drawable.ic_lecture_purple, R.drawable.ic_lecture_red)
-
-    val chapter = ArrayList<ChapterList>()
     val lecture = ArrayList<LectureList>()
-
-    val myCurriculum = ArrayList<Curriculum>() //my curriculum list
-    private var curriculumIdx by Delegates.notNull<Int>()
 
     //api
     val curriculumService = CurriculumService()
+
+    var myCurriculum = ArrayList<Curriculum>() //my curriculum list
+    private var curriculumIdx by Delegates.notNull<Int>()
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = FragmentHomeBinding.inflate(inflater, container, false)
-
-        //api - 8.2 커리큘럼 리스트 조회 api : 내가 추가한 커리큘럼들
-        curriculumService.setMyCurriculumListView(this)
-        curriculumService.myCurriculumList()
+        binding = FragmentHomeInactiveBinding.inflate(inflater, container, false)
 
         return binding.root
     }
 
     override fun onStart() {
         super.onStart()
+        //bundle
+        myCurriculum = (arguments?.getSerializable("myCurri") as ArrayList<Curriculum>?)!!
+        curriculumIdx = (arguments?.getInt("curriIdx"))!!
+
+        //api - 8.3 커리큘럼 상세 조회 api : 홈
+        curriculumService.setShowCurriculumDetailView(this)
+        curriculumService.showCurriculumDetail(curriculumIdx)
 
         //click userImg -> profile
         binding.homeDebriUserIv.setOnClickListener{
@@ -217,53 +214,6 @@ class HomeFragment : Fragment(), MyCurriculumListView, ShowCurriculumDetailView,
         return date+"에 완성함"
     }
 
-    private fun waveAnimation(progressRate : Int){
-        binding.waveLoadingView.setProgressValue(progressRate)
-        binding.waveLoadingView.setAmplitudeRatio(50)
-        binding.waveLoadingView.setAnimDuration(8000)
-        binding.waveLoadingView.startAnimation()
-    }
-
-    //api
-    //8.2 커리큘럼 리스트 조회 api : 내가 추가한 커리큘럼들 (데이터만 사용)
-    override fun onMyCurriculumListSuccess(code: Int, result: List<Curriculum>) {
-        when(code){
-            200->{
-                for(i in result){
-                    myCurriculum.add(Curriculum(i.curriculumIdx, i.curriculumName, i.curriculumAuthor))
-                }
-
-                //나의 커리큘럼이 없으면,
-                if(myCurriculum.size==0){
-
-                    val passBundleBFragment = AddCurriculumFragment()
-                    //fragment to fragment
-                    activity?.supportFragmentManager!!.beginTransaction()
-                        .replace(R.id.main_frm, passBundleBFragment)
-                        .commit()
-
-                }else{ //있으면
-                    Log.d("isFirst", getIsFirst().toString())
-                    if(getIsFirst() == true){
-                        //api - 8.3 커리큘럼 상세 조회 api : 홈
-                        saveIsFirst(false)
-                        curriculumService.setShowCurriculumDetailView(this)
-                        curriculumService.showCurriculumDetail(result[0].curriculumIdx)
-                    }else{
-                        //api - 8.3 커리큘럼 상세 조회 api : 홈
-                        curriculumIdx = getCurriIdx()
-                        curriculumService.setShowCurriculumDetailView(this)
-                        curriculumService.showCurriculumDetail(curriculumIdx)
-                    }
-                }
-            }
-        }
-    }
-
-    override fun onMyCurriculumListFailure(code: Int) {
-
-    }
-
     //8.3 커리큘럼 상세 조회 api : 홈
     override fun onShowCurriculumDetailSuccess(code: Int, result: CurriculumDetail) {
         when(code){
@@ -272,54 +222,18 @@ class HomeFragment : Fragment(), MyCurriculumListView, ShowCurriculumDetailView,
                 saveCurriIdx(result.curriculumIdx)
                 if(result.status=="ACTIVE"){
                     //활성화
-                    binding.homeCurriculumLectureImgRv.layoutManager =
-                        LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
-                    chapterRVAdapter = ChapterRVAdapter()
-                    binding.homeCurriculumLectureImgRv.adapter = chapterRVAdapter
-
-                    chapter.clear()
-
-                    var j = 0
-
-                    chapter.apply {
-
-                        for(i in result.chapterListResList!!){
-                            //else if로 변경
-                            if(j%3==0){
-                                chapter.add(ChapterList(i.chIdx,i.chName,i.chNum,i.language,i.chComplete,i.progressOrder,i.completeChNum,arrayImg[0]))
-                            }
-                            if(j%3==1){
-                                chapter.add(ChapterList(i.chIdx,i.chName,i.chNum,i.language,i.chComplete,i.progressOrder,i.completeChNum,arrayImg[1]))
-                            }
-                            if(j%3==2){
-                                chapter.add(ChapterList(i.chIdx,i.chName,i.chNum,i.language,i.chComplete,i.progressOrder,i.completeChNum,arrayImg[2]))
-                            }
-                            j++
-                        }
-
-                        chapterRVAdapter.datas = chapter
-                        chapterRVAdapter.notifyDataSetChanged()
-
-                        //click recyclerview item
-                        chapterRVAdapter.setItemClickListener(object : ChapterRVAdapter.OnItemClickListener {
-                            override fun onClick(v: View, position: Int) {
-
-
-                            }
-                        })
-                    }
-                }else{
-                    //비활성화
-                    val bundle = Bundle()
-                    bundle.putSerializable("myCurri", myCurriculum)
-                    bundle.putSerializable("curriIdx", result.curriculumIdx)
-                    val passBundleBFragment = HomeInactiveFragment()
-                    passBundleBFragment.arguments = bundle
-
+                    val passBundleBFragment = HomeFragment()
                     //fragment to fragment
                     activity?.supportFragmentManager!!.beginTransaction()
                         .replace(R.id.main_frm, passBundleBFragment)
                         .commit()
+                }else{
+                    //비활성화
+                    binding.homeCurriculumActiveLayout.setOnClickListener{
+                        //8.4.3 커리큘럼 활성 상태 수정 api
+                        curriculumService.setEditCurriculumStatusView(this)
+                        curriculumService.editCurriculumStatus(EditCurriculumStatus(curriculumIdx, "ACTIVE"))
+                    }
                 }
 
                 if(myCurriculum.size==1){
@@ -365,8 +279,8 @@ class HomeFragment : Fragment(), MyCurriculumListView, ShowCurriculumDetailView,
                     }else{
                         //중간 커리큘럼일 경우
                         roomIdx = myCurriculum.indexOf(Curriculum(result.curriculumIdx, result.curriculumName, "testnickname"))
-                        Log.d("roomIdx", roomIdx.toString())
-                        Log.d("roomIdx", myCurriculum[roomIdx+1].curriculumIdx.toString())
+                        Log.d("roomIdxIn", roomIdx.toString())
+                        Log.d("roomIdxIn", myCurriculum[roomIdx+1].curriculumIdx.toString())
                         binding.homeCurriculumPreviousIv.visibility = View.VISIBLE
                         binding.homeCurriculumPreviousIv.setOnClickListener{
                             curriculumService.showCurriculumDetail(myCurriculum[roomIdx-1].curriculumIdx)
@@ -395,8 +309,9 @@ class HomeFragment : Fragment(), MyCurriculumListView, ShowCurriculumDetailView,
                 binding.homeCurriculumDdayTv.text = "D-"+result.dday.toString()
 
                 //progress rate
-                waveAnimation(result.progressRate.toInt())
                 binding.homeCurriculumProgressTv2.text = result.progressRate.toString()
+
+
 
                 //관련 강의자료
                 binding.homeCurriculumLectureRv.layoutManager =

@@ -10,9 +10,7 @@ import com.example.debri_lize.data.class_.LectureScrap
 import com.example.debri_lize.data.class_.Lecture
 import com.example.debri_lize.databinding.ItemClassFavoriteBinding
 import com.example.debri_lize.service.ClassService
-import com.example.debri_lize.utils.getLectureIdx
 import com.example.debri_lize.utils.getUserIdx
-import com.example.debri_lize.utils.saveLectureIdx
 import com.example.debri_lize.view.class_.CreateLectureScrapView
 
 class ClassLectureRVAdapter : RecyclerView.Adapter<ClassLectureRVAdapter.ViewHolder>(),

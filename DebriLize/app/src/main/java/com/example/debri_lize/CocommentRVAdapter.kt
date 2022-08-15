@@ -31,9 +31,8 @@ class CocommentRVAdapter(context: PostDetailActivity) : RecyclerView.Adapter<Coc
         fun bind(item: CommentList) {
             cocommentContent.text = item.commentContent
             authorName.text = item.authorName + " >"
-            time.text = item.timeAfterCreated.toString() + "분 전"
 
-            /*if(item.timeAfterCreated == 0){
+            if(item.timeAfterCreated == 0){
                 time.text = "방금 전"
             }else if (item.timeAfterCreated < 60) {
                 time.text = item.timeAfterCreated.toString() + "분 전"
@@ -49,7 +48,7 @@ class CocommentRVAdapter(context: PostDetailActivity) : RecyclerView.Adapter<Coc
             }else{
                 var year = item.timeAfterCreated/525600
                 time.text = year.toString() + "년 전"
-            }*/
+            }
 
         }
     }

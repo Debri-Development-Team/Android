@@ -8,6 +8,7 @@ import com.example.debri_lize.fragment.BoardFragment
 import com.example.debri_lize.fragment.ClassFragment
 import com.example.debri_lize.fragment.HomeFragment
 import com.example.debri_lize.fragment.CurriculumFragment
+import kotlin.properties.Delegates
 
 class MainActivity : AppCompatActivity() {
     lateinit var binding : ActivityMainBinding

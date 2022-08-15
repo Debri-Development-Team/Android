@@ -1,7 +1,9 @@
 package com.example.debri_lize.activity
 
 import android.os.Bundle
+import android.view.KeyEvent
 import android.view.View
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.debri_lize.ClassLectureRVAdapter
@@ -9,9 +11,13 @@ import com.example.debri_lize.adapter.start.ReviewRVAdapter
 import com.example.debri_lize.data.class_.Lecture
 import com.example.debri_lize.data.curriculum.Review
 import com.example.debri_lize.databinding.ActivityAddCurriculumDetailBinding
+import com.example.debri_lize.service.ReviewService
+import com.example.debri_lize.utils.getUserName
+import com.example.debri_lize.view.curriculum.CreateReviewView
+import com.example.debri_lize.view.curriculum.ShowReviewView
 import kotlin.concurrent.thread
 
-class AddCurriculumDetailActivity : AppCompatActivity() {
+class AddCurriculumDetailActivity : AppCompatActivity(), CreateReviewView, ShowReviewView {
     lateinit var binding : ActivityAddCurriculumDetailBinding
 
     lateinit var classLectureRVAdapter: ClassLectureRVAdapter
@@ -20,6 +26,9 @@ class AddCurriculumDetailActivity : AppCompatActivity() {
     val datas = ArrayList<Lecture>()
     val review = ArrayList<Review>()
 
+    //api
+    var reviewService = ReviewService()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityAddCurriculumDetailBinding.inflate(layoutInflater) //binding 초기화
@@ -27,6 +36,29 @@ class AddCurriculumDetailActivity : AppCompatActivity() {
 
         initRecyclerView()
 
+        //review recycler view
+        binding.addCurriculumDetailReviewRv.layoutManager =
+            LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
+        reviewRVAdapter = ReviewRVAdapter()
+        binding.addCurriculumDetailReviewRv.adapter = reviewRVAdapter
+
+        //8.12.1 커리큘럼 리뷰 조회 api
+        reviewService.setShowReviewView(this)
+        reviewService.showReview(59)
+
+    }
+
+    override fun onStart() {
+        super.onStart()
+
+        //write comment <- enter
+        binding.addCurriculumDetailWriteReviewEt.setOnKeyListener { v, keyCode, event ->
+            if (event.action == KeyEvent.ACTION_DOWN && keyCode == KeyEvent.KEYCODE_ENTER) {
+                createReview()
+                true
+            }
+            false
+        }
     }
 
     private fun initRecyclerView(){
@@ -57,33 +89,71 @@ class AddCurriculumDetailActivity : AppCompatActivity() {
             })
         }
 
-        binding.addCurriculumDetailReviewRv.layoutManager =
-            LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
-        reviewRVAdapter = ReviewRVAdapter()
-        binding.addCurriculumDetailReviewRv.adapter = reviewRVAdapter
 
+    }
 
-        thread(start = true) {
+    //comment
+    //사용자가 입력한 값 가져오기
+    private fun getReview() : Review {
+        val content : String = binding.addCurriculumDetailWriteReviewEt.text.toString()
 
-            while(true){
-                runOnUiThread{
-                    review.clear()
+        return Review(59, getUserName(), content)
+    }
 
-                    review.apply {
-
-                        review.add(Review("자바가 너무 쉬워졌어요 어떡하죠?", "by 데브리짱짱걸"))
-                        review.add(Review("나쁘지 않습니다...저에겐 너무 쉽군요", "by 데브리짱짱걸"))
-                        review.add(Review("기본을 다지기에 좋은 커리큘럼 입니다.", "by 데브리짱짱걸"))
-
-                    }
-                    reviewRVAdapter.datas = review
-                    reviewRVAdapter.notifyDataSetChanged()
-                    binding.addCurriculumDetailReviewRv.startLayoutAnimation()
-                }
-                Thread.sleep(5000)
-            }
+    private fun createReview(){
+        //리뷰가 입력되지 않은 경우
+        if(binding.addCurriculumDetailWriteReviewEt.text.toString().isEmpty()){
+            Toast.makeText(this, "한 줄 평을 입력해주세요", Toast.LENGTH_SHORT).show()
+            return
         }
 
+        //8.12.1 커리큘럼 리뷰 조회 api
+        reviewService.setCreateReviewView(this)
+        reviewService.createReview(getReview())
+
+    }
+
+    //8.12 커리큘럼 리뷰 작성 api
+    override fun onCreateReviewSuccess(code: Int) {
+        when(code){
+            200->{
+                Toast.makeText(this, "review ok", Toast.LENGTH_SHORT).show()
+                binding.addCurriculumDetailWriteReviewEt.text.clear()
+                reviewService.setShowReviewView(this)
+                reviewService.showReview(59)
+            }
+        }
+    }
+
+    override fun onCreateReviewFailure(code: Int) {
+
+    }
+
+    override fun onShowReviewSuccess(code: Int, result: List<Review>) {
+        when(code){
+            200->{
+                thread(start = true) {
+
+                    while(true){
+                        runOnUiThread{
+                            review.clear()
+                            review.apply {
+                                for (i in result){
+                                    review.add(Review(i.curriculumIdx, i.authorName, i.content))
+                                }
+                            }
+                            reviewRVAdapter.datas = review
+                            reviewRVAdapter.notifyDataSetChanged()
+                            binding.addCurriculumDetailReviewRv.startLayoutAnimation()
+                        }
+                        Thread.sleep(5000)
+                    }
+                }
+            }
+        }
+    }
+
+    override fun onShowReviewFailure(code: Int) {
 
     }
 
