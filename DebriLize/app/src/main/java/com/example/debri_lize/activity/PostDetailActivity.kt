@@ -689,7 +689,8 @@ class PostDetailActivity : AppCompatActivity(), PostDetailView, CommentCreateVie
     override fun onCreateCommentLikeSuccess(code: Int) {
         when(code){
             200->{
-               // commentService.showComment(postIdx)
+                commentService.setShowCommentView(this)
+                commentService.showComment(postIdx)
             }
         }
     }
@@ -701,7 +702,8 @@ class PostDetailActivity : AppCompatActivity(), PostDetailView, CommentCreateVie
     override fun onDeleteCommentLikeSuccess(code: Int) {
         when(code){
             200->{
-                //commentService.showComment(postIdx)
+                commentService.setShowCommentView(this)
+                commentService.showComment(postIdx)
             }
         }
     }
