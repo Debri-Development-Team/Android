@@ -1,6 +1,7 @@
 package com.example.debri_lize.activity
 
 import android.os.Bundle
+import android.util.Log
 import android.view.KeyEvent
 import android.view.View
 import android.widget.Toast
@@ -10,6 +11,7 @@ import com.example.debri_lize.ClassLectureRVAdapter
 import com.example.debri_lize.adapter.start.ReviewRVAdapter
 import com.example.debri_lize.data.class_.Lecture
 import com.example.debri_lize.data.curriculum.Review
+import com.example.debri_lize.data.post.CommentList
 import com.example.debri_lize.databinding.ActivityAddCurriculumDetailBinding
 import com.example.debri_lize.service.ReviewService
 import com.example.debri_lize.utils.getUserName
@@ -24,6 +26,8 @@ class AddCurriculumDetailActivity : AppCompatActivity(), CreateReviewView, ShowR
     lateinit var reviewRVAdapter: ReviewRVAdapter
 
     val datas = ArrayList<Lecture>()
+
+    //review
     val review = ArrayList<Review>()
 
     //api
@@ -132,18 +136,23 @@ class AddCurriculumDetailActivity : AppCompatActivity(), CreateReviewView, ShowR
     override fun onShowReviewSuccess(code: Int, result: List<Review>) {
         when(code){
             200->{
+                var j = 0
                 thread(start = true) {
-
                     while(true){
                         runOnUiThread{
                             review.clear()
                             review.apply {
-                                for (i in result){
-                                    review.add(Review(i.curriculumIdx, i.authorName, i.content))
+                                for (cnt in 1..3){
+                                    review.add(Review(result[j].curriculumIdx, result[j].authorName, result[j].content))
+
+                                    j++
+                                    if(j>=result.size){
+                                        j = 0
+                                    }
                                 }
+                                reviewRVAdapter.datas = review
+                                reviewRVAdapter.notifyDataSetChanged()
                             }
-                            reviewRVAdapter.datas = review
-                            reviewRVAdapter.notifyDataSetChanged()
                             binding.addCurriculumDetailReviewRv.startLayoutAnimation()
                         }
                         Thread.sleep(5000)
