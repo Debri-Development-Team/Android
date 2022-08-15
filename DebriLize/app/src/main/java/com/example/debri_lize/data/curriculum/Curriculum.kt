@@ -1,5 +1,6 @@
 package com.example.debri_lize.data.curriculum
 
+import androidx.room.PrimaryKey
 import com.google.gson.annotations.SerializedName
 import java.io.Serializable
 import java.sql.Timestamp
@@ -14,8 +15,9 @@ data class CurriIdx(
 data class Curriculum(
     @SerializedName(value = "curriIdx") val curriculumIdx: Int,
     @SerializedName(value = "curriName") val curriculumName: String? = "",
-    @SerializedName(value = "curriAuthor") val curriculumAuthor: String? = ""
-) : Serializable
+    @SerializedName(value = "curriAuthor") val curriculumAuthor: String? = "",
+    @PrimaryKey(autoGenerate = true) var roomIdx : Int =0
+)
 
 //8.3 커리큘럼 상세 조회 api
 data class CurriculumDetail(

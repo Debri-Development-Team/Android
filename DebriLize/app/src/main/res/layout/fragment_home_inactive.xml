@@ -213,22 +213,78 @@
 
             </LinearLayout>
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/home_curriculum_lecture_img_rv"
+            <View
+                android:id="@+id/home_curriculum_inactive_circle"
+                android:layout_width="150dp"
+                android:layout_height="150dp"
+                android:background="@drawable/circle_red_opacity_30"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/home_curriculum_progress_layout"/>
+
+            <LinearLayout
+                android:id="@+id/home_curriculum_inactive_layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="15dp"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:layout_marginTop="42dp"
                 android:layout_marginStart="30dp"
                 android:layout_marginEnd="30dp"
-                android:orientation="vertical"
-                android:overScrollMode="never"
-                android:nestedScrollingEnabled="false"
-                tools:listitem="item_curriculum_lecture_img"
-                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/home_curriculum_progress_layout" />
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/home_curriculum_progress_layout">
+
+                <TextView
+                    android:id="@+id/home_curriculum_inactive_tv1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/noto_sans_kr_regular"
+                    android:includeFontPadding="false"
+                    android:text="커리큘럼 비활성화 중"
+                    android:textColor="@color/white"
+                    android:textSize="30dp" />
+
+                <TextView
+                    android:id="@+id/home_curriculum_inactive_tv2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/noto_sans_kr_regular"
+                    android:includeFontPadding="false"
+                    android:text="한번에 하나의 커리큘럼만 잔행할 수 있어요 "
+                    android:textColor="@color/white"
+                    android:textSize="12dp"
+                    android:layout_marginTop="7dp"/>
+
+                <LinearLayout
+                    android:id="@+id/home_curriculum_active_layout"
+                    android:layout_width="147dp"
+                    android:layout_height="44dp"
+                    android:background="@drawable/border_round_white_transparent_10"
+                    android:gravity="center"
+                    android:orientation="horizontal"
+                    android:layout_marginTop="15dp">
+
+                    <ImageView
+                        android:id="@+id/home_curriculum_active_iv"
+                        android:layout_width="11.75dp"
+                        android:layout_height="14.86dp"
+                        android:layout_marginEnd="10dp"
+                        android:src="@drawable/ic_setting" />
+
+                    <TextView
+                        android:id="@+id/home_curriculum_active_tv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/noto_sans_kr_regular"
+                        android:includeFontPadding="false"
+                        android:text="커리큘럼 활성화"
+                        android:textColor="@color/white"
+                        android:textSize="10dp" />
+
+                </LinearLayout>
+
+            </LinearLayout>
 
             <View
                 android:id="@+id/border_line"
@@ -240,34 +296,7 @@
                 android:layout_marginEnd="80dp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/home_curriculum_lecture_img_rv"/>
-
-            <View
-                android:id="@+id/home_curriculum_active_circle"
-                android:layout_width="320dp"
-                android:layout_height="320dp"
-                android:background="@drawable/circle_debri_opacity_30"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/home_curriculum_progress_layout"
-                />
-
-            <me.itangqi.waveloadingview.WaveLoadingView
-                android:id="@+id/waveLoadingView"
-                android:layout_width="300dp"
-                android:layout_height="300dp"
-                app:wlv_borderColor="#3066CC66"
-                app:wlv_borderWidth="3dp"
-                app:wlv_progressValue="40"
-                app:wlv_shapeType="circle"
-                app:wlv_triangle_direction="north"
-                app:wlv_waveAmplitude="70"
-                app:wlv_waveColor="#3066CC66"
-                android:layout_marginTop="10dp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/home_curriculum_progress_layout"
-                />
+                app:layout_constraintTop_toBottomOf="@+id/home_curriculum_inactive_layout"/>
 
             <TextView
             android:id="@+id/home_lecture_tv"
