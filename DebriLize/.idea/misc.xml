@@ -141,7 +141,7 @@
         <entry key="app/src/main/res/layout/activity_add_curriculum.xml" value="0.146875" />
         <entry key="app/src/main/res/layout/activity_login.xml" value="0.23802083333333332" />
         <entry key="app/src/main/res/layout/activity_post_create.xml" value="0.1" />
-        <entry key="app/src/main/res/layout/activity_post_detail.xml" value="0.11828859060402684" />
+        <entry key="app/src/main/res/layout/activity_post_detail.xml" value="0.17782101167315176" />
         <entry key="app/src/main/res/layout/dialog_cancel.xml" value="0.23802083333333332" />
         <entry key="app/src/main/res/layout/dialog_curri_delete.xml" value="0.23802083333333332" />
         <entry key="app/src/main/res/layout/dialog_curri_name_change.xml" value="0.25" />
@@ -160,6 +160,7 @@
         <entry key="app/src/main/res/layout/fragment_home.xml" value="0.146875" />
         <entry key="app/src/main/res/layout/item_board.xml" value="0.23802083333333332" />
         <entry key="app/src/main/res/layout/item_class_favorite.xml" value="0.335" />
+        <entry key="app/src/main/res/layout/item_comment.xml" value="0.23802083333333332" />
         <entry key="app/src/main/res/layout/item_curriculum_lecture.xml" value="0.146875" />
         <entry key="app/src/main/res/layout/item_post.xml" value="0.375" />
         <entry key="app/src/main/res/layout/toast_curri_inactive.xml" value="0.14583333333333334" />

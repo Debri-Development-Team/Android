@@ -96,19 +96,27 @@ interface RetrofitInterface {
 
     //4.1 게시물 댓글 작성 api
     @POST("api/comment/replyOnPost/create")
-    fun createComment(@Body comment: Comment): Call<BaseResponse<Comment>>
+    fun createComment(@Body comment: Comment, @Header("ACCESS-TOKEN") authToken: String): Call<BaseResponse<Comment>>
 
     //4.2 대댓글 작성 api
     @POST("api/comment/replyOnReply/create")
-    fun createCocomment(@Body cocomment: Cocomment): Call<BaseResponse<Comment>>
+    fun createCocomment(@Body cocomment: Cocomment, @Header("ACCESS-TOKEN") authToken: String): Call<BaseResponse<Comment>>
 
     //4.3 댓글/대댓글 조회 api
     @GET("api/comment/get/{postIdx}")
-    fun showComment(@Path("postIdx") postIdx: Int) : Call<BaseResponse<List<CommentList>>>
+    fun showComment(@Path("postIdx") postIdx: Int, @Header("ACCESS-TOKEN") authToken: String) : Call<BaseResponse<List<CommentList>>>
 
     //4.4 댓글, 대댓글 삭제
     @PATCH("api/comment/delete/{commentIdx}")
     fun deleteComment(@Path("commentIdx") commentIdx: Int, @Header("ACCESS-TOKEN") authToken: String) : Call<BaseResponse<Comment>>
+
+    //4.6 댓글 좋아요 생성
+    @POST("api/comment/like/create/{commentIdx}")
+    fun createCommentLike(@Path("commentIdx") commentIdx: Int, @Header("ACCESS-TOKEN") authToken: String) : Call<BaseResponse<createCommentLike>>
+
+    //4.7 댓글 좋아요 삭제
+    @PATCH("api/comment/like/delete/{commentIdx}")
+    fun deleteCommentLike(@Path("commentIdx") commentIdx: Int, @Header("ACCESS-TOKEN") authToken: String) : Call<BaseResponse<deleteCommentLike>>
 
     //6.1 게시물 신고 api
     @POST("api/report/postReport")

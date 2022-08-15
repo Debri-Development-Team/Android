@@ -28,11 +28,13 @@ import kotlin.properties.Delegates
 
 
 class PostDetailActivity : AppCompatActivity(), PostDetailView, CommentCreateView, ShowCommentView, DeletePostView,
-    CreatePostLikeView, CancelPostLikeView, CreatePostScrapView, CancelPostScrapView, ReportPostView, DeleteCommentView, ReportCommentView {
+    CreatePostLikeView, CancelPostLikeView, CreatePostScrapView, CancelPostScrapView, ReportPostView, DeleteCommentView, ReportCommentView,
+    CreateCommentLikeView, DeleteCommentLikeView {
     lateinit var binding : ActivityPostDetailBinding
 
     var postIdx by Delegates.notNull<Int>()
     var authorIdx by Delegates.notNull<Int>()
+    var commentIdx by Delegates.notNull<Int>()
 
     //data
     lateinit var postDetail : PostDetail
@@ -69,6 +71,8 @@ class PostDetailActivity : AppCompatActivity(), PostDetailView, CommentCreateVie
         val commentService = CommentService()
         commentService.setShowCommentView(this)
         commentService.showComment(postIdx)
+
+
 
         //write comment <- enter
         binding.postDetailWriteCommentEt.setOnKeyListener { v, keyCode, event ->
@@ -461,6 +465,7 @@ class PostDetailActivity : AppCompatActivity(), PostDetailView, CommentCreateVie
                 binding.postDetailWriteCommentEt.text.clear()
                 commentService.setShowCommentView(this)
                 commentService.showComment(postIdx)
+
             }
         }
     }
@@ -469,15 +474,14 @@ class PostDetailActivity : AppCompatActivity(), PostDetailView, CommentCreateVie
 
     }
 
-    override fun onShowCommentSuccess(code: Int, result: List<CommentList>
-    ) {
+    override fun onShowCommentSuccess(code: Int, result: List<CommentList>) {
         when(code){
             200-> {
-
                 temp.clear()
                 for(i in result){
-                    temp.add(CommentList(i.commentIdx, i.authorIdx, i.postIdx, i.commentLevel, i.commentOrder, i.commentGroup, i.commentContent, i.authorName))
+                    temp.add(CommentList(i.commentIdx, i.authorIdx, i.postIdx, i.commentLevel, i.commentOrder, i.commentGroup, i.commentContent, i.authorName, i.likeStatus, i.likeCount))
                 }
+
 
                 parentItemArrayList = ArrayList<CommentList>()
                 var childItemArrayListGroup = ArrayList<ArrayList<CommentList>>()
@@ -488,7 +492,7 @@ class PostDetailActivity : AppCompatActivity(), PostDetailView, CommentCreateVie
 
                     if(i.commentLevel==0){
                         commentGroup = i.commentGroup
-                        parentItemArrayList.add(CommentList(i.commentIdx, i.authorIdx, i.postIdx, i.commentLevel, i.commentOrder, i.commentGroup, i.commentContent, i.authorName))
+                        parentItemArrayList.add(CommentList(i.commentIdx, i.authorIdx, i.postIdx, i.commentLevel, i.commentOrder, i.commentGroup, i.commentContent, i.authorName, i.likeStatus, i.likeCount))
                     }
 
                     //Child Item Object
@@ -496,7 +500,7 @@ class PostDetailActivity : AppCompatActivity(), PostDetailView, CommentCreateVie
                     while(iterator.hasNext()){
                         val item = iterator.next()
                         if (item.commentLevel==1 && item.commentGroup==commentGroup) {
-                                childItemArrayList.add(CommentList(item.commentIdx, item.authorIdx, item.postIdx, item.commentLevel, item.commentOrder, item.commentGroup, item.commentContent, item.authorName))
+                                childItemArrayList.add(CommentList(item.commentIdx, item.authorIdx, item.postIdx, item.commentLevel, item.commentOrder, item.commentGroup, item.commentContent, item.authorName, i.likeStatus, i.likeCount))
                             Log.d("childList", childItemArrayList.toString())
                         }
                     }
@@ -515,6 +519,30 @@ class PostDetailActivity : AppCompatActivity(), PostDetailView, CommentCreateVie
                 commentRVAdapter = CommentRVAdapter(this)
                 commentRVAdapter.build(parentItemArrayList, childItemArrayListGroup, binding, postIdx)
                 binding.postDetailCommentRv.adapter = commentRVAdapter
+
+
+                commentService.setCreateCommentLikeView(this)
+                commentService.setDeleteCommentLikeView(this)
+
+                //댓글 좋아요
+                commentRVAdapter.setLikeItemClickListener(object : CommentRVAdapter.OnLikeItemClickListener{
+                    override fun onClick(v: View, position: Int) {
+                        commentIdx = temp[position].commentIdx
+                        Log.d("commentlikestatus",temp[position].likeStatus.toString())
+                        Log.d("commentidx","$commentIdx")
+                        if(temp[position].likeStatus){  //유저가 댓글 좋아요 누른 상태
+                            //api - delete comment like
+                            commentService.deleteCommentLike(commentIdx)
+                        }else{  //유저가 댓글 좋아요 누르지 않은 상태
+
+                            //api - create comment like
+                            commentService.createCommentLike(commentIdx)
+                        }
+
+
+                    }
+
+                })
 
             }
         }
@@ -655,6 +683,30 @@ class PostDetailActivity : AppCompatActivity(), PostDetailView, CommentCreateVie
 
     override fun onReportCommentFailure(code: Int) {
 
+    }
+
+    override fun onCreateCommentLikeSuccess(code: Int) {
+        when(code){
+            200->{
+               // commentService.showComment(postIdx)
+            }
+        }
+    }
+
+    override fun onCreateCommentLikeFailure(code: Int) {
+        Log.d("createcommentlikefail","$code")
+    }
+
+    override fun onDeleteCommentLikeSuccess(code: Int) {
+        when(code){
+            200->{
+                //commentService.showComment(postIdx)
+            }
+        }
+    }
+
+    override fun onDeleteCommentLikeFailure(code: Int) {
+        Log.d("deletecommentlikefail","$code")
     }
 
 
