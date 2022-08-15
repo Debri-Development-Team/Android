@@ -9,9 +9,8 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.debri_lize.CommentRVAdapter
+import com.example.debri_lize.adapter.post.CommentRVAdapter
 import android.view.Gravity
-import android.view.MotionEvent
 import androidx.core.content.ContextCompat
 import com.example.debri_lize.CustomDialog
 import com.example.debri_lize.R
@@ -23,13 +22,11 @@ import com.example.debri_lize.service.ReportService
 import com.example.debri_lize.utils.*
 import com.example.debri_lize.view.post.*
 import com.google.android.material.bottomsheet.BottomSheetDialog
-import org.w3c.dom.Text
 import kotlin.properties.Delegates
 
 
 class PostDetailActivity : AppCompatActivity(), PostDetailView, CommentCreateView, ShowCommentView, DeletePostView,
-    CreatePostLikeView, CancelPostLikeView, CreatePostScrapView, CancelPostScrapView, ReportPostView, DeleteCommentView, ReportCommentView,
-    CreateCommentLikeView, DeleteCommentLikeView {
+    CreatePostLikeView, CancelPostLikeView, CreatePostScrapView, CancelPostScrapView, ReportPostView, DeleteCommentView, ReportCommentView {
     lateinit var binding : ActivityPostDetailBinding
 
     var postIdx by Delegates.notNull<Int>()
@@ -501,7 +498,7 @@ class PostDetailActivity : AppCompatActivity(), PostDetailView, CommentCreateVie
                     while(iterator.hasNext()){
                         val item = iterator.next()
                         if (item.commentLevel==1 && item.commentGroup==commentGroup) {
-                            childItemArrayList.add(CommentList(item.commentIdx, item.authorIdx, item.postIdx, item.commentLevel, item.commentOrder, item.commentGroup, item.commentContent, item.authorName, i.timeAfterCreated, i.likeStatus, i.likeCount))
+                            childItemArrayList.add(CommentList(item.commentIdx, item.authorIdx, item.postIdx, item.commentLevel, item.commentOrder, item.commentGroup, item.commentContent, item.authorName, item.timeAfterCreated, item.likeStatus, item.likeCount))
                             Log.d("childList", childItemArrayList.toString())
                         }
                     }
@@ -522,28 +519,6 @@ class PostDetailActivity : AppCompatActivity(), PostDetailView, CommentCreateVie
                 binding.postDetailCommentRv.adapter = commentRVAdapter
 
 
-                commentService.setCreateCommentLikeView(this)
-                commentService.setDeleteCommentLikeView(this)
-
-                //댓글 좋아요
-                commentRVAdapter.setLikeItemClickListener(object : CommentRVAdapter.OnLikeItemClickListener{
-                    override fun onClick(v: View, position: Int) {
-                        commentIdx = temp[position].commentIdx
-                        Log.d("commentlikestatus",temp[position].likeStatus.toString())
-                        Log.d("commentidx","$commentIdx")
-                        if(temp[position].likeStatus){  //유저가 댓글 좋아요 누른 상태
-                            //api - delete comment like
-                            commentService.deleteCommentLike(commentIdx)
-                        }else{  //유저가 댓글 좋아요 누르지 않은 상태
-
-                            //api - create comment like
-                            commentService.createCommentLike(commentIdx)
-                        }
-
-
-                    }
-
-                })
 
             }
         }
@@ -686,31 +661,7 @@ class PostDetailActivity : AppCompatActivity(), PostDetailView, CommentCreateVie
 
     }
 
-    override fun onCreateCommentLikeSuccess(code: Int) {
-        when(code){
-            200->{
-                commentService.setShowCommentView(this)
-                commentService.showComment(postIdx)
-            }
-        }
-    }
 
-    override fun onCreateCommentLikeFailure(code: Int) {
-        Log.d("createcommentlikefail","$code")
-    }
-
-    override fun onDeleteCommentLikeSuccess(code: Int) {
-        when(code){
-            200->{
-                commentService.setShowCommentView(this)
-                commentService.showComment(postIdx)
-            }
-        }
-    }
-
-    override fun onDeleteCommentLikeFailure(code: Int) {
-        Log.d("deletecommentlikefail","$code")
-    }
 
 
 }
