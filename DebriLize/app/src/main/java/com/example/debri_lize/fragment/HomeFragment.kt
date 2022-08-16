@@ -275,7 +275,14 @@ class HomeFragment : Fragment(), MyCurriculumListView, ShowCurriculumDetailView,
                     //활성화
                     //동적으로 화면 크기 지정
                     Log.d("chapterListResList", result.chapterListResList.size.toString())
-                    if(result.chapterListResList.size == 1){
+                    if(result.chapterListResList.isEmpty()){
+                        //recycler view size
+                        binding.homeCurriculumLectureImgRv.layoutParams = binding.homeCurriculumLectureImgRv.layoutParams.apply {
+                            this.height = (381 * getUISize("dpi"))
+                        }
+
+                    }else if(result.chapterListResList.size == 1){
+
                         //recycler view size
                         binding.homeCurriculumLectureImgRv.layoutParams = binding.homeCurriculumLectureImgRv.layoutParams.apply {
                             this.height = (250 * getUISize("dpi"))
@@ -284,6 +291,7 @@ class HomeFragment : Fragment(), MyCurriculumListView, ShowCurriculumDetailView,
                         val param = binding.homeCurriculumLectureImgRv.layoutParams as ViewGroup.MarginLayoutParams
                         param.setMargins(30* getUISize("dpi"),131* getUISize("dpi"),30* getUISize("dpi"),0)
                         binding.homeCurriculumLectureImgRv.layoutParams = param
+
                     }else{
                         //recycler view size
                         binding.homeCurriculumLectureImgRv.layoutParams = binding.homeCurriculumLectureImgRv.layoutParams.apply {
