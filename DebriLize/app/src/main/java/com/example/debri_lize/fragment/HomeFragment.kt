@@ -2,6 +2,7 @@ package com.example.debri_lize.fragment
 
 import android.content.Context
 import android.content.Intent
+import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
 import android.view.Gravity
@@ -21,6 +22,9 @@ import com.example.debri_lize.adapter.home.ChapterRVAdapter
 import com.example.debri_lize.adapter.home.LectureRVAdapter
 import com.example.debri_lize.data.curriculum.*
 import com.example.debri_lize.databinding.FragmentHomeBinding
+
+import com.example.debri_lize.utils.getUserIdx
+import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.example.debri_lize.databinding.FragmentHomeInactiveBinding
 import com.example.debri_lize.service.CurriculumService
 import com.example.debri_lize.utils.getCurriIdx
@@ -101,7 +105,8 @@ class HomeFragment : Fragment(), MyCurriculumListView, ShowCurriculumDetailView,
         bottomSheetView = layoutInflater.inflate(R.layout.fragment_bottom_sheet_four, null)
         bottomSheetDialog.setContentView(bottomSheetView)
 
-        //toast
+
+        //toast message
         var publicToast = layoutInflater.inflate(R.layout.toast_curri_public,null)
         var toast = Toast(context)
         toast.view = publicToast

@@ -24,7 +24,7 @@
         android:text="커리큘럼이 공개로 변경되었습니다!"
         android:fontFamily="@font/noto_sans_kr_bold"
         android:textColor="@color/black"
-        android:textSize="16sp"
+        android:textSize="16dp"
         android:layout_marginTop="10dp"
         android:layout_marginEnd="20dp"/>
 

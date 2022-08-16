@@ -1,32 +1,29 @@
-package com.example.debri_lize
+package com.example.debri_lize.adapter.post
 
-import android.app.Activity
-import android.content.Context
-import android.content.Intent
 import android.util.Log
 import android.view.KeyEvent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-import android.widget.Toast
-import androidx.core.content.ContextCompat.startActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.debri_lize.activity.MainActivity
+import com.example.debri_lize.R
 import com.example.debri_lize.activity.PostDetailActivity
 import com.example.debri_lize.data.post.Cocomment
 import com.example.debri_lize.data.post.CommentList
-import com.example.debri_lize.data.post.PostDetail
 import com.example.debri_lize.databinding.ActivityPostDetailBinding
 import com.example.debri_lize.databinding.ItemCommentBinding
 import com.example.debri_lize.service.CommentService
 import com.example.debri_lize.utils.getUserIdx
 import com.example.debri_lize.utils.getUserName
 import com.example.debri_lize.view.post.CocommentCreateView
+import com.example.debri_lize.view.post.CreateCommentLikeView
+import com.example.debri_lize.view.post.DeleteCommentLikeView
 import kotlin.properties.Delegates
 
-class CommentRVAdapter(context: PostDetailActivity) : RecyclerView.Adapter<CommentRVAdapter.ViewHolder>(), CocommentCreateView {
+class CommentRVAdapter(context: PostDetailActivity) : RecyclerView.Adapter<CommentRVAdapter.ViewHolder>(), CocommentCreateView,
+    CreateCommentLikeView, DeleteCommentLikeView {
     private lateinit var cocommentRVAdapter: CocommentRVAdapter
     private lateinit var binding : ActivityPostDetailBinding
 
@@ -36,6 +33,8 @@ class CommentRVAdapter(context: PostDetailActivity) : RecyclerView.Adapter<Comme
     //activity
     var postIdx by Delegates.notNull<Int>()
     var activity = context
+
+    val commentService = CommentService()
 
     fun build(parent: ArrayList<CommentList>, child : ArrayList<ArrayList<CommentList>>, binding: ActivityPostDetailBinding, postIdx : Int): CommentRVAdapter {
         parentItemArrayList = parent
@@ -52,10 +51,13 @@ class CommentRVAdapter(context: PostDetailActivity) : RecyclerView.Adapter<Comme
         val commentContent : TextView = binding.itemCommentTv
         val time : TextView = binding.itemCommentTimeTv
         val authorName : TextView = binding.itemCommentProfileTv
+        val commentLikeNum : TextView = binding.itemCommentLikeTv
 
         fun bind(item: CommentList) {
             commentContent.text = item.commentContent
             authorName.text = item.authorName + " >"
+            commentLikeNum.text = item.likeCount.toString()
+            Log.d("itemCommentList", item.toString())
 
             if(item.timeAfterCreated == 0){
                 time.text = "방금 전"
@@ -74,6 +76,9 @@ class CommentRVAdapter(context: PostDetailActivity) : RecyclerView.Adapter<Comme
                 var year = item.timeAfterCreated/525600
                 time.text = year.toString() + "년 전"
             }
+
+            if(item.likeStatus)  binding.itemCommentLikeIv.setImageResource(R.drawable.ic_comment_like_on)
+            else binding.itemCommentLikeIv.setImageResource(R.drawable.ic_comment_like_off)
 
         }
     }
@@ -120,8 +125,28 @@ class CommentRVAdapter(context: PostDetailActivity) : RecyclerView.Adapter<Comme
             Log.d("commentIdx", parentItemArrayList[position].commentIdx.toString())
             Log.d("postIdx", parentItemArrayList[position].postIdx.toString())
         }
+        commentService.setCreateCommentLikeView(this)
+        commentService.setDeleteCommentLikeView(this)
+
+        //comment like
+        holder.binding.itemCommentLikeIv.setOnClickListener {
+            val commentIdx = parentItemArrayList[position].commentIdx
+            if(parentItemArrayList[position].likeStatus){
+                holder.binding.itemCommentLikeIv.setImageResource(R.drawable.ic_comment_like_off)
+                //api - delete comment like
+                commentService.deleteCommentLike(commentIdx)
+
+            }else{
+                holder.binding.itemCommentLikeIv.setImageResource(R.drawable.ic_comment_like_on)
+                //api - create comment like
+                commentService.createCommentLike(commentIdx)
+            }
+
+
+        }
 
     }
+
 
     override fun getItemCount(): Int = parentItemArrayList.size
 
@@ -167,6 +192,33 @@ class CommentRVAdapter(context: PostDetailActivity) : RecyclerView.Adapter<Comme
 
     }
 
+    override fun onCreateCommentLikeSuccess(code: Int) {
+        when(code){
+            200->{
+                val activity: PostDetailActivity = activity
+                val commentService = CommentService()
+                commentService.setShowCommentView(activity)
+                commentService.showComment(postIdx)
+            }
+        }
+    }
+
+    override fun onCreateCommentLikeFailure(code: Int) {
+    }
+
+    override fun onDeleteCommentLikeSuccess(code: Int) {
+        when(code){
+            200->{
+                val activity: PostDetailActivity = activity
+                val commentService = CommentService()
+                commentService.setShowCommentView(activity)
+                commentService.showComment(postIdx)
+            }
+        }
+    }
+
+    override fun onDeleteCommentLikeFailure(code: Int) {
+    }
 
 
 }

@@ -1,10 +1,11 @@
-package com.example.debri_lize
+package com.example.debri_lize.adapter.post
 
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.example.debri_lize.R
 import com.example.debri_lize.data.post.PostList
 import com.example.debri_lize.databinding.ItemPostBinding
 

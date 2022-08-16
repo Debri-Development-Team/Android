@@ -84,7 +84,7 @@
                     android:id="@+id/item_cocomment_like_iv"
                     android:layout_width="15dp"
                     android:layout_height="15dp"
-                    android:src="@drawable/ic_comment_like"
+                    android:src="@drawable/ic_comment_like_off"
                     android:layout_marginEnd="10dp"
                     />
 

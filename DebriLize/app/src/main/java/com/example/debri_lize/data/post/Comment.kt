@@ -12,7 +12,9 @@ data class CommentList(
     @SerializedName(value = "commentGroup") var commentGroup : Int, //대댓글의 뿌리댓글
     @SerializedName(value = "commentContent") var commentContent : String,
     @SerializedName(value = "authorName") var authorName : String,
-    @SerializedName(value = "timeAfterCreated") var timeAfterCreated : Int
+    @SerializedName(value = "timeAfterCreated") var timeAfterCreated : Int,
+    @SerializedName(value = "likeStatus") var likeStatus : Boolean,
+    @SerializedName(value = "likeCount") var likeCount : Int
 )
 
 //@Body
@@ -31,4 +33,13 @@ data class Cocomment(
     @SerializedName(value = "rootCommentIdx") var rootCommentIdx : Int? = 0,
     @SerializedName(value = "content") val commentContent : String? = "",
     @SerializedName(value = "authorName") var authorName : String? = ""
+)
+
+//4.5 댓글 좋아요 생성
+data class createCommentLike(
+    @SerializedName(value = "likeCreateSuccess") var likeCreateSuccess : Boolean
+)
+
+data class deleteCommentLike(
+    @SerializedName(value = "commentLikeDeleteSuccess") var commentLikeDeleteSuccess : Boolean
 )
