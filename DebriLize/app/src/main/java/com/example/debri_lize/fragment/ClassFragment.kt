@@ -309,7 +309,7 @@ class ClassFragment : Fragment(), LectureFavoriteView, LectureFilterView {
 
                 datas_f.apply {
                     for (i in result){
-                        datas_f.add(Lecture(i.lectureIdx, i.lectureName, i.chapterNum, i.language, i.media, i.price, i.userScrap, i.scrapNumber, i.usedCount, i.likeNumber, i.userLike))
+                        datas_f.add(Lecture(i.lectureIdx, i.lectureName, i.chapterNum, i.language, i.media, i.price, i.userScrap, i.scrapNumber, i.usedCount, i.likeNumber, i.userLike, i.lectureDesc, i.srcLink))
                     }
 
                     classfavoriteRVAdapter.datas_classf = datas_f
@@ -353,7 +353,7 @@ class ClassFragment : Fragment(), LectureFavoriteView, LectureFilterView {
                 datas.apply {
                     for (i in result) {
                         datas.add(
-                            Lecture(i.lectureIdx, i.lectureName, i.chapterNum, i.language, i.media, i.price, i.userScrap, i.scrapNumber, i.usedCount, i.likeNumber, i.userLike)
+                            Lecture(i.lectureIdx, i.lectureName, i.chapterNum, i.language, i.media, i.price, i.userScrap, i.scrapNumber, i.usedCount, i.likeNumber, i.userLike, i.lectureDesc, i.srcLink)
                         )
                     }
 
@@ -364,7 +364,16 @@ class ClassFragment : Fragment(), LectureFavoriteView, LectureFilterView {
                     classLectureRVAdapter.setItemClickListener(object :
                         ClassLectureRVAdapter.OnItemClickListener {
                         override fun onClick(v: View, position: Int) {
+                            //LectureDetailFragment에 data보내기
+                            val bundle = Bundle()
+                            bundle.putSerializable("lectureFav", datas[position])
+                            val passBundleBFragment = LectureDetailFragment()
+                            passBundleBFragment.arguments = bundle
 
+                            //fragment to fragment
+                            activity?.supportFragmentManager!!.beginTransaction()
+                                .replace(R.id.main_frm, passBundleBFragment)
+                                .commit()
 
                         }
                     })
