@@ -20,22 +20,3 @@ data class RoadMap(
     @SerializedName(value = "chapterListResList") val chapterListResList: List<ChapterList>,
     @SerializedName(value = "dday") val dday: Int
 ) : Serializable
-
-data class LectureList(
-    @SerializedName(value = "lectureIdx") val lectureIdx: Int? = 0,
-    @SerializedName(value = "lectureName") val lectureName: String? = "",
-    @SerializedName(value = "langTag") val language: String? = "",
-    @SerializedName(value = "chNumber") val chNum: Int,
-    @SerializedName(value = "progressRate") val progressRate: Float
-)
-
-data class ChapterList(
-    @SerializedName(value = "chIdx") val chIdx: Int? = 0,
-    @SerializedName(value = "chName") val chName: String? = "",
-    @SerializedName(value = "chNumber") val chNum: Int?,
-    @SerializedName(value = "langTag") val language: String? = "",
-    @SerializedName(value = "chComplete") val chComplete: String?,
-    @SerializedName(value = "progressOrder") val progressOrder: Int?,
-    @SerializedName(value = "completeChNumber") val completeChNum: Int?,
-    val chapterImg : Int?
-)
