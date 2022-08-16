@@ -111,6 +111,14 @@ interface RetrofitInterface {
     @PATCH("api/comment/delete/{commentIdx}")
     fun deleteComment(@Path("commentIdx") commentIdx: Int, @Header("ACCESS-TOKEN") authToken: String) : Call<BaseResponse<Comment>>
 
+    //4.6 댓글 좋아요 생성
+    @POST("api/comment/like/create/{commentIdx}")
+    fun createCommentLike(@Path("commentIdx") commentIdx: Int, @Header("ACCESS-TOKEN") authToken: String) : Call<BaseResponse<createCommentLike>>
+
+    //4.7 댓글 좋아요 삭제
+    @PATCH("api/comment/like/delete/{commentIdx}")
+    fun deleteCommentLike(@Path("commentIdx") commentIdx: Int, @Header("ACCESS-TOKEN") authToken: String) : Call<BaseResponse<deleteCommentLike>>
+
     //6.1 게시물 신고 api
     @POST("api/report/postReport")
     fun reportPost(@Body report: ReportPost, @Header("ACCESS-TOKEN") authToken: String) : Call<BaseResponse<String>>

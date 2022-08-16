@@ -6,7 +6,7 @@ import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.debri_lize.ClassLectureRVAdapter
+import com.example.debri_lize.adapter.class_.ClassLectureRVAdapter
 import com.example.debri_lize.adapter.start.ReviewRVAdapter
 import com.example.debri_lize.data.class_.Lecture
 import com.example.debri_lize.data.curriculum.Review
@@ -72,9 +72,9 @@ class AddCurriculumDetailActivity : AppCompatActivity(), CreateReviewView, ShowR
         //data : 전체
         datas.apply {
 
-            datas.add(Lecture(1, "야호", 1, "야호", "야호", "야호",false))
-            datas.add(Lecture(1, "야호", 1, "야호", "야호", "야호",false))
-            datas.add(Lecture(1, "야호", 1, "야호", "야호", "야호",false))
+//            datas.add(Lecture(1, "야호", 1, "야호", "야호", "야호",false))
+//            datas.add(Lecture(1, "야호", 1, "야호", "야호", "야호",false))
+//            datas.add(Lecture(1, "야호", 1, "야호", "야호", "야호",false))
 
             classLectureRVAdapter.datas = datas
             classLectureRVAdapter.notifyDataSetChanged()

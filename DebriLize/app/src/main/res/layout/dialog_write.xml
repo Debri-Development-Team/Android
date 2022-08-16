@@ -24,7 +24,7 @@
         android:layout_height="wrap_content"
         android:text="글을 작성하시겠어요?"
         android:fontFamily="@font/noto_sans_kr_bold"
-        android:textSize="16sp"
+        android:textSize="16dp"
         android:textColor="@color/black"
         android:layout_marginStart="15dp"
         android:layout_marginTop="10dp"

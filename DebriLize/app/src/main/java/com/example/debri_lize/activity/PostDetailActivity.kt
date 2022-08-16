@@ -9,7 +9,7 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.debri_lize.CommentRVAdapter
+import com.example.debri_lize.adapter.post.CommentRVAdapter
 import android.view.Gravity
 import androidx.core.content.ContextCompat
 import com.example.debri_lize.CustomDialog
@@ -31,6 +31,7 @@ class PostDetailActivity : AppCompatActivity(), PostDetailView, CommentCreateVie
 
     var postIdx by Delegates.notNull<Int>()
     var authorIdx by Delegates.notNull<Int>()
+    var commentIdx by Delegates.notNull<Int>()
 
     //data
     lateinit var postDetail : PostDetail
@@ -68,6 +69,8 @@ class PostDetailActivity : AppCompatActivity(), PostDetailView, CommentCreateVie
         val commentService = CommentService()
         commentService.setShowCommentView(this)
         commentService.showComment(postIdx)
+
+
 
         //write comment <- enter
         binding.postDetailWriteCommentEt.setOnKeyListener { v, keyCode, event ->
@@ -284,6 +287,9 @@ class PostDetailActivity : AppCompatActivity(), PostDetailView, CommentCreateVie
 
             //click complain button
             bottomSheetView.findViewById<TextView>(R.id.bottom_sheet_complain_tv).setOnClickListener {
+                //클릭 시 글자색 white (왜 안됨?)
+                bottomSheetView.findViewById<TextView>(R.id.bottom_sheet_complain_tv).setTextColor(ContextCompat.getColor(this@PostDetailActivity, R.color.white))
+
                 val bottomSheetComplainDetailView = layoutInflater.inflate(R.layout.fragment_bottom_sheet_complain_detail, null)
                 val bottomSheetComplainDetailDialog = BottomSheetDialog(this)
                 bottomSheetComplainDetailDialog.setContentView(bottomSheetComplainDetailView)
@@ -371,6 +377,8 @@ class PostDetailActivity : AppCompatActivity(), PostDetailView, CommentCreateVie
 
     }
 
+
+
     //api
     //postDetail
     override fun onPostDetailSuccess(code: Int, result: PostDetail) {
@@ -455,6 +463,7 @@ class PostDetailActivity : AppCompatActivity(), PostDetailView, CommentCreateVie
                 binding.postDetailWriteCommentEt.text.clear()
                 commentService.setShowCommentView(this)
                 commentService.showComment(postIdx)
+
             }
         }
     }
@@ -463,15 +472,14 @@ class PostDetailActivity : AppCompatActivity(), PostDetailView, CommentCreateVie
 
     }
 
-    override fun onShowCommentSuccess(code: Int, result: List<CommentList>
-    ) {
+    override fun onShowCommentSuccess(code: Int, result: List<CommentList>) {
         when(code){
             200-> {
-
                 temp.clear()
                 for(i in result){
-                    temp.add(CommentList(i.commentIdx, i.authorIdx, i.postIdx, i.commentLevel, i.commentOrder, i.commentGroup, i.commentContent, i.authorName, i.timeAfterCreated))
+                    temp.add(CommentList(i.commentIdx, i.authorIdx, i.postIdx, i.commentLevel, i.commentOrder, i.commentGroup, i.commentContent, i.authorName, i.timeAfterCreated, i.likeStatus, i.likeCount))
                 }
+
 
                 parentItemArrayList = ArrayList<CommentList>()
                 var childItemArrayListGroup = ArrayList<ArrayList<CommentList>>()
@@ -482,7 +490,7 @@ class PostDetailActivity : AppCompatActivity(), PostDetailView, CommentCreateVie
 
                     if(i.commentLevel==0){
                         commentGroup = i.commentGroup
-                        parentItemArrayList.add(CommentList(i.commentIdx, i.authorIdx, i.postIdx, i.commentLevel, i.commentOrder, i.commentGroup, i.commentContent, i.authorName, i.timeAfterCreated))
+                        parentItemArrayList.add(CommentList(i.commentIdx, i.authorIdx, i.postIdx, i.commentLevel, i.commentOrder, i.commentGroup, i.commentContent, i.authorName, i.timeAfterCreated, i.likeStatus, i.likeCount))
                     }
 
                     //Child Item Object
@@ -490,7 +498,8 @@ class PostDetailActivity : AppCompatActivity(), PostDetailView, CommentCreateVie
                     while(iterator.hasNext()){
                         val item = iterator.next()
                         if (item.commentLevel==1 && item.commentGroup==commentGroup) {
-                                childItemArrayList.add(CommentList(item.commentIdx, item.authorIdx, item.postIdx, item.commentLevel, item.commentOrder, item.commentGroup, item.commentContent, item.authorName, item.timeAfterCreated))
+                            childItemArrayList.add(CommentList(item.commentIdx, item.authorIdx, item.postIdx, item.commentLevel, item.commentOrder, item.commentGroup, item.commentContent, item.authorName, item.timeAfterCreated, item.likeStatus, item.likeCount))
+
                             Log.d("childList", childItemArrayList.toString())
                         }
                     }
@@ -509,6 +518,8 @@ class PostDetailActivity : AppCompatActivity(), PostDetailView, CommentCreateVie
                 commentRVAdapter = CommentRVAdapter(this)
                 commentRVAdapter.build(parentItemArrayList, childItemArrayListGroup, binding, postIdx)
                 binding.postDetailCommentRv.adapter = commentRVAdapter
+
+
 
             }
         }
@@ -650,6 +661,8 @@ class PostDetailActivity : AppCompatActivity(), PostDetailView, CommentCreateVie
     override fun onReportCommentFailure(code: Int) {
 
     }
+
+
 
 
 }

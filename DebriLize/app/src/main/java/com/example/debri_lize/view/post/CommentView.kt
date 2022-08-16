@@ -27,3 +27,14 @@ interface DeleteCommentView {
     fun onDeleteCommentFailure(code : Int)
 }
 
+//4.6 댓글 좋아요 생성
+interface CreateCommentLikeView {
+    fun onCreateCommentLikeSuccess(code : Int)
+    fun onCreateCommentLikeFailure(code : Int)
+}
+
+//4.7 댓글 좋아요 삭제
+interface DeleteCommentLikeView {
+    fun onDeleteCommentLikeSuccess(code : Int)
+    fun onDeleteCommentLikeFailure(code : Int)
+}

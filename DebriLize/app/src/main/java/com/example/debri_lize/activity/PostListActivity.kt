@@ -8,7 +8,7 @@ import android.util.Log
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.debri_lize.PostRVAdapter
+import com.example.debri_lize.adapter.post.PostRVAdapter
 import com.example.debri_lize.data.post.PostList
 import com.example.debri_lize.databinding.ActivityPostListBinding
 import com.example.debri_lize.service.PostService

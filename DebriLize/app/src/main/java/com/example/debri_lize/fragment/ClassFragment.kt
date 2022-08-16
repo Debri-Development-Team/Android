@@ -1,27 +1,20 @@
 package com.example.debri_lize.fragment
 
-import android.content.Intent
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
-import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-import android.widget.Toast
-import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.debri_lize.ClassFavoriteRVAdapter
-import com.example.debri_lize.ClassLectureRVAdapter
-import com.example.debri_lize.CustomDialog
+import com.example.debri_lize.adapter.class_.ClassFavoriteRVAdapter
+import com.example.debri_lize.adapter.class_.ClassLectureRVAdapter
 import com.example.debri_lize.R
-import com.example.debri_lize.activity.PostCreateActivity
 import com.example.debri_lize.data.class_.Lecture
 import com.example.debri_lize.data.class_.LectureFilter
-import com.example.debri_lize.data.post.PostList
 import com.example.debri_lize.databinding.FragmentClassBinding
 import com.example.debri_lize.service.ClassService
 import com.example.debri_lize.utils.getUserIdx
@@ -316,7 +309,7 @@ class ClassFragment : Fragment(), LectureFavoriteView, LectureFilterView {
 
                 datas_f.apply {
                     for (i in result){
-                        datas_f.add(Lecture(i.lectureIdx, i.lectureName, i.chapterNum, i.language, i.media, i.price, i.userScrap))
+                        datas_f.add(Lecture(i.lectureIdx, i.lectureName, i.chapterNum, i.language, i.media, i.price, i.userScrap, i.scrapNumber, i.usedCount, i.likeNumber, i.userLike))
                     }
 
                     classfavoriteRVAdapter.datas_classf = datas_f
@@ -326,6 +319,16 @@ class ClassFragment : Fragment(), LectureFavoriteView, LectureFilterView {
                     classfavoriteRVAdapter.setItemClickListener(object : ClassFavoriteRVAdapter.OnItemClickListener {
                         override fun onClick(v: View, position: Int) {
 
+                            //LectureDetailFragment에 data보내기
+                            val bundle = Bundle()
+                            bundle.putSerializable("lectureFav", datas_f[position])
+                            val passBundleBFragment = LectureDetailFragment()
+                            passBundleBFragment.arguments = bundle
+
+                            //fragment to fragment
+                            activity?.supportFragmentManager!!.beginTransaction()
+                                .replace(R.id.main_frm, passBundleBFragment)
+                                .commit()
 
 
                         }
@@ -350,7 +353,7 @@ class ClassFragment : Fragment(), LectureFavoriteView, LectureFilterView {
                 datas.apply {
                     for (i in result) {
                         datas.add(
-                            Lecture(i.lectureIdx, i.lectureName, i.chapterNum, i.language, i.media, i.price, i.userScrap)
+                            Lecture(i.lectureIdx, i.lectureName, i.chapterNum, i.language, i.media, i.price, i.userScrap, i.scrapNumber, i.usedCount, i.likeNumber, i.userLike)
                         )
                     }
 
