@@ -203,9 +203,9 @@
 
         <ImageView
             android:layout_width="20.5dp"
-            android:layout_height="79.5dp"
+            android:layout_height="100dp"
             android:src="@drawable/ic_arrow_down_right"
-            android:layout_marginTop="30dp"
+            android:layout_marginTop="35dp"
             android:layout_marginEnd="7dp"
             app:layout_constraintEnd_toStartOf="@+id/add_roadmap_detail_layout1"
             app:layout_constraintTop_toTopOf="@+id/add_roadmap_detail_layout1"/>
@@ -278,9 +278,9 @@
 
         <ImageView
             android:layout_width="20.5dp"
-            android:layout_height="79.5dp"
+            android:layout_height="105dp"
             android:src="@drawable/ic_arrow_down_right"
-            android:layout_marginTop="50dp"
+            android:layout_marginTop="60dp"
             android:layout_marginEnd="7dp"
             app:layout_constraintEnd_toStartOf="@+id/add_roadmap_detail_layout2"
             app:layout_constraintTop_toTopOf="@+id/add_roadmap_detail_layout2"/>
@@ -349,9 +349,9 @@
 
         <ImageView
             android:layout_width="20.5dp"
-            android:layout_height="79.5dp"
+            android:layout_height="95dp"
             android:src="@drawable/ic_arrow_down_right"
-            android:layout_marginTop="50dp"
+            android:layout_marginTop="65dp"
             android:layout_marginEnd="7dp"
             app:layout_constraintEnd_toStartOf="@+id/add_roadmap_detail_layout3"
             app:layout_constraintTop_toTopOf="@+id/add_roadmap_detail_layout3"/>

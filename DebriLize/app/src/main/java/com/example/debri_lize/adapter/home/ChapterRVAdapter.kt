@@ -69,7 +69,7 @@ class ChapterRVAdapter(context: HomeFragment) : RecyclerView.Adapter<ChapterRVAd
         holder.bind(datas[position], position)
 
         holder.binding.itemCurriculumLectureImgLayout.setOnClickListener{
-            //api 추가필요
+            //api - 8.7 챕터 수강 완료 및 취소 api
             var curriculumService = CurriculumService()
             curriculumService.setCompleteChapterView(this)
             //curriculumService.completeChapter(CompleteChapter(datas[position].chIdx))
@@ -84,6 +84,7 @@ class ChapterRVAdapter(context: HomeFragment) : RecyclerView.Adapter<ChapterRVAd
     override fun onCompleteChapterSuccess(code: Int) {
         when(code){
             200 ->{
+                //api - 8.3 커리큘럼 상세 조회 api : 홈
                 val curriculumService = CurriculumService()
                 curriculumService.setShowCurriculumDetailView(fragment)
                 //curriculumService.showCurriculumDetail(postIdx) curriculumIdx로 변경할 것
