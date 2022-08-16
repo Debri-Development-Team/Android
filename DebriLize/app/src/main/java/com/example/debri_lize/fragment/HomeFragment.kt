@@ -80,6 +80,7 @@ class HomeFragment : Fragment(), MyCurriculumListView, ShowCurriculumDetailView,
 
         //click add lecture -> ClassFragment
         binding.homeCurriculumAddLectureLayout.setOnClickListener{
+            context.binding.mainBnv.selectedItemId = R.id.classFragment
             val passBundleBFragment = ClassFragment()
             //fragment to fragment
             activity?.supportFragmentManager!!.beginTransaction()
@@ -369,14 +370,6 @@ class HomeFragment : Fragment(), MyCurriculumListView, ShowCurriculumDetailView,
 
                         chapterRVAdapter.datas = chapter
                         chapterRVAdapter.notifyDataSetChanged()
-
-                        //click recyclerview item
-                        chapterRVAdapter.setItemClickListener(object : ChapterRVAdapter.OnItemClickListener {
-                            override fun onClick(v: View, position: Int) {
-
-
-                            }
-                        })
                     }
                 }else{
                     //비활성화
