@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import android.view.*
 import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
@@ -12,6 +13,7 @@ import android.view.ViewGroup.LayoutParams.WRAP_CONTENT
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.debri_lize.CustomDialog
@@ -111,6 +113,7 @@ class HomeFragment : Fragment(), MyCurriculumListView, ShowCurriculumDetailView,
            bottomSheetView.findViewById<TextView>(R.id.bottom_sheet_four_tv1).text = "공개로 전환하기"
 
             //비공개 -> 공개
+           touchEvent(bottomSheetView.findViewById(R.id.bottom_sheet_four_tv1))
             bottomSheetView.findViewById<TextView>(R.id.bottom_sheet_four_tv1).setOnClickListener {
                 //공개 완료 토스트메세지
                 publicToast.findViewById<TextView>(R.id.toast_curri_public_tv).text = "커리큘럼이 공개로 변경되었습니다!"
@@ -130,6 +133,7 @@ class HomeFragment : Fragment(), MyCurriculumListView, ShowCurriculumDetailView,
            bottomSheetView.findViewById<TextView>(R.id.bottom_sheet_four_tv1).text = "비공개로 전환하기"
 
            //공개 -> 비공개
+           touchEvent(bottomSheetView.findViewById(R.id.bottom_sheet_four_tv1))
            bottomSheetView.findViewById<TextView>(R.id.bottom_sheet_four_tv1).setOnClickListener{
                //비공개 완료 토스트메세지
                publicToast.findViewById<TextView>(R.id.toast_curri_public_tv).text = "커리큘럼이 비공개로 변경되었습니다!"
@@ -147,6 +151,7 @@ class HomeFragment : Fragment(), MyCurriculumListView, ShowCurriculumDetailView,
         }
 
         //커리큘럼 이름 변경하기
+        touchEvent(bottomSheetView.findViewById(R.id.bottom_sheet_four_tv2))
         bottomSheetView.findViewById<TextView>(R.id.bottom_sheet_four_tv2).setOnClickListener {
             curriculumService.setEditCurriculumNameView(this)
 
@@ -166,6 +171,7 @@ class HomeFragment : Fragment(), MyCurriculumListView, ShowCurriculumDetailView,
         }
 
         //커리큘럼 초기화하기
+        touchEvent(bottomSheetView.findViewById(R.id.bottom_sheet_four_tv3))
         bottomSheetView.findViewById<TextView>(R.id.bottom_sheet_four_tv3).setOnClickListener {
             //add dialog code
             val dialog = CustomDialog(context)
@@ -183,6 +189,7 @@ class HomeFragment : Fragment(), MyCurriculumListView, ShowCurriculumDetailView,
         }
 
         //커리큘럼 삭제하기
+        touchEvent(bottomSheetView.findViewById(R.id.bottom_sheet_four_tv4))
         bottomSheetView.findViewById<TextView>(R.id.bottom_sheet_four_tv4).setOnClickListener {
             curriculumService.setDeleteCurriculumView(this)
 
@@ -207,6 +214,27 @@ class HomeFragment : Fragment(), MyCurriculumListView, ShowCurriculumDetailView,
             bottomSheetDialog.dismiss()
         }
 
+    }
+
+    private fun touchEvent(bind : TextView){
+        bind.setOnTouchListener(object : View.OnTouchListener {
+            override fun onTouch(view: View?, event: MotionEvent?): Boolean {
+                when (event?.action) {
+                    MotionEvent.ACTION_DOWN -> {
+                        bind.setTextColor(ContextCompat.getColor(context, R.color.white))
+                    }
+                    MotionEvent.ACTION_UP -> {
+                        bind.setTextColor(ContextCompat.getColor(context, R.color.darkmode_background))
+                        bind.performClick()
+                    }
+                }
+
+                //리턴값이 false면 동작 안됨
+                return true //or false
+            }
+
+
+        })
     }
 
     //timestamp to date
