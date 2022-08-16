@@ -112,7 +112,7 @@
                                         android:layout_marginStart="5dp"
                                         android:layout_marginEnd="5dp"/>
                                     <TextView
-                                        android:id="@+id/lecture_detail_author_tv"
+                                        android:id="@+id/lecture_detail_publisher_tv"
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
                                         android:text="정석이"
@@ -123,7 +123,7 @@
                                     <TextView
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
-                                        android:text="지음"
+                                        android:text="출판"
                                         android:textColor="@color/white"
                                         android:fontFamily="@font/noto_sans_kr_light"
                                         android:includeFontPadding="false"
@@ -174,10 +174,10 @@
                     android:id="@+id/lecture_detail_fav_iv"
                     android:layout_width="30dp"
                     android:layout_height="30dp"
-                    android:src="@drawable/ic_favorite_off"
                     android:layout_gravity="center"
+                    android:layout_marginStart="15dp"
                     android:layout_marginEnd="20dp"
-                    android:layout_marginStart="15dp"/>
+                    android:src="@drawable/ic_favorite_off" />
 
             </LinearLayout>
 
@@ -193,6 +193,7 @@
             app:layout_constraintTop_toBottomOf="@id/lecture_detail_lectureinfo_layout">
 
             <TextView
+                android:id="@+id/lecture_detail_content_tv"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:text="자바를 배우는 사람들이 추천하는 자바의 최고 강의서. 자바가 진짜 쩔게 쉽다.자바가 진짜 쩔게 쉽다.자바가 진짜 쩔게 쉽다.자바가 진짜 쩔게 쉽다.자바가 진짜 쩔게 쉽다.자바가 진짜 쩔게 쉽다.자바가 진짜 쩔게 쉽다.자바가 진짜 쩔게 쉽다.자바가 진짜."
@@ -357,7 +358,7 @@
                         android:layout_height="match_parent"
                         android:src="@drawable/ic_like_white" />
                     <TextView
-                        android:id="@+id/lecture_detail_likeNum_tv"
+                        android:id="@+id/lecture_detail_user_likeNum_tv"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:text="99+"
