@@ -9,6 +9,8 @@ import com.example.debri_lize.adapter.home.CurriculumRVAdapter
 import com.example.debri_lize.data.curriculum.Curriculum
 import com.example.debri_lize.databinding.ActivityProfileBinding
 import com.example.debri_lize.utils.ApplicationClass
+import com.example.debri_lize.utils.getUserID
+import com.example.debri_lize.utils.getUserName
 
 class ProfileActivity : AppCompatActivity() {
     lateinit var binding : ActivityProfileBinding
@@ -32,6 +34,9 @@ class ProfileActivity : AppCompatActivity() {
 
     override fun onStart() {
         super.onStart()
+        binding.profileUserNameTv.text = getUserName()
+        binding.profileUserIdTv.text = getUserID()
+
         initRecyclerView()
     }
 

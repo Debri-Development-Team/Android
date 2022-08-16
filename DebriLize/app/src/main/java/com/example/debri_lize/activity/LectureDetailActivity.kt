@@ -54,9 +54,8 @@ class LectureDetailActivity : AppCompatActivity(), ShowLectureDetailView, Create
         //data 받아오기 (ClassFragment -> LectureDetailActivity)
         //data 받아오기 (HomeFragment -> LectureDetailActivity)
         val intent = intent //전달할 데이터를 받을 Intent
-        lectureIdx = intent.getIntExtra("lectureInt", 0)
-        lectureIdx = 9
-
+        lectureIdx = intent.getIntExtra("lectureIdx", 0)
+        Log.d("lectureIdx", lectureIdx.toString())
 
         reviewService.setShowLectureReviewView(this)
         reviewService.showLectureReview(lectureIdx)

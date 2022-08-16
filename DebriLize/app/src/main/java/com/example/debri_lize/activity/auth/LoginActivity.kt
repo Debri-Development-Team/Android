@@ -147,6 +147,7 @@ class LoginActivity:AppCompatActivity(), LoginView, TokenView {
                 saveUserIdx(result!!.userIdx)
                 saveUserName(result!!.userName)
                 saveRefreshToken(result!!.refreshToken)
+                saveUserID(result!!.userID)
 
                 saveIsFirst(true)
 
