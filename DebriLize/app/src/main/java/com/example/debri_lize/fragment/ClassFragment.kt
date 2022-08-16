@@ -1,5 +1,6 @@
 package com.example.debri_lize.fragment
 
+import android.content.Intent
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -15,6 +16,8 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.debri_lize.adapter.class_.ClassFavoriteRVAdapter
 import com.example.debri_lize.adapter.class_.ClassLectureRVAdapter
 import com.example.debri_lize.R
+import com.example.debri_lize.activity.LectureDetailActivity
+import com.example.debri_lize.activity.auth.ProfileActivity
 import com.example.debri_lize.data.class_.Lecture
 import com.example.debri_lize.data.class_.LectureFilter
 import com.example.debri_lize.databinding.FragmentClassBinding
@@ -343,17 +346,10 @@ class ClassFragment : Fragment(), LectureFavoriteView, LectureFilterView {
                     classfavoriteRVAdapter.setItemClickListener(object : ClassFavoriteRVAdapter.OnItemClickListener {
                         override fun onClick(v: View, position: Int) {
 
-                            //LectureDetailFragment에 data보내기
-                            val bundle = Bundle()
-                            bundle.putSerializable("lectureFav", datas_f[position])
-                            val passBundleBFragment = LectureDetailFragment()
-                            passBundleBFragment.arguments = bundle
-
-                            //fragment to fragment
-                            activity?.supportFragmentManager!!.beginTransaction()
-                                .replace(R.id.main_frm, passBundleBFragment)
-                                .commit()
-
+                            //LectureDetailActivity에 data보내기
+                            val intent = Intent(context, LectureDetailActivity::class.java)
+                            intent.putExtra("lectureIdx", datas_f[position].lectureIdx)
+                            startActivity(intent)
 
                         }
                     })
@@ -388,16 +384,11 @@ class ClassFragment : Fragment(), LectureFavoriteView, LectureFilterView {
                     classLectureRVAdapter.setItemClickListener(object :
                         ClassLectureRVAdapter.OnItemClickListener {
                         override fun onClick(v: View, position: Int) {
-                            //LectureDetailFragment에 data보내기
-                            val bundle = Bundle()
-                            bundle.putSerializable("lectureFav", datas[position])
-                            val passBundleBFragment = LectureDetailFragment()
-                            passBundleBFragment.arguments = bundle
 
-                            //fragment to fragment
-                            activity?.supportFragmentManager!!.beginTransaction()
-                                .replace(R.id.main_frm, passBundleBFragment)
-                                .commit()
+                            //LectureDetailActivity에 data보내기
+                            val intent = Intent(context, LectureDetailActivity::class.java)
+                            intent.putExtra("lectureFav", datas[position])
+                            startActivity(intent)
 
                         }
                     })

@@ -13,6 +13,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import com.example.debri_lize.R
 import com.example.debri_lize.activity.AddCurriculumActivity
+import com.example.debri_lize.activity.AddCurriculumDetailActivity
 import com.example.debri_lize.activity.MainActivity
 import com.example.debri_lize.data.auth.Token
 import com.example.debri_lize.data.auth.User
@@ -81,6 +82,8 @@ class LoginActivity:AppCompatActivity(), LoginView, TokenView {
             else -> "ldpi"
         }
         Log.d("density", density.toString())
+        saveUISize("dpi", density)
+
         return density
     }
 

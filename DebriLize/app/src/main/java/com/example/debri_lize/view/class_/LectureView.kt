@@ -22,7 +22,7 @@ interface LectureFavoriteView {
 
 //7.4 강의 상세 조회
 interface ShowLectureDetailView {
-    fun onShowLectureDetailSuccess(code: Int, result: List<Lecture>)
+    fun onShowLectureDetailSuccess(code: Int, result: Lecture)
     fun onShowLectureDetailFailure(code: Int)
 }
 

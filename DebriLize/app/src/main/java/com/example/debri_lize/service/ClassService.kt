@@ -147,11 +147,11 @@ class ClassService {
     fun showLectureDetail(lectureIdx: Int){
         Log.d("showLectureDetail", "enter")
         val classService = getRetrofit().create(RetrofitInterface::class.java)
-        classService.showLectureDetail(lectureIdx, getJwt()!!).enqueue(object: Callback<BaseResponse<List<Lecture>>> {
+        classService.showLectureDetail(lectureIdx, getJwt()!!).enqueue(object: Callback<BaseResponse<Lecture>> {
             //응답이 왔을 때 처리
-            override fun onResponse(call: Call<BaseResponse<List<Lecture>>>, response: Response<BaseResponse<List<Lecture>>>) {
+            override fun onResponse(call: Call<BaseResponse<Lecture>>, response: Response<BaseResponse<Lecture>>) {
                 Log.d("showLectureDetail", "response")
-                val resp: BaseResponse<List<Lecture>> = response.body()!!
+                val resp: BaseResponse<Lecture> = response.body()!!
                 Log.d("showLectureDetailCode", resp.code.toString())
                 when(resp.code){
                     //API code값 사용
@@ -160,7 +160,7 @@ class ClassService {
                 }
             }
             //실패했을 때 처리
-            override fun onFailure(call: Call<BaseResponse<List<Lecture>>>, t: Throwable) {
+            override fun onFailure(call: Call<BaseResponse<Lecture>>, t: Throwable) {
                 Log.d("showLectureDetailFail",t.toString())
             }
         })
