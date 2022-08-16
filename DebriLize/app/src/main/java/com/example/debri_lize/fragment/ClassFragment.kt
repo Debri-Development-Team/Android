@@ -319,6 +319,16 @@ class ClassFragment : Fragment(), LectureFavoriteView, LectureFilterView {
                     classfavoriteRVAdapter.setItemClickListener(object : ClassFavoriteRVAdapter.OnItemClickListener {
                         override fun onClick(v: View, position: Int) {
 
+                            //LectureDetailFragment에 data보내기
+                            val bundle = Bundle()
+                            bundle.putSerializable("lectureFav", datas_f[position])
+                            val passBundleBFragment = LectureDetailFragment()
+                            passBundleBFragment.arguments = bundle
+
+                            //fragment to fragment
+                            activity?.supportFragmentManager!!.beginTransaction()
+                                .replace(R.id.main_frm, passBundleBFragment)
+                                .commit()
 
 
                         }

@@ -130,6 +130,11 @@
         <entry key="..\:/Users/tptty/AndroidStudioProjects/Debri_final/Android/DebriLize/app/src/main/res/menu/post_menu.xml" value="0.17916666666666667" />
         <entry key="..\:/Users/tptty/AppData/Local/Android/Sdk/platforms/android-32/data/res/layout/simple_spinner_item.xml" value="0.17916666666666667" />
         <entry key="app/src/main/res/drawable-v24/border_round_transparent_white_10.xml" value="0.1" />
+        <entry key="app/src/main/res/drawable/border_line_bottom_dark_green.xml" value="0.143" />
+        <entry key="app/src/main/res/drawable/border_line_left.xml" value="0.143" />
+        <entry key="app/src/main/res/drawable/border_line_right.xml" value="0.143" />
+        <entry key="app/src/main/res/drawable/border_line_top.xml" value="0.143" />
+        <entry key="app/src/main/res/drawable/border_line_white.xml" value="0.143" />
         <entry key="app/src/main/res/drawable/ic_curri_name_change.xml" value="0.1" />
         <entry key="app/src/main/res/drawable/ic_favorite_on.xml" value="0.143" />
         <entry key="app/src/main/res/drawable/ic_like_off.xml" value="0.1" />
@@ -139,7 +144,11 @@
         <entry key="app/src/main/res/drawable/ic_scrap_white.xml" value="0.1" />
         <entry key="app/src/main/res/drawable/ic_siren_red.xml" value="0.1" />
         <entry key="app/src/main/res/layout/activity_add_curriculum.xml" value="0.146875" />
+        <entry key="app/src/main/res/layout/activity_add_curriculum_choose.xml" value="0.23802083333333332" />
+        <entry key="app/src/main/res/layout/activity_add_curriculum_detail.xml" value="0.23802083333333332" />
+        <entry key="app/src/main/res/layout/activity_add_roadmap_detail.xml" value="0.23802083333333332" />
         <entry key="app/src/main/res/layout/activity_login.xml" value="0.23802083333333332" />
+        <entry key="app/src/main/res/layout/activity_main.xml" value="0.21422101449275363" />
         <entry key="app/src/main/res/layout/activity_post_create.xml" value="0.1" />
         <entry key="app/src/main/res/layout/activity_post_detail.xml" value="0.17782101167315176" />
         <entry key="app/src/main/res/layout/activity_post_list.xml" value="0.14166666666666666" />
@@ -158,14 +167,20 @@
         <entry key="app/src/main/res/layout/fragment_bottom_sheet_four.xml" value="0.146875" />
         <entry key="app/src/main/res/layout/fragment_bottom_sheet_one.xml" value="0.146875" />
         <entry key="app/src/main/res/layout/fragment_bottom_sheet_two.xml" value="0.146875" />
+        <entry key="app/src/main/res/layout/fragment_class.xml" value="0.23802083333333332" />
+        <entry key="app/src/main/res/layout/fragment_curriculum.xml" value="0.23802083333333332" />
         <entry key="app/src/main/res/layout/fragment_home.xml" value="0.146875" />
+        <entry key="app/src/main/res/layout/fragment_lecture_detail.xml" value="0.25" />
         <entry key="app/src/main/res/layout/fragment_post.xml" value="0.14166666666666666" />
+        <entry key="app/src/main/res/layout/fragment_scrap_post.xml" value="0.23802083333333332" />
         <entry key="app/src/main/res/layout/item_board.xml" value="0.23802083333333332" />
         <entry key="app/src/main/res/layout/item_class_favorite.xml" value="0.335" />
         <entry key="app/src/main/res/layout/item_cocomment.xml" value="0.213768115942029" />
         <entry key="app/src/main/res/layout/item_comment.xml" value="0.23802083333333332" />
         <entry key="app/src/main/res/layout/item_curriculum_lecture.xml" value="0.146875" />
+        <entry key="app/src/main/res/layout/item_lecture_review.xml" value="0.23697916666666666" />
         <entry key="app/src/main/res/layout/item_post.xml" value="0.36797752808988765" />
+        <entry key="app/src/main/res/layout/item_review.xml" value="0.23802083333333332" />
         <entry key="app/src/main/res/layout/toast_curri_inactive.xml" value="0.14583333333333334" />
         <entry key="app/src/main/res/layout/toast_curri_private.xml" value="0.335" />
         <entry key="app/src/main/res/layout/toast_curri_public.xml" value="0.25" />
