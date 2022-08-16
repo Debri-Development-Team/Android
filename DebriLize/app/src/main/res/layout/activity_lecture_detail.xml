@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
-
 <androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -10,7 +9,10 @@
 
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="0dp"
+        android:layout_marginBottom="6dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/lecture_detail_write_review_btn">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -60,19 +62,21 @@
                 <ImageView
                     android:id="@+id/lecture_detail_previous_iv"
                     android:layout_width="18dp"
-                    android:layout_height="50dp"
+                    android:layout_height="40dp"
                     android:src="@drawable/ic_previous"
                     android:layout_gravity="center"/>
+
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:orientation="vertical">
+
                     <TextView
                         android:id="@+id/lecture_detail_tag_language_tv"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="c언어"
-                        android:textSize="15dp"
+                        android:textSize="10dp"
                         android:fontFamily="@font/noto_sans_kr_bold"
                         android:includeFontPadding="false"
                         android:paddingStart="7dp"
@@ -81,24 +85,51 @@
                         android:paddingBottom="2dp"
                         android:layout_marginStart="30dp"
                         android:background="@drawable/border_round_transparent_c_10"/>
+
                     <LinearLayout
-                        android:layout_width="wrap_content"
+                        android:layout_width="280dp"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="30dp"
-                        android:layout_marginTop="5dp">
-                        <LinearLayout
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:orientation="vertical">
-                            <TextView
-                                android:id="@+id/lecture_detail_title_tv"
-                                android:layout_width="180dp"
+                        android:layout_marginTop="5dp"
+                        android:orientation="vertical">
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:text="C의 정석"
-                                android:textColor="@color/white"
-                                android:fontFamily="@font/noto_sans_kr_bold"
-                                android:includeFontPadding="false"
-                                android:textSize="22dp" />
+                                android:orientation="horizontal">
+
+                                <TextView
+                                    android:id="@+id/lecture_detail_title_tv"
+                                    android:layout_width="180dp"
+                                    android:layout_height="wrap_content"
+                                    android:text="C의 정석"
+                                    android:textColor="@color/white"
+                                    android:fontFamily="@font/noto_sans_kr_bold"
+                                    android:includeFontPadding="false"
+                                    android:textSize="16dp" />
+
+                                <View
+                                    android:layout_width="0dp"
+                                    android:layout_height="0dp"
+                                    android:layout_weight="1" />
+
+                                <TextView
+                                    android:id="@+id/lecture_detail_chapternum_tv"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="총 15챕터"
+                                    android:textColor="@color/white"
+                                    android:fontFamily="@font/noto_sans_kr_regular"
+                                    android:includeFontPadding="false"
+                                    android:textSize="14dp" />
+
+
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="horizontal">
                                 <LinearLayout
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
@@ -116,7 +147,7 @@
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
                                         android:text="정석이"
-                                        android:textSize="15dp"
+                                        android:textSize="14dp"
                                         android:textColor="@color/white"
                                         android:fontFamily="@font/noto_sans_kr_medium"
                                         android:includeFontPadding="false"/>
@@ -124,56 +155,52 @@
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
                                         android:text="출판"
+                                        android:textSize="12dp"
                                         android:textColor="@color/white"
                                         android:fontFamily="@font/noto_sans_kr_light"
                                         android:includeFontPadding="false"
                                         android:layout_marginStart="5dp"/>
                                 </LinearLayout>
-                        </LinearLayout>
 
-                        <LinearLayout
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:orientation="vertical"
-                            android:layout_gravity="center"
-                            android:layout_marginStart="10dp">
-                            <TextView
-                                android:id="@+id/lecture_detail_chapternum_tv"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="총 15챕터"
-                                android:textColor="@color/white"
-                                android:fontFamily="@font/noto_sans_kr_regular"
-                                android:includeFontPadding="false"
-                                android:textSize="20dp" />
-                            <LinearLayout
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginTop="10dp">
-                                <TextView
-                                    android:id="@+id/lecture_detail_media_tag_tv"
+                                <View
+                                    android:layout_width="0dp"
+                                    android:layout_height="0dp"
+                                    android:layout_weight="1" />
+
+                                <LinearLayout
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:text="#서적"
-                                    android:textColor="@color/white"
-                                    android:textSize="14dp" />
-                                <TextView
-                                    android:id="@+id/lecture_detail_price_tag_tv"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:text="#유료"
-                                    android:textColor="@color/white"
-                                    android:textSize="14dp"
-                                    android:layout_marginStart="10dp"/>
+                                    android:layout_marginTop="10dp">
+                                    <TextView
+                                        android:id="@+id/lecture_detail_media_tag_tv"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:text="#서적"
+                                        android:textColor="@color/white"
+                                        android:textSize="10dp" />
+                                    <TextView
+                                        android:id="@+id/lecture_detail_price_tag_tv"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:text="#유료"
+                                        android:textColor="@color/white"
+                                        android:textSize="10dp"
+                                        android:layout_marginStart="10dp"/>
+                                </LinearLayout>
                             </LinearLayout>
-                        </LinearLayout>
+
                     </LinearLayout>
                 </LinearLayout>
 
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_weight="1" />
+
                 <ImageView
                     android:id="@+id/lecture_detail_fav_iv"
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
+                    android:layout_width="21.51dp"
+                    android:layout_height="20.58dp"
                     android:layout_gravity="center"
                     android:layout_marginStart="15dp"
                     android:layout_marginEnd="20dp"
@@ -184,7 +211,7 @@
         <LinearLayout
             android:id="@+id/lecture_detail_text_layout"
             android:layout_width="match_parent"
-            android:layout_height="150dp"
+            android:layout_height="wrap_content"
             android:background="@drawable/border_round_white_darkmode_10"
             android:layout_marginStart="30dp"
             android:layout_marginEnd="30dp"
@@ -200,7 +227,7 @@
                 android:textColor="@color/white"
                 android:fontFamily="@font/noto_sans_kr_regular"
                 android:includeFontPadding="false"
-                android:textSize="14dp"
+                android:textSize="10dp"
                 android:gravity="center"
                 android:layout_marginStart="30dp"
                 android:layout_marginEnd="30dp"
@@ -244,7 +271,7 @@
                             android:layout_height="wrap_content"
                             android:text="103"
                             android:textColor="@color/white"
-                            android:textSize="15dp"
+                            android:textSize="14dp"
                             android:fontFamily="@font/noto_sans_kr_bold"
                             android:includeFontPadding="false"
                             android:layout_marginStart="10dp"/>
@@ -254,7 +281,7 @@
                             android:layout_height="wrap_content"
                             android:text="명이 강의를 추천했어요!"
                             android:textColor="@color/white"
-                            android:textSize="11dp"
+                            android:textSize="10dp"
                             android:fontFamily="@font/noto_sans_kr_regular"
                             android:includeFontPadding="false"
                             android:layout_marginStart="5dp"/>
@@ -274,7 +301,7 @@
                             android:layout_height="wrap_content"
                             android:text="84"
                             android:textColor="@color/white"
-                            android:textSize="15dp"
+                            android:textSize="14dp"
                             android:fontFamily="@font/noto_sans_kr_bold"
                             android:includeFontPadding="false"
                             android:layout_gravity="center"
@@ -285,7 +312,7 @@
                             android:layout_height="wrap_content"
                             android:text="명이 강의를 커리큘럼에 추가했어요!"
                             android:textColor="@color/white"
-                            android:textSize="11dp"
+                            android:textSize="10dp"
                             android:layout_gravity="bottom"
                             android:fontFamily="@font/noto_sans_kr_regular"
                             android:includeFontPadding="false"
@@ -303,6 +330,7 @@
                 android:layout_marginTop="30dp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/lecture_detail_recommend_layout">
+
                 <androidx.appcompat.widget.AppCompatButton
                     android:id="@+id/lecture_detail_curri_add_btn"
                     android:layout_width="150dp"
@@ -311,9 +339,9 @@
                     android:text="커리큘럼에 추가하기"
                     android:textColor="@color/white"
                     android:fontFamily="@font/noto_sans_kr_medium"
-                    android:textSize="13dp"
-                    android:includeFontPadding="false"
-                    android:layout_marginEnd="30dp"/>
+                    android:textSize="12dp"
+                    android:includeFontPadding="false"/>
+
                 <View
                     android:layout_width="0dp"
                     android:layout_height="0dp"
@@ -328,11 +356,9 @@
                     android:drawableStart="@drawable/ic_check_lectureinfo"
                     android:textColor="@color/white"
                     android:fontFamily="@font/noto_sans_kr_medium"
-                    android:textSize="13dp"
+                    android:textSize="12dp"
                     android:includeFontPadding="false"
                     android:paddingStart="10dp"/>
-
-
 
             </LinearLayout>
             <LinearLayout
@@ -347,28 +373,12 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/lecture_detail_btn_layout">
 
-
-                <FrameLayout
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
-                    android:layout_marginEnd="10dp">
-                    <ImageView
-                        android:id="@+id/lecture_detail_like_iv"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:src="@drawable/ic_like_white" />
-                    <TextView
-                        android:id="@+id/lecture_detail_user_likeNum_tv"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:text="99+"
-                        android:fontFamily="@font/noto_sans_kr_regular"
-                        android:includeFontPadding="false"
-                        android:textSize="11sp"
-                        android:gravity="center"
-                        android:visibility="visible"
-                        android:textColor="@color/darkmode_background"/>
-                </FrameLayout>
+                <ImageView
+                    android:id="@+id/lecture_detail_like_iv"
+                    android:layout_width="21.54dp"
+                    android:layout_height="18.64dp"
+                    android:src="@drawable/ic_like_white"
+                    android:layout_marginEnd="10dp"/>
 
                 <TextView
                     android:id="@+id/lecture_detail_like_tv"
@@ -378,7 +388,7 @@
                     android:includeFontPadding="false"
                     android:text="추천"
                     android:textColor="@color/white"
-                    android:textSize="15sp" />
+                    android:textSize="14dp" />
 
             </LinearLayout>
             <View
@@ -393,10 +403,11 @@
                 app:layout_constraintTop_toBottomOf="@id/lecture_detail_like_layout"/>
 
             <TextView
-                android:id="@+id/lecture_detail_evaluate_text_tv"
+                android:id="@+id/lecture_detail_review_tv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="유저들의 강의 한 줄 평"
+                android:textSize="12dp"
                 android:textColor="@color/white"
                 android:fontFamily="@font/noto_sans_kr_regular"
                 android:includeFontPadding="false"
@@ -404,6 +415,37 @@
                 android:layout_marginTop="40dp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/lecuture_detail_darkgray_line"/>
+
+            <LinearLayout
+                android:id="@+id/lecture_detail_live_layout"
+                android:layout_width="43dp"
+                android:layout_height="16dp"
+                android:orientation="horizontal"
+                android:layout_marginTop="40dp"
+                android:layout_marginEnd="30dp"
+                android:background="@drawable/border_round_red_transparent_9"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/lecuture_detail_darkgray_line"
+                android:gravity="center">
+
+                <ImageView
+                    android:id="@+id/lecture_detail_live_iv"
+                    android:layout_width="8dp"
+                    android:layout_height="8dp"
+                    android:src="@drawable/ic_circle_red" />
+
+
+                <TextView
+                    android:id="@+id/lecture_detail_live_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/noto_sans_kr_bold"
+                    android:includeFontPadding="false"
+                    android:text="LIVE"
+                    android:textColor="@color/red"
+                    android:textSize="8dp"
+                    android:layout_marginStart="6dp"/>
+            </LinearLayout>
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/lecture_detail_review_rv"
@@ -421,54 +463,49 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/lecture_detail_evaluate_text_tv"
+                app:layout_constraintTop_toBottomOf="@+id/lecture_detail_review_tv"
                 app:layout_constraintBottom_toBottomOf="parent"
                 android:layout_marginBottom="40dp"/>
 
-
-            <LinearLayout
-                android:id="@+id/post_detail_write_comment_btn"
-                android:layout_width="match_parent"
-                android:layout_height="45dp"
-                android:background="@drawable/border_round_debri_darkmode_10"
-                android:paddingStart="5dp"
-                android:paddingEnd="10dp"
-                android:layout_marginStart="30dp"
-                android:layout_marginEnd="30dp"
-                android:layout_marginBottom="6dp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent"
-                android:gravity="center_vertical"
-                android:orientation="horizontal">
-
-                <ImageView
-                    android:id="@+id/post_detail_write_comment_iv"
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
-                    android:src="@drawable/ic_write_debri"
-                    android:layout_marginStart="15dp"
-                    />
-
-                <EditText
-                    android:id="@+id/lecture_detail_write_comment_et"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/noto_sans_kr_bold"
-                    android:includeFontPadding="false"
-                    android:inputType="text"
-                    android:hint="한 줄 평 작성하기"
-                    android:textColorHint="@color/debri"
-                    android:textColor="@color/white"
-                    android:textSize="16sp"
-                    android:layout_marginStart="10dp"
-                    android:visibility="visible"/>
-
-
-
-            </LinearLayout>
-
-
     </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.core.widget.NestedScrollView>
+
+    <LinearLayout
+        android:id="@+id/lecture_detail_write_review_btn"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:background="@drawable/border_round_debri_darkmode_10"
+        android:paddingStart="5dp"
+        android:paddingEnd="10dp"
+        android:layout_marginStart="30dp"
+        android:layout_marginEnd="30dp"
+        android:layout_marginBottom="6dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:id="@+id/lecture_detail_write_review_iv"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:src="@drawable/ic_write_debri"
+            android:layout_marginStart="15dp"
+            />
+
+        <EditText
+            android:id="@+id/lecture_detail_write_review_et"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/noto_sans_kr_bold"
+            android:includeFontPadding="false"
+            android:inputType="text"
+            android:hint="한 줄 평 쓰기"
+            android:textColorHint="@color/debri"
+            android:textColor="@color/white"
+            android:textSize="16sp"
+            android:layout_marginStart="10dp"/>
+
+    </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

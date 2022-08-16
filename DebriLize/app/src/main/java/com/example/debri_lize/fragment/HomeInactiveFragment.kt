@@ -17,11 +17,8 @@ import com.example.debri_lize.CustomDialog
 import com.example.debri_lize.R
 import com.example.debri_lize.activity.MainActivity
 import com.example.debri_lize.activity.auth.ProfileActivity
-import com.example.debri_lize.adapter.home.ChapterRVAdapter
 import com.example.debri_lize.adapter.home.LectureRVAdapter
-import com.example.debri_lize.data.board.Board
 import com.example.debri_lize.data.curriculum.*
-import com.example.debri_lize.databinding.FragmentHomeBinding
 import com.example.debri_lize.databinding.FragmentHomeInactiveBinding
 import com.example.debri_lize.service.CurriculumService
 import com.example.debri_lize.utils.saveCurriIdx
@@ -278,7 +275,7 @@ class HomeInactiveFragment : Fragment(), ShowCurriculumDetailView, EditCurriculu
                         }
                     }else{
                         //중간 커리큘럼일 경우
-                        roomIdx = myCurriculum.indexOf(Curriculum(result.curriculumIdx, result.curriculumName, "testnickname"))
+                        roomIdx = myCurriculum.indexOf(Curriculum(result.curriculumIdx, result.curriculumName, result.curriculumAuthor))
                         Log.d("roomIdxIn", roomIdx.toString())
                         Log.d("roomIdxIn", myCurriculum[roomIdx+1].curriculumIdx.toString())
                         binding.homeCurriculumPreviousIv.visibility = View.VISIBLE
@@ -309,7 +306,7 @@ class HomeInactiveFragment : Fragment(), ShowCurriculumDetailView, EditCurriculu
                 binding.homeCurriculumDdayTv.text = "D-"+result.dday.toString()
 
                 //progress rate
-                binding.homeCurriculumProgressTv2.text = result.progressRate.toString()
+                binding.homeCurriculumProgressTv2.text = result.progressRate.toInt().toString()
 
 
 

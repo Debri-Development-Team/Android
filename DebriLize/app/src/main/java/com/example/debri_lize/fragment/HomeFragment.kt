@@ -2,20 +2,23 @@ package com.example.debri_lize.fragment
 
 import android.content.Context
 import android.content.Intent
-import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
+import android.view.*
 import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.ViewGroup.LayoutParams.WRAP_CONTENT
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.debri_lize.CustomDialog
 import com.example.debri_lize.R
+import com.example.debri_lize.activity.LectureDetailActivity
 import com.example.debri_lize.activity.MainActivity
 import com.example.debri_lize.activity.auth.ProfileActivity
 import com.example.debri_lize.adapter.home.ChapterRVAdapter
@@ -23,14 +26,8 @@ import com.example.debri_lize.adapter.home.LectureRVAdapter
 import com.example.debri_lize.data.curriculum.*
 import com.example.debri_lize.databinding.FragmentHomeBinding
 
-import com.example.debri_lize.utils.getUserIdx
-import com.google.android.material.bottomsheet.BottomSheetBehavior
-import com.example.debri_lize.databinding.FragmentHomeInactiveBinding
 import com.example.debri_lize.service.CurriculumService
-import com.example.debri_lize.utils.getCurriIdx
-import com.example.debri_lize.utils.getIsFirst
-import com.example.debri_lize.utils.saveCurriIdx
-import com.example.debri_lize.utils.saveIsFirst
+import com.example.debri_lize.utils.*
 import com.example.debri_lize.view.curriculum.*
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import java.sql.Timestamp
@@ -81,9 +78,9 @@ class HomeFragment : Fragment(), MyCurriculumListView, ShowCurriculumDetailView,
             startActivity(intent)
         }
 
-        //click next -> AddCurriculumFragment : 수정예정
-        binding.homeCurriculumNextIv.setOnClickListener{
-            val passBundleBFragment = AddCurriculumFragment()
+        //click add lecture -> ClassFragment
+        binding.homeCurriculumAddLectureLayout.setOnClickListener{
+            val passBundleBFragment = ClassFragment()
             //fragment to fragment
             activity?.supportFragmentManager!!.beginTransaction()
                 .replace(R.id.main_frm, passBundleBFragment)
@@ -116,6 +113,7 @@ class HomeFragment : Fragment(), MyCurriculumListView, ShowCurriculumDetailView,
            bottomSheetView.findViewById<TextView>(R.id.bottom_sheet_four_tv1).text = "공개로 전환하기"
 
             //비공개 -> 공개
+           touchEvent(bottomSheetView.findViewById(R.id.bottom_sheet_four_tv1))
             bottomSheetView.findViewById<TextView>(R.id.bottom_sheet_four_tv1).setOnClickListener {
                 //공개 완료 토스트메세지
                 publicToast.findViewById<TextView>(R.id.toast_curri_public_tv).text = "커리큘럼이 공개로 변경되었습니다!"
@@ -135,6 +133,7 @@ class HomeFragment : Fragment(), MyCurriculumListView, ShowCurriculumDetailView,
            bottomSheetView.findViewById<TextView>(R.id.bottom_sheet_four_tv1).text = "비공개로 전환하기"
 
            //공개 -> 비공개
+           touchEvent(bottomSheetView.findViewById(R.id.bottom_sheet_four_tv1))
            bottomSheetView.findViewById<TextView>(R.id.bottom_sheet_four_tv1).setOnClickListener{
                //비공개 완료 토스트메세지
                publicToast.findViewById<TextView>(R.id.toast_curri_public_tv).text = "커리큘럼이 비공개로 변경되었습니다!"
@@ -152,6 +151,7 @@ class HomeFragment : Fragment(), MyCurriculumListView, ShowCurriculumDetailView,
         }
 
         //커리큘럼 이름 변경하기
+        touchEvent(bottomSheetView.findViewById(R.id.bottom_sheet_four_tv2))
         bottomSheetView.findViewById<TextView>(R.id.bottom_sheet_four_tv2).setOnClickListener {
             curriculumService.setEditCurriculumNameView(this)
 
@@ -171,6 +171,7 @@ class HomeFragment : Fragment(), MyCurriculumListView, ShowCurriculumDetailView,
         }
 
         //커리큘럼 초기화하기
+        touchEvent(bottomSheetView.findViewById(R.id.bottom_sheet_four_tv3))
         bottomSheetView.findViewById<TextView>(R.id.bottom_sheet_four_tv3).setOnClickListener {
             //add dialog code
             val dialog = CustomDialog(context)
@@ -188,6 +189,7 @@ class HomeFragment : Fragment(), MyCurriculumListView, ShowCurriculumDetailView,
         }
 
         //커리큘럼 삭제하기
+        touchEvent(bottomSheetView.findViewById(R.id.bottom_sheet_four_tv4))
         bottomSheetView.findViewById<TextView>(R.id.bottom_sheet_four_tv4).setOnClickListener {
             curriculumService.setDeleteCurriculumView(this)
 
@@ -212,6 +214,27 @@ class HomeFragment : Fragment(), MyCurriculumListView, ShowCurriculumDetailView,
             bottomSheetDialog.dismiss()
         }
 
+    }
+
+    private fun touchEvent(bind : TextView){
+        bind.setOnTouchListener(object : View.OnTouchListener {
+            override fun onTouch(view: View?, event: MotionEvent?): Boolean {
+                when (event?.action) {
+                    MotionEvent.ACTION_DOWN -> {
+                        bind.setTextColor(ContextCompat.getColor(context, R.color.white))
+                    }
+                    MotionEvent.ACTION_UP -> {
+                        bind.setTextColor(ContextCompat.getColor(context, R.color.darkmode_background))
+                        bind.performClick()
+                    }
+                }
+
+                //리턴값이 false면 동작 안됨
+                return true //or false
+            }
+
+
+        })
     }
 
     //timestamp to date
@@ -277,6 +300,48 @@ class HomeFragment : Fragment(), MyCurriculumListView, ShowCurriculumDetailView,
                 saveCurriIdx(result.curriculumIdx)
                 if(result.status=="ACTIVE"){
                     //활성화
+                    //동적으로 화면 크기 지정
+                    Log.d("chapterListResList", result.chapterListResList.size.toString())
+                    if(result.chapterListResList.isEmpty()){
+                        //recycler view size
+                        binding.homeCurriculumLectureImgRv.layoutParams = binding.homeCurriculumLectureImgRv.layoutParams.apply {
+                            this.height = (381 * getUISize("dpi"))
+                        }
+
+                        binding.homeCurriculumActiveCircle.setBackgroundResource(R.drawable.circle_border_red_opacity_30)
+                        binding.homeNoLectureTv.visibility = View.VISIBLE
+                        binding.waveLoadingView.visibility = View.GONE
+
+                    }else if(result.chapterListResList.size == 1){
+
+                        //recycler view size
+                        binding.homeCurriculumLectureImgRv.layoutParams = binding.homeCurriculumLectureImgRv.layoutParams.apply {
+                            this.height = (250 * getUISize("dpi"))
+                        }
+
+                        val param = binding.homeCurriculumLectureImgRv.layoutParams as ViewGroup.MarginLayoutParams
+                        param.setMargins(30* getUISize("dpi"),131* getUISize("dpi"),30* getUISize("dpi"),0)
+                        binding.homeCurriculumLectureImgRv.layoutParams = param
+
+                        binding.homeCurriculumActiveCircle.setBackgroundResource(R.drawable.circle_debri_opacity_30)
+                        binding.homeNoLectureTv.visibility = View.GONE
+                        binding.waveLoadingView.visibility = View.VISIBLE
+
+                    }else{
+                        //recycler view size
+                        binding.homeCurriculumLectureImgRv.layoutParams = binding.homeCurriculumLectureImgRv.layoutParams.apply {
+                            this.height = WRAP_CONTENT
+                        }
+
+                        val param = binding.homeCurriculumLectureImgRv.layoutParams as ViewGroup.MarginLayoutParams
+                        param.setMargins(30* getUISize("dpi"),15* getUISize("dpi"),30* getUISize("dpi"),0)
+                        binding.homeCurriculumLectureImgRv.layoutParams = param
+
+                        binding.homeCurriculumActiveCircle.setBackgroundResource(R.drawable.circle_debri_opacity_30)
+                        binding.homeNoLectureTv.visibility = View.GONE
+                        binding.waveLoadingView.visibility = View.VISIBLE
+                    }
+
                     binding.homeCurriculumLectureImgRv.layoutManager =
                         LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
                     chapterRVAdapter = ChapterRVAdapter()
@@ -369,7 +434,7 @@ class HomeFragment : Fragment(), MyCurriculumListView, ShowCurriculumDetailView,
                         }
                     }else{
                         //중간 커리큘럼일 경우
-                        roomIdx = myCurriculum.indexOf(Curriculum(result.curriculumIdx, result.curriculumName, "testnickname"))
+                        roomIdx = myCurriculum.indexOf(Curriculum(result.curriculumIdx, result.curriculumName, result.curriculumAuthor))
                         Log.d("roomIdx", roomIdx.toString())
                         Log.d("roomIdx", myCurriculum[roomIdx+1].curriculumIdx.toString())
                         binding.homeCurriculumPreviousIv.visibility = View.VISIBLE
@@ -401,7 +466,7 @@ class HomeFragment : Fragment(), MyCurriculumListView, ShowCurriculumDetailView,
 
                 //progress rate
                 waveAnimation(result.progressRate.toInt())
-                binding.homeCurriculumProgressTv2.text = result.progressRate.toString()
+                binding.homeCurriculumProgressTv2.text = result.progressRate.toInt().toString()
 
                 //관련 강의자료
                 binding.homeCurriculumLectureRv.layoutManager =
@@ -422,7 +487,9 @@ class HomeFragment : Fragment(), MyCurriculumListView, ShowCurriculumDetailView,
                     //click recyclerview item
                     lectureRVAdapter.setItemClickListener(object : LectureRVAdapter.OnItemClickListener {
                         override fun onClick(v: View, position: Int) {
-
+                            val intent = Intent(context, LectureDetailActivity::class.java)
+                            intent.putExtra("lectureIdx", lecture[position].lectureIdx)
+                            startActivity(intent)
 
                         }
                     })

@@ -8,6 +8,7 @@ import com.example.debri_lize.data.auth.UserSignup
 import com.example.debri_lize.data.board.Board
 import com.example.debri_lize.data.board.BoardFavorite
 import com.example.debri_lize.data.class_.Lecture
+import com.example.debri_lize.data.class_.LectureReview
 import com.example.debri_lize.data.class_.LectureScrap
 import com.example.debri_lize.data.class_.LikeSuccess
 import com.example.debri_lize.data.curriculum.*
@@ -128,6 +129,10 @@ interface RetrofitInterface {
     @POST("api/report/commentReport")
     fun reportComment(@Body report: ReportComment, @Header("ACCESS-TOKEN") authToken: String) : Call<BaseResponse<String>>
 
+    //6.3 사용자 신고 & 차단 api
+    @POST("api/report/user/{postIdx}")
+    fun reportUser(@Body reason: String, @Path("postIdx") postIdx: Int, @Header("ACCESS-TOKEN") authToken: String) : Call<BaseResponse<String>>
+
     //7.2 강의 즐겨찾기 api
     @POST("api/lecture/scrap/create")
     fun createLectureScrap(@Body lectureScrap: LectureScrap, @Header("ACCESS-TOKEN") authToken: String) : Call<BaseResponse<String>>
@@ -142,11 +147,27 @@ interface RetrofitInterface {
 
     //7.4 강의 상세 조회 api
     @GET("api/lecture/getLecture/{lectureIdx}")
-    fun showLectureDetail(@Path("lectureIdx") lectureIdx: Int, @Header("ACCESS-TOKEN") authToken: String) : Call<BaseResponse<List<Lecture>>>
+    fun showLectureDetail(@Path("lectureIdx") lectureIdx: Int, @Header("ACCESS-TOKEN") authToken: String) : Call<BaseResponse<Lecture>>
 
     //7.4.1 강의 검색 api
     @GET("api/lecture/search")
     fun showLectureSearch(@Query ("lang") lang:String?,@Query ("type") type:String?,@Query ("price") price:String?,@Query ("key") key:String?, @Header("ACCESS-TOKEN") authToken: String) : Call<BaseResponse<List<Lecture>>>
+
+    //7.5 로드맵 리스트 조회 api
+    @GET("api/lecture/roadmap/list")
+    fun showRoadMapList(@Header("ACCESS-TOKEN") authToken: String) : Call<BaseResponse<List<RoadMapList>>>
+
+    //7.5.1 로드맵 상세 조회 api
+    @GET("api/lecture/roadmap/view")
+    fun showRoadMapDetail(@Query ("mod") mod:String?, @Header("ACCESS-TOKEN") authToken: String) :Call<BaseResponse<List<RoadMap>>>
+
+    //7.6 강의 리뷰 작성 api
+    @POST("api/lecture/review/create")
+    fun createLectureReview(@Body lectureReview : LectureReview, @Header("ACCESS-TOKEN") authToken: String) :Call<BaseResponse<LectureReview>>
+
+    //7.6.1 강의 리뷰 조회 api
+    @GET("api/lecture/review/get")
+    fun showLectureReview(@Query ("lectureIdx") lectureIdx:Int?, @Header("ACCESS-TOKEN") authToken: String) :Call<BaseResponse<List<LectureReview>>>
 
     //7.7 강의 좋아요 api
     @POST("api/lecture/like/create")

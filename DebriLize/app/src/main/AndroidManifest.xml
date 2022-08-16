@@ -46,6 +46,9 @@
             android:name=".activity.AddCurriculumDetailActivity"
             android:exported="true"/>
         <activity
+            android:name=".activity.LectureDetailActivity"
+            android:exported="true"/>
+        <activity
             android:name=".activity.PostListActivity"
             android:exported="true"/>
         <activity

@@ -45,6 +45,16 @@ fun saveUserName(userName: String) {
 
 fun getUserName(): String? = mSharedPreferences.getString("userName", "lize")
 
+//userID
+fun saveUserID(userName: String) {
+    val editor = mSharedPreferences.edit()
+    editor.putString("userID", userName)
+
+    editor.apply()
+}
+
+fun getUserID(): String? = mSharedPreferences.getString("userID", "lize")
+
 //homeFragment isFirst
 fun saveIsFirst(isFirst: Boolean) {
     val editor = mSharedPreferences.edit()

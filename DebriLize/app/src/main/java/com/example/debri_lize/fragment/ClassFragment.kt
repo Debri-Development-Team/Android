@@ -1,18 +1,23 @@
 package com.example.debri_lize.fragment
 
+import android.content.Intent
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
 import android.view.LayoutInflater
+import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.debri_lize.adapter.class_.ClassFavoriteRVAdapter
 import com.example.debri_lize.adapter.class_.ClassLectureRVAdapter
 import com.example.debri_lize.R
+import com.example.debri_lize.activity.LectureDetailActivity
+import com.example.debri_lize.activity.auth.ProfileActivity
 import com.example.debri_lize.data.class_.Lecture
 import com.example.debri_lize.data.class_.LectureFilter
 import com.example.debri_lize.databinding.FragmentClassBinding
@@ -79,11 +84,13 @@ class ClassFragment : Fragment(), LectureFavoriteView, LectureFilterView {
         bottomSheetView.findViewById<TextView>(R.id.bottom_sheet_two_tv2).text = "좋아요 순 정렬"
 
         //가나다 순
+        touchEvent(bottomSheetView.findViewById(R.id.bottom_sheet_two_tv1))
         bottomSheetView.findViewById<TextView>(R.id.bottom_sheet_two_tv1).setOnClickListener {
 
             bottomSheetDialog.dismiss()
         }
         //좋아요 순
+        touchEvent(bottomSheetView.findViewById(R.id.bottom_sheet_two_tv2))
         bottomSheetView.findViewById<TextView>(R.id.bottom_sheet_two_tv2).setOnClickListener {
 
             bottomSheetDialog.dismiss()
@@ -122,6 +129,26 @@ class ClassFragment : Fragment(), LectureFavoriteView, LectureFilterView {
         })
     }
 
+    private fun touchEvent(bind : TextView){
+        bind.setOnTouchListener(object : View.OnTouchListener {
+            override fun onTouch(view: View?, event: MotionEvent?): Boolean {
+                when (event?.action) {
+                    MotionEvent.ACTION_DOWN -> {
+                        bind.setTextColor(ContextCompat.getColor(context!!, R.color.white))
+                    }
+                    MotionEvent.ACTION_UP -> {
+                        bind.setTextColor(ContextCompat.getColor(context!!, R.color.darkmode_background))
+                        bind.performClick()
+                    }
+                }
+
+                //리턴값이 false면 동작 안됨
+                return true //or false
+            }
+
+
+        })
+    }
 
     private fun showList(){
         if(filterNum+filterNum2==0){
@@ -319,17 +346,11 @@ class ClassFragment : Fragment(), LectureFavoriteView, LectureFilterView {
                     classfavoriteRVAdapter.setItemClickListener(object : ClassFavoriteRVAdapter.OnItemClickListener {
                         override fun onClick(v: View, position: Int) {
 
-                            //LectureDetailFragment에 data보내기
-                            val bundle = Bundle()
-                            bundle.putSerializable("lectureFav", datas_f[position])
-                            val passBundleBFragment = LectureDetailFragment()
-                            passBundleBFragment.arguments = bundle
-
-                            //fragment to fragment
-                            activity?.supportFragmentManager!!.beginTransaction()
-                                .replace(R.id.main_frm, passBundleBFragment)
-                                .commit()
-
+                            //LectureDetailActivity에 data보내기
+                            val intent = Intent(context, LectureDetailActivity::class.java)
+                            intent.putExtra("lectureIdx", datas_f[position].lectureIdx)
+                            Log.d("lectureIdxClass", datas_f[position].lectureIdx.toString())
+                            startActivity(intent)
 
                         }
                     })
@@ -364,16 +385,12 @@ class ClassFragment : Fragment(), LectureFavoriteView, LectureFilterView {
                     classLectureRVAdapter.setItemClickListener(object :
                         ClassLectureRVAdapter.OnItemClickListener {
                         override fun onClick(v: View, position: Int) {
-                            //LectureDetailFragment에 data보내기
-                            val bundle = Bundle()
-                            bundle.putSerializable("lectureFav", datas[position])
-                            val passBundleBFragment = LectureDetailFragment()
-                            passBundleBFragment.arguments = bundle
 
-                            //fragment to fragment
-                            activity?.supportFragmentManager!!.beginTransaction()
-                                .replace(R.id.main_frm, passBundleBFragment)
-                                .commit()
+                            //LectureDetailActivity에 data보내기
+                            val intent = Intent(context, LectureDetailActivity::class.java)
+                            intent.putExtra("lectureIdx", datas[position].lectureIdx)
+                            Log.d("lectureIdxClass", datas[position].lectureIdx.toString())
+                            startActivity(intent)
 
                         }
                     })

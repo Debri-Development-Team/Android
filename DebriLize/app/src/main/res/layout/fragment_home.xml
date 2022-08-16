@@ -242,15 +242,31 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/home_curriculum_lecture_img_rv"/>
 
+            <TextView
+                android:id="@+id/home_no_lecture_tv"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="현재 선택된 강의가 없어요!"
+                android:fontFamily="@font/noto_sans_kr_bold"
+                android:includeFontPadding="false"
+                android:textColor="@color/white"
+                android:textSize="14dp"
+                android:gravity="center"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/home_curriculum_active_circle"
+                app:layout_constraintBottom_toBottomOf="@+id/home_curriculum_active_circle"
+                android:visibility="gone"/>
+
             <View
                 android:id="@+id/home_curriculum_active_circle"
                 android:layout_width="320dp"
                 android:layout_height="320dp"
                 android:background="@drawable/circle_debri_opacity_30"
-                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/home_curriculum_progress_layout"
-                />
+                app:layout_constraintHorizontal_bias="0.494"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/home_curriculum_progress_layout" />
 
             <me.itangqi.waveloadingview.WaveLoadingView
                 android:id="@+id/waveLoadingView"
