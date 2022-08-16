@@ -369,7 +369,7 @@ class HomeFragment : Fragment(), MyCurriculumListView, ShowCurriculumDetailView,
                         }
                     }else{
                         //중간 커리큘럼일 경우
-                        roomIdx = myCurriculum.indexOf(Curriculum(result.curriculumIdx, result.curriculumName, "testnickname"))
+                        roomIdx = myCurriculum.indexOf(Curriculum(result.curriculumIdx, result.curriculumName, result.curriculumAuthor))
                         Log.d("roomIdx", roomIdx.toString())
                         Log.d("roomIdx", myCurriculum[roomIdx+1].curriculumIdx.toString())
                         binding.homeCurriculumPreviousIv.visibility = View.VISIBLE
@@ -401,7 +401,7 @@ class HomeFragment : Fragment(), MyCurriculumListView, ShowCurriculumDetailView,
 
                 //progress rate
                 waveAnimation(result.progressRate.toInt())
-                binding.homeCurriculumProgressTv2.text = result.progressRate.toString()
+                binding.homeCurriculumProgressTv2.text = result.progressRate.toInt().toString()
 
                 //관련 강의자료
                 binding.homeCurriculumLectureRv.layoutManager =

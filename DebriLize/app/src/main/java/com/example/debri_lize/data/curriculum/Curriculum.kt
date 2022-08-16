@@ -23,6 +23,7 @@ data class Curriculum(
 data class CurriculumDetail(
     @SerializedName(value = "curriIdx") val curriculumIdx: Int,
     @SerializedName(value = "curriName") val curriculumName: String? = "",
+    @SerializedName(value = "curriAuthor") val curriculumAuthor: String? = "",
     @SerializedName(value = "visibleStatus") val visibleStatus: String,
     @SerializedName(value = "langTag") val language: String? = "",
     @SerializedName(value = "progressRate") val progressRate: Float,
