@@ -76,9 +76,9 @@ class HomeFragment : Fragment(), MyCurriculumListView, ShowCurriculumDetailView,
             startActivity(intent)
         }
 
-        //click next -> AddCurriculumFragment : 수정예정
-        binding.homeCurriculumNextIv.setOnClickListener{
-            val passBundleBFragment = AddCurriculumFragment()
+        //click add lecture -> ClassFragment
+        binding.homeCurriculumAddLectureLayout.setOnClickListener{
+            val passBundleBFragment = ClassFragment()
             //fragment to fragment
             activity?.supportFragmentManager!!.beginTransaction()
                 .replace(R.id.main_frm, passBundleBFragment)
@@ -280,6 +280,10 @@ class HomeFragment : Fragment(), MyCurriculumListView, ShowCurriculumDetailView,
                             this.height = (381 * getUISize("dpi"))
                         }
 
+                        binding.homeCurriculumActiveCircle.setBackgroundResource(R.drawable.circle_border_red_opacity_30)
+                        binding.homeNoLectureTv.visibility = View.VISIBLE
+                        binding.waveLoadingView.visibility = View.GONE
+
                     }else if(result.chapterListResList.size == 1){
 
                         //recycler view size
@@ -291,6 +295,10 @@ class HomeFragment : Fragment(), MyCurriculumListView, ShowCurriculumDetailView,
                         param.setMargins(30* getUISize("dpi"),131* getUISize("dpi"),30* getUISize("dpi"),0)
                         binding.homeCurriculumLectureImgRv.layoutParams = param
 
+                        binding.homeCurriculumActiveCircle.setBackgroundResource(R.drawable.circle_debri_opacity_30)
+                        binding.homeNoLectureTv.visibility = View.GONE
+                        binding.waveLoadingView.visibility = View.VISIBLE
+
                     }else{
                         //recycler view size
                         binding.homeCurriculumLectureImgRv.layoutParams = binding.homeCurriculumLectureImgRv.layoutParams.apply {
@@ -300,6 +308,10 @@ class HomeFragment : Fragment(), MyCurriculumListView, ShowCurriculumDetailView,
                         val param = binding.homeCurriculumLectureImgRv.layoutParams as ViewGroup.MarginLayoutParams
                         param.setMargins(30* getUISize("dpi"),15* getUISize("dpi"),30* getUISize("dpi"),0)
                         binding.homeCurriculumLectureImgRv.layoutParams = param
+
+                        binding.homeCurriculumActiveCircle.setBackgroundResource(R.drawable.circle_debri_opacity_30)
+                        binding.homeNoLectureTv.visibility = View.GONE
+                        binding.waveLoadingView.visibility = View.VISIBLE
                     }
 
                     binding.homeCurriculumLectureImgRv.layoutManager =

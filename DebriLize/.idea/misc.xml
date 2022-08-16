@@ -82,9 +82,11 @@
         <entry key="..\:/Users/tptty/AndroidStudioProjects/Debri_final/Android/DebriLize/app/src/main/res/drawable/border_round_transparent_review_6.xml" value="0.1015" />
         <entry key="..\:/Users/tptty/AndroidStudioProjects/Debri_final/Android/DebriLize/app/src/main/res/drawable/border_round_white_darkmode_roadmap.xml" value="0.11" />
         <entry key="..\:/Users/tptty/AndroidStudioProjects/Debri_final/Android/DebriLize/app/src/main/res/drawable/border_round_white_darkmode_roadmap_3.xml" value="0.16666666666666666" />
+        <entry key="..\:/Users/tptty/AndroidStudioProjects/Debri_final/Android/DebriLize/app/src/main/res/drawable/circle_border_debri_opacity_30.xml" value="0.1" />
         <entry key="..\:/Users/tptty/AndroidStudioProjects/Debri_final/Android/DebriLize/app/src/main/res/drawable/circle_debri_opacity_30.xml" value="0.1075" />
         <entry key="..\:/Users/tptty/AndroidStudioProjects/Debri_final/Android/DebriLize/app/src/main/res/drawable/circle_debri_transparent_8.xml" value="0.11" />
         <entry key="..\:/Users/tptty/AndroidStudioProjects/Debri_final/Android/DebriLize/app/src/main/res/drawable/circle_red_opacity_17.xml" value="0.1" />
+        <entry key="..\:/Users/tptty/AndroidStudioProjects/Debri_final/Android/DebriLize/app/src/main/res/drawable/circle_red_opacity_30.xml" value="0.128" />
         <entry key="..\:/Users/tptty/AndroidStudioProjects/Debri_final/Android/DebriLize/app/src/main/res/drawable/ic_check_box.xml" value="0.1135" />
         <entry key="..\:/Users/tptty/AndroidStudioProjects/Debri_final/Android/DebriLize/app/src/main/res/drawable/ic_check_box_green.xml" value="0.1135" />
         <entry key="..\:/Users/tptty/AndroidStudioProjects/Debri_final/Android/DebriLize/app/src/main/res/drawable/ic_close.xml" value="0.1135" />
@@ -104,6 +106,7 @@
         <entry key="..\:/Users/tptty/AndroidStudioProjects/Debri_final/Android/DebriLize/app/src/main/res/drawable/ic_write.xml" value="0.1135" />
         <entry key="..\:/Users/tptty/AndroidStudioProjects/Debri_final/Android/DebriLize/app/src/main/res/drawable/progressbar_progressbar1.xml" value="0.1175" />
         <entry key="..\:/Users/tptty/AndroidStudioProjects/Debri_final/Android/DebriLize/app/src/main/res/drawable/progressbar_progressbar_off.xml" value="0.1075" />
+        <entry key="..\:/Users/tptty/AndroidStudioProjects/Debri_final/Android/DebriLize/app/src/main/res/drawable/progressbar_progressbar_on.xml" value="0.101" />
         <entry key="..\:/Users/tptty/AndroidStudioProjects/Debri_final/Android/DebriLize/app/src/main/res/drawable/selector_class_radio_c.xml" value="0.11" />
         <entry key="..\:/Users/tptty/AndroidStudioProjects/Debri_final/Android/DebriLize/app/src/main/res/drawable/selector_class_radio_front.xml" value="0.113" />
         <entry key="..\:/Users/tptty/AndroidStudioProjects/Debri_final/Android/DebriLize/app/src/main/res/drawable/spinner_custom.xml" value="0.1255" />
