@@ -143,9 +143,13 @@ interface RetrofitInterface {
     @GET("api/lecture/search")
     fun showLectureSearch(@Query ("lang") lang:String?,@Query ("type") type:String?,@Query ("price") price:String?,@Query ("key") key:String?, @Header("ACCESS-TOKEN") authToken: String) : Call<BaseResponse<List<Lecture>>>
 
+    //7.5 로드맵 리스트 조회 api
+    @GET("api/lecture/roadmap/list")
+    fun showRoadMapList(@Header("ACCESS-TOKEN") authToken: String) : Call<BaseResponse<List<RoadMapList>>>
+
     //7.5.1 로드맵 상세 조회 api
     @GET("api/lecture/roadmap/view")
-    fun showRoadMapDetail(@Query ("mod") mod:String?, @Header("ACCESS-TOKEN") authToken: String) :Call<BaseResponse<RoadMap>>
+    fun showRoadMapDetail(@Query ("mod") mod:String?, @Header("ACCESS-TOKEN") authToken: String) :Call<BaseResponse<List<RoadMap>>>
 
     //8.1 커리큘럼 생성 api
     @POST("api/curri/create")
