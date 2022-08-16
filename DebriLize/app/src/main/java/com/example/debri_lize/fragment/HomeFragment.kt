@@ -2,7 +2,6 @@ package com.example.debri_lize.fragment
 
 import android.content.Context
 import android.content.Intent
-import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
 import android.view.Gravity
@@ -23,9 +22,6 @@ import com.example.debri_lize.adapter.home.LectureRVAdapter
 import com.example.debri_lize.data.curriculum.*
 import com.example.debri_lize.databinding.FragmentHomeBinding
 
-import com.example.debri_lize.utils.getUserIdx
-import com.google.android.material.bottomsheet.BottomSheetBehavior
-import com.example.debri_lize.databinding.FragmentHomeInactiveBinding
 import com.example.debri_lize.service.CurriculumService
 import com.example.debri_lize.utils.getCurriIdx
 import com.example.debri_lize.utils.getIsFirst

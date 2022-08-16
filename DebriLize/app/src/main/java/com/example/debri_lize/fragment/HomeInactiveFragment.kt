@@ -17,11 +17,8 @@ import com.example.debri_lize.CustomDialog
 import com.example.debri_lize.R
 import com.example.debri_lize.activity.MainActivity
 import com.example.debri_lize.activity.auth.ProfileActivity
-import com.example.debri_lize.adapter.home.ChapterRVAdapter
 import com.example.debri_lize.adapter.home.LectureRVAdapter
-import com.example.debri_lize.data.board.Board
 import com.example.debri_lize.data.curriculum.*
-import com.example.debri_lize.databinding.FragmentHomeBinding
 import com.example.debri_lize.databinding.FragmentHomeInactiveBinding
 import com.example.debri_lize.service.CurriculumService
 import com.example.debri_lize.utils.saveCurriIdx

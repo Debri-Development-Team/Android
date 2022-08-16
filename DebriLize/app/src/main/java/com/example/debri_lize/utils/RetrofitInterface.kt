@@ -128,6 +128,10 @@ interface RetrofitInterface {
     @POST("api/report/commentReport")
     fun reportComment(@Body report: ReportComment, @Header("ACCESS-TOKEN") authToken: String) : Call<BaseResponse<String>>
 
+    //6.3 사용자 신고 & 차단 api
+    @POST("api/report/user/{postIdx}")
+    fun reportUser(@Body reason: String, @Path("postIdx") postIdx: Int, @Header("ACCESS-TOKEN") authToken: String) : Call<BaseResponse<String>>
+
     //7.2 강의 즐겨찾기 api
     @POST("api/lecture/scrap/create")
     fun createLectureScrap(@Body lectureScrap: LectureScrap, @Header("ACCESS-TOKEN") authToken: String) : Call<BaseResponse<String>>

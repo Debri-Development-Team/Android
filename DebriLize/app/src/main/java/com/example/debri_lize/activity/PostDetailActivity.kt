@@ -26,7 +26,8 @@ import kotlin.properties.Delegates
 
 
 class PostDetailActivity : AppCompatActivity(), PostDetailView, CommentCreateView, ShowCommentView, DeletePostView,
-    CreatePostLikeView, CancelPostLikeView, CreatePostScrapView, CancelPostScrapView, ReportPostView, DeleteCommentView, ReportCommentView {
+    CreatePostLikeView, CancelPostLikeView, CreatePostScrapView, CancelPostScrapView, ReportPostView, DeleteCommentView, ReportCommentView,
+    ReportUserView {
     lateinit var binding : ActivityPostDetailBinding
 
     var postIdx by Delegates.notNull<Int>()
@@ -70,7 +71,7 @@ class PostDetailActivity : AppCompatActivity(), PostDetailView, CommentCreateVie
         commentService.setShowCommentView(this)
         commentService.showComment(postIdx)
 
-
+        reportService.setReportUserView(this)
 
         //write comment <- enter
         binding.postDetailWriteCommentEt.setOnKeyListener { v, keyCode, event ->
@@ -152,9 +153,18 @@ class PostDetailActivity : AppCompatActivity(), PostDetailView, CommentCreateVie
             }
             //click delete button
             bottomSheetView.findViewById<TextView>(R.id.bottom_sheet_two_tv2).setOnClickListener {
-                postService.deletePost(postIdx)
+
                 bottomSheetDialog.dismiss()
                 //add dialog code
+                val dialog = CustomDialog(this)
+                dialog.showDeletePostDlg()
+                dialog.setOnClickListener(object : CustomDialog.ButtonClickListener{
+                    override fun onClicked(TF: Boolean) {
+                        //게시물 삭제
+                        postService.deletePost(postIdx)
+                    }
+
+                })
 
 
                 finish()
@@ -277,6 +287,7 @@ class PostDetailActivity : AppCompatActivity(), PostDetailView, CommentCreateVie
                 commentService.deleteComment(commentIdx)
                 bottomSheetDialog.dismiss()
                 //add dialog code
+
 
             }
         }
@@ -617,12 +628,26 @@ class PostDetailActivity : AppCompatActivity(), PostDetailView, CommentCreateVie
     override fun onReportPostSuccess(code: Int) {
         when(code){
             200->{
-                //토스트메세지 띄우기
-                var reportToast = layoutInflater.inflate(R.layout.toast_report,null)
-                var toast = Toast(this)
-                toast.view = reportToast
-                toast.setGravity(Gravity.CENTER_HORIZONTAL,0,0)
-                toast.show()
+                //신고 다이얼로그
+                val dialog = CustomDialog(this)
+                dialog.reportPostUserDlg()
+                val dialogETC = CustomDialog(this)
+                dialog.setOnClickListener(object:CustomDialog.ButtonClickListener {
+                    override fun onClicked(TF: Boolean) {
+                        //신고 사유 : 유저 신고 시 reason 필요
+
+                        dialogETC.showReportDlg()
+                        dialogETC.setOnClickListenerETC(object:CustomDialog.ButtonClickListenerETC {
+                            override fun onClicked(TF: Boolean, reason: String) {
+                                //유저 신고&차단 api
+                                reportService.reportUser(reason, postIdx)
+                            }
+
+                        })
+                    }
+
+                })
+
             }
         }
     }
@@ -662,7 +687,17 @@ class PostDetailActivity : AppCompatActivity(), PostDetailView, CommentCreateVie
 
     }
 
+    override fun onReportUserSuccess(code: Int) {
+        when(code){
+            200->{
 
+            }
+        }
+    }
+
+    override fun onReportUserFailure(code: Int) {
+        Log.d("reportuserfail","$code")
+    }
 
 
 }
