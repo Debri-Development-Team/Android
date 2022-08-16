@@ -113,7 +113,7 @@ class SignUpActivity:AppCompatActivity(), SignUpView {
         inputFormatCheck()
 
         //시작하기 버튼 클릭 효과
-        if(idTF && pwTF && pwCkTF && birthTF && nicknameTF){
+        if(idTF && pwTF && pwCkTF && birthTF && nicknameTF && agree2TF){
             binding.signUpSignUpBtn.setTextColor(ContextCompat.getColor(this@SignUpActivity, R.color.white))
             binding.signUpSignUpBtn.setBackgroundResource(R.drawable.border_round_debri_transparent_6)
         }else{
