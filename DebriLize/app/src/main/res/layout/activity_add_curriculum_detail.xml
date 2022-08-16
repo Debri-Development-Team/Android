@@ -253,6 +253,37 @@
             app:layout_constraintTop_toBottomOf="@+id/add_curriculum_detail_lecture_rv"
             app:layout_constraintStart_toStartOf="parent"/>
 
+        <LinearLayout
+            android:id="@+id/add_curriculum_detail_live_layout"
+            android:layout_width="43dp"
+            android:layout_height="16dp"
+            android:orientation="horizontal"
+            android:layout_marginEnd="30dp"
+            android:background="@drawable/border_round_red_transparent_9"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/add_curriculum_detail_review_tv"
+            app:layout_constraintBottom_toBottomOf="@+id/add_curriculum_detail_review_tv"
+            android:gravity="center">
+
+            <ImageView
+                android:id="@+id/add_curriculum_detail_live_iv"
+                android:layout_width="8dp"
+                android:layout_height="8dp"
+                android:src="@drawable/ic_circle_red" />
+
+
+            <TextView
+                android:id="@+id/add_curriculum_detail_live_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/noto_sans_kr_bold"
+                android:includeFontPadding="false"
+                android:text="LIVE"
+                android:textColor="@color/red"
+                android:textSize="8dp"
+                android:layout_marginStart="6dp"/>
+        </LinearLayout>
+
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/add_curriculum_detail_review_rv"
             android:layout_width="match_parent"

@@ -82,6 +82,8 @@ class LoginActivity:AppCompatActivity(), LoginView, TokenView {
             else -> "ldpi"
         }
         Log.d("density", density.toString())
+        saveUISize("dpi", density)
+
         return density
     }
 

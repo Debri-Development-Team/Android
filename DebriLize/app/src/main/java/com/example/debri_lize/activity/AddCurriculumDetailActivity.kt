@@ -1,12 +1,15 @@
 package com.example.debri_lize.activity
 
 import android.os.Bundle
-import android.util.Log
 import android.view.KeyEvent
 import android.view.View
+import android.view.animation.Animation
+import android.view.animation.AnimationUtils
 import android.widget.Toast
+import androidx.annotation.UiThread
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.debri_lize.R
 import com.example.debri_lize.adapter.class_.ClassLectureRVAdapter
 import com.example.debri_lize.adapter.start.ReviewRVAdapter
 import com.example.debri_lize.data.class_.Lecture
@@ -54,7 +57,9 @@ class AddCurriculumDetailActivity : AppCompatActivity(), CreateReviewView, ShowR
     override fun onStart() {
         super.onStart()
 
-        //write comment <- enter
+        liveAnimation()
+
+        //write review <- enter
         binding.addCurriculumDetailWriteReviewEt.setOnKeyListener { v, keyCode, event ->
             if (event.action == KeyEvent.ACTION_DOWN && keyCode == KeyEvent.KEYCODE_ENTER) {
                 createReview()
@@ -95,7 +100,43 @@ class AddCurriculumDetailActivity : AppCompatActivity(), CreateReviewView, ShowR
 
     }
 
-    //comment
+    //live animation
+    @UiThread
+    private fun liveAnimation(){
+        val startAnim : Animation = AnimationUtils.loadAnimation(this, R.anim.anim_appear)
+        val endAnim : Animation = AnimationUtils.loadAnimation(this, R.anim.anim_disappear)
+        binding.addCurriculumDetailLiveIv.startAnimation(startAnim)
+
+        startAnim.setAnimationListener(object : Animation.AnimationListener{
+            override fun onAnimationStart(p0: Animation?) {
+
+            }
+
+            override fun onAnimationEnd(p0: Animation?) {
+                binding.addCurriculumDetailLiveIv.startAnimation(endAnim)
+            }
+
+            override fun onAnimationRepeat(p0: Animation?) {
+
+            }
+        })
+
+        endAnim.setAnimationListener(object : Animation.AnimationListener{
+            override fun onAnimationStart(p0: Animation?) {
+
+            }
+
+            override fun onAnimationEnd(p0: Animation?) {
+                binding.addCurriculumDetailLiveIv.startAnimation(startAnim)
+            }
+
+            override fun onAnimationRepeat(p0: Animation?) {
+
+            }
+        })
+    }
+
+    //review
     //사용자가 입력한 값 가져오기
     private fun getReview() : Review {
         val content : String = binding.addCurriculumDetailWriteReviewEt.text.toString()
@@ -110,7 +151,7 @@ class AddCurriculumDetailActivity : AppCompatActivity(), CreateReviewView, ShowR
             return
         }
 
-        //8.12.1 커리큘럼 리뷰 조회 api
+        ////8.12 커리큘럼 리뷰 작성 api
         reviewService.setCreateReviewView(this)
         reviewService.createReview(getReview())
 

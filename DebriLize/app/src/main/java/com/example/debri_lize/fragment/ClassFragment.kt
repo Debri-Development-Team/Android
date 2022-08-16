@@ -1,5 +1,6 @@
 package com.example.debri_lize.fragment
 
+import android.content.Intent
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -13,6 +14,8 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.debri_lize.adapter.class_.ClassFavoriteRVAdapter
 import com.example.debri_lize.adapter.class_.ClassLectureRVAdapter
 import com.example.debri_lize.R
+import com.example.debri_lize.activity.LectureDetailActivity
+import com.example.debri_lize.activity.auth.ProfileActivity
 import com.example.debri_lize.data.class_.Lecture
 import com.example.debri_lize.data.class_.LectureFilter
 import com.example.debri_lize.databinding.FragmentClassBinding
@@ -309,7 +312,7 @@ class ClassFragment : Fragment(), LectureFavoriteView, LectureFilterView {
 
                 datas_f.apply {
                     for (i in result){
-                        datas_f.add(Lecture(i.lectureIdx, i.lectureName, i.chapterNum, i.language, i.media, i.price, i.userScrap, i.scrapNumber, i.usedCount, i.likeNumber, i.userLike))
+                        datas_f.add(Lecture(i.lectureIdx, i.lectureName, i.chapterNum, i.language, i.media, i.price, i.userScrap, i.scrapNumber, i.usedCount, i.likeNumber, i.userLike, i.lectureDesc, i.srcLink))
                     }
 
                     classfavoriteRVAdapter.datas_classf = datas_f
@@ -319,17 +322,10 @@ class ClassFragment : Fragment(), LectureFavoriteView, LectureFilterView {
                     classfavoriteRVAdapter.setItemClickListener(object : ClassFavoriteRVAdapter.OnItemClickListener {
                         override fun onClick(v: View, position: Int) {
 
-                            //LectureDetailFragment에 data보내기
-                            val bundle = Bundle()
-                            bundle.putSerializable("lectureFav", datas_f[position])
-                            val passBundleBFragment = LectureDetailFragment()
-                            passBundleBFragment.arguments = bundle
-
-                            //fragment to fragment
-                            activity?.supportFragmentManager!!.beginTransaction()
-                                .replace(R.id.main_frm, passBundleBFragment)
-                                .commit()
-
+                            //LectureDetailActivity에 data보내기
+                            val intent = Intent(context, LectureDetailActivity::class.java)
+                            intent.putExtra("lectureIdx", datas_f[position].lectureIdx)
+                            startActivity(intent)
 
                         }
                     })
@@ -353,7 +349,7 @@ class ClassFragment : Fragment(), LectureFavoriteView, LectureFilterView {
                 datas.apply {
                     for (i in result) {
                         datas.add(
-                            Lecture(i.lectureIdx, i.lectureName, i.chapterNum, i.language, i.media, i.price, i.userScrap, i.scrapNumber, i.usedCount, i.likeNumber, i.userLike)
+                            Lecture(i.lectureIdx, i.lectureName, i.chapterNum, i.language, i.media, i.price, i.userScrap, i.scrapNumber, i.usedCount, i.likeNumber, i.userLike, i.lectureDesc, i.srcLink)
                         )
                     }
 
@@ -365,6 +361,10 @@ class ClassFragment : Fragment(), LectureFavoriteView, LectureFilterView {
                         ClassLectureRVAdapter.OnItemClickListener {
                         override fun onClick(v: View, position: Int) {
 
+                            //LectureDetailActivity에 data보내기
+                            val intent = Intent(context, LectureDetailActivity::class.java)
+                            intent.putExtra("lectureFav", datas[position])
+                            startActivity(intent)
 
                         }
                     })

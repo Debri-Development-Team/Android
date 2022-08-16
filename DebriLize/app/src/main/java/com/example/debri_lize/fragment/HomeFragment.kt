@@ -9,6 +9,7 @@ import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.ViewGroup.LayoutParams.WRAP_CONTENT
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
@@ -16,6 +17,7 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.debri_lize.CustomDialog
 import com.example.debri_lize.R
+import com.example.debri_lize.activity.LectureDetailActivity
 import com.example.debri_lize.activity.MainActivity
 import com.example.debri_lize.activity.auth.ProfileActivity
 import com.example.debri_lize.adapter.home.ChapterRVAdapter
@@ -23,14 +25,8 @@ import com.example.debri_lize.adapter.home.LectureRVAdapter
 import com.example.debri_lize.data.curriculum.*
 import com.example.debri_lize.databinding.FragmentHomeBinding
 
-import com.example.debri_lize.utils.getUserIdx
-import com.google.android.material.bottomsheet.BottomSheetBehavior
-import com.example.debri_lize.databinding.FragmentHomeInactiveBinding
 import com.example.debri_lize.service.CurriculumService
-import com.example.debri_lize.utils.getCurriIdx
-import com.example.debri_lize.utils.getIsFirst
-import com.example.debri_lize.utils.saveCurriIdx
-import com.example.debri_lize.utils.saveIsFirst
+import com.example.debri_lize.utils.*
 import com.example.debri_lize.view.curriculum.*
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import java.sql.Timestamp
@@ -277,6 +273,28 @@ class HomeFragment : Fragment(), MyCurriculumListView, ShowCurriculumDetailView,
                 saveCurriIdx(result.curriculumIdx)
                 if(result.status=="ACTIVE"){
                     //활성화
+                    //동적으로 화면 크기 지정
+                    Log.d("chapterListResList", result.chapterListResList.size.toString())
+                    if(result.chapterListResList.size == 1){
+                        //recycler view size
+                        binding.homeCurriculumLectureImgRv.layoutParams = binding.homeCurriculumLectureImgRv.layoutParams.apply {
+                            this.height = (250 * getUISize("dpi"))
+                        }
+
+                        val param = binding.homeCurriculumLectureImgRv.layoutParams as ViewGroup.MarginLayoutParams
+                        param.setMargins(30* getUISize("dpi"),131* getUISize("dpi"),30* getUISize("dpi"),0)
+                        binding.homeCurriculumLectureImgRv.layoutParams = param
+                    }else{
+                        //recycler view size
+                        binding.homeCurriculumLectureImgRv.layoutParams = binding.homeCurriculumLectureImgRv.layoutParams.apply {
+                            this.height = WRAP_CONTENT
+                        }
+
+                        val param = binding.homeCurriculumLectureImgRv.layoutParams as ViewGroup.MarginLayoutParams
+                        param.setMargins(30* getUISize("dpi"),15* getUISize("dpi"),30* getUISize("dpi"),0)
+                        binding.homeCurriculumLectureImgRv.layoutParams = param
+                    }
+
                     binding.homeCurriculumLectureImgRv.layoutManager =
                         LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
                     chapterRVAdapter = ChapterRVAdapter()
@@ -422,7 +440,9 @@ class HomeFragment : Fragment(), MyCurriculumListView, ShowCurriculumDetailView,
                     //click recyclerview item
                     lectureRVAdapter.setItemClickListener(object : LectureRVAdapter.OnItemClickListener {
                         override fun onClick(v: View, position: Int) {
-
+                            val intent = Intent(context, LectureDetailActivity::class.java)
+                            intent.putExtra("lectureIdx", lecture[position].lectureIdx)
+                            startActivity(intent)
 
                         }
                     })

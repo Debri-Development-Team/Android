@@ -8,7 +8,9 @@ import com.example.debri_lize.data.auth.UserSignup
 import com.example.debri_lize.data.board.Board
 import com.example.debri_lize.data.board.BoardFavorite
 import com.example.debri_lize.data.class_.Lecture
+import com.example.debri_lize.data.class_.LectureReview
 import com.example.debri_lize.data.class_.LectureScrap
+import com.example.debri_lize.data.class_.LikeSuccess
 import com.example.debri_lize.data.curriculum.*
 import com.example.debri_lize.data.post.*
 import com.example.debri_lize.data.post.Comment
@@ -139,6 +141,10 @@ interface RetrofitInterface {
     @GET("api/lecture/getScrapList/{userIdx}")
     fun showLectureFavorite(@Path("userIdx") userIdx: Int, @Header("ACCESS-TOKEN") authToken: String) : Call<BaseResponse<List<Lecture>>>
 
+    //7.4 강의 상세 조회 api
+    @GET("api/lecture/getLecture/{lectureIdx}")
+    fun showLectureDetail(@Path("lectureIdx") lectureIdx: Int, @Header("ACCESS-TOKEN") authToken: String) : Call<BaseResponse<Lecture>>
+
     //7.4.1 강의 검색 api
     @GET("api/lecture/search")
     fun showLectureSearch(@Query ("lang") lang:String?,@Query ("type") type:String?,@Query ("price") price:String?,@Query ("key") key:String?, @Header("ACCESS-TOKEN") authToken: String) : Call<BaseResponse<List<Lecture>>>
@@ -150,6 +156,22 @@ interface RetrofitInterface {
     //7.5.1 로드맵 상세 조회 api
     @GET("api/lecture/roadmap/view")
     fun showRoadMapDetail(@Query ("mod") mod:String?, @Header("ACCESS-TOKEN") authToken: String) :Call<BaseResponse<List<RoadMap>>>
+
+    //7.6 강의 리뷰 작성 api
+    @POST("api/lecture/review/create")
+    fun createLectureReview(@Body lectureReview : LectureReview, @Header("ACCESS-TOKEN") authToken: String) :Call<BaseResponse<LectureReview>>
+
+    //7.6.1 강의 리뷰 조회 api
+    @GET("api/lecture/review/get")
+    fun showLectureReview(@Query ("lectureIdx") lectureIdx:Int?, @Header("ACCESS-TOKEN") authToken: String) :Call<BaseResponse<List<LectureReview>>>
+
+    //7.7 강의 좋아요 api
+    @POST("api/lecture/like/create")
+    fun createLectureLike(@Query ("lectureIdx") lectureIdx:Int?, @Header("ACCESS-TOKEN") authToken: String) : Call<BaseResponse<LikeSuccess>>
+
+    //7.7.1 강의 좋아요 삭제 api
+    @PATCH("api/lecture/like/delete")
+    fun deleteLectureLike(@Query ("lectureIdx") lectureIdx:Int?, @Header("ACCESS-TOKEN") authToken: String) : Call<BaseResponse<LikeSuccess>>
 
     //8.1 커리큘럼 생성 api
     @POST("api/curri/create")
