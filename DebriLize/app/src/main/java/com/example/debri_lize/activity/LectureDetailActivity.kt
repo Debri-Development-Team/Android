@@ -115,6 +115,7 @@ class LectureDetailActivity : AppCompatActivity(), ShowLectureDetailView, Create
         when(code){
             200->{
                 var language = binding.lectureDetailTagLanguageTv
+                Log.d("lecture",result.toString())
 
                 //screen
                 language.text = result.language

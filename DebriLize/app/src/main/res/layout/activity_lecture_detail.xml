@@ -116,13 +116,13 @@
                                 <TextView
                                     android:id="@+id/lecture_detail_chapternum_tv"
                                     android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:text="총 15챕터"
-                                    android:textColor="@color/white"
+                                    android:layout_height="23dp"
+                                    android:layout_gravity="center"
                                     android:fontFamily="@font/noto_sans_kr_regular"
                                     android:includeFontPadding="false"
-                                    android:textSize="14dp"
-                                    android:layout_gravity="center"/>
+                                    android:text="총 15챕터"
+                                    android:textColor="@color/white"
+                                    android:textSize="14dp" />
 
 
                             </LinearLayout>
