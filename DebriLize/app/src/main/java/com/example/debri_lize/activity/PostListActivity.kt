@@ -8,6 +8,7 @@ import android.util.Log
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.debri_lize.R
 import com.example.debri_lize.adapter.post.PostRVAdapter
 import com.example.debri_lize.data.post.PostList
 import com.example.debri_lize.databinding.ActivityPostListBinding
@@ -59,6 +60,21 @@ class PostListActivity : AppCompatActivity(), PostListView {
                 true
             }
 
+        })
+
+        //focus
+        binding.postListSearchEt.setOnFocusChangeListener(object : View.OnFocusChangeListener {
+            override fun onFocusChange(view: View, hasFocus: Boolean) {
+                if (hasFocus) {
+                    //  포커스시
+                    binding.postListSearchLayout.setBackgroundResource(R.drawable.border_round_debri_transparent_10)
+                    binding.postListSearchIv.setImageResource(R.drawable.btm_nav_search_on)
+                } else {
+                    //  포커스 뺏겼을 때
+                    binding.postListSearchLayout.setBackgroundResource(R.drawable.border_round_white_transparent_10)
+                    binding.postListSearchIv.setImageResource(R.drawable.btm_nav_search)
+                }
+            }
         })
 
 

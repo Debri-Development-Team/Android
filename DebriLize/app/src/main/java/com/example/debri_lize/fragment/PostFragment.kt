@@ -87,7 +87,20 @@ class PostFragment : Fragment(), EachPostListView {
             startActivity(intent)
         }
 
-
+        //focus
+        binding.postSearchEt.setOnFocusChangeListener(object : View.OnFocusChangeListener {
+            override fun onFocusChange(view: View, hasFocus: Boolean) {
+                if (hasFocus) {
+                    //  포커스시
+                    binding.postSearchLayout.setBackgroundResource(R.drawable.border_round_debri_transparent_10)
+                    binding.postSearchIv.setImageResource(R.drawable.btm_nav_search_on)
+                } else {
+                    //  포커스 뺏겼을 때
+                    binding.postSearchLayout.setBackgroundResource(R.drawable.border_round_white_transparent_10)
+                    binding.postSearchIv.setImageResource(R.drawable.btm_nav_search)
+                }
+            }
+        })
 
     }
 

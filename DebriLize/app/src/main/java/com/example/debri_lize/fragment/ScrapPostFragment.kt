@@ -61,6 +61,21 @@ class ScrapPostFragment : Fragment(), ShowScrapPostListView {
             startActivity(intent)
         }
 
+        //focus
+        binding.postScrapSearchEt.setOnFocusChangeListener(object : View.OnFocusChangeListener {
+            override fun onFocusChange(view: View, hasFocus: Boolean) {
+                if (hasFocus) {
+                    //  포커스시
+                    binding.postScrapSearchLayout.setBackgroundResource(R.drawable.border_round_debri_transparent_10)
+                    binding.postScrapSearchIv.setImageResource(R.drawable.btm_nav_search_on)
+                } else {
+                    //  포커스 뺏겼을 때
+                    binding.postScrapSearchLayout.setBackgroundResource(R.drawable.border_round_white_transparent_10)
+                    binding.postScrapSearchIv.setImageResource(R.drawable.btm_nav_search)
+                }
+            }
+        })
+
     }
 
     //search post
