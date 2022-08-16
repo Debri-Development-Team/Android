@@ -2,6 +2,8 @@ package com.example.debri_lize.activity
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
+import android.view.View
 import com.example.debri_lize.R
 import com.example.debri_lize.databinding.ActivityMainBinding
 import com.example.debri_lize.fragment.BoardFragment
