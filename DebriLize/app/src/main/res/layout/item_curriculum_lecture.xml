@@ -85,7 +85,7 @@
                     android:max="100"
                     android:progress="50"
                     style="@style/Widget.AppCompat.ProgressBar.Horizontal"
-                    android:progressDrawable="@drawable/progressbar_progressbar_on"
+                    android:progressDrawable="@drawable/progressbar_progressbar_off"
                     android:layout_width="140dp"
                     android:layout_height="17dp"/>
 
