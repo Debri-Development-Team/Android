@@ -39,6 +39,9 @@ class ClassFragment : Fragment(), LectureFavoriteView, LectureFilterView {
     var filterNum : Int = 0
     var filterNum2 : Int = 0
 
+    var datas = ArrayList<Lecture>()
+    var datas_f = ArrayList<Lecture>()
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -87,11 +90,19 @@ class ClassFragment : Fragment(), LectureFavoriteView, LectureFilterView {
         touchEvent(bottomSheetView.findViewById(R.id.bottom_sheet_two_tv1))
         bottomSheetView.findViewById<TextView>(R.id.bottom_sheet_two_tv1).setOnClickListener {
 
+//            datas.sortBy { it.lectureName }
+//            datas_f.sortBy { it.lectureName }
+            showList()
+
             bottomSheetDialog.dismiss()
         }
         //좋아요 순
         touchEvent(bottomSheetView.findViewById(R.id.bottom_sheet_two_tv2))
         bottomSheetView.findViewById<TextView>(R.id.bottom_sheet_two_tv2).setOnClickListener {
+
+//            datas.sortBy { it.likeNumber }
+//            datas_f.sortBy { it.likeNumber }
+            showList()
 
             bottomSheetDialog.dismiss()
         }
@@ -326,7 +337,7 @@ class ClassFragment : Fragment(), LectureFavoriteView, LectureFilterView {
     override fun onLectureFavoriteSuccess(code: Int, result: List<Lecture>) {
         when(code){
             200->{
-                val datas_f = ArrayList<Lecture>()
+                datas_f = ArrayList<Lecture>()
 
                 //즐겨찾기
                 binding.classFavoriteRv.layoutManager =
@@ -366,7 +377,7 @@ class ClassFragment : Fragment(), LectureFavoriteView, LectureFilterView {
     override fun onLectureFilterSuccess(code: Int, result: List<Lecture>) {
         when(code){
             200->{
-                val datas = ArrayList<Lecture>()
+                 datas = ArrayList<Lecture>()
                 binding.classLecturelistRv.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
                 classLectureRVAdapter = ClassLectureRVAdapter()
                 binding.classLecturelistRv.adapter = classLectureRVAdapter
