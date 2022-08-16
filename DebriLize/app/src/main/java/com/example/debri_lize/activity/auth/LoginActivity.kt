@@ -145,6 +145,8 @@ class LoginActivity:AppCompatActivity(), LoginView, TokenView {
                 saveUserName(result!!.userName)
                 saveRefreshToken(result!!.refreshToken)
 
+                saveIsFirst(true)
+
                 finish()
                 startActivity(Intent(this, MainActivity::class.java))
 

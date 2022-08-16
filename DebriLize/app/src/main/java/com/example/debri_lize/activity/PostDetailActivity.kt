@@ -499,6 +499,7 @@ class PostDetailActivity : AppCompatActivity(), PostDetailView, CommentCreateVie
                         val item = iterator.next()
                         if (item.commentLevel==1 && item.commentGroup==commentGroup) {
                             childItemArrayList.add(CommentList(item.commentIdx, item.authorIdx, item.postIdx, item.commentLevel, item.commentOrder, item.commentGroup, item.commentContent, item.authorName, item.timeAfterCreated, item.likeStatus, item.likeCount))
+
                             Log.d("childList", childItemArrayList.toString())
                         }
                     }

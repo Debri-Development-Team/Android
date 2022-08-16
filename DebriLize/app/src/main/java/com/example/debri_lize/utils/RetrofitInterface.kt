@@ -174,4 +174,12 @@ interface RetrofitInterface {
     //8.6 커리큘럼 삭제 api
     @POST("api/curri/delete/{curriIdx}")
     fun deleteCurriculum(@Path("curriIdx") curriIdx: Int, @Header("ACCESS-TOKEN") authToken: String) : Call<BaseResponse<String>>
+
+    //8.12 커리큘럼 리뷰 작성 api
+    @POST("api/curri/review/create")
+    fun createReview(@Body review : Review, @Header("ACCESS-TOKEN") authToken: String) : Call<BaseResponse<Review>>
+
+    //8.12.1 커리큘럼 리뷰 조회 api
+    @GET("api/curri/review/getList/{curriIdx}")
+    fun showReview(@Path("curriIdx") curriIdx: Int, @Header("ACCESS-TOKEN") authToken: String) : Call<BaseResponse<List<Review>>>
 }

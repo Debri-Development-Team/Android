@@ -96,9 +96,9 @@ class LectureDetailFragment : Fragment() {
 
                     review.apply {
 
-                        review.add(Review("자바가 너무 쉬워졌어요 어떡하죠?", "by 데브리짱짱걸"))
-                        review.add(Review("나쁘지 않습니다...저에겐 너무 쉽군요", "by 데브리짱짱걸"))
-                        review.add(Review("기본을 다지기에 좋은 커리큘럼 입니다.", "by 데브리짱짱걸"))
+//                        review.add(Review("자바가 너무 쉬워졌어요 어떡하죠?", "by 데브리짱짱걸"))
+//                        review.add(Review("나쁘지 않습니다...저에겐 너무 쉽군요", "by 데브리짱짱걸"))
+//                        review.add(Review("기본을 다지기에 좋은 커리큘럼 입니다.", "by 데브리짱짱걸"))
 
                     }
                     lectureReviewRVAdapter.datas = review
