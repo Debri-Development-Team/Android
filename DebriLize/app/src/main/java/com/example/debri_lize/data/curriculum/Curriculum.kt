@@ -88,3 +88,10 @@ data class AddLecture(
     @SerializedName(value = "lectureIdx") val lectureIdx: Int? = 0
 ) : Serializable
 
+//8.7 챕터 수강 완료 및 취소 api
+data class CompleteChapter(
+    @SerializedName(value = "chIdx") val chIdx: Int? = 0,
+    @SerializedName(value = "curriIdx") val curriIdx: Int? = 0,
+    @SerializedName(value = "lectureIdx") val lectureIdx: Int? = 0
+) : Serializable
+

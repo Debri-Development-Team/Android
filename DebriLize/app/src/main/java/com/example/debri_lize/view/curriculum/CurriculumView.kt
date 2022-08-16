@@ -50,3 +50,15 @@ interface DeleteCurriculumView {
     fun onDeleteCurriculumViewSuccess(code: Int)
     fun onDeleteCurriculumViewFailure(code : Int)
 }
+
+//8.7 챕터 수강 완료 및 취소 api
+interface CompleteChapterView {
+    fun onCompleteChapterSuccess(code: Int)
+    fun onCompleteChapterFailure(code : Int)
+}
+
+//8.11 커리큘럼 리셋 api
+interface ResetCurriculumView {
+    fun onResetCurriculumSuccess(code: Int)
+    fun onResetCurriculumFailure(code : Int)
+}

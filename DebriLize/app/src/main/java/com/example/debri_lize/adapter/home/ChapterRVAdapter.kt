@@ -7,13 +7,20 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.debri_lize.R
+import com.example.debri_lize.activity.PostDetailActivity
 import com.example.debri_lize.data.curriculum.ChapterList
+import com.example.debri_lize.data.curriculum.CompleteChapter
 import com.example.debri_lize.databinding.ItemCurriculumLectureImgBinding
+import com.example.debri_lize.fragment.HomeFragment
+import com.example.debri_lize.service.CommentService
+import com.example.debri_lize.service.CurriculumService
+import com.example.debri_lize.view.curriculum.CompleteChapterView
 import org.w3c.dom.Text
 
-class ChapterRVAdapter : RecyclerView.Adapter<ChapterRVAdapter.ViewHolder>() {
+class ChapterRVAdapter(context: HomeFragment) : RecyclerView.Adapter<ChapterRVAdapter.ViewHolder>(), CompleteChapterView {
 
     var datas = ArrayList<ChapterList>()
+    var fragment = context
 
     inner class ViewHolder(val binding : ItemCurriculumLectureImgBinding) : RecyclerView.ViewHolder(binding.root){
 
@@ -63,18 +70,29 @@ class ChapterRVAdapter : RecyclerView.Adapter<ChapterRVAdapter.ViewHolder>() {
 
         holder.binding.itemCurriculumLectureImgLayout.setOnClickListener{
             //api 추가필요
-            if(datas[position].chComplete=="TRUE"){ //완료된 상태
-                holder.binding.itemCurriculumLectureImgCheckboxIv.setImageResource(R.drawable.ic_check_box)
-
-            }else{ //미완료인 상태
-                holder.binding.itemCurriculumLectureImgCheckboxIv.setImageResource(R.drawable.ic_checkbox_on)
-
-            }
+            var curriculumService = CurriculumService()
+            curriculumService.setCompleteChapterView(this)
+            //curriculumService.completeChapter(CompleteChapter(datas[position].chIdx))
 
         }
     }
 
     //
     override fun getItemCount(): Int = datas.size
+
+    //8.7 챕터 수강 완료 및 취소 api
+    override fun onCompleteChapterSuccess(code: Int) {
+        when(code){
+            200 ->{
+                val curriculumService = CurriculumService()
+                curriculumService.setShowCurriculumDetailView(fragment)
+                //curriculumService.showCurriculumDetail(postIdx) curriculumIdx로 변경할 것
+            }
+        }
+    }
+
+    override fun onCompleteChapterFailure(code: Int) {
+
+    }
 
 }

@@ -23,6 +23,9 @@ class CurriculumService {
     private lateinit var editCurriculumStatusView: EditCurriculumStatusView
 
     private lateinit var deleteCurriculumView: DeleteCurriculumView
+    private lateinit var resetCurriculumView: ResetCurriculumView
+
+    private lateinit var completeChapterView: CompleteChapterView
 
     fun setCreateCurriculumView(createCurriculumView: CreateCurriculumView){
         this.createCurriculumView = createCurriculumView
@@ -55,6 +58,15 @@ class CurriculumService {
 
     fun setDeleteCurriculumView(deleteCurriculumView: DeleteCurriculumView){
         this.deleteCurriculumView = deleteCurriculumView
+    }
+
+    fun setResetCurriculumView(resetCurriculumView: ResetCurriculumView){
+        this.resetCurriculumView = resetCurriculumView
+    }
+
+    //chapter
+    fun setCompleteChapterView(completeChapterView: CompleteChapterView){
+        this.completeChapterView = completeChapterView
     }
 
     //8.1 커리큘럼 생성 api
@@ -243,6 +255,52 @@ class CurriculumService {
             //실패했을 때 처리
             override fun onFailure(call: Call<BaseResponse<String>>, t: Throwable) {
                 Log.d("deleteCurriFail", t.toString())
+            }
+
+        })
+    }
+
+    //8.7 챕터 수강 완료 및 취소 api
+    fun completeChapter(completeChapter : CompleteChapter){
+        val curriculumService = getRetrofit().create(RetrofitInterface::class.java)
+        curriculumService.completeChapter(completeChapter, getJwt()!!).enqueue(object: Callback<BaseResponse<String>> {
+            //응답이 왔을 때 처리
+            override fun onResponse(call: Call<BaseResponse<String>>, response: Response<BaseResponse<String>>) {
+                Log.d("completeCh", "response")
+                val resp: BaseResponse<String> = response.body()!!
+                Log.d("completeChCode", resp.code.toString())
+                when(resp.code){
+                    //API code값 사용
+                    200->deleteCurriculumView.onDeleteCurriculumViewSuccess(resp.code)
+                    else->deleteCurriculumView.onDeleteCurriculumViewFailure(resp.code)
+                }
+            }
+            //실패했을 때 처리
+            override fun onFailure(call: Call<BaseResponse<String>>, t: Throwable) {
+                Log.d("completeChFail", t.toString())
+            }
+
+        })
+    }
+
+    //8.11 커리큘럼 리셋 api
+    fun resetCurriculum(curriculumIdx : Int){
+        val curriculumService = getRetrofit().create(RetrofitInterface::class.java)
+        curriculumService.resetCurriculum(curriculumIdx, getJwt()!!).enqueue(object: Callback<BaseResponse<String>> {
+            //응답이 왔을 때 처리
+            override fun onResponse(call: Call<BaseResponse<String>>, response: Response<BaseResponse<String>>) {
+                Log.d("resetCurri", "response")
+                val resp: BaseResponse<String> = response.body()!!
+                Log.d("resetCurriCode", resp.code.toString())
+                when(resp.code){
+                    //API code값 사용
+                    200->resetCurriculumView.onResetCurriculumSuccess(resp.code)
+                    else->resetCurriculumView.onResetCurriculumFailure(resp.code)
+                }
+            }
+            //실패했을 때 처리
+            override fun onFailure(call: Call<BaseResponse<String>>, t: Throwable) {
+                Log.d("resetCurriFail", t.toString())
             }
 
         })

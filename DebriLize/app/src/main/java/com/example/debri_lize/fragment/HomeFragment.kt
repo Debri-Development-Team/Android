@@ -35,7 +35,7 @@ import java.text.SimpleDateFormat
 import kotlin.properties.Delegates
 
 class HomeFragment : Fragment(), MyCurriculumListView, ShowCurriculumDetailView, EditCurriculumNameView,
-    EditCurriculumVisibleView, EditCurriculumStatusView, DeleteCurriculumView {
+    EditCurriculumVisibleView, EditCurriculumStatusView, DeleteCurriculumView, ResetCurriculumView {
 
     lateinit var context: MainActivity
 
@@ -174,15 +174,15 @@ class HomeFragment : Fragment(), MyCurriculumListView, ShowCurriculumDetailView,
         //커리큘럼 초기화하기
         touchEvent(bottomSheetView.findViewById(R.id.bottom_sheet_four_tv3))
         bottomSheetView.findViewById<TextView>(R.id.bottom_sheet_four_tv3).setOnClickListener {
+            curriculumService.setResetCurriculumView(this)
             //add dialog code
             val dialog = CustomDialog(context)
             dialog.initializeCurriDlg()
             //yes 버튼 클릭시
             dialog.setOnClickListener(object:CustomDialog.ButtonClickListener{
                 override fun onClicked(TF: Boolean) {
-
-                //api
-
+                    //api
+                    curriculumService.resetCurriculum(curriculumIdx)
                 }
 
             })
@@ -345,7 +345,7 @@ class HomeFragment : Fragment(), MyCurriculumListView, ShowCurriculumDetailView,
 
                     binding.homeCurriculumLectureImgRv.layoutManager =
                         LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
-                    chapterRVAdapter = ChapterRVAdapter()
+                    chapterRVAdapter = ChapterRVAdapter(this)
                     binding.homeCurriculumLectureImgRv.adapter = chapterRVAdapter
 
                     chapter.clear()
@@ -555,7 +555,18 @@ class HomeFragment : Fragment(), MyCurriculumListView, ShowCurriculumDetailView,
 
     }
 
+    //8.11 커리큘럼 리셋 api
+    override fun onResetCurriculumSuccess(code: Int) {
+        when(code){
+            200->{
+                Toast.makeText(context, "커리큘럼 리셋", Toast.LENGTH_SHORT).show()
+            }
+        }
+    }
 
+    override fun onResetCurriculumFailure(code: Int) {
+
+    }
 
 
 }
