@@ -5,9 +5,11 @@ import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
 import android.view.LayoutInflater
+import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.debri_lize.adapter.class_.ClassFavoriteRVAdapter
@@ -79,11 +81,13 @@ class ClassFragment : Fragment(), LectureFavoriteView, LectureFilterView {
         bottomSheetView.findViewById<TextView>(R.id.bottom_sheet_two_tv2).text = "좋아요 순 정렬"
 
         //가나다 순
+        touchEvent(bottomSheetView.findViewById(R.id.bottom_sheet_two_tv1))
         bottomSheetView.findViewById<TextView>(R.id.bottom_sheet_two_tv1).setOnClickListener {
 
             bottomSheetDialog.dismiss()
         }
         //좋아요 순
+        touchEvent(bottomSheetView.findViewById(R.id.bottom_sheet_two_tv2))
         bottomSheetView.findViewById<TextView>(R.id.bottom_sheet_two_tv2).setOnClickListener {
 
             bottomSheetDialog.dismiss()
@@ -122,6 +126,26 @@ class ClassFragment : Fragment(), LectureFavoriteView, LectureFilterView {
         })
     }
 
+    private fun touchEvent(bind : TextView){
+        bind.setOnTouchListener(object : View.OnTouchListener {
+            override fun onTouch(view: View?, event: MotionEvent?): Boolean {
+                when (event?.action) {
+                    MotionEvent.ACTION_DOWN -> {
+                        bind.setTextColor(ContextCompat.getColor(context!!, R.color.white))
+                    }
+                    MotionEvent.ACTION_UP -> {
+                        bind.setTextColor(ContextCompat.getColor(context!!, R.color.darkmode_background))
+                        bind.performClick()
+                    }
+                }
+
+                //리턴값이 false면 동작 안됨
+                return true //or false
+            }
+
+
+        })
+    }
 
     private fun showList(){
         if(filterNum+filterNum2==0){
