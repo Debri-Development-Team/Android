@@ -82,6 +82,9 @@ class HomeFragment : Fragment(), MyCurriculumListView, ShowCurriculumDetailView,
         binding.homeCurriculumAddLectureLayout.setOnClickListener{
             context.binding.mainBnv.selectedItemId = R.id.classFragment
             val passBundleBFragment = ClassFragment()
+
+            context.binding.mainBnv.selectedItemId = R.id.classFragment
+
             //fragment to fragment
             activity?.supportFragmentManager!!.beginTransaction()
                 .replace(R.id.main_frm, passBundleBFragment)

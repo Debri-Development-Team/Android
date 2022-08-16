@@ -121,7 +121,8 @@
                                     android:textColor="@color/white"
                                     android:fontFamily="@font/noto_sans_kr_regular"
                                     android:includeFontPadding="false"
-                                    android:textSize="14dp" />
+                                    android:textSize="14dp"
+                                    android:layout_gravity="center"/>
 
 
                             </LinearLayout>
@@ -227,7 +228,7 @@
                 android:textColor="@color/white"
                 android:fontFamily="@font/noto_sans_kr_regular"
                 android:includeFontPadding="false"
-                android:textSize="10dp"
+                android:textSize="11dp"
                 android:gravity="center"
                 android:layout_marginStart="30dp"
                 android:layout_marginEnd="30dp"
@@ -260,7 +261,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content">
                         <ImageView
-                            android:id="@+id/item_class_like_iv"
+                            android:id="@+id/lecture_detail_small_like_iv"
                             android:layout_width="17dp"
                             android:layout_height="17dp"
                             android:src="@drawable/ic_like_off"

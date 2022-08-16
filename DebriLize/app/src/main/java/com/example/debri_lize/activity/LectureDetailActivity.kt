@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.KeyEvent
+import android.view.View
 import android.view.animation.Animation
 import android.view.animation.AnimationUtils
 import android.widget.Toast
@@ -119,12 +120,13 @@ class LectureDetailActivity : AppCompatActivity(), ShowLectureDetailView, Create
                 language.text = result.language
                 binding.lectureDetailTitleTv.text = result.lectureName
                 binding.lectureDetailContentTv.text = result.lectureDesc
-                binding.lectureDetailChapternumTv.text = result.chapterNum.toString()
-                binding.lectureDetailMediaTagTv.text = result.media
-                binding.lectureDetailPriceTagTv.text = result.price
-                binding.lectureDetailUserusedTv.text = result.usedCount.toString()
+                binding.lectureDetailChapternumTv.text = "총 " + result.chapterNum.toString() + "챕터"
+                binding.lectureDetailMediaTagTv.text = "#" + result.media
+                binding.lectureDetailPriceTagTv.text = "#" + result.price
+                binding.itemClassUsedCountTv.text = result.usedCount.toString()
                 binding.lectureDetailPublisherTv.text = result.publisher
                 binding.lectureDetailLikenumTv.text = result.likeNumber.toString()
+
 
 
                     when(language.text){
@@ -136,9 +138,11 @@ class LectureDetailActivity : AppCompatActivity(), ShowLectureDetailView, Create
 
                     if(result.userLike)  {
                         binding.lectureDetailLikeIv.setImageResource(R.drawable.ic_like_on)
+                        binding.lectureDetailSmallLikeIv.setImageResource(R.drawable.ic_like_on)
                         binding.lectureDetailLikeLayout.setBackgroundResource(R.drawable.border_round_debri_darkmode_10)
                     }else{
                         binding.lectureDetailLikeIv.setImageResource(R.drawable.ic_like_off)
+                        binding.lectureDetailSmallLikeIv.setImageResource(R.drawable.ic_like_off)
                         binding.lectureDetailLikeLayout.setBackgroundResource(R.drawable.border_round_white_transparent_10)
                     }
 
@@ -146,7 +150,8 @@ class LectureDetailActivity : AppCompatActivity(), ShowLectureDetailView, Create
                     else    binding.lectureDetailFavIv.setImageResource(R.drawable.ic_favorite_off)
 
                     binding.lectureDetailLikeLayout.setOnClickListener {
-                        if(result.userLike){
+                        Log.d("lecturelike",result.userLike.toString())
+                        if(!result.userLike){
                             //api - create lecture like
                             classService.createLectureLike(result.lectureIdx)
                         }else{
