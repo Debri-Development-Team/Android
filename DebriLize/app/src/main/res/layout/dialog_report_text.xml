@@ -25,7 +25,7 @@
             android:layout_marginEnd="20dp" />
 
         <TextView
-            android:id="@+id/dialog_cancel_memo_tv"
+            android:id="@+id/dialog_report_memo_tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="신고 사유를 적어주세요!"
@@ -45,6 +45,7 @@
         android:padding="5dp"
         android:textColor="@color/black"
         android:textCursorDrawable="@color/black"
+        android:visibility="visible"
         android:layout_marginStart="30dp"
         android:layout_marginEnd="30dp"
         android:layout_marginTop="20dp"

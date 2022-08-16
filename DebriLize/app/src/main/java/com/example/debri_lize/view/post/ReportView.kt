@@ -11,3 +11,9 @@ interface ReportCommentView {
     fun onReportCommentSuccess(code: Int)
     fun onReportCommentFailure(code : Int)
 }
+
+//6.3 사용자 신고 & 차단 api
+interface ReportUserView {
+    fun onReportUserSuccess(code: Int)
+    fun onReportUserFailure(code : Int)
+}
