@@ -161,16 +161,15 @@ class PostDetailActivity : AppCompatActivity(), PostDetailView, CommentCreateVie
                 //add dialog code
                 val dialog = CustomDialog(this)
                 dialog.showDeletePostDlg()
-                dialog.setOnClickListener(object : CustomDialog.ButtonClickListener{
+                dialog.setOnClickListener(object:CustomDialog.ButtonClickListener{
                     override fun onClicked(TF: Boolean) {
                         //게시물 삭제
                         postService.deletePost(postIdx)
+                        finish()
                     }
 
                 })
 
-
-                finish()
             }
         }
         else{ //타인 글
