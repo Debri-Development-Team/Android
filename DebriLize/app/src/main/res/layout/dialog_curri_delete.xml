@@ -10,8 +10,8 @@
 
     <ImageView
         android:id="@+id/dialog_curri_mark_iv"
-        android:layout_width="30dp"
-        android:layout_height="30dp"
+        android:layout_width="22dp"
+        android:layout_height="22dp"
         android:src="@drawable/ic_dialog_mark_red"
         android:layout_marginStart="20dp"
         android:layout_marginTop="17dp"
@@ -24,7 +24,7 @@
         android:layout_height="wrap_content"
         android:text="정말 커리큘럼을 삭제하시겠어요?"
         android:fontFamily="@font/noto_sans_kr_bold"
-        android:textSize="16dp"
+        android:textSize="14dp"
         android:textColor="@color/black"
         android:layout_marginStart="15dp"
         android:layout_marginTop="10dp"
@@ -33,23 +33,25 @@
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/dialog_curri_delete_yes_btn"
-        android:layout_width="80dp"
-        android:layout_height="35dp"
+        android:layout_width="64dp"
+        android:layout_height="30dp"
         android:background="@drawable/border_round_transparent_red_10"
         android:text="네"
+        android:textSize="10dp"
         android:textColor="@color/white"
         android:fontFamily="@font/noto_sans_kr_bold"
-        android:layout_marginEnd="10dp"
+        android:layout_marginEnd="7dp"
         android:includeFontPadding="false"
         app:layout_constraintEnd_toStartOf="@id/dialog_curri_delete_no_btn"
         app:layout_constraintTop_toBottomOf="@id/dialog_curri_delete_tv"/>
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/dialog_curri_delete_no_btn"
-        android:layout_width="wrap_content"
-        android:layout_height="35dp"
+        android:layout_width="64dp"
+        android:layout_height="30dp"
         android:background="@drawable/border_round_transparent_white_10"
         android:text="아니요"
+        android:textSize="10dp"
         android:fontFamily="@font/noto_sans_kr_bold"
         android:layout_marginEnd="20dp"
         android:includeFontPadding="false"

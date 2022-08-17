@@ -53,6 +53,7 @@
         android:layout_marginTop="35dp"
         android:layout_marginStart="30dp"
         android:layout_marginEnd="30dp"
+        android:gravity="center_vertical"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/class_debri_layout" >
         <TextView
@@ -70,8 +71,8 @@
             android:layout_weight="1" />
         <ImageView
             android:id="@+id/class_filter_iv"
-            android:layout_width="20dp"
-            android:layout_height="20dp"
+            android:layout_width="19.2dp"
+            android:layout_height="19.2dp"
             android:src="@drawable/ic_filter"
             android:layout_gravity="center"/>
     </LinearLayout>
@@ -92,8 +93,8 @@
 
         <ImageView
             android:id="@+id/class_search_iv"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="20.4dp"
+            android:layout_height="20.4dp"
             android:src="@drawable/btm_nav_search"
             android:layout_marginStart="15dp" />
 
@@ -102,14 +103,12 @@
             android:layout_width="280dp"
             android:layout_height="wrap_content"
             android:background="@null"
-            android:hint="검색어를 입력하세요"
-            android:textColorHint="@color/white"
+            android:text="검색어를 입력하세요"
             android:textColor="@color/white"
-            android:inputType="text"
-            android:textSize="15dp"
+            android:textSize="14dp"
             android:fontFamily="@font/noto_sans_kr_regular"
             android:includeFontPadding="false"
-            android:layout_marginStart="10dp"/>
+            android:layout_marginStart="16.8dp"/>
 
     </LinearLayout>
 
@@ -136,7 +135,7 @@
             <CheckBox
                 android:id="@+id/class_curri_tag_front_cb"
                 android:layout_width="match_parent"
-                android:layout_height="40dp"
+                android:layout_height="37dp"
                 android:layout_marginBottom="7dp"
                 android:background="@drawable/selector_class_radio_front"
                 android:button="@null"
@@ -147,12 +146,12 @@
                 android:paddingEnd="7dp"
                 android:text="Front"
                 android:textColor="@color/white"
-                android:textSize="16dp"
+                android:textSize="14dp"
                 android:visibility="visible" />
             <CheckBox
                 android:id="@+id/class_curri_tag_back_cb"
                 android:layout_width="match_parent"
-                android:layout_height="40dp"
+                android:layout_height="37dp"
                 android:text="Back"
                 android:textColor="@drawable/selector_class_radio_text"
                 android:button="@null"
@@ -160,7 +159,7 @@
                 android:visibility="visible"
                 android:fontFamily="@font/noto_sans_kr_bold"
                 android:includeFontPadding="false"
-                android:textSize="16dp"
+                android:textSize="14dp"
                 android:paddingEnd="7dp"
                 android:layout_marginBottom="7dp"
                 android:drawableEnd="@drawable/selector_class_radio_text"
@@ -168,7 +167,7 @@
             <CheckBox
                 android:id="@+id/class_curri_tag_c_cb"
                 android:layout_width="match_parent"
-                android:layout_height="40dp"
+                android:layout_height="37dp"
                 android:text="C 언어"
                 android:textColor="@drawable/selector_class_radio_text"
                 android:button="@null"
@@ -176,7 +175,7 @@
                 android:visibility="visible"
                 android:fontFamily="@font/noto_sans_kr_bold"
                 android:includeFontPadding="false"
-                android:textSize="16dp"
+                android:textSize="14dp"
                 android:paddingEnd="7dp"
                 android:layout_marginBottom="7dp"
                 android:drawableEnd="@drawable/selector_class_radio_text"
@@ -184,7 +183,7 @@
             <CheckBox
                 android:id="@+id/class_curri_tag_python_cb"
                 android:layout_width="match_parent"
-                android:layout_height="40dp"
+                android:layout_height="37dp"
                 android:text="Python"
                 android:textColor="@drawable/selector_class_radio_text"
                 android:button="@null"
@@ -192,7 +191,7 @@
                 android:visibility="visible"
                 android:fontFamily="@font/noto_sans_kr_bold"
                 android:includeFontPadding="false"
-                android:textSize="16dp"
+                android:textSize="14dp"
                 android:paddingEnd="7dp"
                 android:layout_marginBottom="7dp"
                 android:drawableEnd="@drawable/selector_class_radio_text"
@@ -212,14 +211,14 @@
             <CheckBox
                 android:id="@+id/class_curri_tag_book_cb"
                 android:layout_width="match_parent"
-                android:layout_height="40dp"
+                android:layout_height="37dp"
                 android:text="서적"
                 android:textColor="@drawable/selector_class_radio_text"
                 android:button="@null"
                 android:visibility="visible"
                 android:fontFamily="@font/noto_sans_kr_bold"
                 android:includeFontPadding="false"
-                android:textSize="16dp"
+                android:textSize="14dp"
                 android:layout_marginBottom="7dp"
                 android:paddingEnd="7dp"
                 android:paddingStart="20dp"
@@ -228,14 +227,14 @@
             <CheckBox
                 android:id="@+id/class_curri_tag_video_cb"
                 android:layout_width="match_parent"
-                android:layout_height="40dp"
+                android:layout_height="37dp"
                 android:text="영상"
                 android:textColor="@drawable/selector_class_radio_text"
                 android:button="@null"
                 android:visibility="visible"
                 android:fontFamily="@font/noto_sans_kr_bold"
                 android:includeFontPadding="false"
-                android:textSize="16dp"
+                android:textSize="14dp"
                 android:drawableEnd="@drawable/selector_class_radio_text"
                 android:paddingEnd="7dp"
                 android:paddingStart="20dp"
@@ -255,7 +254,7 @@
         <CheckBox
             android:id="@+id/class_price_tag_forfree_cb"
             android:layout_width="match_parent"
-            android:layout_height="40dp"
+            android:layout_height="37dp"
             android:layout_marginBottom="7dp"
             android:background="@drawable/selector_class_radio_price"
             android:button="@null"
@@ -266,19 +265,19 @@
             android:paddingEnd="7dp"
             android:text="무료"
             android:textColor="@drawable/selector_class_radio_text"
-            android:textSize="16dp"
+            android:textSize="14dp"
             android:visibility="visible" />
         <CheckBox
             android:id="@+id/class_price_tag_no_forfree_cb"
             android:layout_width="match_parent"
-            android:layout_height="40dp"
+            android:layout_height="37dp"
             android:text="유료"
             android:textColor="@drawable/selector_class_radio_text"
             android:button="@null"
             android:visibility="visible"
             android:fontFamily="@font/noto_sans_kr_bold"
             android:includeFontPadding="false"
-            android:textSize="16dp"
+            android:textSize="14dp"
             android:layout_marginBottom="7dp"
             android:drawableEnd="@drawable/selector_class_radio_text"
             android:paddingEnd="7dp"

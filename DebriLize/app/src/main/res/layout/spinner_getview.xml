@@ -10,7 +10,7 @@
 
     <TextView
         android:id="@+id/spinnerText"
-        android:textSize="15sp"
+        android:textSize="14dp"
         android:textColor="@color/white"
         android:paddingLeft="13dp"
         android:text="야호야호"

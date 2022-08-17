@@ -17,7 +17,7 @@
         android:layout_marginTop="17dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
-
+z
     <TextView
         android:id="@+id/dialog_cancel_memo_tv"
         android:layout_width="wrap_content"
@@ -50,6 +50,7 @@
         android:layout_height="35dp"
         android:background="@drawable/border_round_transparent_white_10"
         android:text="아니요"
+        android:textColor="@color/black"
         android:fontFamily="@font/noto_sans_kr_bold"
         android:includeFontPadding="false"
         android:layout_marginEnd="20dp"
