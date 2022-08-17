@@ -110,8 +110,8 @@ class CustomDialog(context: Context) {
     }
 
     fun showDeletePostDlg() {
-        dialog.setContentView(R.layout.dialog_curri_delete)
-        dialog.findViewById<TextView>(R.id.dialog_curri_delete_tv).text = "정말 게시물을 삭제하시겠어요?"
+        dialog.setContentView(R.layout.dialog_cancel)
+        dialog.findViewById<TextView>(R.id.dialog_cancel_memo_tv).text = "정말 게시물을 삭제하시겠어요?"
         dialog.window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
         dialog.window!!.setLayout(
             WindowManager.LayoutParams.MATCH_PARENT,
@@ -120,14 +120,14 @@ class CustomDialog(context: Context) {
         dialog.setCancelable(false)
 
         //yes
-        dialog.findViewById<Button>(R.id.dialog_edit_cancel_yes_btn).setOnClickListener {
+        dialog.findViewById<Button>(R.id.dialog_cancel_yes_btn).setOnClickListener {
             //게시물 삭제
             onClickListener.onClicked(true)
             dialog.dismiss()
         }
 
         //no
-        dialog.findViewById<Button>(R.id.dialog_edit_cancel_no_btn).setOnClickListener {
+        dialog.findViewById<Button>(R.id.dialog_cancel_no_btn).setOnClickListener {
             dialog.dismiss()
         }
 

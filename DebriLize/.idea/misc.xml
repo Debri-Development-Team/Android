@@ -176,6 +176,7 @@
         <entry key="..\:/Users/tptty/AndroidStudioProjects/Debri_final/Android/DebriLize/app/src/main/res/menu/bottom_nav_menu.xml" value="0.17916666666666667" />
         <entry key="..\:/Users/tptty/AndroidStudioProjects/Debri_final/Android/DebriLize/app/src/main/res/menu/post_menu.xml" value="0.17916666666666667" />
         <entry key="..\:/Users/tptty/AppData/Local/Android/Sdk/platforms/android-32/data/res/layout/simple_spinner_item.xml" value="0.17916666666666667" />
+        <entry key="app/src/main/res/drawable/btm_nav_search.xml" value="0.1" />
         <entry key="app/src/main/res/drawable/ic_report_red.xml" value="0.1" />
         <entry key="app/src/main/res/drawable/ic_scrap_darkmode.xml" value="0.1" />
         <entry key="app/src/main/res/drawable/ic_scrap_white.xml" value="0.1" />
@@ -183,6 +184,7 @@
         <entry key="app/src/main/res/layout/activity_post_create.xml" value="0.1" />
         <entry key="app/src/main/res/layout/activity_post_detail.xml" value="0.25" />
         <entry key="app/src/main/res/layout/dialog_cancel.xml" value="0.23802083333333332" />
+        <entry key="app/src/main/res/layout/dialog_curri_delete.xml" value="0.12310030395136778" />
         <entry key="app/src/main/res/layout/dialog_edit_cancel.xml" value="0.21920289855072464" />
         <entry key="app/src/main/res/layout/dialog_edit_check.xml" value="0.335" />
         <entry key="app/src/main/res/layout/dialog_edit_write.xml" value="0.21920289855072464" />
@@ -191,6 +193,7 @@
         <entry key="app/src/main/res/layout/fragment_bottom_sheet_complain.xml" value="0.21920289855072464" />
         <entry key="app/src/main/res/layout/fragment_bottom_sheet_complain_detail.xml" value="0.21920289855072464" />
         <entry key="app/src/main/res/layout/fragment_bottom_sheet_edit_delete.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/fragment_post.xml" value="0.1" />
         <entry key="app/src/main/res/layout/toast_report.xml" value="0.25" />
         <entry key="app/src/main/res/layout/toast_scrap.xml" value="0.121875" />
       </map>
