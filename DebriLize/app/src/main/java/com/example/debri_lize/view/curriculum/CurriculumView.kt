@@ -2,6 +2,7 @@ package com.example.debri_lize.view.curriculum
 
 import com.example.debri_lize.data.curriculum.Curriculum
 import com.example.debri_lize.data.curriculum.CurriculumDetail
+import com.example.debri_lize.data.curriculum.Top10
 
 //8.1 커리큘럼 생성 api
 interface CreateCurriculumView {
@@ -55,6 +56,12 @@ interface DeleteCurriculumView {
 interface CompleteChapterView {
     fun onCompleteChapterSuccess(code: Int)
     fun onCompleteChapterFailure(code : Int)
+}
+
+//8.10 커리큘럼 좋아요(추천) TOP 10 리스트 조회 api
+interface ShowTop10ListView {
+    fun onShowTop10ListSuccess(code: Int, result : List<Top10>)
+    fun onShowTop10ListFailure(code : Int)
 }
 
 //8.11 커리큘럼 리셋 api

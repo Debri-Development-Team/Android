@@ -27,6 +27,8 @@ class CurriculumService {
 
     private lateinit var completeChapterView: CompleteChapterView
 
+    private lateinit var showTop10ListView: ShowTop10ListView
+
     fun setCreateCurriculumView(createCurriculumView: CreateCurriculumView){
         this.createCurriculumView = createCurriculumView
     }
@@ -37,6 +39,10 @@ class CurriculumService {
 
     fun setShowCurriculumDetailView(showCurriculumDetailView: ShowCurriculumDetailView){
         this.showCurriculumDetailView = showCurriculumDetailView
+    }
+
+    fun setShowTop10ListView(showTop10ListView: ShowTop10ListView){
+        this.showTop10ListView = showTop10ListView
     }
 
     //edit
@@ -262,6 +268,7 @@ class CurriculumService {
 
     //8.7 챕터 수강 완료 및 취소 api
     fun completeChapter(completeChapter : CompleteChapter){
+        Log.d("chapterComplete", completeChapter.toString())
         val curriculumService = getRetrofit().create(RetrofitInterface::class.java)
         curriculumService.completeChapter(completeChapter, getJwt()!!).enqueue(object: Callback<BaseResponse<String>> {
             //응답이 왔을 때 처리
@@ -271,13 +278,37 @@ class CurriculumService {
                 Log.d("completeChCode", resp.code.toString())
                 when(resp.code){
                     //API code값 사용
-                    200->deleteCurriculumView.onDeleteCurriculumViewSuccess(resp.code)
-                    else->deleteCurriculumView.onDeleteCurriculumViewFailure(resp.code)
+                    200->completeChapterView.onCompleteChapterSuccess(resp.code)
+                    else->completeChapterView.onCompleteChapterFailure(resp.code)
                 }
             }
             //실패했을 때 처리
             override fun onFailure(call: Call<BaseResponse<String>>, t: Throwable) {
                 Log.d("completeChFail", t.toString())
+            }
+
+        })
+    }
+
+    //8.10 커리큘럼 좋아요(추천) TOP 10 리스트 조회 api
+    fun showTop10List(){
+        val curriculumService = getRetrofit().create(RetrofitInterface::class.java)
+
+        curriculumService.showTop10List(getJwt()!!).enqueue(object: Callback<BaseResponse<List<Top10>>> {
+            //응답이 왔을 때 처리
+            override fun onResponse(call: Call<BaseResponse<List<Top10>>>, response: Response<BaseResponse<List<Top10>>>) {
+                Log.d("showTop10List", "response")
+                val resp: BaseResponse<List<Top10>> = response.body()!!
+                Log.d("showTop10ListCode", resp.code.toString())
+                when(resp.code){
+                    //API code값 사용
+                    200->showTop10ListView.onShowTop10ListSuccess(resp.code, resp.result)
+                    else->showTop10ListView.onShowTop10ListFailure(resp.code)
+                }
+            }
+            //실패했을 때 처리
+            override fun onFailure(call: Call<BaseResponse<List<Top10>>>, t: Throwable) {
+                Log.d("showTop10ListFail", t.toString())
             }
 
         })

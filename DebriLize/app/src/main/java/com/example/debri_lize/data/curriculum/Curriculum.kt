@@ -51,8 +51,24 @@ data class ChapterList(
     @SerializedName(value = "chComplete") val chComplete: String?,
     @SerializedName(value = "progressOrder") val progressOrder: Int?,
     @SerializedName(value = "completeChNumber") val completeChNum: Int?,
-    val chapterImg : Int?
+    val chapterImg : Int?,
+    @SerializedName(value = "lectureIdx") val lectureIdx: Int? = 0,
+    @SerializedName(value = "curriIdx") val curriIdx: Int
 )
+
+//8.10 커리큘럼 좋아요(추천) TOP 10 리스트 조회 api
+data class Top10(
+    @SerializedName(value = "curriIdx") val curriIdx: Int,
+    @SerializedName(value = "count") val cnt: Int? = 0,
+    @SerializedName(value = "ranking") val ranking: Int? = 0,
+    @SerializedName(value = "curriName") val curriName: String,
+    @SerializedName(value = "curriAuthor") val curriAuthor: String,
+    @SerializedName(value = "visibleStatus") val visibleStatus: String,
+    @SerializedName(value = "langTag") val language: String,
+    @SerializedName(value = "progressRate") val progressRate: Float,
+    @SerializedName(value = "status") val status: String,
+    @SerializedName(value = "createdAt") val createdAt: Int
+) : Serializable
 
 
 //@Body
@@ -94,4 +110,3 @@ data class CompleteChapter(
     @SerializedName(value = "curriIdx") val curriIdx: Int? = 0,
     @SerializedName(value = "lectureIdx") val lectureIdx: Int? = 0
 ) : Serializable
-

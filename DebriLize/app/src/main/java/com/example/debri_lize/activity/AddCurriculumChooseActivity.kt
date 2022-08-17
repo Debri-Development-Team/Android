@@ -5,19 +5,23 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.bumptech.glide.Glide
+import com.example.debri_lize.R
 import com.example.debri_lize.adapter.start.CurriculumListRVAdapter
 import com.example.debri_lize.adapter.start.RoadMapListRVAdapter
 import com.example.debri_lize.data.curriculum.Curriculum
 import com.example.debri_lize.data.curriculum.NewCurriculum
 import com.example.debri_lize.data.curriculum.RoadMapList
+import com.example.debri_lize.data.curriculum.Top10
 import com.example.debri_lize.databinding.ActivityAddCurriculumChooseBinding
 import com.example.debri_lize.service.CurriculumService
 import com.example.debri_lize.service.RoadMapService
 import com.example.debri_lize.view.curriculum.CreateCurriculumView
 import com.example.debri_lize.view.curriculum.MyCurriculumListView
 import com.example.debri_lize.view.curriculum.ShowRoadMapListView
+import com.example.debri_lize.view.curriculum.ShowTop10ListView
 
-class AddCurriculumChooseActivity : AppCompatActivity(), CreateCurriculumView, ShowRoadMapListView{
+class AddCurriculumChooseActivity : AppCompatActivity(), CreateCurriculumView, ShowRoadMapListView, ShowTop10ListView{
     lateinit var binding : ActivityAddCurriculumChooseBinding
 
     lateinit var roadmapRVAdapter : RoadMapListRVAdapter
@@ -30,10 +34,7 @@ class AddCurriculumChooseActivity : AppCompatActivity(), CreateCurriculumView, S
         super.onCreate(savedInstanceState)
         binding = ActivityAddCurriculumChooseBinding.inflate(layoutInflater) //binding 초기화
         setContentView(binding.root)
-    }
 
-    override fun onStart() {
-        super.onStart()
         binding.addCurriculumChooseNewIv.setOnClickListener{
             //add dialog code
 
@@ -49,43 +50,20 @@ class AddCurriculumChooseActivity : AppCompatActivity(), CreateCurriculumView, S
         roadMapService.setShowRoadMapListView(this)
         roadMapService.showRoadMapList()
 
-        initRecyclerView()
-    }
+        binding.addCurriculumChooseRoadmapAdminRv.layoutManager =
+            LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
+        roadmapRVAdapter = RoadMapListRVAdapter()
+        binding.addCurriculumChooseRoadmapAdminRv.adapter = roadmapRVAdapter
 
-    override fun onResume() {
-        super.onResume()
-    }
-
-    private fun initRecyclerView(){
-
+        //api - 8.10 커리큘럼 좋아요(추천) TOP 10 리스트 조회 api
+        var curriculumService = CurriculumService()
+        curriculumService.setShowTop10ListView(this)
+        curriculumService.showTop10List()
 
         binding.addCurriculumChooseTopRv.layoutManager =
             LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
         roadmapTopRVAdapter = CurriculumListRVAdapter()
         binding.addCurriculumChooseTopRv.adapter = roadmapTopRVAdapter
-
-        top10.clear()
-
-        //data : 전체
-        top10.apply {
-
-            top10.add(Curriculum(1,"야호","야호"))
-            top10.add(Curriculum(1,"야호","야호"))
-            top10.add(Curriculum(1,"야호","야호"))
-
-            roadmapTopRVAdapter.datas = top10
-            roadmapTopRVAdapter.notifyDataSetChanged()
-
-            //click recyclerview item
-            roadmapTopRVAdapter.setItemClickListener(object : CurriculumListRVAdapter.OnItemClickListener {
-                override fun onClick(v: View, position: Int) {
-                    val intent = Intent(this@AddCurriculumChooseActivity, AddCurriculumDetailActivity::class.java)
-                    startActivity(intent)
-                }
-            })
-        }
-
-
     }
 
     override fun onCreateCurriculumSuccess(code: Int) {
@@ -104,11 +82,6 @@ class AddCurriculumChooseActivity : AppCompatActivity(), CreateCurriculumView, S
     override fun onShowRoadMapListSuccess(code: Int, result: List<RoadMapList>) {
         when(code){
             200->{
-                binding.addCurriculumChooseRoadmapAdminRv.layoutManager =
-                    LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
-                roadmapRVAdapter = RoadMapListRVAdapter()
-                binding.addCurriculumChooseRoadmapAdminRv.adapter = roadmapRVAdapter
-
                 roadMap.clear()
 
                 roadMap.apply {
@@ -133,6 +106,40 @@ class AddCurriculumChooseActivity : AppCompatActivity(), CreateCurriculumView, S
     }
 
     override fun onShowRoadMapListFailure(code: Int) {
+
+    }
+
+    //8.10 커리큘럼 좋아요(추천) TOP 10 리스트 조회 api
+    override fun onShowTop10ListSuccess(code: Int, result: List<Top10>) {
+        when(code){
+            200->{
+
+                top10.clear()
+
+                //data : 전체
+                top10.apply {
+
+                    //나중에 랭킹순으로 뜨도록 변경
+                    for(i in result){
+                        top10.add(Curriculum(i.curriIdx,i.curriName,i.curriAuthor))
+                    }
+
+                    roadmapTopRVAdapter.datas = top10
+                    roadmapTopRVAdapter.notifyDataSetChanged()
+
+                    //click recyclerview item
+                    roadmapTopRVAdapter.setItemClickListener(object : CurriculumListRVAdapter.OnItemClickListener {
+                        override fun onClick(v: View, position: Int) {
+                            val intent = Intent(this@AddCurriculumChooseActivity, AddCurriculumDetailActivity::class.java)
+                            startActivity(intent)
+                        }
+                    })
+                }
+            }
+        }
+    }
+
+    override fun onShowTop10ListFailure(code: Int) {
 
     }
 

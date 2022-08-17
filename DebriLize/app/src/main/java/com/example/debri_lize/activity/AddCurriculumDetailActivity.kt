@@ -9,6 +9,7 @@ import android.widget.Toast
 import androidx.annotation.UiThread
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.bumptech.glide.Glide
 import com.example.debri_lize.R
 import com.example.debri_lize.adapter.class_.ClassLectureRVAdapter
 import com.example.debri_lize.adapter.start.ReviewRVAdapter
@@ -39,6 +40,8 @@ class AddCurriculumDetailActivity : AppCompatActivity(), CreateReviewView, ShowR
         super.onCreate(savedInstanceState)
         binding = ActivityAddCurriculumDetailBinding.inflate(layoutInflater) //binding 초기화
         setContentView(binding.root)
+
+        Glide.with(this).load(R.raw.curriculum).into(binding.addCurriculumDetailStatusIv)
 
         initRecyclerView()
 

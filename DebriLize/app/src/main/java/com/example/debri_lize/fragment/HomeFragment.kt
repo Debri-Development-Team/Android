@@ -360,13 +360,13 @@ class HomeFragment : Fragment(), MyCurriculumListView, ShowCurriculumDetailView,
                         for(i in result.chapterListResList!!){
                             //else if로 변경
                             if(j%3==0){
-                                chapter.add(ChapterList(i.chIdx,i.chName,i.chNum,i.language,i.chComplete,i.progressOrder,i.completeChNum,arrayImg[0]))
+                                chapter.add(ChapterList(i.chIdx,i.chName,i.chNum,i.language,i.chComplete,i.progressOrder,i.completeChNum,arrayImg[0], i.lectureIdx, i.curriIdx))
                             }
                             if(j%3==1){
-                                chapter.add(ChapterList(i.chIdx,i.chName,i.chNum,i.language,i.chComplete,i.progressOrder,i.completeChNum,arrayImg[1]))
+                                chapter.add(ChapterList(i.chIdx,i.chName,i.chNum,i.language,i.chComplete,i.progressOrder,i.completeChNum,arrayImg[1], i.lectureIdx, i.curriIdx))
                             }
                             if(j%3==2){
-                                chapter.add(ChapterList(i.chIdx,i.chName,i.chNum,i.language,i.chComplete,i.progressOrder,i.completeChNum,arrayImg[2]))
+                                chapter.add(ChapterList(i.chIdx,i.chName,i.chNum,i.language,i.chComplete,i.progressOrder,i.completeChNum,arrayImg[2], i.lectureIdx, i.curriIdx))
                             }
                             j++
                         }
@@ -550,6 +550,7 @@ class HomeFragment : Fragment(), MyCurriculumListView, ShowCurriculumDetailView,
         when(code){
             200->{
                 Toast.makeText(context, "커리큘럼 삭제", Toast.LENGTH_SHORT).show()
+                //8.2 조회
             }
         }
     }
@@ -563,6 +564,7 @@ class HomeFragment : Fragment(), MyCurriculumListView, ShowCurriculumDetailView,
         when(code){
             200->{
                 Toast.makeText(context, "커리큘럼 리셋", Toast.LENGTH_SHORT).show()
+                curriculumService.showCurriculumDetail(curriculumIdx)
             }
         }
     }

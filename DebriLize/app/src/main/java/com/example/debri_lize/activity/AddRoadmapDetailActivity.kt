@@ -4,6 +4,8 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.bumptech.glide.Glide
+import com.example.debri_lize.R
 import com.example.debri_lize.adapter.class_.ClassLectureRVAdapter
 import com.example.debri_lize.data.class_.Lecture
 import com.example.debri_lize.data.curriculum.RoadMap
@@ -24,6 +26,8 @@ class AddRoadmapDetailActivity : AppCompatActivity(), ShowRoadMapDetailView {
         super.onCreate(savedInstanceState)
         binding = ActivityAddRoadmapDetailBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        Glide.with(this).load(R.raw.curriculum).into(binding.itemCurriculumStatusIv)
 
         //lecture recycler view
         binding.addRoadmapLectureRv.layoutManager =

@@ -24,7 +24,9 @@ class CurriculumListRVAdapter : RecyclerView.Adapter<CurriculumListRVAdapter.Vie
         fun bind(item: Curriculum) {
             Glide.with(itemView).load(R.raw.curriculum).into(statusImg)
             curriculumName.text = item.curriculumName
-            curriculumAuthor.text = item.curriculumAuthor
+            curriculumAuthor.text = "by" + item.curriculumAuthor
+
+            binding.itemCurriculumDetailTv.visibility = View.INVISIBLE
         }
     }
 

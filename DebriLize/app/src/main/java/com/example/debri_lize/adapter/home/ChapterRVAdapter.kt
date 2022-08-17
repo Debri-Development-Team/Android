@@ -16,11 +16,13 @@ import com.example.debri_lize.service.CommentService
 import com.example.debri_lize.service.CurriculumService
 import com.example.debri_lize.view.curriculum.CompleteChapterView
 import org.w3c.dom.Text
+import kotlin.properties.Delegates
 
 class ChapterRVAdapter(context: HomeFragment) : RecyclerView.Adapter<ChapterRVAdapter.ViewHolder>(), CompleteChapterView {
 
     var datas = ArrayList<ChapterList>()
     var fragment = context
+    var curriIdx by Delegates.notNull<Int>()
 
     inner class ViewHolder(val binding : ItemCurriculumLectureImgBinding) : RecyclerView.ViewHolder(binding.root){
 
@@ -31,6 +33,8 @@ class ChapterRVAdapter(context: HomeFragment) : RecyclerView.Adapter<ChapterRVAd
         val language : TextView = binding.itemCurriculumLectureImgTagTv
 
         fun bind(item: ChapterList, position: Int) {
+            curriIdx = item.curriIdx
+
             chapterName.text = item.chName
             item.chapterImg?.let { chapterImg.setImageResource(it) }
             chapterNum.text = item.chNum.toString() //현재 진행된 chapter 수
@@ -72,7 +76,7 @@ class ChapterRVAdapter(context: HomeFragment) : RecyclerView.Adapter<ChapterRVAd
             //api - 8.7 챕터 수강 완료 및 취소 api
             var curriculumService = CurriculumService()
             curriculumService.setCompleteChapterView(this)
-            //curriculumService.completeChapter(CompleteChapter(datas[position].chIdx))
+            curriculumService.completeChapter(CompleteChapter(datas[position].chIdx, datas[position].curriIdx, datas[position].lectureIdx))
 
         }
     }
@@ -87,7 +91,7 @@ class ChapterRVAdapter(context: HomeFragment) : RecyclerView.Adapter<ChapterRVAd
                 //api - 8.3 커리큘럼 상세 조회 api : 홈
                 val curriculumService = CurriculumService()
                 curriculumService.setShowCurriculumDetailView(fragment)
-                //curriculumService.showCurriculumDetail(postIdx) curriculumIdx로 변경할 것
+                curriculumService.showCurriculumDetail(curriIdx)
             }
         }
     }
