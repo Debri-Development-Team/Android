@@ -39,8 +39,8 @@ class ClassFragment : Fragment(), LectureFavoriteView, LectureFilterView {
     var filterNum : Int = 0
     var filterNum2 : Int = 0
 
-    var datas = ArrayList<Lecture>()
-    var datas_f = ArrayList<Lecture>()
+//    var datas = ArrayList<Lecture>()
+//    var datas_f = ArrayList<Lecture>()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -337,7 +337,7 @@ class ClassFragment : Fragment(), LectureFavoriteView, LectureFilterView {
     override fun onLectureFavoriteSuccess(code: Int, result: List<Lecture>) {
         when(code){
             200->{
-                datas_f = ArrayList<Lecture>()
+                val datas_f = ArrayList<Lecture>()
 
                 //즐겨찾기
                 binding.classFavoriteRv.layoutManager =
@@ -377,7 +377,7 @@ class ClassFragment : Fragment(), LectureFavoriteView, LectureFilterView {
     override fun onLectureFilterSuccess(code: Int, result: List<Lecture>) {
         when(code){
             200->{
-                 datas = ArrayList<Lecture>()
+                val datas = ArrayList<Lecture>()
                 binding.classLecturelistRv.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
                 classLectureRVAdapter = ClassLectureRVAdapter()
                 binding.classLecturelistRv.adapter = classLectureRVAdapter

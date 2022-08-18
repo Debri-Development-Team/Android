@@ -125,7 +125,7 @@ class CurriculumService {
     //8.3 커리큘럼 상세 조회 api : 홈
     fun showCurriculumDetail(curriIdx : Int){
         val curriculumService = getRetrofit().create(RetrofitInterface::class.java)
-
+        Log.d("curriidx","$curriIdx")
         curriculumService.showCurriculumDetail(curriIdx, getJwt()!!).enqueue(object: Callback<BaseResponse<CurriculumDetail>> {
             //응답이 왔을 때 처리
             override fun onResponse(call: Call<BaseResponse<CurriculumDetail>>, response: Response<BaseResponse<CurriculumDetail>>) {

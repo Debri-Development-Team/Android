@@ -141,6 +141,7 @@ class HomeFragment : Fragment(), MyCurriculumListView, ShowCurriculumDetailView,
            bottomSheetView.findViewById<TextView>(R.id.bottom_sheet_four_tv1).setOnClickListener{
                //비공개 완료 토스트메세지
                publicToast.findViewById<TextView>(R.id.toast_curri_public_tv).text = "커리큘럼이 비공개로 변경되었습니다!"
+               publicToast.findViewById<TextView>(R.id.toast_curri_public_tv).setTextSize(15F)
                publicToast.findViewById<ImageView>(R.id.toast_curri_public_mark_iv).setImageResource(R.drawable.ic_hide)
                toast.show()
 
