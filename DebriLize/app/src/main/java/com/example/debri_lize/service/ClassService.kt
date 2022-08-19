@@ -6,12 +6,10 @@ import com.example.debri_lize.data.class_.Lecture
 import com.example.debri_lize.data.class_.LectureScrap
 import com.example.debri_lize.data.class_.LectureFilter
 import com.example.debri_lize.base.BaseResponse
+import com.example.debri_lize.data.class_.LikeSuccess
 import com.example.debri_lize.utils.getJwt
 import com.example.debri_lize.utils.getRetrofit
-import com.example.debri_lize.view.class_.CancelLectureScrapView
-import com.example.debri_lize.view.class_.CreateLectureScrapView
-import com.example.debri_lize.view.class_.LectureFavoriteView
-import com.example.debri_lize.view.class_.LectureFilterView
+import com.example.debri_lize.view.class_.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -22,6 +20,11 @@ class ClassService {
 
     private lateinit var createLectureScrapView: CreateLectureScrapView
     private lateinit var cancelLectureScrapView: CancelLectureScrapView
+
+    private lateinit var showLectureDetailView: ShowLectureDetailView
+
+    private lateinit var createLectureLikeView: CreateLectureLikeView
+    private lateinit var deleteLectureLikeView: DeleteLectureLikeView
 
 
     fun setLectureFavoriteView(lectureFavoriteView: LectureFavoriteView){
@@ -39,6 +42,19 @@ class ClassService {
     fun setCancelLectureScrapView(cancelLectureScrapView: CancelLectureScrapView){
         this.cancelLectureScrapView = cancelLectureScrapView
     }
+
+    fun setShowLectureDetailView(showLectureDetailView: ShowLectureDetailView){
+        this.showLectureDetailView = showLectureDetailView
+    }
+
+    fun setCreateLectureLikeView(createLectureLikeView: CreateLectureLikeView){
+        this.createLectureLikeView = createLectureLikeView
+    }
+
+    fun setDeleteLectureLikeView(deleteLectureLikeView: DeleteLectureLikeView){
+        this.deleteLectureLikeView = deleteLectureLikeView
+    }
+
 
     fun showLectureFavorite(userIdx : Int){
         Log.d("lecturefavorite", "enter")
@@ -124,6 +140,72 @@ class ClassService {
             //실패했을 때 처리
             override fun onFailure(call: Call<BaseResponse<String>>, t: Throwable) {
                 Log.d("cancelLectureScrapFail",t.toString())
+            }
+        })
+    }
+
+    fun showLectureDetail(lectureIdx: Int){
+        Log.d("showLectureDetail", "enter")
+        val classService = getRetrofit().create(RetrofitInterface::class.java)
+        classService.showLectureDetail(lectureIdx, getJwt()!!).enqueue(object: Callback<BaseResponse<Lecture>> {
+            //응답이 왔을 때 처리
+            override fun onResponse(call: Call<BaseResponse<Lecture>>, response: Response<BaseResponse<Lecture>>) {
+                Log.d("showLectureDetail", "response")
+                val resp: BaseResponse<Lecture> = response.body()!!
+                Log.d("showLectureDetailCode", resp.code.toString())
+                when(resp.code){
+                    //API code값 사용
+                    200->showLectureDetailView.onShowLectureDetailSuccess(resp.code, resp.result)    //result를 받아서 UI를 구현해야함
+                    else->showLectureDetailView.onShowLectureDetailFailure(resp.code)   //무슨 오류인지 알아야하므로 code가져가기
+                }
+            }
+            //실패했을 때 처리
+            override fun onFailure(call: Call<BaseResponse<Lecture>>, t: Throwable) {
+                Log.d("showLectureDetailFail",t.toString())
+            }
+        })
+    }
+
+    fun createLectureLike(lectureIdx: Int){
+        Log.d("createLectureLike", "enter")
+        val classService = getRetrofit().create(RetrofitInterface::class.java)
+        classService.createLectureLike(lectureIdx, getJwt()!!).enqueue(object: Callback<BaseResponse<LikeSuccess>> {
+            //응답이 왔을 때 처리
+            override fun onResponse(call: Call<BaseResponse<LikeSuccess>>, response: Response<BaseResponse<LikeSuccess>>) {
+                Log.d("createLectureLike", "response")
+                val resp: BaseResponse<LikeSuccess> = response.body()!!
+                Log.d("createLectureLikeCode", resp.code.toString())
+                when(resp.code){
+                    //API code값 사용
+                    200->createLectureLikeView.onCreateLectureLikeSuccess(resp.code)    //result를 받아서 UI를 구현해야함
+                    else->createLectureLikeView.onCreateLectureLikeFailure(resp.code)   //무슨 오류인지 알아야하므로 code가져가기
+                }
+            }
+            //실패했을 때 처리
+            override fun onFailure(call: Call<BaseResponse<LikeSuccess>>, t: Throwable) {
+                Log.d("createLectureLikeFail",t.toString())
+            }
+        })
+    }
+
+    fun deleteLectureLike(lectureIdx: Int){
+        Log.d("deleteLectureLike", "enter")
+        val classService = getRetrofit().create(RetrofitInterface::class.java)
+        classService.deleteLectureLike(lectureIdx, getJwt()!!).enqueue(object: Callback<BaseResponse<LikeSuccess>> {
+            //응답이 왔을 때 처리
+            override fun onResponse(call: Call<BaseResponse<LikeSuccess>>, response: Response<BaseResponse<LikeSuccess>>) {
+                Log.d("deleteLectureLike", "response")
+                val resp: BaseResponse<LikeSuccess> = response.body()!!
+                Log.d("deleteLectureLikeCode", resp.code.toString())
+                when(resp.code){
+                    //API code값 사용
+                    200->deleteLectureLikeView.onDeleteLectureLikeSuccess(resp.code)    //result를 받아서 UI를 구현해야함
+                    else->deleteLectureLikeView.onDeleteLectureLikeFailure(resp.code)   //무슨 오류인지 알아야하므로 code가져가기
+                }
+            }
+            //실패했을 때 처리
+            override fun onFailure(call: Call<BaseResponse<LikeSuccess>>, t: Throwable) {
+                Log.d("deleteLectureLikeFail",t.toString())
             }
         })
     }

@@ -43,7 +43,37 @@ fun saveUserName(userName: String) {
     editor.apply()
 }
 
-fun getUserName(): String? = mSharedPreferences.getString("userName", null)
+fun getUserName(): String? = mSharedPreferences.getString("userName", "lize")
+
+//userID
+fun saveUserID(userName: String) {
+    val editor = mSharedPreferences.edit()
+    editor.putString("userID", userName)
+
+    editor.apply()
+}
+
+fun getUserID(): String? = mSharedPreferences.getString("userID", "lize")
+
+//homeFragment isFirst
+fun saveIsFirst(isFirst: Boolean) {
+    val editor = mSharedPreferences.edit()
+    editor.putBoolean("isFirst", isFirst)
+
+    editor.apply()
+}
+
+fun getIsFirst(): Boolean? = mSharedPreferences.getBoolean("isFirst", true)
+
+//homeFragment curriIdx
+fun saveCurriIdx(curriIdx: Int) {
+    val editor = mSharedPreferences.edit()
+    editor.putInt("curriIdx", curriIdx)
+
+    editor.apply()
+}
+
+fun getCurriIdx(): Int = mSharedPreferences.getInt("curriIdx", 0)
 
 //UI size
 fun saveUISize(key : String, size : Int){
@@ -62,28 +92,3 @@ fun savePostIdx(postIdx: Int) {
 }
 
 fun getPostIdx(): Int? = mSharedPreferences.getInt("postIdx",0)
-
-fun saveLikeStatus(likeStatus: String, postIdx: Int, userIdx: Int){
-    val editor = mSharedPreferences.edit()
-    editor.putInt("postIdx", postIdx)
-    editor.putInt("userIdx", userIdx)
-    editor.putString("likeStatus", likeStatus)
-
-    editor.apply()
-}
-
-fun getLikeStatus(): PostLikeCreate? {
-    val postIdx = mSharedPreferences.getInt("postIdx",0)
-    val userIdx = mSharedPreferences.getInt("userIdx",0)
-    val likeStatus = mSharedPreferences.getString("likeStatus",null)
-    return PostLikeCreate(postIdx, userIdx, likeStatus)
-}
-
-fun saveLectureIdx(lectureIdx: Int){
-    val editor = mSharedPreferences.edit()
-    editor.putInt("lectureIdx",lectureIdx)
-
-    editor.apply()
-}
-
-fun getLectureIdx(): Int? = mSharedPreferences.getInt("lectureIdx",0)

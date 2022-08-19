@@ -9,21 +9,21 @@
 
     <ImageView
         android:id="@+id/toast_scrap_mark_debri_iv"
-        android:layout_width="30dp"
-        android:layout_height="30dp"
+        android:layout_width="25dp"
+        android:layout_height="25dp"
         android:src="@drawable/ic_dialog_mark_debri"
-        android:layout_marginStart="20dp"
+        android:layout_marginStart="15dp"
         android:layout_marginTop="17dp"/>
 
     <TextView
         android:id="@+id/toast_scrap_language_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="홈>내 스크랩"
+        android:text="내가 스크랩한 게시물"
         android:fontFamily="@font/noto_sans_kr_bold"
         android:textColor="@color/black"
-        android:textSize="16sp"
-        android:layout_marginStart="15dp"
+        android:textSize="15dp"
+        android:layout_marginStart="5dp"
         android:layout_marginTop="10dp"/>
 
     <TextView
@@ -32,9 +32,9 @@
         android:layout_height="wrap_content"
         android:text="에 저장되었습니다!"
         android:fontFamily="@font/noto_sans_kr_regular"
-        android:textSize="16sp"
+        android:textSize="14dp"
         android:textColor="@color/black"
-        android:layout_marginStart="5dp"
+        android:layout_marginStart="3dp"
         android:layout_marginTop="10dp"
         android:layout_marginEnd="30dp"/>
 

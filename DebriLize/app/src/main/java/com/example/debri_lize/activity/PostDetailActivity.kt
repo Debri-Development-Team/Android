@@ -9,8 +9,9 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.debri_lize.CommentRVAdapter
+import com.example.debri_lize.adapter.post.CommentRVAdapter
 import android.view.Gravity
+import android.view.MotionEvent
 import androidx.core.content.ContextCompat
 import com.example.debri_lize.CustomDialog
 import com.example.debri_lize.R
@@ -26,11 +27,13 @@ import kotlin.properties.Delegates
 
 
 class PostDetailActivity : AppCompatActivity(), PostDetailView, CommentCreateView, ShowCommentView, DeletePostView,
-    CreatePostLikeView, CancelPostLikeView, CreatePostScrapView, CancelPostScrapView, ReportPostView, DeleteCommentView, ReportCommentView {
+    CreatePostLikeView, CancelPostLikeView, CreatePostScrapView, CancelPostScrapView, ReportPostView, DeleteCommentView, ReportCommentView,
+    ReportUserView {
     lateinit var binding : ActivityPostDetailBinding
 
     var postIdx by Delegates.notNull<Int>()
     var authorIdx by Delegates.notNull<Int>()
+    var commentIdx by Delegates.notNull<Int>()
 
     //data
     lateinit var postDetail : PostDetail
@@ -60,13 +63,16 @@ class PostDetailActivity : AppCompatActivity(), PostDetailView, CommentCreateVie
 
         val intent = intent //전달할 데이터를 받을 Intent
         postIdx = intent.getIntExtra("postIdx", 0)
-        binding.postDetailBoardNameTv.text = intent.getStringExtra("boardName")
+        var boardName = intent.getStringExtra("boardName")
+        binding.postDetailBoardNameTv.text = boardName
         postService.showPostDetail(postIdx)
 
         //api - comment
         val commentService = CommentService()
         commentService.setShowCommentView(this)
         commentService.showComment(postIdx)
+
+        reportService.setReportUserView(this)
 
         //write comment <- enter
         binding.postDetailWriteCommentEt.setOnKeyListener { v, keyCode, event ->
@@ -95,12 +101,7 @@ class PostDetailActivity : AppCompatActivity(), PostDetailView, CommentCreateVie
 
         //스크랩 버튼
         binding.postDetailMenuScrapLayout.setOnClickListener {
-            //scrapTF = !scrapTF
             if(!scrapTF){
-//                binding.postDetailMenuScrapLayout.setBackgroundResource(R.drawable.border_round_transparent_debri_10)
-//                binding.postDetailMenuScrapTv.setTextColor(ContextCompat.getColor(this@PostDetailActivity, R.color.darkmode_background))
-//                binding.postDetailMenuScrapIv.setImageResource(R.drawable.ic_scrap_darkmode)
-
                 //api - createPostScrap
                 postService.setCreatePostScrapView(this)
                 postService.createPostScrap(getPostIdx()!!)
@@ -112,10 +113,6 @@ class PostDetailActivity : AppCompatActivity(), PostDetailView, CommentCreateVie
                 toast.setGravity(Gravity.CENTER_HORIZONTAL,0,0)
                 toast.show()
             }else{
-//                binding.postDetailMenuScrapLayout.setBackgroundResource(R.drawable.border_round_white_transparent_10)
-//                binding.postDetailMenuScrapTv.setTextColor(ContextCompat.getColor(this@PostDetailActivity, R.color.white))
-//                binding.postDetailMenuScrapIv.setImageResource(R.drawable.ic_scrap_white)
-
                 //api - cancelPostScrap
                 postService.setCancelPostScrapView(this)
                 postService.cancelPostScrap(getPostIdx()!!)
@@ -147,6 +144,7 @@ class PostDetailActivity : AppCompatActivity(), PostDetailView, CommentCreateVie
             bottomSheetView.findViewById<TextView>(R.id.bottom_sheet_two_tv2).text = "삭제하기"
 
             //click edit button
+            touchEvent(bottomSheetView.findViewById(R.id.bottom_sheet_two_tv1))
             bottomSheetView.findViewById<TextView>(R.id.bottom_sheet_two_tv1).setOnClickListener {
                 //PostCreateActivity에 값 전달
                 val intent = Intent(this, PostCreateActivity::class.java)
@@ -156,13 +154,22 @@ class PostDetailActivity : AppCompatActivity(), PostDetailView, CommentCreateVie
                 //finish()
             }
             //click delete button
+            touchEvent(bottomSheetView.findViewById(R.id.bottom_sheet_two_tv2))
             bottomSheetView.findViewById<TextView>(R.id.bottom_sheet_two_tv2).setOnClickListener {
-                postService.deletePost(postIdx)
+
                 bottomSheetDialog.dismiss()
                 //add dialog code
+                val dialog = CustomDialog(this)
+                dialog.showDeletePostDlg()
+                dialog.setOnClickListener(object:CustomDialog.ButtonClickListener{
+                    override fun onClicked(TF: Boolean) {
+                        //게시물 삭제
+                        postService.deletePost(postIdx)
+                        finish()
+                    }
 
+                })
 
-                finish()
             }
         }
         else{ //타인 글
@@ -170,6 +177,7 @@ class PostDetailActivity : AppCompatActivity(), PostDetailView, CommentCreateVie
             bottomSheetDialog.setContentView(bottomSheetView)
 
             //click complain button
+            touchEvent(bottomSheetView.findViewById(R.id.bottom_sheet_complain_tv))
             bottomSheetView.findViewById<TextView>(R.id.bottom_sheet_complain_tv).setOnClickListener {
                 val bottomSheetComplainDetailView = layoutInflater.inflate(R.layout.fragment_bottom_sheet_complain_detail, null)
                 val bottomSheetComplainDetailDialog = BottomSheetDialog(this)
@@ -180,6 +188,7 @@ class PostDetailActivity : AppCompatActivity(), PostDetailView, CommentCreateVie
 
                 //complain button
                 //광고,스팸
+                touchEvent(bottomSheetComplainDetailDialog.findViewById(R.id.bottom_sheet_complain_page_tv1)!!)
                 bottomSheetComplainDetailDialog.findViewById<TextView>(R.id.bottom_sheet_complain_page_tv1)!!
                     .setOnClickListener {
                         //api
@@ -190,6 +199,7 @@ class PostDetailActivity : AppCompatActivity(), PostDetailView, CommentCreateVie
                         bottomSheetDialog.dismiss()
                     }
                 //낚시,도배
+                touchEvent(bottomSheetComplainDetailDialog.findViewById(R.id.bottom_sheet_complain_page_tv2)!!)
                 bottomSheetComplainDetailDialog.findViewById<TextView>(R.id.bottom_sheet_complain_page_tv2)!!
                     .setOnClickListener {
                         //api
@@ -200,6 +210,7 @@ class PostDetailActivity : AppCompatActivity(), PostDetailView, CommentCreateVie
                         bottomSheetDialog.dismiss()
                     }
                 //개발과 무관한 게시물
+                touchEvent(bottomSheetComplainDetailDialog.findViewById(R.id.bottom_sheet_complain_page_tv3)!!)
                 bottomSheetComplainDetailDialog.findViewById<TextView>(R.id.bottom_sheet_complain_page_tv3)!!
                     .setOnClickListener {
                         //api
@@ -210,6 +221,7 @@ class PostDetailActivity : AppCompatActivity(), PostDetailView, CommentCreateVie
                         bottomSheetDialog.dismiss()
                     }
                 //욕설,비하
+                touchEvent(bottomSheetComplainDetailDialog.findViewById(R.id.bottom_sheet_complain_page_tv4)!!)
                 bottomSheetComplainDetailDialog.findViewById<TextView>(R.id.bottom_sheet_complain_page_tv4)!!
                     .setOnClickListener {
                         //api
@@ -220,6 +232,7 @@ class PostDetailActivity : AppCompatActivity(), PostDetailView, CommentCreateVie
                         bottomSheetDialog.dismiss()
                     }
                 //기타
+                touchEvent(bottomSheetComplainDetailDialog.findViewById(R.id.bottom_sheet_complain_page_tv5)!!)
                 bottomSheetComplainDetailDialog.findViewById<TextView>(R.id.bottom_sheet_complain_page_tv5)!!
                     .setOnClickListener {
 
@@ -277,11 +290,13 @@ class PostDetailActivity : AppCompatActivity(), PostDetailView, CommentCreateVie
 
             bottomSheetDialog.show()
             //click delete button
+            touchEvent(bottomSheetView.findViewById(R.id.bottom_sheet_two_tv1))
             bottomSheetView.findViewById<TextView>(R.id.bottom_sheet_two_tv1).setOnClickListener {
                 commentService.setDeleteCommentView(this)
                 commentService.deleteComment(commentIdx)
                 bottomSheetDialog.dismiss()
                 //add dialog code
+
 
             }
         }
@@ -290,8 +305,12 @@ class PostDetailActivity : AppCompatActivity(), PostDetailView, CommentCreateVie
             bottomSheetDialog.setContentView(bottomSheetView)
             bottomSheetDialog.show()
 
+            //글자색 white로
+            touchEvent(bottomSheetView.findViewById(R.id.bottom_sheet_complain_tv))
+
             //click complain button
             bottomSheetView.findViewById<TextView>(R.id.bottom_sheet_complain_tv).setOnClickListener {
+
                 val bottomSheetComplainDetailView = layoutInflater.inflate(R.layout.fragment_bottom_sheet_complain_detail, null)
                 val bottomSheetComplainDetailDialog = BottomSheetDialog(this)
                 bottomSheetComplainDetailDialog.setContentView(bottomSheetComplainDetailView)
@@ -301,6 +320,7 @@ class PostDetailActivity : AppCompatActivity(), PostDetailView, CommentCreateVie
 
                 //complain button
                 //광고,스팸
+                touchEvent(bottomSheetComplainDetailDialog.findViewById(R.id.bottom_sheet_complain_page_tv1)!!)
                 bottomSheetComplainDetailDialog.findViewById<TextView>(R.id.bottom_sheet_complain_page_tv1)!!
                     .setOnClickListener {
                         //api
@@ -311,6 +331,7 @@ class PostDetailActivity : AppCompatActivity(), PostDetailView, CommentCreateVie
                         bottomSheetDialog.dismiss()
                     }
                 //낚시,도배
+                touchEvent(bottomSheetComplainDetailDialog.findViewById(R.id.bottom_sheet_complain_page_tv2)!!)
                 bottomSheetComplainDetailDialog.findViewById<TextView>(R.id.bottom_sheet_complain_page_tv2)!!
                     .setOnClickListener {
                         //api
@@ -321,6 +342,7 @@ class PostDetailActivity : AppCompatActivity(), PostDetailView, CommentCreateVie
                         bottomSheetDialog.dismiss()
                     }
                 //개발과 무관한 게시물
+                touchEvent(bottomSheetComplainDetailDialog.findViewById(R.id.bottom_sheet_complain_page_tv3)!!)
                 bottomSheetComplainDetailDialog.findViewById<TextView>(R.id.bottom_sheet_complain_page_tv3)!!
                     .setOnClickListener {
                         //api
@@ -331,6 +353,7 @@ class PostDetailActivity : AppCompatActivity(), PostDetailView, CommentCreateVie
                         bottomSheetDialog.dismiss()
                     }
                 //욕설,비하
+                touchEvent(bottomSheetComplainDetailDialog.findViewById(R.id.bottom_sheet_complain_page_tv4)!!)
                 bottomSheetComplainDetailDialog.findViewById<TextView>(R.id.bottom_sheet_complain_page_tv4)!!
                     .setOnClickListener {
                         //api
@@ -341,6 +364,7 @@ class PostDetailActivity : AppCompatActivity(), PostDetailView, CommentCreateVie
                         bottomSheetDialog.dismiss()
                     }
                 //기타
+                touchEvent(bottomSheetComplainDetailDialog.findViewById(R.id.bottom_sheet_complain_page_tv5)!!)
                 bottomSheetComplainDetailDialog.findViewById<TextView>(R.id.bottom_sheet_complain_page_tv5)!!
                     .setOnClickListener {
 
@@ -377,6 +401,27 @@ class PostDetailActivity : AppCompatActivity(), PostDetailView, CommentCreateVie
             bottomSheetDialog.dismiss()
         }
 
+    }
+
+    private fun touchEvent(bind : TextView){
+        bind.setOnTouchListener(object : View.OnTouchListener {
+            override fun onTouch(view: View?, event: MotionEvent?): Boolean {
+                when (event?.action) {
+                    MotionEvent.ACTION_DOWN -> {
+                        bind.setTextColor(ContextCompat.getColor(this@PostDetailActivity, R.color.white))
+                    }
+                    MotionEvent.ACTION_UP -> {
+                        bind.setTextColor(ContextCompat.getColor(this@PostDetailActivity, R.color.darkmode_background))
+                        bind.performClick()
+                    }
+                }
+
+                //리턴값이 false면 동작 안됨
+                return true //or false
+            }
+
+
+        })
     }
 
     //api
@@ -463,6 +508,7 @@ class PostDetailActivity : AppCompatActivity(), PostDetailView, CommentCreateVie
                 binding.postDetailWriteCommentEt.text.clear()
                 commentService.setShowCommentView(this)
                 commentService.showComment(postIdx)
+
             }
         }
     }
@@ -471,15 +517,14 @@ class PostDetailActivity : AppCompatActivity(), PostDetailView, CommentCreateVie
 
     }
 
-    override fun onShowCommentSuccess(code: Int, result: List<CommentList>
-    ) {
+    override fun onShowCommentSuccess(code: Int, result: List<CommentList>) {
         when(code){
             200-> {
-
                 temp.clear()
                 for(i in result){
-                    temp.add(CommentList(i.commentIdx, i.authorIdx, i.postIdx, i.commentLevel, i.commentOrder, i.commentGroup, i.commentContent, i.authorName))
+                    temp.add(CommentList(i.commentIdx, i.authorIdx, i.postIdx, i.commentLevel, i.commentOrder, i.commentGroup, i.commentContent, i.authorName, i.timeAfterCreated, i.likeStatus, i.likeCount))
                 }
+
 
                 parentItemArrayList = ArrayList<CommentList>()
                 var childItemArrayListGroup = ArrayList<ArrayList<CommentList>>()
@@ -490,7 +535,7 @@ class PostDetailActivity : AppCompatActivity(), PostDetailView, CommentCreateVie
 
                     if(i.commentLevel==0){
                         commentGroup = i.commentGroup
-                        parentItemArrayList.add(CommentList(i.commentIdx, i.authorIdx, i.postIdx, i.commentLevel, i.commentOrder, i.commentGroup, i.commentContent, i.authorName))
+                        parentItemArrayList.add(CommentList(i.commentIdx, i.authorIdx, i.postIdx, i.commentLevel, i.commentOrder, i.commentGroup, i.commentContent, i.authorName, i.timeAfterCreated, i.likeStatus, i.likeCount))
                     }
 
                     //Child Item Object
@@ -498,7 +543,8 @@ class PostDetailActivity : AppCompatActivity(), PostDetailView, CommentCreateVie
                     while(iterator.hasNext()){
                         val item = iterator.next()
                         if (item.commentLevel==1 && item.commentGroup==commentGroup) {
-                                childItemArrayList.add(CommentList(item.commentIdx, item.authorIdx, item.postIdx, item.commentLevel, item.commentOrder, item.commentGroup, item.commentContent, item.authorName))
+                            childItemArrayList.add(CommentList(item.commentIdx, item.authorIdx, item.postIdx, item.commentLevel, item.commentOrder, item.commentGroup, item.commentContent, item.authorName, item.timeAfterCreated, item.likeStatus, item.likeCount))
+
                             Log.d("childList", childItemArrayList.toString())
                         }
                     }
@@ -517,6 +563,8 @@ class PostDetailActivity : AppCompatActivity(), PostDetailView, CommentCreateVie
                 commentRVAdapter = CommentRVAdapter(this)
                 commentRVAdapter.build(parentItemArrayList, childItemArrayListGroup, binding, postIdx)
                 binding.postDetailCommentRv.adapter = commentRVAdapter
+
+
 
             }
         }
@@ -614,12 +662,26 @@ class PostDetailActivity : AppCompatActivity(), PostDetailView, CommentCreateVie
     override fun onReportPostSuccess(code: Int) {
         when(code){
             200->{
-                //토스트메세지 띄우기
-                var reportToast = layoutInflater.inflate(R.layout.toast_report,null)
-                var toast = Toast(this)
-                toast.view = reportToast
-                toast.setGravity(Gravity.CENTER_HORIZONTAL,0,0)
-                toast.show()
+                //신고 다이얼로그
+                val dialog = CustomDialog(this)
+                dialog.reportPostUserDlg()
+                val dialogETC = CustomDialog(this)
+                dialog.setOnClickListener(object:CustomDialog.ButtonClickListener {
+                    override fun onClicked(TF: Boolean) {
+                        //신고 사유 : 유저 신고 시 reason 필요
+
+                        dialogETC.showReportDlg()
+                        dialogETC.setOnClickListenerETC(object:CustomDialog.ButtonClickListenerETC {
+                            override fun onClicked(TF: Boolean, reason: String) {
+                                //유저 신고&차단 api
+                                reportService.reportUser(reason, postIdx)
+                            }
+
+                        })
+                    }
+
+                })
+
             }
         }
     }
@@ -657,6 +719,18 @@ class PostDetailActivity : AppCompatActivity(), PostDetailView, CommentCreateVie
 
     override fun onReportCommentFailure(code: Int) {
 
+    }
+
+    override fun onReportUserSuccess(code: Int) {
+        when(code){
+            200->{
+
+            }
+        }
+    }
+
+    override fun onReportUserFailure(code: Int) {
+        Log.d("reportuserfail","$code")
     }
 
 

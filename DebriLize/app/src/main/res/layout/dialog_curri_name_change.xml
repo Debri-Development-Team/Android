@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingBottom="10dp"
+    android:background="@drawable/border_round_transparent_gray_10"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_marginStart="20dp"
+    android:layout_marginEnd="20dp">
+
+    <LinearLayout
+        android:id="@+id/dialog_curri_name_change_text_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:layout_marginStart="25dp"
+        android:layout_marginTop="17dp"
+        android:layout_marginEnd="25dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+        <ImageView
+            android:id="@+id/toast_curri_name_change_mark_red_iv"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:src="@drawable/ic_curri_name_change"
+            android:layout_marginEnd="10dp" />
+
+        <TextView
+            android:id="@+id/dialog_cancel_memo_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="변경할 이름을 적어주세요!"
+            android:fontFamily="@font/noto_sans_kr_bold"
+            android:includeFontPadding="false"
+            android:textSize="16dp"
+            android:textColor="@color/black"
+            android:layout_marginStart="10dp" />
+    </LinearLayout>
+
+    <EditText
+        android:id="@+id/dialog_curri_name_change_text_et"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@drawable/border_round_transparent_white_10"
+        android:gravity="top"
+        android:padding="5dp"
+        android:elevation="10dp"
+        android:textColor="@color/black"
+        android:textCursorDrawable="@color/black"
+        android:layout_marginStart="25dp"
+        android:layout_marginEnd="25dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginBottom="10dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/dialog_curri_name_change_text_layout"/>
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/dialog_curri_name_change_yes_btn"
+        android:layout_width="80dp"
+        android:layout_height="35dp"
+        android:background="@drawable/border_round_transparent_debri_10"
+        android:text="변경하기"
+        android:textSize="12dp"
+        android:textColor="@color/white"
+        android:fontFamily="@font/noto_sans_kr_bold"
+        android:includeFontPadding="false"
+        android:layout_marginEnd="10dp"
+        android:layout_marginTop="15dp"
+        app:layout_constraintEnd_toStartOf="@id/dialog_curri_name_change_no_btn"
+        app:layout_constraintTop_toBottomOf="@id/dialog_curri_name_change_text_et"/>
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/dialog_curri_name_change_no_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="35dp"
+        android:background="@drawable/border_round_transparent_white_10"
+        android:text="취소하기"
+        android:textSize="12dp"
+        android:textColor="@color/black"
+        android:fontFamily="@font/noto_sans_kr_bold"
+        android:includeFontPadding="false"
+        android:layout_marginEnd="25dp"
+        android:layout_marginTop="15dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/dialog_curri_name_change_text_et"/>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

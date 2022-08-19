@@ -4,9 +4,11 @@ import android.app.Dialog
 import android.content.Context
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
+import android.view.View
 import android.view.WindowManager
 import android.widget.Button
 import android.widget.EditText
+import android.widget.TextView
 
 class CustomDialog(context: Context) {
     private val dialog = Dialog(context)
@@ -107,8 +109,35 @@ class CustomDialog(context: Context) {
         dialog.show()
     }
 
+    fun showDeletePostDlg() {
+        dialog.setContentView(R.layout.dialog_cancel)
+        dialog.findViewById<TextView>(R.id.dialog_cancel_memo_tv).text = "정말 게시물을 삭제하시겠어요?"
+        dialog.window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+        dialog.window!!.setLayout(
+            WindowManager.LayoutParams.MATCH_PARENT,
+            WindowManager.LayoutParams.WRAP_CONTENT)
+        dialog.setCanceledOnTouchOutside(false)
+        dialog.setCancelable(false)
+
+        //yes
+        dialog.findViewById<Button>(R.id.dialog_cancel_yes_btn).setOnClickListener {
+            //게시물 삭제
+            onClickListener.onClicked(true)
+            dialog.dismiss()
+        }
+
+        //no
+        dialog.findViewById<Button>(R.id.dialog_cancel_no_btn).setOnClickListener {
+            dialog.dismiss()
+        }
+
+        dialog.show()
+    }
+
     fun showReportDlg(){
         dialog.setContentView(R.layout.dialog_report_text)
+        dialog.findViewById<TextView>(R.id.dialog_report_memo_tv).text = "신고 사유를 적어주세요!"
+        dialog.findViewById<EditText>(R.id.dialog_report_text_et).visibility = View.VISIBLE
         dialog.window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
         dialog.window!!.setLayout(
             WindowManager.LayoutParams.MATCH_PARENT,
@@ -120,6 +149,103 @@ class CustomDialog(context: Context) {
         dialog.findViewById<Button>(R.id.dialog_report_yes_btn).setOnClickListener {
             //신고 사유
             onClickListenerETC.onClicked(true, dialog.findViewById<EditText>(R.id.dialog_report_text_et).text.toString())
+            dialog.dismiss()
+        }
+
+        //no
+        dialog.findViewById<Button>(R.id.dialog_report_no_btn).setOnClickListener {
+            dialog.dismiss()
+        }
+
+        dialog.show()
+    }
+
+    fun changeCurriNameDlg(){
+        dialog.setContentView(R.layout.dialog_curri_name_change)
+        dialog.window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+        dialog.window!!.setLayout(
+            WindowManager.LayoutParams.MATCH_PARENT,
+            WindowManager.LayoutParams.WRAP_CONTENT)
+        dialog.setCanceledOnTouchOutside(false)
+        dialog.setCancelable(false)
+
+        //yes
+        dialog.findViewById<Button>(R.id.dialog_curri_name_change_yes_btn).setOnClickListener {
+            //신고 사유
+            onClickListenerETC.onClicked(true, dialog.findViewById<EditText>(R.id.dialog_curri_name_change_text_et).text.toString())
+            dialog.dismiss()
+        }
+
+        //no
+        dialog.findViewById<Button>(R.id.dialog_curri_name_change_no_btn).setOnClickListener {
+            dialog.dismiss()
+        }
+
+        dialog.show()
+    }
+
+    fun deleteCurriDlg(){
+        dialog.setContentView(R.layout.dialog_curri_delete)
+        dialog.findViewById<TextView>(R.id.dialog_curri_delete_tv).text = "정말 커리큘럼을 삭제하시겠어요?"
+        dialog.window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+        dialog.window!!.setLayout(
+            WindowManager.LayoutParams.MATCH_PARENT,
+            WindowManager.LayoutParams.WRAP_CONTENT)
+        dialog.setCanceledOnTouchOutside(false)
+        dialog.setCancelable(false)
+
+        //yes
+        dialog.findViewById<Button>(R.id.dialog_curri_delete_yes_btn).setOnClickListener {
+            onClickListener.onClicked(true)
+            dialog.dismiss()
+        }
+
+        //no
+        dialog.findViewById<Button>(R.id.dialog_curri_delete_no_btn).setOnClickListener {
+            dialog.dismiss()
+        }
+
+        dialog.show()
+    }
+
+    fun initializeCurriDlg(){
+        dialog.setContentView(R.layout.dialog_curri_delete)
+        dialog.findViewById<TextView>(R.id.dialog_curri_delete_tv).text = "정말 커리큘럼을 초기화하시겠어요?"
+        dialog.window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+        dialog.window!!.setLayout(
+            WindowManager.LayoutParams.MATCH_PARENT,
+            WindowManager.LayoutParams.WRAP_CONTENT)
+        dialog.setCanceledOnTouchOutside(false)
+        dialog.setCancelable(false)
+
+        //yes
+        dialog.findViewById<Button>(R.id.dialog_curri_delete_yes_btn).setOnClickListener {
+            onClickListener.onClicked(true)
+            dialog.dismiss()
+        }
+
+        //no
+        dialog.findViewById<Button>(R.id.dialog_curri_delete_no_btn).setOnClickListener {
+            dialog.dismiss()
+        }
+
+        dialog.show()
+    }
+
+    fun reportPostUserDlg(){
+        dialog.setContentView(R.layout.dialog_report_text)
+        dialog.findViewById<TextView>(R.id.dialog_report_memo_tv).text = "신고가 접수되었습니다.\n신고한 유저를 차단하시겠어요?"
+        dialog.findViewById<EditText>(R.id.dialog_report_text_et).visibility = View.GONE
+        dialog.window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+        dialog.window!!.setLayout(
+            WindowManager.LayoutParams.MATCH_PARENT,
+            WindowManager.LayoutParams.WRAP_CONTENT)
+        dialog.setCanceledOnTouchOutside(false)
+        dialog.setCancelable(false)
+
+        //yes
+        dialog.findViewById<Button>(R.id.dialog_report_yes_btn).setOnClickListener {
+            onClickListener.onClicked(true)
             dialog.dismiss()
         }
 

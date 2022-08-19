@@ -10,7 +10,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.debri_lize.PostRVAdapter
+import com.example.debri_lize.adapter.post.PostRVAdapter
 import com.example.debri_lize.R
 import com.example.debri_lize.activity.MainActivity
 import com.example.debri_lize.activity.PostCreateActivity
@@ -87,7 +87,20 @@ class PostFragment : Fragment(), EachPostListView {
             startActivity(intent)
         }
 
-
+        //focus
+        binding.postSearchEt.setOnFocusChangeListener(object : View.OnFocusChangeListener {
+            override fun onFocusChange(view: View, hasFocus: Boolean) {
+                if (hasFocus) {
+                    //  포커스시
+                    binding.postSearchLayout.setBackgroundResource(R.drawable.border_round_debri_transparent_10)
+                    binding.postSearchIv.setImageResource(R.drawable.btm_nav_search_on)
+                } else {
+                    //  포커스 뺏겼을 때
+                    binding.postSearchLayout.setBackgroundResource(R.drawable.border_round_white_transparent_10)
+                    binding.postSearchIv.setImageResource(R.drawable.btm_nav_search)
+                }
+            }
+        })
 
     }
 
@@ -127,7 +140,7 @@ class PostFragment : Fragment(), EachPostListView {
                 datas.apply {
 
                     for (i in result){
-                        datas.add(PostList(i.boardIdx, i.postIdx, i.authorName, i.postName, i.likeCnt, i.likeStatus, i.scrapStatus, i.timeAfterCreated, i.commentCnt))
+                        datas.add(PostList(i.boardIdx, i.postIdx, i.authorName, i.postName, i.likeCnt, i.likeStatus, i.scrapStatus, i.timeAfterCreated, i.commentCnt, i.boardName))
                     }
 
                     postRVAdapter.datas = datas
@@ -143,8 +156,6 @@ class PostFragment : Fragment(), EachPostListView {
                                 //객체 자체를 보내는 방법 (data class)
                                 val intent = Intent(context, PostDetailActivity::class.java)
                                 intent.putExtra("postIdx", datas[position].postIdx)
-                                intent.putExtra("boardName", boardName)
-                                //intent.putExtra("likeStatus", getLikeStatus())
                                 startActivity(intent)
 
                             }
@@ -181,7 +192,7 @@ class PostFragment : Fragment(), EachPostListView {
     }
 
     override fun onEachPostListFailure(code: Int) {
-        TODO("Not yet implemented")
+
     }
 
 }

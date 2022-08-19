@@ -13,6 +13,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import com.example.debri_lize.R
 import com.example.debri_lize.activity.AddCurriculumActivity
+import com.example.debri_lize.activity.AddCurriculumDetailActivity
 import com.example.debri_lize.activity.MainActivity
 import com.example.debri_lize.data.auth.Token
 import com.example.debri_lize.data.auth.User
@@ -81,6 +82,8 @@ class LoginActivity:AppCompatActivity(), LoginView, TokenView {
             else -> "ldpi"
         }
         Log.d("density", density.toString())
+        saveUISize("dpi", density)
+
         return density
     }
 
@@ -90,7 +93,7 @@ class LoginActivity:AppCompatActivity(), LoginView, TokenView {
         //dp to px : px = dp * density
         //px to dp : dp = px / density
         //signUp, login button
-        saveUISize("authButton", ((screenWidth-60)/2 - 10) * getDeviceDpi()) //dimens.xml에서 margin, padding값 가져올 것
+        saveUISize("authButton", ((screenWidth-60)/2 - 15) * getDeviceDpi()) //dimens.xml에서 margin, padding값 가져올 것
     }
 
     //set UI Size (px)
@@ -144,6 +147,9 @@ class LoginActivity:AppCompatActivity(), LoginView, TokenView {
                 saveUserIdx(result!!.userIdx)
                 saveUserName(result!!.userName)
                 saveRefreshToken(result!!.refreshToken)
+                saveUserID(result!!.userID)
+
+                saveIsFirst(true)
 
                 finish()
                 startActivity(Intent(this, MainActivity::class.java))
@@ -263,7 +269,7 @@ class LoginActivity:AppCompatActivity(), LoginView, TokenView {
             }
         })
 
-        //google
+        /*//google
         binding.loginGoogleLayout.setOnTouchListener(object : View.OnTouchListener {
             override fun onTouch(view: View?, event: MotionEvent?): Boolean {
                 when (event?.action) {
@@ -315,7 +321,7 @@ class LoginActivity:AppCompatActivity(), LoginView, TokenView {
                 //리턴값이 false면 동작 안됨
                 return true //or false
             }
-        })
+        })*/
     }
 
 

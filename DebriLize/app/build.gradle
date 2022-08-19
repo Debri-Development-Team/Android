@@ -74,4 +74,11 @@ dependencies {
 
     //search
     implementation 'com.github.thorbenprimke:realm-searchview:0.9.1'
+
+    //wave animation
+    implementation "me.itangqi.waveloadingview:library:0.3.5"
+
+    //viewpager2
+    implementation 'androidx.viewpager2:viewpager2:1.0.0'
+    implementation 'me.relex:circleindicator:2.1.4'
 }

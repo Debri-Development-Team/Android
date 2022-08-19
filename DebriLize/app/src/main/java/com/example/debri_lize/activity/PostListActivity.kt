@@ -8,7 +8,8 @@ import android.util.Log
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.debri_lize.PostRVAdapter
+import com.example.debri_lize.R
+import com.example.debri_lize.adapter.post.PostRVAdapter
 import com.example.debri_lize.data.post.PostList
 import com.example.debri_lize.databinding.ActivityPostListBinding
 import com.example.debri_lize.service.PostService
@@ -61,6 +62,21 @@ class PostListActivity : AppCompatActivity(), PostListView {
 
         })
 
+        //focus
+        binding.postListSearchEt.setOnFocusChangeListener(object : View.OnFocusChangeListener {
+            override fun onFocusChange(view: View, hasFocus: Boolean) {
+                if (hasFocus) {
+                    //  포커스시
+                    binding.postListSearchLayout.setBackgroundResource(R.drawable.border_round_debri_transparent_10)
+                    binding.postListSearchIv.setImageResource(R.drawable.btm_nav_search_on)
+                } else {
+                    //  포커스 뺏겼을 때
+                    binding.postListSearchLayout.setBackgroundResource(R.drawable.border_round_white_transparent_10)
+                    binding.postListSearchIv.setImageResource(R.drawable.btm_nav_search)
+                }
+            }
+        })
+
 
     }
 
@@ -79,7 +95,7 @@ class PostListActivity : AppCompatActivity(), PostListView {
                     Log.d("resultSize", result.size.toString())
                     for (i in result){
                         Log.d("postlist","$result")
-                        datas.add(PostList(i.boardIdx, i.postIdx, i.authorName, i.postName, i.likeCnt, i.likeStatus,i.scrapStatus, i.timeAfterCreated, i.commentCnt))
+                        datas.add(PostList(i.boardIdx, i.postIdx, i.authorName, i.postName, i.likeCnt, i.likeStatus,i.scrapStatus, i.timeAfterCreated, i.commentCnt, i.boardName))
                     }
 
                     postRVAdapter.datas = datas
@@ -92,6 +108,7 @@ class PostListActivity : AppCompatActivity(), PostListView {
                             //객체 자체를 보내는 방법 (data class)
                             val intent = Intent(this@PostListActivity, PostDetailActivity::class.java)
                             intent.putExtra("postIdx", datas[position].postIdx)
+                            intent.putExtra("boardName", datas[position].boardName)
                             startActivity(intent)
 
 

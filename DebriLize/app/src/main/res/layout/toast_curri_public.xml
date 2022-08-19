@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingBottom="10dp"
+    android:background="@drawable/border_round_transparent_gray_10"
+    android:layout_marginStart="25dp"
+    android:layout_marginEnd="25dp">
+
+
+    <ImageView
+        android:id="@+id/toast_curri_public_mark_iv"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:src="@drawable/ic_open"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="17dp"
+        android:layout_marginEnd="15dp"/>
+
+    <TextView
+        android:id="@+id/toast_curri_public_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="커리큘럼이 공개로 변경되었습니다!"
+        android:fontFamily="@font/noto_sans_kr_bold"
+        android:textColor="@color/black"
+        android:textSize="16dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="20dp"/>
+
+
+
+</LinearLayout>

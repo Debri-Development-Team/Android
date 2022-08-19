@@ -34,9 +34,8 @@ class BoardFragment : Fragment(), UnScrapBoardListView, ScrapBoardListView, Canc
     val datas_f = ArrayList<BoardFavorite>()
     val datas = ArrayList<Board>()
 
-    //search boardName
-    private val filteredData = ArrayList<Board>() //검색했을 때 나타낼 데이터
-    private val filteredFavoriteData = ArrayList<Board>()
+    //즐겨찾기 게시판 on/off
+    var boardTF = true //true : on, false : off
 
     //api
     val boardService = BoardService()
@@ -58,13 +57,34 @@ class BoardFragment : Fragment(), UnScrapBoardListView, ScrapBoardListView, Canc
             startActivity(intent)
         }
 
-        //search
+        binding.boardFavoriteOnOffIv.setOnClickListener{
+            if(boardTF){
+                binding.boardFavoriteRv.visibility = View.GONE
+                binding.boardFavoriteOnOffIv.setImageResource(R.drawable.ic_screen_off)
+            }else{
+                binding.boardFavoriteRv.visibility = View.VISIBLE
+                binding.boardFavoriteOnOffIv.setImageResource(R.drawable.ic_screen_on)
+            }
+            boardTF = !boardTF
+        }
+
+        //search - 전체 게시물 검색
         binding.boardSearchLayout.setOnClickListener{
             val intent = Intent(activity, PostListActivity::class.java)
             startActivity(intent)
         }
 
-        //api
+        //BoardFragment -> ScrapPostFragment
+        binding.boardPostScrapLayout.setOnClickListener{
+
+            val passBundleBFragment = ScrapPostFragment()
+            //fragment to fragment
+            activity?.supportFragmentManager!!.beginTransaction()
+                .replace(R.id.main_frm, passBundleBFragment)
+                .commit()
+        }
+
+        //api - 게시판 리스트
         boardService.setUnScrapBoardListView(this)
         boardService.showUnScrapBoardList()
         boardService.setScrapBoardListView(this)
@@ -74,32 +94,6 @@ class BoardFragment : Fragment(), UnScrapBoardListView, ScrapBoardListView, Canc
         boardService.setCreateScrapBoardView(this)
         boardService.setCancelScrapBoardView(this)
 
-
-        //search boardName
-        //검색어 입력
-        binding.boardSearchEt.addTextChangedListener(object : TextWatcher {
-            //입력이 끝날 때
-            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-
-            }
-
-            //입력하기 전에
-            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-
-            }
-
-            //타이핑되는 텍스트에 변화가 있을 때
-            override fun afterTextChanged(p0: Editable?) {
-                val searchText: String = binding.boardSearchEt.text.toString()
-                //Log.d("editText","$searchText")
-                searchFilter(searchText)
-
-                //검색어 입력시에 즐겨찾기 게시판에서 필터하는 기능인데 오류로 일단 주석처리
-                //searchFavoriteFilter(searchText)
-            }
-
-        })
-
         //create post
         binding.boardWriteBtn.setOnClickListener{
             val intent = Intent(context, PostCreateActivity::class.java)
@@ -108,37 +102,6 @@ class BoardFragment : Fragment(), UnScrapBoardListView, ScrapBoardListView, Canc
             startActivity(intent)
         }
     }
-
-    //search boardName
-    //검색어가 포함된 타이틀을 filteredData에 넣기
-    private fun searchFilter(searchText: String) {
-        filteredData.clear()
-
-        for (i in 0 until datas.size) {
-            //boardName 필터 / 공백 제거 안함
-            if (datas[i].boardName!!.lowercase().contains(searchText.lowercase())) {
-                filteredData.add(datas[i])
-            }
-        }
-
-        boardRVAdapter.filterList(filteredData)
-    }
-
-    //검색어가 포함된 타이틀을 filteredData에 넣기
-    private fun searchFavoriteFilter(searchText: String) {
-        filteredFavoriteData.clear()
-
-        for (i in 0 until datas.size) {
-            //boardName 필터 / 공백 제거 안함
-            if (datas[i].boardName!!.lowercase().contains(searchText.lowercase())) {
-                filteredFavoriteData.add(datas[i])
-            }
-        }
-
-        boardRVAdapter.filterList(filteredFavoriteData)
-    }
-
-
 
     override fun onUnScrapBoardListSuccess(code: Int, result: List<Board>) {
         when(code){

@@ -93,7 +93,7 @@
 
         <TextView
             android:id="@+id/sign_up_id_tv"
-            android:layout_width="40dp"
+            android:layout_width="45dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="15dp"
             android:text="ID"

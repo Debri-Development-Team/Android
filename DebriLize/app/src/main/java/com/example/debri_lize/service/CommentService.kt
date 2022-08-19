@@ -2,16 +2,11 @@ package com.example.debri_lize.service
 
 import android.util.Log
 import com.example.debri_lize.utils.RetrofitInterface
-import com.example.debri_lize.data.post.Cocomment
-import com.example.debri_lize.data.post.Comment
-import com.example.debri_lize.data.post.CommentList
 import com.example.debri_lize.base.BaseResponse
+import com.example.debri_lize.data.post.*
 import com.example.debri_lize.utils.getJwt
 import com.example.debri_lize.utils.getRetrofit
-import com.example.debri_lize.view.post.CocommentCreateView
-import com.example.debri_lize.view.post.CommentCreateView
-import com.example.debri_lize.view.post.DeleteCommentView
-import com.example.debri_lize.view.post.ShowCommentView
+import com.example.debri_lize.view.post.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -21,6 +16,8 @@ class CommentService {
     private lateinit var cocommentCreateView: CocommentCreateView
     private lateinit var showCommentView: ShowCommentView
     private lateinit var deleteCommentView: DeleteCommentView
+    private lateinit var createCommentLikeView: CreateCommentLikeView
+    private lateinit var deleteCommentLikeView: DeleteCommentLikeView
 
     fun setCommentCreateView(commentCreateView: CommentCreateView){
         this.commentCreateView = commentCreateView
@@ -38,12 +35,20 @@ class CommentService {
         this.deleteCommentView = deleteCommentView
     }
 
+    fun setCreateCommentLikeView(createCommentLikeView: CreateCommentLikeView){
+        this.createCommentLikeView = createCommentLikeView
+    }
+
+    fun setDeleteCommentLikeView(deleteCommentLikeView: DeleteCommentLikeView){
+        this.deleteCommentLikeView = deleteCommentLikeView
+    }
+
     fun createComment(comment: Comment){
         Log.d("comment", comment.toString())
         //서비스 객체 생성
         val commentService = getRetrofit().create(RetrofitInterface::class.java)
 
-        commentService.createComment(comment).enqueue(object: Callback<BaseResponse<Comment>> {
+        commentService.createComment(comment, getJwt()!!).enqueue(object: Callback<BaseResponse<Comment>> {
             //응답이 왔을 때 처리
             override fun onResponse(call: Call<BaseResponse<Comment>>, response: Response<BaseResponse<Comment>>) {
                 val resp: BaseResponse<Comment> = response.body()!!
@@ -67,7 +72,7 @@ class CommentService {
         //서비스 객체 생성
         val commentService = getRetrofit().create(RetrofitInterface::class.java)
 
-        commentService.createCocomment(cocomment).enqueue(object: Callback<BaseResponse<Comment>> {
+        commentService.createCocomment(cocomment, getJwt()!!).enqueue(object: Callback<BaseResponse<Comment>> {
             //응답이 왔을 때 처리
             override fun onResponse(call: Call<BaseResponse<Comment>>, response: Response<BaseResponse<Comment>>) {
                 val resp: BaseResponse<Comment> = response.body()!!
@@ -90,7 +95,7 @@ class CommentService {
     fun showComment(postIdx:Int){
         Log.d("showComment", "enter")
         val commentService = getRetrofit().create(RetrofitInterface::class.java)
-        commentService.showComment(postIdx).enqueue(object: Callback<BaseResponse<List<CommentList>>> {
+        commentService.showComment(postIdx, getJwt()!!).enqueue(object: Callback<BaseResponse<List<CommentList>>> {
             //응답이 왔을 때 처리
             override fun onResponse(call: Call<BaseResponse<List<CommentList>>>, response: Response<BaseResponse<List<CommentList>>>) {
                 Log.d("showComment", "response")
@@ -128,6 +133,52 @@ class CommentService {
             //실패했을 때 처리
             override fun onFailure(call: Call<BaseResponse<Comment>>, t: Throwable) {
                 Log.d("deletePostFail", t.toString())
+            }
+
+        })
+    }
+
+    fun createCommentLike(commentIdx: Int){
+        Log.d("createCommentLike", "enter")
+        val commentService = getRetrofit().create(RetrofitInterface::class.java)
+        commentService.createCommentLike(commentIdx, getJwt()!!).enqueue(object: Callback<BaseResponse<createCommentLike>> {
+            //응답이 왔을 때 처리
+            override fun onResponse(call: Call<BaseResponse<createCommentLike>>, response: Response<BaseResponse<createCommentLike>>) {
+                Log.d("createCommentLike", "response")
+                val resp: BaseResponse<createCommentLike> = response.body()!!
+                Log.d("createCommentLikeCode", resp.code.toString())
+                when(resp.code){
+                    //API code값 사용
+                    200->createCommentLikeView.onCreateCommentLikeSuccess(resp.code)
+                    else->createCommentLikeView.onCreateCommentLikeFailure(resp.code)
+                }
+            }
+            //실패했을 때 처리
+            override fun onFailure(call: Call<BaseResponse<createCommentLike>>, t: Throwable) {
+                Log.d("createCommentLikeFail", t.toString())
+            }
+
+        })
+    }
+
+    fun deleteCommentLike(commentIdx: Int){
+        Log.d("deleteCommentLike", "enter")
+        val commentService = getRetrofit().create(RetrofitInterface::class.java)
+        commentService.deleteCommentLike(commentIdx, getJwt()!!).enqueue(object: Callback<BaseResponse<deleteCommentLike>> {
+            //응답이 왔을 때 처리
+            override fun onResponse(call: Call<BaseResponse<deleteCommentLike>>, response: Response<BaseResponse<deleteCommentLike>>) {
+                Log.d("deleteCommentLike", "response")
+                val resp: BaseResponse<deleteCommentLike> = response.body()!!
+                Log.d("deleteCommentLikeCode", resp.code.toString())
+                when(resp.code){
+                    //API code값 사용
+                    200->deleteCommentLikeView.onDeleteCommentLikeSuccess(resp.code)
+                    else->deleteCommentLikeView.onDeleteCommentLikeFailure(resp.code)
+                }
+            }
+            //실패했을 때 처리
+            override fun onFailure(call: Call<BaseResponse<deleteCommentLike>>, t: Throwable) {
+                Log.d("deleteCommentLikeFail", t.toString())
             }
 
         })

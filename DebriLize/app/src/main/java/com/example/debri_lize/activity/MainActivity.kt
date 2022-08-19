@@ -4,10 +4,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.example.debri_lize.R
 import com.example.debri_lize.databinding.ActivityMainBinding
-import com.example.debri_lize.fragment.BoardFragment
-import com.example.debri_lize.fragment.ClassFragment
-import com.example.debri_lize.fragment.HomeFragment
-import com.example.debri_lize.fragment.CurriculumFragment
+import com.example.debri_lize.fragment.*
 
 class MainActivity : AppCompatActivity() {
     lateinit var binding : ActivityMainBinding
