@@ -12,14 +12,9 @@ import com.example.debri_lize.R
 import com.example.debri_lize.activity.AddCurriculumChooseActivity
 import com.example.debri_lize.activity.MainActivity
 import com.example.debri_lize.activity.auth.ProfileActivity
-import com.example.debri_lize.data.board.Board
-import com.example.debri_lize.data.board.BoardFavorite
 import com.example.debri_lize.databinding.FragmentAddCurriculumBinding
-import com.example.debri_lize.service.CurriculumService
 
 class AddCurriculumFragment : Fragment() {
-
-    lateinit var context: MainActivity
 
     lateinit var binding: FragmentAddCurriculumBinding
 
@@ -32,28 +27,11 @@ class AddCurriculumFragment : Fragment() {
         return binding.root
     }
 
-    //context 받아오기기
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
-        this.context = context as MainActivity
-    }
-
     override fun onStart() {
         super.onStart()
 
-        //click userImg -> profile
-        binding.addCurriculumDebriUserIv.setOnClickListener{
-            val intent = Intent(context, ProfileActivity::class.java)
-            startActivity(intent)
-        }
-
         binding.homeCurriculumPreviousIv.setOnClickListener{
-
-            //fragment to fragment
-            val passBundleBFragment = HomeFragment()
-            activity?.supportFragmentManager!!.beginTransaction()
-                .replace(R.id.main_frm, passBundleBFragment)
-                .commit()
+            //이전 커리로 이동
         }
 
         binding.addCurriculumCircleLayout.setOnClickListener{

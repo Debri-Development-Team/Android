@@ -16,6 +16,7 @@ data class Curriculum(
     @SerializedName(value = "curriIdx") val curriculumIdx: Int,
     @SerializedName(value = "curriName") val curriculumName: String? = "",
     @SerializedName(value = "curriAuthor") val curriculumAuthor: String? = "",
+    @SerializedName(value = "status") val status: String,
     @PrimaryKey(autoGenerate = true) var roomIdx : Int =0
 )
 

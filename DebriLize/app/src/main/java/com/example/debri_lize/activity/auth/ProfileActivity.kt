@@ -50,9 +50,9 @@ class ProfileActivity : AppCompatActivity() {
         //data : 전체
         datas.apply {
 
+            /*datas.add(Curriculum(1, "자바의 정석", "자바의 정석"))
             datas.add(Curriculum(1, "자바의 정석", "자바의 정석"))
-            datas.add(Curriculum(1, "자바의 정석", "자바의 정석"))
-            datas.add(Curriculum(1, "자바의 정석", "자바의 정석"))
+            datas.add(Curriculum(1, "자바의 정석", "자바의 정석"))*/
 
             curriculumRVAdapter.datas = datas
             curriculumRVAdapter.notifyDataSetChanged()

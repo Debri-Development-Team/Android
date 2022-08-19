@@ -7,18 +7,15 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.debri_lize.R
-import com.example.debri_lize.activity.PostDetailActivity
 import com.example.debri_lize.data.curriculum.ChapterList
 import com.example.debri_lize.data.curriculum.CompleteChapter
 import com.example.debri_lize.databinding.ItemCurriculumLectureImgBinding
-import com.example.debri_lize.fragment.HomeFragment
-import com.example.debri_lize.service.CommentService
+import com.example.debri_lize.fragment.HomeActiveFragment
 import com.example.debri_lize.service.CurriculumService
 import com.example.debri_lize.view.curriculum.CompleteChapterView
-import org.w3c.dom.Text
 import kotlin.properties.Delegates
 
-class ChapterRVAdapter(context: HomeFragment) : RecyclerView.Adapter<ChapterRVAdapter.ViewHolder>(), CompleteChapterView {
+class ChapterRVAdapter(context: HomeActiveFragment) : RecyclerView.Adapter<ChapterRVAdapter.ViewHolder>(), CompleteChapterView {
 
     var datas = ArrayList<ChapterList>()
     var fragment = context
