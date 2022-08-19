@@ -4,43 +4,56 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import android.view.*
 import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.ViewGroup.LayoutParams.WRAP_CONTENT
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.debri_lize.CustomDialog
 import com.example.debri_lize.R
+import com.example.debri_lize.activity.LectureDetailActivity
 import com.example.debri_lize.activity.MainActivity
 import com.example.debri_lize.activity.auth.ProfileActivity
 import com.example.debri_lize.adapter.home.ChapterRVAdapter
 import com.example.debri_lize.adapter.home.LectureRVAdapter
 import com.example.debri_lize.data.curriculum.*
-import com.example.debri_lize.databinding.FragmentHomeInactiveBinding
+import com.example.debri_lize.databinding.FragmentHomeActiveBinding
+
 import com.example.debri_lize.service.CurriculumService
-import com.example.debri_lize.utils.saveCurriIdx
+import com.example.debri_lize.utils.*
 import com.example.debri_lize.view.curriculum.*
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import java.sql.Timestamp
 import java.text.SimpleDateFormat
 import kotlin.properties.Delegates
 
-class HomeInactiveFragment(
+class HomeActiveFragment(
+
     private var curriculumIdx: Int,
     private var index: Int //my curriculum index
-) : Fragment(), ShowCurriculumDetailView, EditCurriculumNameView,
-    EditCurriculumVisibleView, EditCurriculumStatusView, DeleteCurriculumView {
+
+    ) : Fragment(), ShowCurriculumDetailView, EditCurriculumNameView,
+    EditCurriculumVisibleView, EditCurriculumStatusView, DeleteCurriculumView, ResetCurriculumView {
 
     lateinit var context: MainActivity
-    lateinit var binding: FragmentHomeInactiveBinding
 
+    lateinit var binding: FragmentHomeActiveBinding
+
+    lateinit var chapterRVAdapter: ChapterRVAdapter
     lateinit var lectureRVAdapter: LectureRVAdapter
 
+    var arrayImg = arrayOf(R.drawable.ic_lecture_green, R.drawable.ic_lecture_purple, R.drawable.ic_lecture_red)
+
+    val chapter = ArrayList<ChapterList>()
     val lecture = ArrayList<LectureList>()
+
 
     //api
     val curriculumService = CurriculumService()
@@ -50,13 +63,7 @@ class HomeInactiveFragment(
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = FragmentHomeInactiveBinding.inflate(inflater, container, false)
-
-        return binding.root
-    }
-
-    override fun onStart() {
-        super.onStart()
+        binding = FragmentHomeActiveBinding.inflate(inflater, container, false)
 
         //click userImg -> profile
         binding.homeDebriUserIv.setOnClickListener{
@@ -77,9 +84,11 @@ class HomeInactiveFragment(
                 .commit()
         }
 
-        //api - 8.3 커리큘럼 상세 조회 api : 홈
-        curriculumService.setShowCurriculumDetailView(this)
-        curriculumService.showCurriculumDetail(curriculumIdx)
+        //chapter
+        binding.homeCurriculumLectureImgRv.layoutManager =
+            LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
+        chapterRVAdapter = ChapterRVAdapter(this)
+        binding.homeCurriculumLectureImgRv.adapter = chapterRVAdapter
 
         //lecture
         binding.homeCurriculumLectureRv.layoutManager =
@@ -87,6 +96,12 @@ class HomeInactiveFragment(
         lectureRVAdapter = LectureRVAdapter()
         binding.homeCurriculumLectureRv.adapter = lectureRVAdapter
 
+        //api - 8.3 커리큘럼 상세 조회 api : 홈
+        curriculumService.setShowCurriculumDetailView(this)
+        Log.d("fragment cu", curriculumIdx.toString())
+        curriculumService.showCurriculumDetail(curriculumIdx)
+
+        return binding.root
     }
 
     //context 받아오기
@@ -102,7 +117,8 @@ class HomeInactiveFragment(
         bottomSheetView = layoutInflater.inflate(R.layout.fragment_bottom_sheet_four, null)
         bottomSheetDialog.setContentView(bottomSheetView)
 
-        //toast
+
+        //toast message
         var publicToast = layoutInflater.inflate(R.layout.toast_curri_public,null)
         var toast = Toast(context)
         toast.view = publicToast
@@ -112,6 +128,7 @@ class HomeInactiveFragment(
            bottomSheetView.findViewById<TextView>(R.id.bottom_sheet_four_tv1).text = "공개로 전환하기"
 
             //비공개 -> 공개
+           touchEvent(bottomSheetView.findViewById(R.id.bottom_sheet_four_tv1))
             bottomSheetView.findViewById<TextView>(R.id.bottom_sheet_four_tv1).setOnClickListener {
                 //공개 완료 토스트메세지
                 publicToast.findViewById<TextView>(R.id.toast_curri_public_tv).text = "커리큘럼이 공개로 변경되었습니다!"
@@ -131,9 +148,11 @@ class HomeInactiveFragment(
            bottomSheetView.findViewById<TextView>(R.id.bottom_sheet_four_tv1).text = "비공개로 전환하기"
 
            //공개 -> 비공개
+           touchEvent(bottomSheetView.findViewById(R.id.bottom_sheet_four_tv1))
            bottomSheetView.findViewById<TextView>(R.id.bottom_sheet_four_tv1).setOnClickListener{
                //비공개 완료 토스트메세지
                publicToast.findViewById<TextView>(R.id.toast_curri_public_tv).text = "커리큘럼이 비공개로 변경되었습니다!"
+               publicToast.findViewById<TextView>(R.id.toast_curri_public_tv).setTextSize(15F)
                publicToast.findViewById<ImageView>(R.id.toast_curri_public_mark_iv).setImageResource(R.drawable.ic_hide)
                toast.show()
 
@@ -148,6 +167,7 @@ class HomeInactiveFragment(
         }
 
         //커리큘럼 이름 변경하기
+        touchEvent(bottomSheetView.findViewById(R.id.bottom_sheet_four_tv2))
         bottomSheetView.findViewById<TextView>(R.id.bottom_sheet_four_tv2).setOnClickListener {
             curriculumService.setEditCurriculumNameView(this)
 
@@ -167,16 +187,17 @@ class HomeInactiveFragment(
         }
 
         //커리큘럼 초기화하기
+        touchEvent(bottomSheetView.findViewById(R.id.bottom_sheet_four_tv3))
         bottomSheetView.findViewById<TextView>(R.id.bottom_sheet_four_tv3).setOnClickListener {
+            curriculumService.setResetCurriculumView(this)
             //add dialog code
             val dialog = CustomDialog(context)
             dialog.initializeCurriDlg()
             //yes 버튼 클릭시
             dialog.setOnClickListener(object:CustomDialog.ButtonClickListener{
                 override fun onClicked(TF: Boolean) {
-
-                //api
-
+                    //api
+                    curriculumService.resetCurriculum(curriculumIdx)
                 }
 
             })
@@ -184,6 +205,7 @@ class HomeInactiveFragment(
         }
 
         //커리큘럼 삭제하기
+        touchEvent(bottomSheetView.findViewById(R.id.bottom_sheet_four_tv4))
         bottomSheetView.findViewById<TextView>(R.id.bottom_sheet_four_tv4).setOnClickListener {
             curriculumService.setDeleteCurriculumView(this)
 
@@ -210,6 +232,27 @@ class HomeInactiveFragment(
 
     }
 
+    private fun touchEvent(bind : TextView){
+        bind.setOnTouchListener(object : View.OnTouchListener {
+            override fun onTouch(view: View?, event: MotionEvent?): Boolean {
+                when (event?.action) {
+                    MotionEvent.ACTION_DOWN -> {
+                        bind.setTextColor(ContextCompat.getColor(context, R.color.white))
+                    }
+                    MotionEvent.ACTION_UP -> {
+                        bind.setTextColor(ContextCompat.getColor(context, R.color.darkmode_background))
+                        bind.performClick()
+                    }
+                }
+
+                //리턴값이 false면 동작 안됨
+                return true //or false
+            }
+
+
+        })
+    }
+
     //timestamp to date
     private fun timestampToDate(timestamp: Timestamp): String? {
         val sdf = SimpleDateFormat("yyyy년 MM월 dd일")
@@ -218,22 +261,93 @@ class HomeInactiveFragment(
         return date+"에 완성함"
     }
 
+    private fun waveAnimation(progressRate : Int){
+        binding.waveLoadingView.setProgressValue(progressRate)
+        binding.waveLoadingView.setAmplitudeRatio(50)
+        binding.waveLoadingView.setAnimDuration(8000)
+        binding.waveLoadingView.startAnimation()
+    }
+
     //8.3 커리큘럼 상세 조회 api : 홈
     override fun onShowCurriculumDetailSuccess(code: Int, result: CurriculumDetail) {
         when(code){
             200->{
-                //8.4.3 커리큘럼 활성 상태 수정 api
-                curriculumService.setEditCurriculumStatusView(this)
-                curriculumService.editCurriculumStatus(EditCurriculumStatus(curriculumIdx, "ACTIVE"))
+                //활성화
+
+                //chapter
+                //동적으로 화면 크기 지정
+                if(result.chapterListResList.isEmpty()){
+                    //recycler view size
+                    binding.homeCurriculumLectureImgRv.layoutParams = binding.homeCurriculumLectureImgRv.layoutParams.apply {
+                        this.height = (381 * getUISize("dpi"))
+                    }
+
+                    binding.homeCurriculumActiveCircle.setBackgroundResource(R.drawable.circle_border_red_opacity_30)
+                    binding.homeNoLectureTv.visibility = View.VISIBLE
+                    binding.waveLoadingView.visibility = View.GONE
+
+                }else if(result.chapterListResList.size == 1){
+
+                    //recycler view size
+                    binding.homeCurriculumLectureImgRv.layoutParams = binding.homeCurriculumLectureImgRv.layoutParams.apply {
+                        this.height = (250 * getUISize("dpi"))
+                    }
+
+                    val param = binding.homeCurriculumLectureImgRv.layoutParams as ViewGroup.MarginLayoutParams
+                    param.setMargins(30* getUISize("dpi"),131* getUISize("dpi"),30* getUISize("dpi"),0)
+                    binding.homeCurriculumLectureImgRv.layoutParams = param
+
+                    binding.homeCurriculumActiveCircle.setBackgroundResource(R.drawable.circle_debri_opacity_30)
+                    binding.homeNoLectureTv.visibility = View.GONE
+                    binding.waveLoadingView.visibility = View.VISIBLE
+
+                }else{
+                    //recycler view size
+                    binding.homeCurriculumLectureImgRv.layoutParams = binding.homeCurriculumLectureImgRv.layoutParams.apply {
+                        this.height = WRAP_CONTENT
+                    }
+
+                    val param = binding.homeCurriculumLectureImgRv.layoutParams as ViewGroup.MarginLayoutParams
+                    param.setMargins(30* getUISize("dpi"),15* getUISize("dpi"),30* getUISize("dpi"),0)
+                    binding.homeCurriculumLectureImgRv.layoutParams = param
+
+                    binding.homeCurriculumActiveCircle.setBackgroundResource(R.drawable.circle_debri_opacity_30)
+                    binding.homeNoLectureTv.visibility = View.GONE
+                    binding.waveLoadingView.visibility = View.VISIBLE
+                }
+
+                //chapter recycler view
+                chapter.clear()
+
+                var j = 0
+                chapter.apply {
+
+                    for(i in result.chapterListResList!!){
+                        //else if로 변경
+                        if(j%3==0){
+                            chapter.add(ChapterList(i.chIdx,i.chName,i.chNum,i.language,i.chComplete,i.progressOrder,i.completeChNum,arrayImg[0], i.lectureIdx, i.curriIdx))
+                        }
+                        if(j%3==1){
+                            chapter.add(ChapterList(i.chIdx,i.chName,i.chNum,i.language,i.chComplete,i.progressOrder,i.completeChNum,arrayImg[1], i.lectureIdx, i.curriIdx))
+                        }
+                        if(j%3==2){
+                            chapter.add(ChapterList(i.chIdx,i.chName,i.chNum,i.language,i.chComplete,i.progressOrder,i.completeChNum,arrayImg[2], i.lectureIdx, i.curriIdx))
+                        }
+                        j++
+                    }
+
+                    chapterRVAdapter.datas = chapter
+                    chapterRVAdapter.notifyDataSetChanged()
+                }
 
                 //move
                 if(index==0){
                     //1번째 커리큘럼
-                    binding.homeCurriculumPreviousIv.visibility = View.INVISIBLE
-                    binding.homeCurriculumNextIv.setOnClickListener{
-                        //다음 커리로 이동
+                        binding.homeCurriculumPreviousIv.visibility = View.INVISIBLE
+                        binding.homeCurriculumNextIv.setOnClickListener{
+                            //다음 커리로 이동
 
-                    }
+                        }
                 }else{
 
                     binding.homeCurriculumPreviousIv.visibility = View.VISIBLE
@@ -263,6 +377,7 @@ class HomeInactiveFragment(
                 binding.homeCurriculumDdayTv.text = "D-"+result.dday.toString()
 
                 //progress rate
+                waveAnimation(result.progressRate.toInt())
                 binding.homeCurriculumProgressTv2.text = result.progressRate.toInt().toString()
 
                 //lecture
@@ -279,7 +394,9 @@ class HomeInactiveFragment(
                     //click recyclerview item
                     lectureRVAdapter.setItemClickListener(object : LectureRVAdapter.OnItemClickListener {
                         override fun onClick(v: View, position: Int) {
-
+                            val intent = Intent(context, LectureDetailActivity::class.java)
+                            intent.putExtra("lectureIdx", lecture[position].lectureIdx)
+                            startActivity(intent)
 
                         }
                     })
@@ -344,6 +461,7 @@ class HomeInactiveFragment(
         when(code){
             200->{
                 Toast.makeText(context, "커리큘럼 삭제", Toast.LENGTH_SHORT).show()
+                //8.2 조회
             }
         }
     }
@@ -352,7 +470,19 @@ class HomeInactiveFragment(
 
     }
 
+    //8.11 커리큘럼 리셋 api
+    override fun onResetCurriculumSuccess(code: Int) {
+        when(code){
+            200->{
+                Toast.makeText(context, "커리큘럼 리셋", Toast.LENGTH_SHORT).show()
+                curriculumService.showCurriculumDetail(curriculumIdx)
+            }
+        }
+    }
 
+    override fun onResetCurriculumFailure(code: Int) {
+
+    }
 
 
 }
