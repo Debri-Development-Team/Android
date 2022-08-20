@@ -34,6 +34,12 @@ class AddCurriculumFragment : Fragment() {
             //이전 커리로 이동
         }
 
+        //click profile
+        binding.addCurriculumDebriUserIv.setOnClickListener{
+            val intent = Intent(context, ProfileActivity::class.java)
+            startActivity(intent)
+        }
+
         binding.addCurriculumCircleLayout.setOnClickListener{
             val intent = Intent(context, AddCurriculumChooseActivity::class.java)
             startActivity(intent)

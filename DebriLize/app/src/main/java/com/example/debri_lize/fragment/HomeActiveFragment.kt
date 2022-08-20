@@ -49,7 +49,7 @@ class HomeActiveFragment(
     lateinit var chapterRVAdapter: ChapterRVAdapter
     lateinit var lectureRVAdapter: LectureRVAdapter
 
-    var arrayImg = arrayOf(R.drawable.ic_lecture_green, R.drawable.ic_lecture_purple, R.drawable.ic_lecture_red)
+    var arrayImg = arrayOf(R.drawable.ic_lecture_1, R.drawable.ic_lecture_2, R.drawable.ic_lecture_3)
 
     val chapter = ArrayList<ChapterList>()
     val lecture = ArrayList<LectureList>()
@@ -385,7 +385,7 @@ class HomeActiveFragment(
 
                 lecture.apply {
                     for(i in result.lectureListResList){
-                        lecture.add(LectureList(i.lectureIdx,i.lectureName,i.language,i.chNum,i.progressRate))
+                        lecture.add(LectureList(i.lectureIdx,i.lectureName,i.language,i.chNum,i.progressRate,i.type,i.price,i.usedCnt,i.scrapStatus,i.likeStatus))
                     }
 
                     lectureRVAdapter.datas = lecture
@@ -396,6 +396,7 @@ class HomeActiveFragment(
                         override fun onClick(v: View, position: Int) {
                             val intent = Intent(context, LectureDetailActivity::class.java)
                             intent.putExtra("lectureIdx", lecture[position].lectureIdx)
+                            intent.putExtra("lectureName", lecture[position].lectureName)
                             startActivity(intent)
 
                         }

@@ -33,7 +33,9 @@ data class CurriculumDetail(
     @SerializedName(value = "createdAt") val createdAt: Timestamp,
     @SerializedName(value = "lectureListResList") val lectureListResList: List<LectureList>,
     @SerializedName(value = "chapterListResList") val chapterListResList: List<ChapterList>,
-    @SerializedName(value = "dday") val dday: Int
+    @SerializedName(value = "dday") val dday: Int,
+    @SerializedName(value = "curriDesc") val curriDesc: String
+
 ) : Serializable
 
 data class LectureList(
@@ -41,7 +43,12 @@ data class LectureList(
     @SerializedName(value = "lectureName") val lectureName: String? = "",
     @SerializedName(value = "langTag") val language: String? = "",
     @SerializedName(value = "chNumber") val chNum: Int,
-    @SerializedName(value = "progressRate") val progressRate: Float
+    @SerializedName(value = "progressRate") val progressRate: Float,
+    @SerializedName(value = "type") var type : String,
+    @SerializedName(value = "pricing") var price : String,
+    @SerializedName(value = "usedCount") var usedCnt : Int,
+    @SerializedName(value = "scrapStatus") var scrapStatus : String, //즐찾여부
+    @SerializedName(value = "likeStatus") var likeStatus : String
 )
 
 data class ChapterList(

@@ -384,6 +384,7 @@ class ClassFragment : Fragment(), LectureFavoriteView, LectureFilterView {
                             //LectureDetailActivity에 data보내기
                             val intent = Intent(context, LectureDetailActivity::class.java)
                             intent.putExtra("lectureIdx", datas_f[position].lectureIdx)
+                            intent.putExtra("lectureName", datas_f[position].lectureName)
                             Log.d("lectureIdxClass", datas_f[position].lectureIdx.toString())
                             startActivity(intent)
 
@@ -424,6 +425,7 @@ class ClassFragment : Fragment(), LectureFavoriteView, LectureFilterView {
                             //LectureDetailActivity에 data보내기
                             val intent = Intent(context, LectureDetailActivity::class.java)
                             intent.putExtra("lectureIdx", datas[position].lectureIdx)
+                            intent.putExtra("lectureName", datas[position].lectureName)
                             Log.d("lectureIdxClass", datas[position].lectureIdx.toString())
                             startActivity(intent)
 
