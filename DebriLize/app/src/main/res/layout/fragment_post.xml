@@ -42,8 +42,8 @@
                 <ImageView
                     android:id="@+id/post_debri_user_iv"
                     android:layout_width="54dp"
-                    android:layout_height="54dp"
-                    android:src="@drawable/ic_profile"/>
+                    android:layout_height="39dp"
+                    android:src="@drawable/ic_profile" />
             </LinearLayout>
 
             <LinearLayout

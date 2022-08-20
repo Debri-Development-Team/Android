@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.example.debri_lize">
 
-    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:name=".utils.ApplicationClass"
@@ -17,10 +17,18 @@
         android:theme="@style/Theme.DebriLize"
         tools:targetApi="31">
         <activity
+            android:name=".CurriculumActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activity.CurriculumActivity"
+            android:exported="false"
+            android:label="@string/title_activity_curriculum"
+            android:theme="@style/Theme.DebriLize.NoActionBar" />
+        <activity
             android:name=".activity.SplashActivity"
-            android:screenOrientation="portrait"
+            android:exported="true"
             android:noHistory="true"
-            android:exported="true">
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -29,43 +37,40 @@
         </activity>
         <activity
             android:name=".activity.auth.LoginActivity"
-            android:exported="true"/>
+            android:exported="true" />
         <activity
             android:name=".activity.auth.SignUpActivity"
-            android:exported="true"/>
+            android:exported="true" />
         <activity
             android:name=".activity.AddCurriculumActivity"
-            android:exported="true"/>
+            android:exported="true" />
         <activity
             android:name=".activity.AddCurriculumChooseActivity"
-            android:exported="true"/>
+            android:exported="true" />
         <activity
             android:name=".activity.AddRoadmapDetailActivity"
-            android:exported="true"/>
+            android:exported="true" />
         <activity
             android:name=".activity.AddCurriculumDetailActivity"
-            android:exported="true"/>
+            android:exported="true" />
         <activity
             android:name=".activity.LectureDetailActivity"
-            android:exported="true"/>
+            android:exported="true" />
         <activity
             android:name=".activity.PostListActivity"
-            android:exported="true"/>
+            android:exported="true" />
         <activity
             android:name=".activity.PostCreateActivity"
-            android:exported="true"/>
+            android:exported="true" />
         <activity
             android:name=".activity.PostDetailActivity"
-            android:exported="true"/>
+            android:exported="true" />
         <activity
             android:name=".activity.MainActivity"
-            android:exported="true"/>
+            android:exported="true" />
         <activity
             android:name=".activity.auth.ProfileActivity"
-            android:exported="true"/>
-
-
-
+            android:exported="true" />
     </application>
 
 </manifest>
