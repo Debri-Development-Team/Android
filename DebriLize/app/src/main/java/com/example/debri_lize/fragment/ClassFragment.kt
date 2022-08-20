@@ -72,6 +72,49 @@ class ClassFragment : Fragment(), LectureFavoriteView, LectureFilterView {
             bottomSheet()
         }
 
+        //focus
+        binding.classSearchEt.setOnFocusChangeListener(object : View.OnFocusChangeListener {
+            override fun onFocusChange(view: View, hasFocus: Boolean) {
+                if (hasFocus) {
+                    //  포커스시
+                    binding.classSearchLayout.setBackgroundResource(R.drawable.border_round_debri_transparent_10)
+                    binding.classSearchIv.setImageResource(R.drawable.btm_nav_search_on)
+                } else {
+                    //  포커스 뺏겼을 때
+                    binding.classSearchLayout.setBackgroundResource(R.drawable.border_round_white_transparent_10)
+                    binding.classSearchIv.setImageResource(R.drawable.btm_nav_search)
+                }
+            }
+        })
+
+        //click userImg -> profile
+        binding.classDebriUserIv.setOnClickListener{
+            val intent = Intent(context, ProfileActivity::class.java)
+            startActivity(intent)
+        }
+
+        //검색어 입력 : search Lecture
+        binding.classSearchEt.addTextChangedListener(object : TextWatcher{
+            //입력이 끝날 때
+            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+
+            }
+            //입력하기 전에
+            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+
+            }
+            //타이핑되는 텍스트에 변화가 있을 때
+            override fun afterTextChanged(p0: Editable?) {
+                val searchText: String = binding.classSearchEt.text.toString()
+                Log.d("editText","$searchText")
+                lectureFilter.key = searchText
+                if(searchText=="")  filterNum2 = 0
+                else filterNum2 = 1
+                showList()
+            }
+
+        })
+
     }
 
     //bottom sheet
@@ -117,27 +160,7 @@ class ClassFragment : Fragment(), LectureFavoriteView, LectureFilterView {
             bottomSheetDialog.dismiss()
         }
 
-        //검색어 입력 : search Lecture
-        binding.classSearchEt.addTextChangedListener(object : TextWatcher{
-            //입력이 끝날 때
-            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
 
-            }
-            //입력하기 전에
-            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-
-            }
-            //타이핑되는 텍스트에 변화가 있을 때
-            override fun afterTextChanged(p0: Editable?) {
-                val searchText: String = binding.classSearchEt.text.toString()
-                Log.d("editText","$searchText")
-                lectureFilter.key = searchText
-                if(searchText=="")  filterNum2 = 0
-                else filterNum2 = 1
-                showList()
-            }
-
-        })
     }
 
     private fun touchEvent(bind : TextView){
@@ -177,6 +200,7 @@ class ClassFragment : Fragment(), LectureFavoriteView, LectureFilterView {
         classService.showLectureSearch(lectureFilter)
     }
 
+
     private fun onRadioButtonClicked(){
         //언어
         //front
@@ -185,7 +209,6 @@ class ClassFragment : Fragment(), LectureFavoriteView, LectureFilterView {
                 binding.classCurriTagBackCb.visibility = View.GONE
                 binding.classCurriTagCCb.visibility = View.GONE
                 binding.classCurriTagPythonCb.visibility = View.GONE
-
 
                 filterNum++
                 lectureFilter.lang = button.text.toString()
@@ -197,6 +220,7 @@ class ClassFragment : Fragment(), LectureFavoriteView, LectureFilterView {
                 filterNum--
                 lectureFilter.lang = ""
             }
+
             showList()
 
         }

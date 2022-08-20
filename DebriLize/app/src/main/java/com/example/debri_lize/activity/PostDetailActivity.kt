@@ -191,8 +191,9 @@ class PostDetailActivity : AppCompatActivity(), PostDetailView, CommentCreateVie
                 touchEvent(bottomSheetComplainDetailDialog.findViewById(R.id.bottom_sheet_complain_page_tv1)!!)
                 bottomSheetComplainDetailDialog.findViewById<TextView>(R.id.bottom_sheet_complain_page_tv1)!!
                     .setOnClickListener {
-                        //api
-                        reportService.reportPost(ReportPost(postIdx, "광고, 스팸"))
+
+                        //유저 신고 다이얼로그
+                        reportDlg("광고, 스팸")
 
                         //다이얼로그 닫기
                         bottomSheetComplainDetailDialog.dismiss()
@@ -401,6 +402,35 @@ class PostDetailActivity : AppCompatActivity(), PostDetailView, CommentCreateVie
             bottomSheetDialog.dismiss()
         }
 
+    }
+
+    private fun reportDlg(text: String){
+        //신고 다이얼로그
+        val dialog = CustomDialog(this)
+        dialog.reportPostUserDlg()
+        val dialogETC = CustomDialog(this)
+        dialog.setOnClickListener(object:CustomDialog.ButtonClickListener {
+            override fun onClicked(TF: Boolean) {
+                //신고 사유 : 유저 신고 시 reason 필요
+                dialogETC.showReportDlg()
+                dialogETC.setOnClickListenerETC(object:CustomDialog.ButtonClickListenerETC {
+                    override fun onClicked(TF: Boolean, reason: String) {
+                        //유저 신고&차단 api
+                        reportService.reportUser(reason, postIdx)
+
+                    }
+
+                })
+            }
+
+        })
+        /* 게시물 신고 후 유저 신고하면 오류
+        * 유저 신고 -> 게시물 신고 해야함
+        * api - post report
+        * 근데 이렇게 해도 에러남 ..
+        * 하원님이 팀원들이랑 회의해본다고 해씀
+        */
+        reportService.reportPost(ReportPost(postIdx, text))
     }
 
     private fun touchEvent(bind : TextView){
@@ -662,29 +692,7 @@ class PostDetailActivity : AppCompatActivity(), PostDetailView, CommentCreateVie
     override fun onReportPostSuccess(code: Int) {
         when(code){
             200->{
-                //신고 다이얼로그
-                val dialog = CustomDialog(this)
-                dialog.reportPostUserDlg()
-                val dialogETC = CustomDialog(this)
-                dialog.setOnClickListener(object:CustomDialog.ButtonClickListener {
-                    override fun onClicked(TF: Boolean) {
-                        //신고 사유 : 유저 신고 시 reason 필요
 
-                        dialogETC.showReportDlg()
-                        dialogETC.setOnClickListenerETC(object:CustomDialog.ButtonClickListenerETC {
-                            override fun onClicked(TF: Boolean, reason: String) {
-                                //유저 신고&차단 api
-//                                Log.d("userreason","$reason")
-//                                Log.d("userpostidx","$postIdx")
-                                reportService.reportUser(reason, postIdx)
-                                //화면 전환 추가
-
-                            }
-
-                        })
-                    }
-
-                })
 
             }
         }
