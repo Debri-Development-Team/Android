@@ -1,11 +1,13 @@
 package com.example.debri_lize.activity
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import com.example.debri_lize.R
+import com.example.debri_lize.activity.auth.ProfileActivity
 import com.example.debri_lize.adapter.class_.ClassLectureRVAdapter
 import com.example.debri_lize.data.class_.Lecture
 import com.example.debri_lize.data.curriculum.RoadMap
@@ -28,6 +30,16 @@ class AddRoadmapDetailActivity : AppCompatActivity(), ShowRoadMapDetailView {
         setContentView(binding.root)
 
         Glide.with(this).load(R.raw.curriculum).into(binding.itemCurriculumStatusIv)
+        //click profile
+        binding.profileCurriculumNextIv.setOnClickListener{
+            val intent = Intent(this, ProfileActivity::class.java)
+            startActivity(intent)
+        }
+
+        //backbtn
+        binding.profileCurriculumNextIv.setOnClickListener{
+            finish()
+        }
 
         //lecture recycler view
         binding.addRoadmapLectureRv.layoutManager =

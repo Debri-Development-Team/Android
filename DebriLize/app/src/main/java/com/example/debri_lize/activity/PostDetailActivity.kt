@@ -58,6 +58,11 @@ class PostDetailActivity : AppCompatActivity(), PostDetailView, CommentCreateVie
         binding = ActivityPostDetailBinding.inflate(layoutInflater) //binding 초기화
         setContentView(binding.root)
 
+        //backbtn
+        binding.postDetailPreviousIv.setOnClickListener{
+            finish()
+        }
+
         //api - post
         postService.setPostDetailView(this)
 

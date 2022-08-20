@@ -28,14 +28,15 @@ class HomeFragment : Fragment(), MyCurriculumListView {
     ): View? {
         binding = FragmentHomeBinding.inflate(inflater, container, false)
 
+        return binding.root
+    }
 
-
+    override fun onResume() {
+        super.onResume()
         //api - 8.2 커리큘럼 리스트 조회 api
         val curriculumService = CurriculumService()
         curriculumService.setMyCurriculumListView(this)
         curriculumService.myCurriculumList()
-
-        return binding.root
     }
 
     //api

@@ -15,6 +15,7 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.debri_lize.CustomDialog
 import com.example.debri_lize.R
+import com.example.debri_lize.activity.LectureDetailActivity
 import com.example.debri_lize.activity.MainActivity
 import com.example.debri_lize.activity.auth.ProfileActivity
 import com.example.debri_lize.adapter.home.ChapterRVAdapter
@@ -270,7 +271,7 @@ class HomeInactiveFragment(
 
                 lecture.apply {
                     for(i in result.lectureListResList){
-                        lecture.add(LectureList(i.lectureIdx,i.lectureName,i.language,i.chNum,i.progressRate))
+                        lecture.add(LectureList(i.lectureIdx,i.lectureName,i.language,i.chNum,i.progressRate,i.type,i.price,i.usedCnt,i.scrapStatus,i.likeStatus))
                     }
 
                     lectureRVAdapter.datas = lecture
@@ -279,7 +280,10 @@ class HomeInactiveFragment(
                     //click recyclerview item
                     lectureRVAdapter.setItemClickListener(object : LectureRVAdapter.OnItemClickListener {
                         override fun onClick(v: View, position: Int) {
-
+                            val intent = Intent(context, LectureDetailActivity::class.java)
+                            intent.putExtra("lectureIdx", lecture[position].lectureIdx)
+                            intent.putExtra("lectureName", lecture[position].lectureName)
+                            startActivity(intent)
 
                         }
                     })
