@@ -13,6 +13,8 @@ import com.example.debri_lize.view.auth.SignUpView
 import com.example.debri_lize.databinding.ActivitySignupBinding
 import java.util.regex.Matcher
 import java.util.regex.Pattern
+import kotlin.concurrent.thread
+import kotlin.concurrent.timer
 
 class SignUpActivity:AppCompatActivity(), SignUpView {
     lateinit var binding: ActivitySignupBinding
@@ -74,7 +76,7 @@ class SignUpActivity:AppCompatActivity(), SignUpView {
             idTF = true
         }else{
             Log.d("id","$id")
-            Toast.makeText(this, "아이디 형식이 잘못되었습니다.", Toast.LENGTH_SHORT).show()
+//            Toast.makeText(this, "아이디 형식이 잘못되었습니다.", Toast.LENGTH_SHORT).show()
             idTF = false
 
             //return
@@ -86,7 +88,7 @@ class SignUpActivity:AppCompatActivity(), SignUpView {
             pwTF = true
             pwCkTF = true
         }else{
-            Toast.makeText(this, "비밀번호가 일치하지 않습니다.", Toast.LENGTH_SHORT).show()
+//            Toast.makeText(this, "비밀번호가 일치하지 않습니다.", Toast.LENGTH_SHORT).show()
             Log.d("pw","$password")
             pwTF = false
             pwCkTF = false
@@ -96,7 +98,7 @@ class SignUpActivity:AppCompatActivity(), SignUpView {
 
         //닉네임 형식이 맞지 않는 경우
         if(nickname.isEmpty()){
-            Toast.makeText(this, "닉네임 형식이 잘못되었습니다.", Toast.LENGTH_SHORT).show()
+//            Toast.makeText(this, "닉네임 형식이 잘못되었습니다.", Toast.LENGTH_SHORT).show()
             nicknameTF = false
 
             //return
@@ -104,7 +106,7 @@ class SignUpActivity:AppCompatActivity(), SignUpView {
 
         //생일 형식이 맞지 않는 경우
         if(birthday.isEmpty()){
-            Toast.makeText(this, "생일 형식이 잘못되었습니다.", Toast.LENGTH_SHORT).show()
+//            Toast.makeText(this, "생일 형식이 잘못되었습니다.", Toast.LENGTH_SHORT).show()
             birthTF = false
 
             //return
@@ -119,6 +121,14 @@ class SignUpActivity:AppCompatActivity(), SignUpView {
         }else{
             binding.signUpSignUpBtn.setTextColor(ContextCompat.getColor(this@SignUpActivity, R.color.red))
             binding.signUpSignUpBtn.setBackgroundResource(R.drawable.border_round_red_transparent_6)
+            thread(start = true){
+                Thread.sleep(1300)
+                runOnUiThread{
+                    binding.signUpSignUpBtn.setTextColor(ContextCompat.getColor(this@SignUpActivity, R.color.white))
+                    binding.signUpSignUpBtn.setBackgroundResource(R.drawable.border_round_transparent_gray_6)
+
+                }
+            }
             return
         }
 
@@ -137,6 +147,15 @@ class SignUpActivity:AppCompatActivity(), SignUpView {
             binding.signUpIdLayout.setBackgroundResource(R.drawable.border_round_red_transparent_10)
             binding.signUpIdBarV.setBackgroundResource(R.drawable.vertical_line_red_2)
             binding.signUpIdTv.setTextColor(ContextCompat.getColor(this@SignUpActivity, R.color.red))
+            //1초 후 효과 없애기
+            thread(start = true){
+                Thread.sleep(1300)
+                runOnUiThread{
+                    binding.signUpIdLayout.setBackgroundResource(R.drawable.border_round_white_transparent_10)
+                    binding.signUpIdBarV.setBackgroundResource(R.drawable.vertical_line_white_1)
+                    binding.signUpIdTv.setTextColor(ContextCompat.getColor(this@SignUpActivity, R.color.white))
+                }
+            }
         }
         if(!pwTF || !pwCkTF){
             binding.signUpPasswordLayout.setBackgroundResource(R.drawable.border_round_red_transparent_10)
@@ -146,19 +165,57 @@ class SignUpActivity:AppCompatActivity(), SignUpView {
             binding.signUpPasswordCheckLayout.setBackgroundResource(R.drawable.border_round_red_transparent_10)
             binding.signUpPasswordCheckBarV.setBackgroundResource(R.drawable.vertical_line_red_2)
             binding.signUpPasswordCheckTv.setTextColor(ContextCompat.getColor(this@SignUpActivity, R.color.red))
+
+            thread(start = true){
+                Thread.sleep(1300)
+                runOnUiThread{
+                    binding.signUpPasswordLayout.setBackgroundResource(R.drawable.border_round_white_transparent_10)
+                    binding.signUpPasswordBarV.setBackgroundResource(R.drawable.vertical_line_white_1)
+                    binding.signUpPasswordTv.setTextColor(ContextCompat.getColor(this@SignUpActivity, R.color.white))
+
+                    binding.signUpPasswordCheckLayout.setBackgroundResource(R.drawable.border_round_white_transparent_10)
+                    binding.signUpPasswordCheckBarV.setBackgroundResource(R.drawable.vertical_line_white_1)
+                    binding.signUpPasswordCheckTv.setTextColor(ContextCompat.getColor(this@SignUpActivity, R.color.white))
+                }
+            }
         }
         if(!nicknameTF){
             binding.signUpNicknameLayout.setBackgroundResource(R.drawable.border_round_red_transparent_10)
             binding.signUpNicknameBarV.setBackgroundResource(R.drawable.vertical_line_red_2)
             binding.signUpNicknameTv.setTextColor(ContextCompat.getColor(this@SignUpActivity, R.color.red))
+
+            thread(start = true){
+                Thread.sleep(1300)
+                runOnUiThread{
+                    binding.signUpNicknameLayout.setBackgroundResource(R.drawable.border_round_white_transparent_10)
+                    binding.signUpNicknameBarV.setBackgroundResource(R.drawable.vertical_line_white_1)
+                    binding.signUpNicknameTv.setTextColor(ContextCompat.getColor(this@SignUpActivity, R.color.white))
+                }
+            }
         }
         if(!birthTF){
             binding.signUpBirthLayout.setBackgroundResource(R.drawable.border_round_red_transparent_10)
             binding.signUpBirthBarV.setBackgroundResource(R.drawable.vertical_line_red_2)
             binding.signUpBirthTv.setTextColor(ContextCompat.getColor(this@SignUpActivity, R.color.red))
+
+            thread(start = true){
+                Thread.sleep(1300)
+                runOnUiThread{
+                    binding.signUpBirthLayout.setBackgroundResource(R.drawable.border_round_white_transparent_10)
+                    binding.signUpBirthBarV.setBackgroundResource(R.drawable.vertical_line_white_1)
+                    binding.signUpBirthTv.setTextColor(ContextCompat.getColor(this@SignUpActivity, R.color.white))
+                }
+            }
         }
         if(!agree2TF){
             binding.signUpAgree2Layout.setBackgroundResource(R.drawable.border_round_red_gray_6)
+
+            thread(start = true){
+                Thread.sleep(1300)
+                runOnUiThread{
+                    binding.signUpAgree2Layout.setBackgroundResource(R.drawable.border_round_transparent_gray_6)
+                }
+            }
         }
     }
 
@@ -289,6 +346,7 @@ class SignUpActivity:AppCompatActivity(), SignUpView {
         }
 
     }
+
 
     //focus effect
     private fun setFocus(){
