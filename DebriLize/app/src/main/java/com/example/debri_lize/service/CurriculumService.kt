@@ -250,6 +250,7 @@ class CurriculumService {
             //응답이 왔을 때 처리
             override fun onResponse(call: Call<BaseResponse<String>>, response: Response<BaseResponse<String>>) {
                 Log.d("deleteCurri", "response")
+                Log.d("response","${response}")
                 val resp: BaseResponse<String> = response.body()!!
                 Log.d("deleteCurriCode", resp.code.toString())
                 when(resp.code){

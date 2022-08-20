@@ -130,7 +130,7 @@ class ClassFragment : Fragment(), LectureFavoriteView, LectureFilterView {
             //타이핑되는 텍스트에 변화가 있을 때
             override fun afterTextChanged(p0: Editable?) {
                 val searchText: String = binding.classSearchEt.text.toString()
-                //Log.d("editText","$searchText")
+                Log.d("editText","$searchText")
                 lectureFilter.key = searchText
                 if(searchText=="")  filterNum2 = 0
                 else filterNum2 = 1

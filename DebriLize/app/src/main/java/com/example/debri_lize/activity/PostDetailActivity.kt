@@ -674,7 +674,11 @@ class PostDetailActivity : AppCompatActivity(), PostDetailView, CommentCreateVie
                         dialogETC.setOnClickListenerETC(object:CustomDialog.ButtonClickListenerETC {
                             override fun onClicked(TF: Boolean, reason: String) {
                                 //유저 신고&차단 api
+//                                Log.d("userreason","$reason")
+//                                Log.d("userpostidx","$postIdx")
                                 reportService.reportUser(reason, postIdx)
+                                //화면 전환 추가
+
                             }
 
                         })
