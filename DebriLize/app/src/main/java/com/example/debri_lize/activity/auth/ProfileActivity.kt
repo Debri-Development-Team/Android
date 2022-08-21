@@ -5,9 +5,11 @@ import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.debri_lize.R
 import com.example.debri_lize.adapter.home.CurriculumRVAdapter
 import com.example.debri_lize.data.curriculum.Curriculum
 import com.example.debri_lize.databinding.ActivityProfileBinding
+import com.example.debri_lize.fragment.ScrapPostFragment
 import com.example.debri_lize.utils.ApplicationClass
 import com.example.debri_lize.utils.getUserID
 import com.example.debri_lize.utils.getUserName
@@ -38,6 +40,16 @@ class ProfileActivity : AppCompatActivity() {
         binding.profileUserIdTv.text = getUserID()
 
         initRecyclerView()
+
+        //ProfileActivity -> ScrapPostFragment
+        binding.profileScrapPostLayout.setOnClickListener{
+
+//            val passBundleBFragment = ScrapPostFragment()
+//            //activity to fragment
+//            supportFragmentManager.beginTransaction()
+//                .replace(R.id.profile, ScrapPostFragment())
+//                .commit()
+        }
     }
 
     private fun initRecyclerView(){
