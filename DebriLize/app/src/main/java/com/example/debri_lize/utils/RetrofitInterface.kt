@@ -213,7 +213,19 @@ interface RetrofitInterface {
     @PATCH("api/curri/chapter/status")
     fun completeChapter(@Body completeChapter : CompleteChapter, @Header("ACCESS-TOKEN") authToken: String) : Call<BaseResponse<String>>
 
-    //8.10 커리큘럼 좋아요(추천) TOP 10 리스트 조회 api
+    //8.8 커리큘럼 좋아요(추천) 생성 api
+    @POST("api/curri/scrap/{curriIdx}")
+    fun createCurriLike(@Path("curriIdx") curriIdx:Int, @Header("ACCESS-TOKEN") authToken: String) : Call<BaseResponse<CurriculumLike>>
+
+    //8.9 커리큘럼 좋아요(추천) 취소 api
+    @PATCH("api/curri/unScrap/{scrapIdx}")
+    fun cancelCurriLike(@Path("scrapIdx") scrapIdx:Int, @Header("ACCESS-TOKEN") authToken: String) : Call<BaseResponse<String>>
+
+    //8.10 커리큘럼 좋아요(추천) 리스트 조회 api
+    @GET("api/curri/getScrapList")
+    fun showScrapCurriList(@Header("ACCESS-TOKEN") authToken: String) : Call<BaseResponse<List<Curriculum>>>
+
+    //8.10.1 커리큘럼 좋아요(추천) TOP 10 리스트 조회 api
     @GET("api/curri/scrap/topList")
     fun showTop10List(@Header("ACCESS-TOKEN") authToken: String) : Call<BaseResponse<List<Top10>>>
 

@@ -61,26 +61,226 @@
                 android:layout_marginTop="30dp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/curri_debri_layout"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:id="@+id/curriculum_scrap_layout"
+                android:layout_marginTop="15dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/curri_name_tv"
+                android:gravity="center_vertical"
+                android:background="@drawable/border_round_debri_transparent_10"
+                android:layout_marginStart="30dp"
+                android:layout_marginEnd="30dp">
+
+                <ImageView
+                    android:id="@+id/curriculum_scrap_iv"
+                    android:layout_width="17dp"
+                    android:layout_height="19.12dp"
+                    android:src="@drawable/ic_like_on"
+                    android:layout_marginStart="15dp" />
+
+                <TextView
+                    android:id="@+id/curriculum_scrap_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@null"
+                    android:text="내가 추천한 커리큘럼"
+                    android:textColor="@color/white"
+                    android:textSize="14dp"
+                    android:fontFamily="@font/noto_sans_kr_bold"
+                    android:includeFontPadding="false"
+                    android:layout_marginStart="19.5dp"/>
+
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_weight="1" />
+
+                <ImageView
+                    android:id="@+id/item_profile_scrap_curri_next_iv"
+                    android:layout_width="9.44dp"
+                    android:layout_height="16.96dp"
+                    android:src="@drawable/btn_next"
+                    android:layout_marginEnd="15.9dp" />
+
+            </LinearLayout>
+
             <TextView
                 android:id="@+id/curri_comment_tv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="현재 가장 핫한 커리큘럼들을 확인해보세요"
+                android:text="TOP 5, 유저들이 추천하는 커리큘럼 리스트"
                 android:fontFamily="@font/noto_sans_kr_regular"
                 android:includeFontPadding="false"
                 android:textColor="@color/white"
                 android:textSize="12sp"
-                android:layout_marginStart="30dp"
-                android:layout_marginTop="5dp"
+                android:layout_marginStart="35dp"
+                android:layout_marginTop="20dp"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/curri_name_tv"/>
+                app:layout_constraintTop_toBottomOf="@id/curriculum_scrap_layout"/>
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/curriculum_rv"
+            <LinearLayout
+                android:id="@+id/curriculum_rv_layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="17dp"
-                android:layout_marginStart="80dp"
+                android:layout_marginEnd="30dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/curri_comment_tv">
+                <LinearLayout
+                    android:layout_width="100dp"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="96dp"
+                        android:gravity="center">
+                        <TextView
+                            android:layout_width="35dp"
+                            android:layout_height="35dp"
+                            android:text="1"
+                            android:fontFamily="@font/noto_sans_kr_black"
+                            android:includeFontPadding="false"
+                            android:textSize="15dp"
+                            android:textColor="@color/darkmode_background"
+                            android:background="@drawable/border_round_transparent_gray_10"
+                            android:gravity="center"/>
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="96dp"
+                        android:gravity="center">
+                        <TextView
+                            android:layout_width="35dp"
+                            android:layout_height="35dp"
+                            android:text="2"
+                            android:fontFamily="@font/noto_sans_kr_black"
+                            android:includeFontPadding="false"
+                            android:textSize="15dp"
+                            android:textColor="@color/darkmode_background"
+                            android:background="@drawable/border_round_transparent_gray_10"
+                            android:gravity="center"/>
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="96dp"
+                        android:gravity="center">
+                        <TextView
+                            android:layout_width="35dp"
+                            android:layout_height="35dp"
+                            android:text="3"
+                            android:fontFamily="@font/noto_sans_kr_black"
+                            android:includeFontPadding="false"
+                            android:textSize="15dp"
+                            android:textColor="@color/darkmode_background"
+                            android:background="@drawable/border_round_transparent_gray_10"
+                            android:gravity="center"/>
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="96dp"
+                        android:gravity="center">
+                        <TextView
+                            android:layout_width="35dp"
+                            android:layout_height="35dp"
+                            android:text="4"
+                            android:fontFamily="@font/noto_sans_kr_black"
+                            android:includeFontPadding="false"
+                            android:textSize="15dp"
+                            android:textColor="@color/darkmode_background"
+                            android:background="@drawable/border_round_transparent_gray_10"
+                            android:gravity="center"/>
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="96dp"
+                        android:gravity="center">
+                        <TextView
+                            android:layout_width="35dp"
+                            android:layout_height="35dp"
+                            android:text="5"
+                            android:fontFamily="@font/noto_sans_kr_black"
+                            android:includeFontPadding="false"
+                            android:textSize="15dp"
+                            android:textColor="@color/darkmode_background"
+                            android:background="@drawable/border_round_transparent_gray_10"
+                            android:gravity="center"/>
+                    </LinearLayout>
+
+
+
+                </LinearLayout>
+
+
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/curriculum_rv"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:overScrollMode="never"
+                    android:nestedScrollingEnabled="false"
+                    tools:listitem="@layout/item_curriculum_profile"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.0"
+                     />
+            </LinearLayout>
+
+
+            <TextView
+                android:id="@+id/curriculum_recent_register_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="최신 등록 커리큘럼"
+                android:textSize="12dp"
+                android:textColor="@color/white"
+                android:fontFamily="@font/noto_sans_kr_regular"
+                android:includeFontPadding="false"
+                android:layout_marginStart="35dp"
+                android:layout_marginTop="40dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/curriculum_rv_layout"/>
+
+            <LinearLayout
+                android:id="@+id/curriculum_live_layout"
+                android:layout_width="43dp"
+                android:layout_height="16dp"
+                android:orientation="horizontal"
+                android:layout_marginTop="40dp"
+                android:layout_marginEnd="30dp"
+                android:background="@drawable/border_round_red_transparent_9"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/curriculum_rv_layout"
+                android:gravity="center">
+
+                <ImageView
+                    android:id="@+id/curriculum_live_iv"
+                    android:layout_width="8dp"
+                    android:layout_height="8dp"
+                    android:src="@drawable/ic_circle_red" />
+
+
+                <TextView
+                    android:id="@+id/curriculum_live_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/noto_sans_kr_bold"
+                    android:includeFontPadding="false"
+                    android:text="LIVE"
+                    android:textColor="@color/red"
+                    android:textSize="8dp"
+                    android:layout_marginStart="6dp"/>
+            </LinearLayout>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/curriculum_recent_register_rv"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="17dp"
+                android:layout_marginStart="30dp"
                 android:layout_marginEnd="30dp"
                 android:orientation="vertical"
                 android:overScrollMode="never"
@@ -90,8 +290,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/curri_comment_tv" />
-
+                app:layout_constraintTop_toBottomOf="@+id/curriculum_recent_register_tv" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.core.widget.NestedScrollView>
 </androidx.constraintlayout.widget.ConstraintLayout>

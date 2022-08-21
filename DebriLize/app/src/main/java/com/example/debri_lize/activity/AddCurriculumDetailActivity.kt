@@ -2,6 +2,7 @@ package com.example.debri_lize.activity
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.KeyEvent
 import android.view.View
 import android.view.animation.Animation
@@ -22,13 +23,12 @@ import com.example.debri_lize.databinding.ActivityAddCurriculumDetailBinding
 import com.example.debri_lize.service.CurriculumService
 import com.example.debri_lize.service.ReviewService
 import com.example.debri_lize.utils.getUserName
-import com.example.debri_lize.view.curriculum.CreateReviewView
-import com.example.debri_lize.view.curriculum.ShowCurriculumDetailView
-import com.example.debri_lize.view.curriculum.ShowReviewView
+import com.example.debri_lize.view.curriculum.*
 import kotlin.concurrent.thread
 import kotlin.properties.Delegates
 
-class AddCurriculumDetailActivity : AppCompatActivity(), CreateReviewView, ShowReviewView, ShowCurriculumDetailView {
+class AddCurriculumDetailActivity : AppCompatActivity(), CreateReviewView, ShowReviewView, ShowCurriculumDetailView,
+    CreateCurriLikeView, CancelCurriLikeView {
     lateinit var binding : ActivityAddCurriculumDetailBinding
 
     lateinit var classLectureRVAdapter: ClassLectureRVAdapter
@@ -69,10 +69,9 @@ class AddCurriculumDetailActivity : AppCompatActivity(), CreateReviewView, ShowR
         reviewRVAdapter = ReviewRVAdapter()
         binding.addCurriculumDetailReviewRv.adapter = reviewRVAdapter
 
-
-        //8.12.1 커리큘럼 리뷰 조회 api
-        reviewService.setShowReviewView(this)
-        reviewService.showReview(curriculumIdx)
+        //data : CurriculumFragment -> AddCurriculumDetailActivity
+        val intent = intent //전달할 데이터를 받을 Intent
+        curriculumIdx = intent.getIntExtra("curriculumIdx", 0)
 
     }
 
@@ -103,6 +102,14 @@ class AddCurriculumDetailActivity : AppCompatActivity(), CreateReviewView, ShowR
         //8.3 커리큘럼 상세 조회 api
         curriculumService.setShowCurriculumDetailView(this)
         curriculumService.showCurriculumDetail(curriculumIdx)
+
+        //8.8(9) 커리큘럼 좋아요 생성(취소)
+        curriculumService.setCreateCurriLikeView(this)
+        curriculumService.setCancelCurriLikeView(this)
+
+        //8.12.1 커리큘럼 리뷰 조회 api
+        reviewService.setShowReviewView(this)
+        reviewService.showReview(curriculumIdx)
     }
 
     //live animation
@@ -151,6 +158,15 @@ class AddCurriculumDetailActivity : AppCompatActivity(), CreateReviewView, ShowR
                 binding.addCurriculumDetailAuthorTv.text = result.curriculumAuthor
                 //binding.addCurriculumDetailDdayTv2.text = result.
 
+                //커리큘럼 좋아요 상태 api 시트에 추가되면 수정
+                if(true)  {
+                    binding.addCurriculumLikeIv.setImageResource(R.drawable.ic_like_on)
+                    binding.addCurriculumLikeLayout.setBackgroundResource(R.drawable.border_round_debri_darkmode_10)
+                }else{
+                    binding.addCurriculumLikeIv.setImageResource(R.drawable.ic_like_off)
+                    binding.addCurriculumLikeLayout.setBackgroundResource(R.drawable.border_round_white_transparent_10)
+                }
+
                 //lecture recycler view
                 lecture.clear()
 
@@ -192,6 +208,21 @@ class AddCurriculumDetailActivity : AppCompatActivity(), CreateReviewView, ShowR
 
                         }
                     })
+
+
+
+
+                    //click like btn
+                    binding.addCurriculumLikeLayout.setOnClickListener {
+                        //커리 좋아요 상태 api시트에 추가되면 수정
+                        if(false){
+                            //api - delete curri like
+                            curriculumService.cancelCurriLike(curriculumIdx)
+                        }else{
+                            //api - create curri like
+                            curriculumService.createCurriLike(curriculumIdx)
+                        }
+                    }
                 }
             }
         }
@@ -273,6 +304,29 @@ class AddCurriculumDetailActivity : AppCompatActivity(), CreateReviewView, ShowR
 
     }
 
+    override fun onCreateCurriLikeSuccess(code: Int) {
+        when(code){
+            200->{
+                curriculumService.showCurriculumDetail(curriculumIdx)
+            }
+        }
+    }
+
+    override fun onCreateCurriLikeFailure(code: Int) {
+        Log.d("createCurriLikeFail","$code")
+    }
+
+    override fun onDeleteCurriLikeSuccess(code: Int) {
+        when(code){
+            200->{
+                curriculumService.showCurriculumDetail(curriculumIdx)
+            }
+        }
+    }
+
+    override fun onDeleteCurriLikeFailure(code: Int) {
+        Log.d("deleteCurriLikeFail","$code")
+    }
 
 
 }
