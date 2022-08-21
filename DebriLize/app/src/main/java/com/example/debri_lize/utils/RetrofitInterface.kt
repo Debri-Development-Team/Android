@@ -240,4 +240,8 @@ interface RetrofitInterface {
     //8.12.1 커리큘럼 리뷰 조회 api
     @GET("api/curri/review/getList/{curriIdx}")
     fun showReview(@Path("curriIdx") curriIdx: Int, @Header("ACCESS-TOKEN") authToken: String) : Call<BaseResponse<List<Review>>>
+
+    //8.14 최신 커리큘럼 리스트 조회 api
+    @POST("api/curri/getNewList")
+    fun showGetNewCurriList(@Header("ACCESS-TOKEN") authToken: String) : Call<BaseResponse<List<Top10>>>
 }

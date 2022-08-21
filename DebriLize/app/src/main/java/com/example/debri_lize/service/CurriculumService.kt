@@ -33,6 +33,8 @@ class CurriculumService {
     private lateinit var showScrapCurriListView: ShowScrapCurriListView
     private lateinit var showTop10ListView: ShowTop10ListView
 
+    private lateinit var showGetNewCurriListView: ShowGetNewCurriListView
+
     fun setCreateCurriculumView(createCurriculumView: CreateCurriculumView){
         this.createCurriculumView = createCurriculumView
     }
@@ -59,6 +61,10 @@ class CurriculumService {
 
     fun setShowScrapCurriListView(showScrapCurriListView: ShowScrapCurriListView){
         this.showScrapCurriListView = showScrapCurriListView
+    }
+
+    fun setShowGetNewCurriListView(showGetNewCurriListView: ShowGetNewCurriListView){
+        this.showGetNewCurriListView = showGetNewCurriListView
     }
 
     //edit
@@ -416,6 +422,30 @@ class CurriculumService {
             //실패했을 때 처리
             override fun onFailure(call: Call<BaseResponse<String>>, t: Throwable) {
                 Log.d("resetCurriFail", t.toString())
+            }
+
+        })
+    }
+
+    //8.14 최신 커리큘럼 리스트 조회 api
+    fun showGetNewCurriList(){
+        val curriculumService = getRetrofit().create(RetrofitInterface::class.java)
+
+        curriculumService.showTop10List(getJwt()!!).enqueue(object: Callback<BaseResponse<List<Top10>>> {
+            //응답이 왔을 때 처리
+            override fun onResponse(call: Call<BaseResponse<List<Top10>>>, response: Response<BaseResponse<List<Top10>>>) {
+                Log.d("showGetNewCurriList", "response")
+                val resp: BaseResponse<List<Top10>> = response.body()!!
+                Log.d("showGetNewCurriListCode", resp.code.toString())
+                when(resp.code){
+                    //API code값 사용
+                    200->showGetNewCurriListView.onShowGetNewCurriListSuccess(resp.code, resp.result)
+                    else->showGetNewCurriListView.onShowGetNewCurriListFailure(resp.code)
+                }
+            }
+            //실패했을 때 처리
+            override fun onFailure(call: Call<BaseResponse<List<Top10>>>, t: Throwable) {
+                Log.d("showGetNewCurriListFail", t.toString())
             }
 
         })

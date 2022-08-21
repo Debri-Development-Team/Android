@@ -18,6 +18,7 @@ data class Curriculum(
     @SerializedName(value = "curriAuthor") val curriculumAuthor: String? = "",
     @SerializedName(value = "status") val status: String? = "",
     @SerializedName(value = "visibleStatus") val visibleStatus: String? = "",
+    @SerializedName(value = "curriDesc") val curriDesc: String? = "",
     @PrimaryKey(autoGenerate = true) var roomIdx : Int =0
 )
 
@@ -98,7 +99,8 @@ data class Top10(
     @SerializedName(value = "langTag") val language: String,
     @SerializedName(value = "progressRate") val progressRate: Float,
     @SerializedName(value = "status") val status: String,
-    @SerializedName(value = "createdAt") val createdAt: Int
+    @SerializedName(value = "createdAt") val createdAt: Int,
+    @SerializedName(value = "curriDesc") val curriDesc: String? = ""
 ) : Serializable
 
 

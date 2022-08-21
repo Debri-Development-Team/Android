@@ -91,7 +91,7 @@ class ProfileActivity : AppCompatActivity(), MyCurriculumListView {
                 datas.apply {
 
                     for (i in result){
-                        datas.add(Curriculum(i.curriculumIdx, i.curriculumName, i.curriculumAuthor, i.status))
+                        datas.add(Curriculum(i.curriculumIdx, i.curriculumName, i.curriculumAuthor, i.status, i.curriDesc))
                     }
 
                     curriculumRVAdapter.datas = datas
