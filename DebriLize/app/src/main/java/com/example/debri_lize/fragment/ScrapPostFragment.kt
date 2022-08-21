@@ -53,6 +53,9 @@ class ScrapPostFragment : Fragment(), ShowScrapPostListView {
         binding.postScrapPreviousIv.setOnClickListener{
             (context as MainActivity).supportFragmentManager.beginTransaction()
                 .replace(R.id.main_frm, BoardFragment()).commitAllowingStateLoss()
+            //scrapPostFragment -> ProfileActivity
+//            val intent = Intent(context, ProfileActivity::class.java)
+//            startActivity(intent)
         }
 
         //api

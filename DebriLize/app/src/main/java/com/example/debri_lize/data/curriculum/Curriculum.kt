@@ -13,10 +13,11 @@ data class CurriIdx(
 
 //8.2 커리큘럼 리스트 조회 api : 유저들이 제공하는 커리큘럼 TOP 10
 data class Curriculum(
-    @SerializedName(value = "curriIdx") val curriculumIdx: Int,
+    @SerializedName(value = "curriIdx") val curriculumIdx: Int? = 0,
     @SerializedName(value = "curriName") val curriculumName: String? = "",
     @SerializedName(value = "curriAuthor") val curriculumAuthor: String? = "",
-    @SerializedName(value = "status") val status: String,
+    @SerializedName(value = "status") val status: String? = "",
+    @SerializedName(value = "visibleStatus") val visibleStatus: String? = "",
     @PrimaryKey(autoGenerate = true) var roomIdx : Int =0
 )
 
@@ -64,7 +65,29 @@ data class ChapterList(
     @SerializedName(value = "curriIdx") val curriIdx: Int
 )
 
-//8.10 커리큘럼 좋아요(추천) TOP 10 리스트 조회 api
+//8.8 커리큘럼 좋아요(추천) 생성 api
+data class CurriculumLike(
+    @SerializedName(value = "curriIdx") val curriIdx: Int? = 0,
+    @SerializedName(value = "curriName") val curriName: String? = "",
+    @SerializedName(value = "curriAuthor") val curriAuthor: String? = "",
+    @SerializedName(value = "visibleStatus") val visibleStatus: String? = "",
+    @SerializedName(value = "langTag") val langTag: String? = "",
+    @SerializedName(value = "progressRate") val progressRate: Float? = 0F,
+    @SerializedName(value = "status") val status: String? = "",
+    @SerializedName(value = "ownerIdx") val ownerIdx: Int? = 0
+)
+
+//8.10
+data class ScrapCurriculumList(
+    @SerializedName(value = "curriIdx") val curriculumIdx: Int,
+    @SerializedName(value = "curriName") val curriculumName: String? = "",
+    @SerializedName(value = "curriAuthor") val curriculumAuthor: String? = "",
+    @SerializedName(value = "status") val status: String,
+    @SerializedName(value = "langTag") val language: String? = "",
+    @SerializedName(value = "progressRate") val progressRate: Float
+)
+
+//8.10.1 커리큘럼 좋아요(추천) TOP 10 리스트 조회 api
 data class Top10(
     @SerializedName(value = "curriIdx") val curriIdx: Int,
     @SerializedName(value = "count") val cnt: Int? = 0,

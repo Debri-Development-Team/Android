@@ -24,6 +24,7 @@ class CurriculumRVAdapter : RecyclerView.Adapter<CurriculumRVAdapter.ViewHolder>
         fun bind(item: Curriculum) {
             Glide.with(itemView).load(R.raw.curriculum).into(statusImg)
             curriculumName.text = item.curriculumName
+
         }
     }
 

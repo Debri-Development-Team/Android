@@ -47,9 +47,9 @@ class HomeFragment : Fragment(), MyCurriculumListView {
                 var j = 0
                 for(i in result){
                     if(i.status=="ACTIVE") { //활성 상태
-                        fragmentList.add(HomeActiveFragment(i.curriculumIdx, j))
+                        fragmentList.add(HomeActiveFragment(i.curriculumIdx!!, j))
                     }else { //비활성 상태
-                        fragmentList.add(HomeInactiveFragment(i.curriculumIdx, j))
+                        fragmentList.add(HomeInactiveFragment(i.curriculumIdx!!, j))
                     }
                     j++
                 }
