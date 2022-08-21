@@ -214,6 +214,7 @@
         <entry key="app/src/main/res/layout/fragment_scrap_curriculum.xml" value="0.25" />
         <entry key="app/src/main/res/layout/fragment_scrap_post.xml" value="0.25" />
         <entry key="app/src/main/res/layout/fragment_second.xml" value="0.1125" />
+        <entry key="app/src/main/res/layout/item_class_favorite.xml" value="0.12310030395136778" />
         <entry key="app/src/main/res/layout/item_curriculum_profile.xml" value="0.375" />
         <entry key="app/src/main/res/layout/toast_curri_public.xml" value="0.2547210693359375" />
         <entry key="app/src/main/res/layout/toast_report.xml" value="0.25" />

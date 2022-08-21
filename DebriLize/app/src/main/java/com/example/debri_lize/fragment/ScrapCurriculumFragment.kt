@@ -62,7 +62,7 @@ class ScrapCurriculumFragment : Fragment(), ShowScrapCurriListView {
 
                 datas.apply {
                     for (i in result){
-                        datas.add(Curriculum(i.curriculumIdx, i.curriculumName, i.curriculumAuthor, i.status, i.visibleStatus))
+                        datas.add(Curriculum(i.curriculumIdx, i.curriculumName, i.curriculumAuthor, i.status, i.visibleStatus, i.curriDesc))
                     }
 
                     curriculumRVAdapter.datas = datas
