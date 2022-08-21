@@ -117,114 +117,171 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/profile_curriculum_tv" />
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/profile_curriculum_layout"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/profile_curriculum_rv"
-        android:gravity="center_vertical"
-        android:orientation="horizontal"
-        android:layout_marginStart="30dp"
-        android:layout_marginEnd="30dp"
-        android:background="@color/darkmode_background">
 
-        <ImageView
-            android:id="@+id/profile_curriculum_add_iv"
-            android:layout_width="76dp"
-            android:layout_height="76dp"
-            android:src="@drawable/ic_circle_plus"
-            android:layout_marginEnd="20dp"
-            />
-
-            <TextView
-                android:id="@+id/profile_curriculum_add_tv"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="새로운 커리큘럼 시작하기"
-                android:fontFamily="@font/noto_sans_kr_regular"
-                android:includeFontPadding="false"
-                android:textColor="@color/white"
-                android:textSize="18sp"/>
-
-    </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/profile_menu_layout"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/profile_curriculum_layout"
+        app:layout_constraintTop_toBottomOf="@+id/profile_curriculum_rv"
         android:gravity="center_vertical"
         android:orientation="vertical"
         android:layout_marginTop="60dp"
         android:layout_marginStart="30dp"
         android:layout_marginEnd="30dp">
 
-        <TextView
-            android:id="@+id/profile_menu_account_tv"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:text="계정 설정"
-            android:fontFamily="@font/noto_sans_kr_regular"
-            android:includeFontPadding="false"
-            android:textColor="@color/white"
-            android:textSize="12dp"
-            android:paddingStart="38dp"
-            android:gravity="center_vertical"
-            android:background="@drawable/border_line_top_bottom"/>
+<!--        <TextView-->
+<!--            android:id="@+id/profile_menu_account_tv"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="50dp"-->
+<!--            android:text="계정 설정"-->
+<!--            android:fontFamily="@font/noto_sans_kr_regular"-->
+<!--            android:includeFontPadding="false"-->
+<!--            android:textColor="@color/white"-->
+<!--            android:textSize="12dp"-->
+<!--            android:paddingStart="38dp"-->
+<!--            android:gravity="center_vertical"-->
+<!--            android:background="@drawable/border_line_top_bottom"/>-->
 
-        <TextView
-            android:id="@+id/profile_menu_alert_tv"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:text="알림 설정"
-            android:fontFamily="@font/noto_sans_kr_regular"
-            android:includeFontPadding="false"
-            android:textColor="@color/white"
-            android:textSize="12dp"
-            android:paddingStart="38dp"
-            android:gravity="center_vertical"
-            android:background="@drawable/border_line_bottom"/>
+<!--        <TextView-->
+<!--            android:id="@+id/profile_menu_alert_tv"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="50dp"-->
+<!--            android:text="알림 설정"-->
+<!--            android:fontFamily="@font/noto_sans_kr_regular"-->
+<!--            android:includeFontPadding="false"-->
+<!--            android:textColor="@color/white"-->
+<!--            android:textSize="12dp"-->
+<!--            android:paddingStart="38dp"-->
+<!--            android:gravity="center_vertical"-->
+<!--            android:background="@drawable/border_line_bottom"/>-->
 
-        <TextView
-            android:id="@+id/profile_menu_post_tv"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:text="게시물 설정"
-            android:fontFamily="@font/noto_sans_kr_regular"
-            android:includeFontPadding="false"
-            android:textColor="@color/white"
-            android:textSize="12dp"
-            android:paddingStart="38dp"
-            android:gravity="center_vertical"
-            android:background="@drawable/border_line_bottom"/>
+<!--        <TextView-->
+<!--            android:id="@+id/profile_menu_post_tv"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="50dp"-->
+<!--            android:text="게시물 설정"-->
+<!--            android:fontFamily="@font/noto_sans_kr_regular"-->
+<!--            android:includeFontPadding="false"-->
+<!--            android:textColor="@color/white"-->
+<!--            android:textSize="12dp"-->
+<!--            android:paddingStart="38dp"-->
+<!--            android:gravity="center_vertical"-->
+<!--            android:background="@drawable/border_line_bottom"/>-->
 
-        <TextView
-            android:id="@+id/profile_menu_notice_tv"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:text="공지 사항"
-            android:fontFamily="@font/noto_sans_kr_regular"
-            android:includeFontPadding="false"
-            android:textColor="@color/white"
-            android:textSize="12dp"
-            android:paddingStart="38dp"
-            android:gravity="center_vertical"
-            android:background="@drawable/border_line_bottom"/>
+<!--        <TextView-->
+<!--            android:id="@+id/profile_menu_notice_tv"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="50dp"-->
+<!--            android:text="공지 사항"-->
+<!--            android:fontFamily="@font/noto_sans_kr_regular"-->
+<!--            android:includeFontPadding="false"-->
+<!--            android:textColor="@color/white"-->
+<!--            android:textSize="12dp"-->
+<!--            android:paddingStart="38dp"-->
+<!--            android:gravity="center_vertical"-->
+<!--            android:background="@drawable/border_line_bottom"/>-->
 
-        <TextView
-            android:id="@+id/profile_menu_service_info_tv"
+<!--        <TextView-->
+<!--            android:id="@+id/profile_menu_service_info_tv"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="50dp"-->
+<!--            android:text="데브리 서비스 정보"-->
+<!--            android:fontFamily="@font/noto_sans_kr_regular"-->
+<!--            android:includeFontPadding="false"-->
+<!--            android:textColor="@color/white"-->
+<!--            android:textSize="12dp"-->
+<!--            android:paddingStart="38dp"-->
+<!--            android:gravity="center_vertical"-->
+<!--            android:background="@drawable/border_line_bottom"/>-->
+
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:text="데브리 서비스 정보"
-            android:fontFamily="@font/noto_sans_kr_regular"
-            android:includeFontPadding="false"
-            android:textColor="@color/white"
-            android:textSize="12dp"
-            android:paddingStart="38dp"
+            android:id="@+id/profile_scrap_post_layout"
+            android:layout_marginTop="15dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/profile_scrap_post_layout"
             android:gravity="center_vertical"
-            android:background="@drawable/border_line_bottom"/>
+            android:background="@drawable/border_round_debri_transparent_10">
+
+            <ImageView
+                android:id="@+id/profile_scrap_post_iv"
+                android:layout_width="17dp"
+                android:layout_height="19.12dp"
+                android:src="@drawable/ic_scrap_on"
+                android:layout_marginStart="15dp"
+                />
+
+            <TextView
+                android:id="@+id/profile_scrap_post_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@null"
+                android:text="내가 스크랩한 게시물"
+                android:textColor="@color/white"
+                android:textSize="14dp"
+                android:fontFamily="@font/noto_sans_kr_bold"
+                android:includeFontPadding="false"
+                android:layout_marginStart="19.5dp"/>
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_weight="1" />
+
+            <ImageView
+                android:id="@+id/item_profile_scrap_post_next_iv"
+                android:layout_width="9.44dp"
+                android:layout_height="16.96dp"
+                android:src="@drawable/btn_next"
+                android:layout_marginEnd="15.9dp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:id="@+id/profile_scrap_curri_layout"
+            android:layout_marginTop="10dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/board_search_layout"
+            android:gravity="center_vertical"
+            android:background="@drawable/border_round_debri_transparent_10">
+
+            <ImageView
+                android:id="@+id/profile_scrap_curri_iv"
+                android:layout_width="17dp"
+                android:layout_height="19.12dp"
+                android:src="@drawable/ic_like_on"
+                android:layout_marginStart="15dp" />
+
+            <TextView
+                android:id="@+id/profile_scrap_curri_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@null"
+                android:text="내가 추천한 커리큘럼"
+                android:textColor="@color/white"
+                android:textSize="14dp"
+                android:fontFamily="@font/noto_sans_kr_bold"
+                android:includeFontPadding="false"
+                android:layout_marginStart="19.5dp"/>
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_weight="1" />
+
+            <ImageView
+                android:id="@+id/item_profile_scrap_curri_next_iv"
+                android:layout_width="9.44dp"
+                android:layout_height="16.96dp"
+                android:src="@drawable/btn_next"
+                android:layout_marginEnd="15.9dp" />
+
+        </LinearLayout>
 
         <View
             android:layout_width="match_parent"
