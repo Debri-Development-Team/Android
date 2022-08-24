@@ -172,6 +172,7 @@
         <entry key="app/src/main/res/drawable-v24/border_line_bottom.xml" value="0.1685" />
         <entry key="app/src/main/res/drawable-v24/border_round_transparent_debri_10.xml" value="0.1685" />
         <entry key="app/src/main/res/drawable-v24/border_round_transparent_gray_10.xml" value="0.1685" />
+        <entry key="app/src/main/res/drawable-v24/border_round_white_transparent_10.xml" value="0.104" />
         <entry key="app/src/main/res/drawable/border_line_left.xml" value="0.2135" />
         <entry key="app/src/main/res/drawable/border_line_right.xml" value="0.2135" />
         <entry key="app/src/main/res/drawable/border_line_tag.xml" value="0.2135" />
@@ -226,8 +227,11 @@
         <entry key="app/src/main/res/layout/fragment_scrap_post.xml" value="0.25" />
         <entry key="app/src/main/res/layout/fragment_second.xml" value="0.1125" />
         <entry key="app/src/main/res/layout/item_class_favorite.xml" value="0.12310030395136778" />
-        <entry key="app/src/main/res/layout/item_curriculum_profile.xml" value="0.375" />
-        <entry key="app/src/main/res/layout/toast_add_lecture_to_curri.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/item_curriculum_lecture.xml" value="0.12310030395136778" />
+        <entry key="app/src/main/res/layout/item_curriculum_lecture_img.xml" value="0.12310030395136778" />
+        <entry key="app/src/main/res/layout/item_curriculum_profile.xml" value="0.25" />
+        <entry key="app/src/main/res/layout/item_lecture_review.xml" value="0.12310030395136778" />
+        <entry key="app/src/main/res/layout/toast_add_lecture_to_curri.xml" value="0.25" />
         <entry key="app/src/main/res/layout/toast_curri_public.xml" value="0.2547210693359375" />
         <entry key="app/src/main/res/layout/toast_report.xml" value="0.25" />
         <entry key="app/src/main/res/layout/toast_scrap.xml" value="0.26879119873046875" />

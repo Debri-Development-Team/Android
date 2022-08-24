@@ -73,7 +73,6 @@ class HomeActiveFragment(
 
         //click add lecture -> ClassFragment
         binding.homeCurriculumAddLectureLayout.setOnClickListener{
-            context.binding.mainBnv.selectedItemId = R.id.classFragment
             val passBundleBFragment = ClassFragment()
 
             context.binding.mainBnv.selectedItemId = R.id.classFragment

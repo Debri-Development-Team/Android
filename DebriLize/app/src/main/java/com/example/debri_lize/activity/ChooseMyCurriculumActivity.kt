@@ -62,7 +62,7 @@ class ChooseMyCurriculumActivity : AppCompatActivity(), MyCurriculumListView, Ad
         when(code){
             200->{
                 binding.profileCurriculumRv.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
-                curriculumRVAdapter = CurriculumRVAdapter()
+                curriculumRVAdapter = CurriculumRVAdapter("ChooseMyCurriculumActivity")
                 binding.profileCurriculumRv.adapter = curriculumRVAdapter
 
                 datas.clear()

@@ -82,7 +82,7 @@ class ProfileActivity : AppCompatActivity(), MyCurriculumListView {
         when(code){
             200->{
                 binding.profileCurriculumRv.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
-                curriculumRVAdapter = CurriculumRVAdapter()
+                curriculumRVAdapter = CurriculumRVAdapter("ProfileActivity")
                 binding.profileCurriculumRv.adapter = curriculumRVAdapter
 
                 datas.clear()
@@ -91,11 +91,14 @@ class ProfileActivity : AppCompatActivity(), MyCurriculumListView {
                 datas.apply {
 
                     for (i in result){
-                        datas.add(Curriculum(i.curriculumIdx, i.curriculumName, i.curriculumAuthor, i.status, i.curriDesc))
+                        datas.add(Curriculum(i.curriculumIdx, i.curriculumName, i.curriculumAuthor, i.status, i.visibleStatus, i.curriDesc))
                     }
+
 
                     curriculumRVAdapter.datas = datas
                     curriculumRVAdapter.notifyDataSetChanged()
+
+
 
                     //click recyclerview item
                     curriculumRVAdapter.setItemClickListener(object : CurriculumRVAdapter.OnItemClickListener {

@@ -57,7 +57,7 @@ class ScrapCurriculumFragment : Fragment(), ShowScrapCurriListView {
             200->{
                 binding.curriculumRv.layoutManager =
                     LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
-                curriculumRVAdapter = CurriculumRVAdapter()
+                curriculumRVAdapter = CurriculumRVAdapter("ScrapCurriculumFragment")
                 binding.curriculumRv.adapter = curriculumRVAdapter
 
                 datas.clear()

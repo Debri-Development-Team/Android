@@ -212,6 +212,7 @@
         app:layout_constraintTop_toBottomOf="@id/curriculum_setting_curri_explain_layout">
 
         <TextView
+            android:id="@+id/curriculum_setting_lang_tag_tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="카테고리 분류"
@@ -288,80 +289,6 @@
             android:drawableEnd="@drawable/selector_class_radio_text"
             android:background="@drawable/selector_class_radio_c"/>
 
-<!--        <RadioGroup-->
-<!--            android:id="@+id/curriculum_setting_lang_rg"-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:gravity="center"-->
-<!--            android:layout_marginTop="10dp">-->
-<!--            <RadioButton-->
-<!--                android:id="@+id/class_curri_tag_front_rb"-->
-<!--                android:layout_width="110dp"-->
-<!--                android:layout_height="37dp"-->
-<!--                android:layout_marginBottom="7dp"-->
-<!--                android:background="@drawable/selector_class_radio_front"-->
-<!--                android:button="@null"-->
-<!--                android:drawableEnd="@drawable/selector_class_radio_text"-->
-<!--                android:fontFamily="@font/noto_sans_kr_bold"-->
-<!--                android:includeFontPadding="false"-->
-<!--                android:paddingStart="20dp"-->
-<!--                android:paddingEnd="7dp"-->
-<!--                android:text="Front"-->
-<!--                android:textColor="@color/white"-->
-<!--                android:textSize="14dp"-->
-<!--                android:visibility="visible" />-->
-<!--            <RadioButton-->
-<!--                android:id="@+id/class_curri_tag_back_rb"-->
-<!--                android:layout_width="110dp"-->
-<!--                android:layout_height="37dp"-->
-<!--                android:text="Back"-->
-<!--                android:textColor="@drawable/selector_class_radio_text"-->
-<!--                android:button="@null"-->
-<!--                android:paddingStart="20dp"-->
-<!--                android:visibility="visible"-->
-<!--                android:fontFamily="@font/noto_sans_kr_bold"-->
-<!--                android:includeFontPadding="false"-->
-<!--                android:textSize="14dp"-->
-<!--                android:paddingEnd="7dp"-->
-<!--                android:layout_marginBottom="7dp"-->
-<!--                android:layout_marginTop="5dp"-->
-<!--                android:drawableEnd="@drawable/selector_class_radio_text"-->
-<!--                android:background="@drawable/selector_class_radio_back"/>-->
-<!--            <RadioButton-->
-<!--                android:id="@+id/class_curri_tag_python_rb"-->
-<!--                android:layout_width="110dp"-->
-<!--                android:layout_height="37dp"-->
-<!--                android:text="Python"-->
-<!--                android:textColor="@drawable/selector_class_radio_text"-->
-<!--                android:button="@null"-->
-<!--                android:paddingStart="20dp"-->
-<!--                android:visibility="visible"-->
-<!--                android:fontFamily="@font/noto_sans_kr_bold"-->
-<!--                android:includeFontPadding="false"-->
-<!--                android:textSize="14dp"-->
-<!--                android:paddingEnd="7dp"-->
-<!--                android:layout_marginBottom="7dp"-->
-<!--                android:layout_marginTop="5dp"-->
-<!--                android:drawableEnd="@drawable/selector_class_radio_text"-->
-<!--                android:background="@drawable/selector_class_radio_python"/>-->
-<!--            <RadioButton-->
-<!--                android:id="@+id/class_curri_tag_c_rb"-->
-<!--                android:layout_width="110dp"-->
-<!--                android:layout_height="37dp"-->
-<!--                android:text="C 언어"-->
-<!--                android:textColor="@drawable/selector_class_radio_text"-->
-<!--                android:button="@null"-->
-<!--                android:paddingStart="20dp"-->
-<!--                android:visibility="visible"-->
-<!--                android:fontFamily="@font/noto_sans_kr_bold"-->
-<!--                android:includeFontPadding="false"-->
-<!--                android:textSize="14dp"-->
-<!--                android:paddingEnd="7dp"-->
-<!--                android:layout_marginBottom="7dp"-->
-<!--                android:layout_marginTop="5dp"-->
-<!--                android:drawableEnd="@drawable/selector_class_radio_text"-->
-<!--                android:background="@drawable/selector_class_radio_c"/>-->
-<!--        </RadioGroup>-->
     </LinearLayout>
 
     <LinearLayout
@@ -376,6 +303,7 @@
         app:layout_constraintTop_toBottomOf="@id/curriculum_setting_curri_explain_layout">
 
         <TextView
+            android:id="@+id/curriculum_setting_visible_tag_tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="공개 여부"
