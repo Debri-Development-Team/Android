@@ -72,7 +72,7 @@ class CurriculumFragment : Fragment(), ShowTop10ListView, ShowGetNewCurriListVie
         when(code){
             200->{
                 binding.curriculumRv.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
-                curriculumRVAdapter = CurriculumRVAdapter()
+                curriculumRVAdapter = CurriculumRVAdapter("CurriculumFragment")
                 binding.curriculumRv.adapter = curriculumRVAdapter
 
 
@@ -113,7 +113,7 @@ class CurriculumFragment : Fragment(), ShowTop10ListView, ShowGetNewCurriListVie
         when(code){
             200->{
                 binding.curriculumRecentRegisterRv.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
-                curriculumRVAdapter = CurriculumRVAdapter()
+                curriculumRVAdapter = CurriculumRVAdapter("CurriculumFragment")
                 binding.curriculumRecentRegisterRv.adapter = curriculumRVAdapter
 
 

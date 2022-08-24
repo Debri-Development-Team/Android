@@ -80,6 +80,29 @@
                 android:layout_marginStart="7dp"/>
         </LinearLayout>
 
+        <LinearLayout
+            android:id="@+id/item_curriculum_author_layout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            >
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="by  "
+                android:textColor="@color/white"
+                android:fontFamily="@font/noto_sans_kr_regular"
+                android:includeFontPadding="false"/>
+            <TextView
+                android:id="@+id/item_curriculum_author_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="자바왕"
+                android:textColor="@color/white"
+                android:fontFamily="@font/noto_sans_kr_medium"
+                android:includeFontPadding="false" />
+        </LinearLayout>
+
 
     </LinearLayout>
 

@@ -1,22 +1,27 @@
 package com.example.debri_lize.adapter.class_
 
 import android.util.Log
+import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.example.debri_lize.R
+import com.example.debri_lize.activity.MainActivity
 import com.example.debri_lize.data.class_.LectureScrap
 import com.example.debri_lize.data.class_.Lecture
 import com.example.debri_lize.databinding.ItemClassFavoriteBinding
 import com.example.debri_lize.service.ClassService
 import com.example.debri_lize.utils.getUserIdx
+import com.example.debri_lize.view.class_.CancelLectureScrapView
 import com.example.debri_lize.view.class_.CreateLectureScrapView
 
 class ClassLectureRVAdapter : RecyclerView.Adapter<ClassLectureRVAdapter.ViewHolder>(),
-    CreateLectureScrapView {
+    CreateLectureScrapView, CancelLectureScrapView {
     var datas = mutableListOf<Lecture>()
+
 
     inner class ViewHolder(val binding: ItemClassFavoriteBinding) : RecyclerView.ViewHolder(binding.root){
 
@@ -63,20 +68,34 @@ class ClassLectureRVAdapter : RecyclerView.Adapter<ClassLectureRVAdapter.ViewHol
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.bind(datas[position])
+//        Log.d("lecturedata",datas[position].toString())
 
         //즐겨찾기 생성
         holder.binding.itemClassFavoriteIv.setOnClickListener {
-            holder.binding.itemClassFavoriteIv.setImageResource(R.drawable.ic_favorite_on)
+            if(datas[position].userLike){
+                //즐겨찾기 해제 - userlike가 false로 들어오는 에러있음 아ㅏㅁ두
+                holder.binding.itemClassFavoriteIv.setImageResource(R.drawable.ic_favorite_off)
 
-            var createLectureScrap = LectureScrap(getUserIdx()!!, datas[position].lectureIdx!!)
+                val cancelLectureScrap = LectureScrap(getUserIdx()!!, datas[position].lectureIdx!!)
 
-            Log.d("createlecturescrap",createLectureScrap.toString())
+                //api
+                val classService = ClassService()
+                classService.setCancelLectureScrapView(this)
+                classService.cancelLectureScrap(cancelLectureScrap)
+            }else{
+                //즐겨찾기 생성
+                holder.binding.itemClassFavoriteIv.setImageResource(R.drawable.ic_favorite_on)
 
+                var createLectureScrap = LectureScrap(getUserIdx()!!, datas[position].lectureIdx!!)
 
-            //api
-            val classService = ClassService()
-            classService.setCreateLectureScrapView(this)
-            classService.createLectureScrap(createLectureScrap)
+//                Log.d("createlecturescrap",createLectureScrap.toString())
+
+                //api
+                val classService = ClassService()
+                classService.setCreateLectureScrapView(this)
+                classService.createLectureScrap(createLectureScrap)
+            }
+
         }
 
         //recyclerview item 클릭하면 fragment
@@ -101,10 +120,22 @@ class ClassLectureRVAdapter : RecyclerView.Adapter<ClassLectureRVAdapter.ViewHol
 
 
     override fun onCreateLectureScrapSuccess(code: Int) {
+        when(code){
+            200->{
 
+            }
+        }
     }
 
     override fun onCreateLectureScrapFailure(code: Int) {
+
+    }
+
+    override fun onCancelLectureScrapSuccess(code: Int) {
+
+    }
+
+    override fun onCancelLectureScrapFailure(code: Int) {
 
     }
 

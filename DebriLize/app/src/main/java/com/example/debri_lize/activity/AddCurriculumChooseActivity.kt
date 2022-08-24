@@ -57,10 +57,11 @@ class AddCurriculumChooseActivity : AppCompatActivity(), CreateCurriculumView, S
         binding.addCurriculumChooseNewIv.setOnClickListener{
             //add dialog code
 
-            //api - 8.1 커리큘럼 생성 api
-            var curriculumService = CurriculumService()
-            curriculumService.setCreateCurriculumView(this)
-            curriculumService.createCurriculum(NewCurriculum("curriName", "curriAuthor", "visible", "language"))
+            //data : AddCurriculumChooseActivity -> CurriculumSettingActivity
+            val intent = Intent(this, CurriculumSettingActivity::class.java)
+
+            startActivity(intent)
+
 
         }
 
