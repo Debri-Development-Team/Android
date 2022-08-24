@@ -212,22 +212,6 @@
                 android:drawableEnd="@drawable/selector_class_radio_text"
                 android:background="@drawable/selector_class_radio_back"/>
             <CheckBox
-                android:id="@+id/class_curri_tag_c_cb"
-                android:layout_width="match_parent"
-                android:layout_height="37dp"
-                android:text="C 언어"
-                android:textColor="@drawable/selector_class_radio_text"
-                android:button="@null"
-                android:paddingStart="20dp"
-                android:visibility="visible"
-                android:fontFamily="@font/noto_sans_kr_bold"
-                android:includeFontPadding="false"
-                android:textSize="14dp"
-                android:paddingEnd="7dp"
-                android:layout_marginBottom="7dp"
-                android:drawableEnd="@drawable/selector_class_radio_text"
-                android:background="@drawable/selector_class_radio_c"/>
-            <CheckBox
                 android:id="@+id/class_curri_tag_python_cb"
                 android:layout_width="match_parent"
                 android:layout_height="37dp"
@@ -243,7 +227,22 @@
                 android:layout_marginBottom="7dp"
                 android:drawableEnd="@drawable/selector_class_radio_text"
                 android:background="@drawable/selector_class_radio_python"/>
-
+            <CheckBox
+                android:id="@+id/class_curri_tag_c_cb"
+                android:layout_width="match_parent"
+                android:layout_height="37dp"
+                android:text="C 언어"
+                android:textColor="@drawable/selector_class_radio_text"
+                android:button="@null"
+                android:paddingStart="20dp"
+                android:visibility="visible"
+                android:fontFamily="@font/noto_sans_kr_bold"
+                android:includeFontPadding="false"
+                android:textSize="14dp"
+                android:paddingEnd="7dp"
+                android:layout_marginBottom="7dp"
+                android:drawableEnd="@drawable/selector_class_radio_text"
+                android:background="@drawable/selector_class_radio_c"/>
         </LinearLayout>
 
 
