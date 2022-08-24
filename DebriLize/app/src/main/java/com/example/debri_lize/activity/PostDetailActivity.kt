@@ -208,8 +208,10 @@ class PostDetailActivity : AppCompatActivity(), PostDetailView, CommentCreateVie
                 touchEvent(bottomSheetComplainDetailDialog.findViewById(R.id.bottom_sheet_complain_page_tv2)!!)
                 bottomSheetComplainDetailDialog.findViewById<TextView>(R.id.bottom_sheet_complain_page_tv2)!!
                     .setOnClickListener {
-                        //api
-                        reportService.reportPost(ReportPost(postIdx, "낚시, 도배"))
+
+                        //유저 신고 다이얼로그
+                        reportDlg("낚시, 도배")
+
 
                         //다이얼로그 닫기
                         bottomSheetComplainDetailDialog.dismiss()
@@ -219,8 +221,9 @@ class PostDetailActivity : AppCompatActivity(), PostDetailView, CommentCreateVie
                 touchEvent(bottomSheetComplainDetailDialog.findViewById(R.id.bottom_sheet_complain_page_tv3)!!)
                 bottomSheetComplainDetailDialog.findViewById<TextView>(R.id.bottom_sheet_complain_page_tv3)!!
                     .setOnClickListener {
-                        //api
-                        reportService.reportPost(ReportPost(postIdx, "개발과 무관한 게시물"))
+
+                        //유저 신고 다이얼로그
+                        reportDlg("개발과 무관한 게시물")
 
                         //다이얼로그 닫기
                         bottomSheetComplainDetailDialog.dismiss()
@@ -230,8 +233,9 @@ class PostDetailActivity : AppCompatActivity(), PostDetailView, CommentCreateVie
                 touchEvent(bottomSheetComplainDetailDialog.findViewById(R.id.bottom_sheet_complain_page_tv4)!!)
                 bottomSheetComplainDetailDialog.findViewById<TextView>(R.id.bottom_sheet_complain_page_tv4)!!
                     .setOnClickListener {
-                        //api
-                        reportService.reportPost(ReportPost(postIdx, "욕설, 비하"))
+
+                        //유저 신고 다이얼로그
+                        reportDlg("욕설, 비하")
 
                         //다이얼로그 닫기
                         bottomSheetComplainDetailDialog.dismiss()
@@ -249,10 +253,11 @@ class PostDetailActivity : AppCompatActivity(), PostDetailView, CommentCreateVie
                         dialog.setOnClickListenerETC(object:CustomDialog.ButtonClickListenerETC{
                             override fun onClicked(TF: Boolean, reason : String) {
                                 //텍스트 받아 넘기기
-                                //api
-                                reportService.reportPost(ReportPost(postIdx, reason))
 
-                                finish()
+                                //유저 신고 다이얼로그
+                                reportDlg(reason)
+
+//                                finish()
                             }
 
                         })
@@ -422,7 +427,7 @@ class PostDetailActivity : AppCompatActivity(), PostDetailView, CommentCreateVie
                     override fun onClicked(TF: Boolean, reason: String) {
                         //유저 신고&차단 api
                         reportService.reportUser(reason, postIdx)
-
+                        finish()
                     }
 
                 })

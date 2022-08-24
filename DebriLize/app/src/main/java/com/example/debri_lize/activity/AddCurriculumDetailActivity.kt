@@ -158,8 +158,10 @@ class AddCurriculumDetailActivity : AppCompatActivity(), CreateReviewView, ShowR
                 binding.addCurriculumDetailAuthorTv.text = result.curriculumAuthor
                 //binding.addCurriculumDetailDdayTv2.text = result.
 
+                Log.d("currilikestatus","${result}")
+
                 //커리큘럼 좋아요 상태 api 시트에 추가되면 수정
-                if(true)  {
+                if(result.curriLikeStatus=="ACTIVE")  {
                     binding.addCurriculumLikeIv.setImageResource(R.drawable.ic_like_on)
                     binding.addCurriculumLikeLayout.setBackgroundResource(R.drawable.border_round_debri_darkmode_10)
                 }else{
@@ -215,7 +217,7 @@ class AddCurriculumDetailActivity : AppCompatActivity(), CreateReviewView, ShowR
                     //click like btn
                     binding.addCurriculumLikeLayout.setOnClickListener {
                         //커리 좋아요 상태 api시트에 추가되면 수정
-                        if(false){
+                        if(result.curriLikeStatus=="ACTIVE"){
                             //api - delete curri like
                             curriculumService.cancelCurriLike(curriculumIdx)
                         }else{

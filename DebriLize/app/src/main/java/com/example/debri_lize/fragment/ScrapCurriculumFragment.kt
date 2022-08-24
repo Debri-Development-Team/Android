@@ -1,5 +1,6 @@
 package com.example.debri_lize.fragment
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -8,6 +9,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.debri_lize.R
+import com.example.debri_lize.activity.AddCurriculumDetailActivity
 import com.example.debri_lize.activity.MainActivity
 import com.example.debri_lize.adapter.home.CurriculumRVAdapter
 import com.example.debri_lize.adapter.post.PostRVAdapter
@@ -70,7 +72,9 @@ class ScrapCurriculumFragment : Fragment(), ShowScrapCurriListView {
 
                     curriculumRVAdapter.setItemClickListener(object: CurriculumRVAdapter.OnItemClickListener{
                         override fun onClick(v: View, position: Int) {
-
+                            val intent = Intent(context, AddCurriculumDetailActivity::class.java)
+                            intent.putExtra("curriculumIdx", datas[position].curriculumIdx)
+                            startActivity(intent)
                         }
 
                     })

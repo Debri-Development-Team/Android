@@ -4,8 +4,11 @@ package com.example.debri_lize.activity
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.Gravity
 import android.view.View
+import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.debri_lize.R
 import com.example.debri_lize.adapter.home.CurriculumRVAdapter
 import com.example.debri_lize.data.curriculum.AddLecture
 import com.example.debri_lize.data.curriculum.Curriculum
@@ -95,7 +98,12 @@ class ChooseMyCurriculumActivity : AppCompatActivity(), MyCurriculumListView, Ad
         when(code){
             200->{
                 //add toast
-
+                //강의 추가 확인 토스트메시지
+                var addLectureToast = layoutInflater.inflate(R.layout.toast_add_lecture_to_curri,null)
+                var toast = Toast(this@ChooseMyCurriculumActivity)
+                toast.view = addLectureToast
+                toast.setGravity(Gravity.CENTER_HORIZONTAL,0,0)
+                toast.show()
                 finish()
             }
         }
