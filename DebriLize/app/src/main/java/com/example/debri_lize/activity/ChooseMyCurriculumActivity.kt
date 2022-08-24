@@ -4,8 +4,11 @@ package com.example.debri_lize.activity
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.Gravity
 import android.view.View
+import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.debri_lize.R
 import com.example.debri_lize.adapter.home.CurriculumRVAdapter
 import com.example.debri_lize.data.curriculum.AddLecture
 import com.example.debri_lize.data.curriculum.Curriculum
@@ -77,6 +80,12 @@ class ChooseMyCurriculumActivity : AppCompatActivity(), MyCurriculumListView, Ad
                     //click recyclerview item
                     curriculumRVAdapter.setItemClickListener(object : CurriculumRVAdapter.OnItemClickListener {
                         override fun onClick(v: View, position: Int) {
+                            //강의 추가 확인 토스트메시지
+                            var addLectureToast = layoutInflater.inflate(R.layout.toast_add_lecture_to_curri,null)
+                            var toast = Toast(this@ChooseMyCurriculumActivity)
+                            toast.view = addLectureToast
+                            toast.setGravity(Gravity.CENTER_HORIZONTAL,0,0)
+                            toast.show()
                             //api - 8.5 강의자료 추가 api : 홈 > 새로운 강의자료 추가하기
                             curriculumService.addLectureInCurriculum(AddLecture(datas[position].curriculumIdx, lectureIdx))
                             Log.d("addLecture", AddLecture(datas[position].curriculumIdx, lectureIdx).toString())
