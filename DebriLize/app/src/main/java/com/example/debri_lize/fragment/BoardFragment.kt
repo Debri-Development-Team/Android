@@ -5,9 +5,12 @@ import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
+import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.debri_lize.adapter.board.BoardRVAdapter
@@ -225,7 +228,15 @@ class BoardFragment : Fragment(), UnScrapBoardListView, ScrapBoardListView, Canc
     override fun onCreateScrapBoardSuccess(code: Int) {
         when(code){
             200-> {
-                Log.d("scrapCreateBoardSuccess","$code")
+//                Log.d("scrapCreateBoardSuccess","$code")
+                //즐겨찾기 생성 토스트메시지
+                var scrapBoardToast = layoutInflater.inflate(R.layout.toast_add_lecture_to_curri,null)
+                scrapBoardToast.findViewById<TextView>(R.id.toast_add_lecture_tv).text = "새로운 즐겨찾기가 추가되었습니다!"
+                var toast = Toast(context)
+                toast.view = scrapBoardToast
+                toast.setGravity(Gravity.CENTER_HORIZONTAL,0,0)
+                toast.show()
+
 
                 boardService.showScrapBoardList()
                 boardService.showUnScrapBoardList()
