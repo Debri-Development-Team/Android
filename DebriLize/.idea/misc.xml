@@ -169,21 +169,32 @@
         <entry key="..\:/Users/tptty/AndroidStudioProjects/Debri_final/Android/DebriLize/app/src/main/res/menu/bottom_nav_menu.xml" value="0.17916666666666667" />
         <entry key="..\:/Users/tptty/AndroidStudioProjects/Debri_final/Android/DebriLize/app/src/main/res/menu/post_menu.xml" value="0.17916666666666667" />
         <entry key="..\:/Users/tptty/AppData/Local/Android/Sdk/platforms/android-32/data/res/layout/simple_spinner_item.xml" value="0.17916666666666667" />
+        <entry key="app/src/main/res/drawable-v24/border_line_bottom.xml" value="0.1685" />
+        <entry key="app/src/main/res/drawable-v24/border_round_transparent_debri_10.xml" value="0.1685" />
         <entry key="app/src/main/res/drawable-v24/border_round_transparent_gray_10.xml" value="0.1685" />
         <entry key="app/src/main/res/drawable/border_line_left.xml" value="0.2135" />
         <entry key="app/src/main/res/drawable/border_line_right.xml" value="0.2135" />
         <entry key="app/src/main/res/drawable/border_line_tag.xml" value="0.2135" />
         <entry key="app/src/main/res/drawable/btm_nav_search.xml" value="0.1" />
         <entry key="app/src/main/res/drawable/circle_debri_opacity_30.xml" value="0.1265" />
+        <entry key="app/src/main/res/drawable/ic_hide.xml" value="0.1685" />
+        <entry key="app/src/main/res/drawable/ic_private_off.xml" value="0.1685" />
         <entry key="app/src/main/res/drawable/ic_report_red.xml" value="0.1" />
         <entry key="app/src/main/res/drawable/ic_scrap_darkmode.xml" value="0.1" />
         <entry key="app/src/main/res/drawable/ic_scrap_white.xml" value="0.1" />
         <entry key="app/src/main/res/drawable/ic_siren_red.xml" value="0.1" />
+        <entry key="app/src/main/res/drawable/selector_class_radio_back.xml" value="0.1685" />
+        <entry key="app/src/main/res/drawable/selector_class_radio_text.xml" value="0.1685" />
+        <entry key="app/src/main/res/drawable/selector_curriculum_setting_private.xml" value="0.1685" />
+        <entry key="app/src/main/res/drawable/selector_curriculum_setting_private_img.xml" value="0.1685" />
+        <entry key="app/src/main/res/drawable/selector_curriculum_setting_public.xml" value="0.1685" />
+        <entry key="app/src/main/res/drawable/selector_curriculum_setting_public_img.xml" value="0.1685" />
         <entry key="app/src/main/res/layout/activity_add_curriculum.xml" value="0.1" />
         <entry key="app/src/main/res/layout/activity_add_curriculum_choose.xml" value="0.1" />
         <entry key="app/src/main/res/layout/activity_add_curriculum_detail.xml" value="0.25" />
         <entry key="app/src/main/res/layout/activity_add_roadmap_detail.xml" value="0.1" />
         <entry key="app/src/main/res/layout/activity_curriculum.xml" value="0.20516304347826086" />
+        <entry key="app/src/main/res/layout/activity_curriculum_setting.xml" value="0.375" />
         <entry key="app/src/main/res/layout/activity_lecture_detail.xml" value="0.2064483642578125" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.20516304347826086" />
         <entry key="app/src/main/res/layout/activity_post_create.xml" value="0.1" />
@@ -204,7 +215,7 @@
         <entry key="app/src/main/res/layout/fragment_bottom_sheet_complain_detail.xml" value="0.21920289855072464" />
         <entry key="app/src/main/res/layout/fragment_bottom_sheet_edit_delete.xml" value="0.1" />
         <entry key="app/src/main/res/layout/fragment_bottom_sheet_four.xml" value="0.20516304347826086" />
-        <entry key="app/src/main/res/layout/fragment_class.xml" value="0.25" />
+        <entry key="app/src/main/res/layout/fragment_class.xml" value="0.1" />
         <entry key="app/src/main/res/layout/fragment_curriculum.xml" value="0.22191592005513439" />
         <entry key="app/src/main/res/layout/fragment_first.xml" value="0.1125" />
         <entry key="app/src/main/res/layout/fragment_home.xml" value="0.1" />

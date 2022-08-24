@@ -81,4 +81,7 @@ dependencies {
     //viewpager2
     implementation 'androidx.viewpager2:viewpager2:1.0.0'
     implementation 'me.relex:circleindicator:2.1.4'
+
+    //blur
+    implementation 'com.github.mmin18:realtimeblurview:1.2.1'
 }
