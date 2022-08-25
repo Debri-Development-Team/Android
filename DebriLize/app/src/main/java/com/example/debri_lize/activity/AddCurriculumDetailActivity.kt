@@ -216,10 +216,11 @@ class AddCurriculumDetailActivity : AppCompatActivity(), CreateReviewView, ShowR
 
                     //click like btn
                     binding.addCurriculumLikeLayout.setOnClickListener {
+                        Log.d("curri",result.toString())
                         //커리 좋아요 상태 api시트에 추가되면 수정
                         if(result.curriLikeStatus=="ACTIVE"){
                             //api - delete curri like
-                            curriculumService.cancelCurriLike(curriculumIdx)
+                            curriculumService.cancelCurriLike(result.scrapIdx)
                         }else{
                             //api - create curri like
                             curriculumService.createCurriLike(curriculumIdx)
