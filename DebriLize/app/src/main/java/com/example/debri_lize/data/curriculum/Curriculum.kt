@@ -38,7 +38,8 @@ data class CurriculumDetail(
     @SerializedName(value = "chapterListResList") val chapterListResList: List<ChapterList>,
     @SerializedName(value = "dday") val dday: Int,
     @SerializedName(value = "curriDesc") val curriDesc: String,
-    @SerializedName(value = "curriLikeStatus") val curriLikeStatus: String
+    @SerializedName(value = "curriLikeStatus") val curriLikeStatus: String,
+    @SerializedName(value = "scrapIdx") val scrapIdx: Int
 ) : Serializable
 
 data class LectureList(
