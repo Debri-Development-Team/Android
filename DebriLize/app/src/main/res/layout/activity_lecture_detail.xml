@@ -79,8 +79,8 @@
                         android:textSize="10dp"
                         android:fontFamily="@font/noto_sans_kr_bold"
                         android:includeFontPadding="false"
-                        android:paddingStart="7dp"
-                        android:paddingEnd="7dp"
+                        android:paddingHorizontal="6dp"
+                        android:textColor="@color/white"
                         android:paddingTop="2dp"
                         android:paddingBottom="2dp"
                         android:layout_marginStart="30dp"
@@ -137,14 +137,7 @@
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:gravity="center_vertical">
-                                    <TextView
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:text="|"
-                                        android:textSize="20dp"
-                                        android:textColor="@color/bottom_sheet"
-                                        android:layout_marginStart="5dp"
-                                        android:layout_marginEnd="5dp"/>
+
                                     <TextView
                                         android:id="@+id/lecture_detail_publisher_tv"
                                         android:layout_width="wrap_content"
@@ -153,7 +146,10 @@
                                         android:textSize="14dp"
                                         android:textColor="@color/white"
                                         android:fontFamily="@font/noto_sans_kr_medium"
-                                        android:includeFontPadding="false"/>
+                                        android:includeFontPadding="false"
+                                        android:paddingStart="10dp"
+                                        android:background="@drawable/border_line_left_1"/>
+
                                     <TextView
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
@@ -246,18 +242,14 @@
                 android:layout_marginTop="15dp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/lecture_detail_text_layout">
-                <ImageView
-                    android:layout_width="3dp"
-                    android:layout_height="50dp"
-                    android:src="@drawable/border_line_left"
-                    android:layout_marginStart="5dp"
-                    android:layout_marginEnd="5dp"/>
+
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
                     android:layout_gravity="center"
-                    android:layout_marginStart="5dp">
+                    android:paddingStart="15dp"
+                    android:background="@drawable/border_line_left_1">
                     <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content">

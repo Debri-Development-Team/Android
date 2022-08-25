@@ -6,6 +6,7 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.example.debri_lize.R
 import com.example.debri_lize.data.curriculum.ChapterList
 import com.example.debri_lize.data.curriculum.CompleteChapter
@@ -33,7 +34,7 @@ class ChapterRVAdapter(context: HomeActiveFragment) : RecyclerView.Adapter<Chapt
             curriIdx = item.curriIdx
 
             chapterName.text = item.chName
-            item.chapterImg?.let { chapterImg.setImageResource(it) }
+            Glide.with(fragment).load(item.chapterImg).into(chapterImg)
             chapterNum.text = item.chNum.toString() //현재 진행된 chapter 수
             completeChapterNum.text = item.completeChNum.toString() //총 chapter 수
             language.text = item.language

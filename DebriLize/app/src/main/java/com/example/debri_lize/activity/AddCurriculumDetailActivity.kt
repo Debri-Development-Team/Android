@@ -1,6 +1,8 @@
 package com.example.debri_lize.activity
 
+import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.KeyEvent
 import android.view.View
 import android.view.animation.Animation
@@ -11,30 +13,37 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import com.example.debri_lize.R
+import com.example.debri_lize.activity.auth.ProfileActivity
 import com.example.debri_lize.adapter.class_.ClassLectureRVAdapter
 import com.example.debri_lize.adapter.start.ReviewRVAdapter
 import com.example.debri_lize.data.class_.Lecture
+import com.example.debri_lize.data.curriculum.CopyCurriculum
+import com.example.debri_lize.data.curriculum.CurriculumDetail
 import com.example.debri_lize.data.curriculum.Review
 import com.example.debri_lize.databinding.ActivityAddCurriculumDetailBinding
+import com.example.debri_lize.service.CurriculumService
 import com.example.debri_lize.service.ReviewService
 import com.example.debri_lize.utils.getUserName
-import com.example.debri_lize.view.curriculum.CreateReviewView
-import com.example.debri_lize.view.curriculum.ShowReviewView
+import com.example.debri_lize.view.curriculum.*
 import kotlin.concurrent.thread
+import kotlin.properties.Delegates
 
-class AddCurriculumDetailActivity : AppCompatActivity(), CreateReviewView, ShowReviewView {
+class AddCurriculumDetailActivity : AppCompatActivity(), CreateReviewView, ShowReviewView, ShowCurriculumDetailView,
+    CreateCurriLikeView, CancelCurriLikeView, CopyCurriculumView {
     lateinit var binding : ActivityAddCurriculumDetailBinding
 
     lateinit var classLectureRVAdapter: ClassLectureRVAdapter
     lateinit var reviewRVAdapter: ReviewRVAdapter
 
-    val datas = ArrayList<Lecture>()
+    var curriculumIdx by Delegates.notNull<Int>()
+    val lecture = ArrayList<Lecture>()
 
     //review
     val review = ArrayList<Review>()
 
     //api
     var reviewService = ReviewService()
+    var curriculumService = CurriculumService()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -43,7 +52,17 @@ class AddCurriculumDetailActivity : AppCompatActivity(), CreateReviewView, ShowR
 
         Glide.with(this).load(R.raw.curriculum).into(binding.addCurriculumDetailStatusIv)
 
-        initRecyclerView()
+        //click userImg
+        binding.addCurriculumDetailDebriUserIv.setOnClickListener{
+            val intent = Intent(this, ProfileActivity::class.java)
+            startActivity(intent)
+        }
+
+        //backbtn
+        binding.addCurriculumDetailNextIv.setOnClickListener{
+            finish()
+        }
+
 
         //review recycler view
         binding.addCurriculumDetailReviewRv.layoutManager =
@@ -51,9 +70,10 @@ class AddCurriculumDetailActivity : AppCompatActivity(), CreateReviewView, ShowR
         reviewRVAdapter = ReviewRVAdapter()
         binding.addCurriculumDetailReviewRv.adapter = reviewRVAdapter
 
-        //8.12.1 커리큘럼 리뷰 조회 api
-        reviewService.setShowReviewView(this)
-        reviewService.showReview(59)
+        //data : CurriculumFragment -> AddCurriculumDetailActivity
+        val intent = intent //전달할 데이터를 받을 Intent
+        curriculumIdx = intent.getIntExtra("curriculumIdx", 0)
+
 
     }
 
@@ -70,37 +90,28 @@ class AddCurriculumDetailActivity : AppCompatActivity(), CreateReviewView, ShowR
             }
             false
         }
-    }
 
-    private fun initRecyclerView(){
+        //lecture recycler view
         binding.addCurriculumDetailLectureRv.layoutManager =
             LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
         classLectureRVAdapter = ClassLectureRVAdapter()
         binding.addCurriculumDetailLectureRv.adapter = classLectureRVAdapter
 
-        datas.clear()
+        //AddCurriculumActivity -> AddCurriculumDetailActivity
+        val intent = intent //전달할 데이터를 받을 Intent
+        curriculumIdx = intent.getIntExtra("curriculumIdx", 0)
 
-        //data : 전체
-        datas.apply {
+        //8.3 커리큘럼 상세 조회 api
+        curriculumService.setShowCurriculumDetailView(this)
+        curriculumService.showCurriculumDetail(curriculumIdx)
 
-//            datas.add(Lecture(1, "야호", 1, "야호", "야호", "야호",false))
-//            datas.add(Lecture(1, "야호", 1, "야호", "야호", "야호",false))
-//            datas.add(Lecture(1, "야호", 1, "야호", "야호", "야호",false))
+        //8.8(9) 커리큘럼 좋아요 생성(취소)
+        curriculumService.setCreateCurriLikeView(this)
+        curriculumService.setCancelCurriLikeView(this)
 
-            classLectureRVAdapter.datas = datas
-            classLectureRVAdapter.notifyDataSetChanged()
-
-            //click recyclerview item
-            classLectureRVAdapter.setItemClickListener(object :
-                ClassLectureRVAdapter.OnItemClickListener {
-                override fun onClick(v: View, position: Int) {
-
-
-                }
-            })
-        }
-
-
+        //8.12.1 커리큘럼 리뷰 조회 api
+        reviewService.setShowReviewView(this)
+        reviewService.showReview(curriculumIdx)
     }
 
     //live animation
@@ -139,12 +150,105 @@ class AddCurriculumDetailActivity : AppCompatActivity(), CreateReviewView, ShowR
         })
     }
 
+    //8.3 커리큘럼 상세 조회 api
+    override fun onShowCurriculumDetailSuccess(code: Int, result: CurriculumDetail) {
+        when(code){
+            200->{
+                //screen
+                binding.addCurriculumDetailNameTv.text = result.curriculumName
+                binding.addCurriculumDetailDetailTv.text = result.curriDesc
+                binding.addCurriculumDetailAuthorTv.text = result.curriculumAuthor
+                //binding.addCurriculumDetailDdayTv2.text = result.
+
+                Log.d("currilikestatus","${result}")
+
+                //커리큘럼 좋아요 상태 api 시트에 추가되면 수정
+                if(result.curriLikeStatus=="ACTIVE")  {
+                    binding.addCurriculumLikeIv.setImageResource(R.drawable.ic_like_on)
+                    binding.addCurriculumLikeLayout.setBackgroundResource(R.drawable.border_round_debri_darkmode_10)
+                }else{
+                    binding.addCurriculumLikeIv.setImageResource(R.drawable.ic_like_off)
+                    binding.addCurriculumLikeLayout.setBackgroundResource(R.drawable.border_round_white_transparent_10)
+                }
+
+                //lecture recycler view
+                lecture.clear()
+
+                //data : 전체
+                lecture.apply {
+
+                    for(i in result.lectureListResList){
+                        if(i.scrapStatus=="ACTIVE"){ //likeCnt추가
+                            i.lectureIdx?.let { i.lectureName?.let { it1 ->
+                                i.language?.let { it2 ->
+                                    Lecture(it,
+                                        it1,i.chNum,
+                                        it2,i.type,i.price,true,0,i.usedCnt,0,true, "야호", "야호", "야호")
+                                }
+                            } }
+                                ?.let { lecture.add(it) }
+                        }else{ //likeCnt추가
+                            i.lectureIdx?.let { i.lectureName?.let { it1 ->
+                                i.language?.let { it2 ->
+                                    Lecture(it,
+                                        it1,i.chNum,
+                                        it2,i.type,i.price,false,0,i.usedCnt,0,true, "야호", "야호", "야호")
+                                }
+                            } }
+                                ?.let { lecture.add(it) }
+                        }
+
+                    }
+
+
+                    classLectureRVAdapter.datas = lecture
+                    classLectureRVAdapter.notifyDataSetChanged()
+
+                    //click recyclerview item
+                    classLectureRVAdapter.setItemClickListener(object :
+                        ClassLectureRVAdapter.OnItemClickListener {
+                        override fun onClick(v: View, position: Int) {
+
+
+                        }
+                    })
+
+
+
+
+                    //click like btn
+                    binding.addCurriculumLikeLayout.setOnClickListener {
+                        Log.d("curri",result.toString())
+                        //커리 좋아요 상태 api시트에 추가되면 수정
+                        if(result.curriLikeStatus=="ACTIVE"){
+                            //api - delete curri like
+                            curriculumService.cancelCurriLike(result.scrapIdx)
+                        }else{
+                            //api - create curri like
+                            curriculumService.createCurriLike(curriculumIdx)
+                        }
+                    }
+                }
+
+                //add btn - 8.13 코드추가
+                binding.addCurriculumDetailAddBtn.setOnClickListener{
+                    curriculumService.setCopyCurriculumView(this)
+                    curriculumService.copyCurriculum(CopyCurriculum(curriculumIdx, result.curriculumAuthor))
+                }
+            }
+        }
+    }
+
+    override fun onShowCurriculumDetailFailure(code: Int) {
+
+    }
+
     //review
     //사용자가 입력한 값 가져오기
     private fun getReview() : Review {
         val content : String = binding.addCurriculumDetailWriteReviewEt.text.toString()
 
-        return Review(59, getUserName(), content)
+        return Review(curriculumIdx, getUserName(), content)
     }
 
     private fun createReview(){
@@ -179,26 +283,28 @@ class AddCurriculumDetailActivity : AppCompatActivity(), CreateReviewView, ShowR
     override fun onShowReviewSuccess(code: Int, result: List<Review>) {
         when(code){
             200->{
-                var j = 0
-                thread(start = true) {
-                    while(true){
-                        runOnUiThread{
-                            review.clear()
-                            review.apply {
-                                for (cnt in 1..3){
-                                    review.add(Review(result[j].curriculumIdx, result[j].authorName, result[j].content))
+                if(result.isNotEmpty()){
+                    var j = 0
+                    thread(start = true) {
+                        while(true){
+                            runOnUiThread{
+                                review.clear()
+                                review.apply {
+                                    for (cnt in 1..3){
+                                        review.add(Review(result[j].curriculumIdx, result[j].authorName, result[j].content))
 
-                                    j++
-                                    if(j>=result.size){
-                                        j = 0
+                                        j++
+                                        if(j>=result.size){
+                                            j = 0
+                                        }
                                     }
+                                    reviewRVAdapter.datas = review
+                                    reviewRVAdapter.notifyDataSetChanged()
                                 }
-                                reviewRVAdapter.datas = review
-                                reviewRVAdapter.notifyDataSetChanged()
+                                binding.addCurriculumDetailReviewRv.startLayoutAnimation()
                             }
-                            binding.addCurriculumDetailReviewRv.startLayoutAnimation()
+                            Thread.sleep(5000)
                         }
-                        Thread.sleep(5000)
                     }
                 }
             }
@@ -208,5 +314,42 @@ class AddCurriculumDetailActivity : AppCompatActivity(), CreateReviewView, ShowR
     override fun onShowReviewFailure(code: Int) {
 
     }
+
+    override fun onCreateCurriLikeSuccess(code: Int) {
+        when(code){
+            200->{
+                curriculumService.showCurriculumDetail(curriculumIdx)
+            }
+        }
+    }
+
+    override fun onCreateCurriLikeFailure(code: Int) {
+        Log.d("createCurriLikeFail","$code")
+    }
+
+    override fun onDeleteCurriLikeSuccess(code: Int) {
+        when(code){
+            200->{
+                curriculumService.showCurriculumDetail(curriculumIdx)
+            }
+        }
+    }
+
+    override fun onDeleteCurriLikeFailure(code: Int) {
+        Log.d("deleteCurriLikeFail","$code")
+    }
+
+    override fun onCopyCurriculumSuccess(code: Int) {
+        when(code){
+            200->{
+
+            }
+        }
+    }
+
+    override fun onCopyCurriculumFailure(code: Int) {
+
+    }
+
 
 }

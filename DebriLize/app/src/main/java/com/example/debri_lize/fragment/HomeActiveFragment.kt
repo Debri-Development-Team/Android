@@ -49,7 +49,7 @@ class HomeActiveFragment(
     lateinit var chapterRVAdapter: ChapterRVAdapter
     lateinit var lectureRVAdapter: LectureRVAdapter
 
-    var arrayImg = arrayOf(R.drawable.ic_lecture_green, R.drawable.ic_lecture_purple, R.drawable.ic_lecture_red)
+    var arrayImg = arrayOf(R.raw.green, R.raw.red, R.raw.purple)
 
     val chapter = ArrayList<ChapterList>()
     val lecture = ArrayList<LectureList>()
@@ -73,7 +73,6 @@ class HomeActiveFragment(
 
         //click add lecture -> ClassFragment
         binding.homeCurriculumAddLectureLayout.setOnClickListener{
-            context.binding.mainBnv.selectedItemId = R.id.classFragment
             val passBundleBFragment = ClassFragment()
 
             context.binding.mainBnv.selectedItemId = R.id.classFragment
@@ -215,7 +214,9 @@ class HomeActiveFragment(
             dialog.setOnClickListener(object:CustomDialog.ButtonClickListener{
                 override fun onClicked(TF: Boolean) {
                     //api - 8.6 커리큘럼 삭제 api
+                    Log.d("deleteCurriIdx", curriculumIdx.toString())
                     curriculumService.deleteCurriculum(curriculumIdx)
+
                 }
             })
             bottomSheetDialog.dismiss()
@@ -385,7 +386,7 @@ class HomeActiveFragment(
 
                 lecture.apply {
                     for(i in result.lectureListResList){
-                        lecture.add(LectureList(i.lectureIdx,i.lectureName,i.language,i.chNum,i.progressRate))
+                        lecture.add(LectureList(i.lectureIdx,i.lectureName,i.language,i.chNum,i.progressRate,i.type,i.price,i.usedCnt,i.scrapStatus,i.likeStatus))
                     }
 
                     lectureRVAdapter.datas = lecture
@@ -396,6 +397,7 @@ class HomeActiveFragment(
                         override fun onClick(v: View, position: Int) {
                             val intent = Intent(context, LectureDetailActivity::class.java)
                             intent.putExtra("lectureIdx", lecture[position].lectureIdx)
+                            intent.putExtra("lectureName", lecture[position].lectureName)
                             startActivity(intent)
 
                         }

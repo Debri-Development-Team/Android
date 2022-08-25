@@ -28,14 +28,15 @@ class HomeFragment : Fragment(), MyCurriculumListView {
     ): View? {
         binding = FragmentHomeBinding.inflate(inflater, container, false)
 
+        return binding.root
+    }
 
-
+    override fun onResume() {
+        super.onResume()
         //api - 8.2 커리큘럼 리스트 조회 api
         val curriculumService = CurriculumService()
         curriculumService.setMyCurriculumListView(this)
         curriculumService.myCurriculumList()
-
-        return binding.root
     }
 
     //api
@@ -46,9 +47,9 @@ class HomeFragment : Fragment(), MyCurriculumListView {
                 var j = 0
                 for(i in result){
                     if(i.status=="ACTIVE") { //활성 상태
-                        fragmentList.add(HomeActiveFragment(i.curriculumIdx, j))
+                        fragmentList.add(HomeActiveFragment(i.curriculumIdx!!, j))
                     }else { //비활성 상태
-                        fragmentList.add(HomeInactiveFragment(i.curriculumIdx, j))
+                        fragmentList.add(HomeInactiveFragment(i.curriculumIdx!!, j))
                     }
                     j++
                 }

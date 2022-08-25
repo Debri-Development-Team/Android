@@ -36,13 +36,13 @@
             android:id="@+id/profile_curriculum_name_tv"
             android:layout_width="150dp"
             android:layout_height="wrap_content"
-            android:text="자바 첫 걸음"
+            android:ellipsize="end"
             android:fontFamily="@font/noto_sans_kr_regular"
             android:includeFontPadding="false"
-            android:textColor="@color/white"
-            android:textSize="18sp"
             android:maxLines="1"
-            android:ellipsize="end"/>
+            android:text="자바 첫 걸음"
+            android:textColor="@color/white"
+            android:textSize="18sp" />
 
         <TextView
             android:id="@+id/profile_curriculum_date_tv"
@@ -52,8 +52,56 @@
             android:fontFamily="@font/noto_sans_kr_regular"
             android:includeFontPadding="false"
             android:textColor="@color/white"
-            android:textSize="12sp" />
+            android:textSize="12dp"
+            android:visibility="visible"
+            android:ellipsize="end"
+            android:maxLines="1"/>
 
+        <LinearLayout
+            android:id="@+id/profile_private_layout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:visibility="gone">
+            <ImageView
+                android:id="@+id/profile_private_iv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_hide"/>
+            <TextView
+                android:id="@+id/profile_private_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="공개 중"
+                android:fontFamily="@font/noto_sans_kr_medium"
+                android:includeFontPadding="false"
+                android:textColor="@color/white"
+                android:textSize="12dp"
+                android:layout_marginStart="7dp"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/item_curriculum_author_layout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            >
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="by  "
+                android:textColor="@color/white"
+                android:fontFamily="@font/noto_sans_kr_regular"
+                android:includeFontPadding="false"/>
+            <TextView
+                android:id="@+id/item_curriculum_author_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="자바왕"
+                android:textColor="@color/white"
+                android:fontFamily="@font/noto_sans_kr_medium"
+                android:includeFontPadding="false" />
+        </LinearLayout>
 
 
     </LinearLayout>

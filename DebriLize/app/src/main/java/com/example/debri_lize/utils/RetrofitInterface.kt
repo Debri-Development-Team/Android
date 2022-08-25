@@ -206,14 +206,26 @@ interface RetrofitInterface {
     fun addLectureInCurriculum(@Body addLecture: AddLecture, @Header("ACCESS-TOKEN") authToken: String) : Call<BaseResponse<String>>
 
     //8.6 커리큘럼 삭제 api
-    @POST("api/curri/delete/{curriIdx}")
+    @PATCH("api/curri/delete/{curriIdx}")
     fun deleteCurriculum(@Path("curriIdx") curriIdx: Int, @Header("ACCESS-TOKEN") authToken: String) : Call<BaseResponse<String>>
 
     //8.7 챕터 수강 완료 및 취소 api
     @PATCH("api/curri/chapter/status")
     fun completeChapter(@Body completeChapter : CompleteChapter, @Header("ACCESS-TOKEN") authToken: String) : Call<BaseResponse<String>>
 
-    //8.10 커리큘럼 좋아요(추천) TOP 10 리스트 조회 api
+    //8.8 커리큘럼 좋아요(추천) 생성 api
+    @POST("api/curri/scrap/{curriIdx}")
+    fun createCurriLike(@Path("curriIdx") curriIdx:Int, @Header("ACCESS-TOKEN") authToken: String) : Call<BaseResponse<CurriculumLike>>
+
+    //8.9 커리큘럼 좋아요(추천) 취소 api
+    @PATCH("api/curri/unScrap/{scrapIdx}")
+    fun cancelCurriLike(@Path("scrapIdx") scrapIdx:Int, @Header("ACCESS-TOKEN") authToken: String) : Call<BaseResponse<String>>
+
+    //8.10 커리큘럼 좋아요(추천) 리스트 조회 api
+    @GET("api/curri/getScrapList")
+    fun showScrapCurriList(@Header("ACCESS-TOKEN") authToken: String) : Call<BaseResponse<List<Curriculum>>>
+
+    //8.10.1 커리큘럼 좋아요(추천) TOP 10 리스트 조회 api
     @GET("api/curri/scrap/topList")
     fun showTop10List(@Header("ACCESS-TOKEN") authToken: String) : Call<BaseResponse<List<Top10>>>
 
@@ -228,4 +240,12 @@ interface RetrofitInterface {
     //8.12.1 커리큘럼 리뷰 조회 api
     @GET("api/curri/review/getList/{curriIdx}")
     fun showReview(@Path("curriIdx") curriIdx: Int, @Header("ACCESS-TOKEN") authToken: String) : Call<BaseResponse<List<Review>>>
+
+    //8.13 커리큘럼 복붙 api
+    @POST("api/curri/copy")
+    fun copyCurriculum(@Body copyCurriculum : CopyCurriculum, @Header("ACCESS-TOKEN") authToken: String) : Call<BaseResponse<Copy>>
+
+    //8.14 최신 커리큘럼 리스트 조회 api
+    @POST("api/curri/getNewList")
+    fun showGetNewCurriList(@Header("ACCESS-TOKEN") authToken: String) : Call<BaseResponse<List<Top10>>>
 }

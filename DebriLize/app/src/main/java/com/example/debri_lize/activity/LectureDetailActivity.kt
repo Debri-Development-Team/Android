@@ -13,6 +13,7 @@ import androidx.annotation.UiThread
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.debri_lize.R
 import com.example.debri_lize.activity.auth.LoginActivity
+import com.example.debri_lize.activity.auth.ProfileActivity
 import com.example.debri_lize.adapter.class_.LectureReviewRVAdapter
 import com.example.debri_lize.data.class_.Lecture
 import com.example.debri_lize.data.class_.LectureReview
@@ -36,6 +37,7 @@ class LectureDetailActivity : AppCompatActivity(), ShowLectureDetailView, Create
     var reviewService = ReviewService()
 
     private var lectureIdx by Delegates.notNull<Int>()
+    private lateinit var lectureName : String
 
     val classService = ClassService()
 
@@ -45,6 +47,17 @@ class LectureDetailActivity : AppCompatActivity(), ShowLectureDetailView, Create
         binding = ActivityLectureDetailBinding.inflate(layoutInflater) //binding 초기화
         setContentView(binding.root)
 
+        //data 받아오기 (ClassFragment -> LectureDetailActivity)
+        //data 받아오기 (HomeActive/Inactive Fragment -> LectureDetailActivity)
+        val intent = intent //전달할 데이터를 받을 Intent
+        lectureIdx = intent.getIntExtra("lectureIdx", 0)
+        lectureName = intent.getStringExtra("lectureName").toString()
+        Log.d("lectureIdx", lectureIdx.toString())
+
+        //7.6.1 강의 리뷰 조회 api
+        reviewService.setShowLectureReviewView(this)
+        reviewService.showLectureReview(lectureIdx)
+
     }
 
     override fun onStart() {
@@ -52,14 +65,19 @@ class LectureDetailActivity : AppCompatActivity(), ShowLectureDetailView, Create
 
         liveAnimation()
 
-        //data 받아오기 (ClassFragment -> LectureDetailActivity)
-        //data 받아오기 (HomeFragment -> LectureDetailActivity)
-        val intent = intent //전달할 데이터를 받을 Intent
-        lectureIdx = intent.getIntExtra("lectureIdx", 0)
-        Log.d("lectureIdx", lectureIdx.toString())
+        //click profile
+        binding.lectureDetailUserusedTv.setOnClickListener{
+            val intent = Intent(this, ProfileActivity::class.java)
+            startActivity(intent)
+        }
 
-        reviewService.setShowLectureReviewView(this)
-        reviewService.showLectureReview(lectureIdx)
+        //add curriculum
+        binding.lectureDetailCurriAddBtn.setOnClickListener{
+            val intent = Intent(this, ChooseMyCurriculumActivity::class.java)
+            intent.putExtra("lectureIdx", lectureIdx)
+            intent.putExtra("lectureName", lectureName)
+            startActivity(intent)
+        }
 
         //finish
         binding.lectureDetailPreviousIv.setOnClickListener{
@@ -160,11 +178,6 @@ class LectureDetailActivity : AppCompatActivity(), ShowLectureDetailView, Create
                             classService.deleteLectureLike(result.lectureIdx)
                         }
                     }
-
-
-                //7.6.1 강의 리뷰 조회 api
-                reviewService.setShowLectureReviewView(this)
-                reviewService.showLectureReview(lectureIdx)
             }
         }
     }
@@ -198,11 +211,17 @@ class LectureDetailActivity : AppCompatActivity(), ShowLectureDetailView, Create
     }
 
     //7.6 강의 리뷰 작성 api
-    override fun onCreateLectureReviewSuccess(code: Int) {
+    override fun onCreateLectureReviewSuccess(code: Int, result : LectureReview) {
         when(code){
             200->{
                 Toast.makeText(this, "lectureReview ok", Toast.LENGTH_SHORT).show()
                 binding.lectureDetailWriteReviewEt.text.clear()
+
+                //lectureReviewRVAdapter.datas.add(Review(result.lectureIdx, result.authorName, result.content))
+                //lectureReviewRVAdapter.notifyDataSetChanged()
+
+                reviewService.setShowLectureReviewView(this)
+                reviewService.showLectureReview(lectureIdx)
             }
         }
     }

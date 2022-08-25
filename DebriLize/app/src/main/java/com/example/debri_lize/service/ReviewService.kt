@@ -52,7 +52,7 @@ class ReviewService {
                 Log.d("createLectureReviewCode", resp.code.toString())
                 when(val code = resp.code){
                     //API code값 사용
-                    200->createLectureReviewView.onCreateLectureReviewSuccess(code)
+                    200->createLectureReviewView.onCreateLectureReviewSuccess(code, resp.result)
                     else-> createLectureReviewView.onCreateLectureReviewFailure(code)
                 }
             }

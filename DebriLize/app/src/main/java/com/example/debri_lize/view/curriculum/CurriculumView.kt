@@ -2,6 +2,7 @@ package com.example.debri_lize.view.curriculum
 
 import com.example.debri_lize.data.curriculum.Curriculum
 import com.example.debri_lize.data.curriculum.CurriculumDetail
+import com.example.debri_lize.data.curriculum.CurriculumLike
 import com.example.debri_lize.data.curriculum.Top10
 
 //8.1 커리큘럼 생성 api
@@ -58,7 +59,25 @@ interface CompleteChapterView {
     fun onCompleteChapterFailure(code : Int)
 }
 
-//8.10 커리큘럼 좋아요(추천) TOP 10 리스트 조회 api
+//8.8 커리큘럼 좋아요(추천) 생성 api
+interface CreateCurriLikeView {
+    fun onCreateCurriLikeSuccess(code: Int)
+    fun onCreateCurriLikeFailure(code: Int)
+}
+
+//8.9 커리큘럼 좋아요(추천) 취소 api
+interface CancelCurriLikeView {
+    fun onDeleteCurriLikeSuccess(code: Int)
+    fun onDeleteCurriLikeFailure(code: Int)
+}
+
+//8.10 커리큘럼 좋아요(추천) 리스트 조회 api
+interface ShowScrapCurriListView {
+    fun onShowScrapCurriListSuccess(code: Int, result: List<Curriculum>)
+    fun onShowScrapCurriListFailure(code: Int)
+}
+
+//8.10.1 커리큘럼 좋아요(추천) TOP 10 리스트 조회 api
 interface ShowTop10ListView {
     fun onShowTop10ListSuccess(code: Int, result : List<Top10>)
     fun onShowTop10ListFailure(code : Int)
@@ -68,4 +87,16 @@ interface ShowTop10ListView {
 interface ResetCurriculumView {
     fun onResetCurriculumSuccess(code: Int)
     fun onResetCurriculumFailure(code : Int)
+}
+
+//8.13 커리큘럼 복붙 api
+interface CopyCurriculumView {
+    fun onCopyCurriculumSuccess(code: Int)
+    fun onCopyCurriculumFailure(code : Int)
+}
+
+//8.14 최신 커리큘럼 리스트 조회 api
+interface ShowGetNewCurriListView{
+    fun onShowGetNewCurriListSuccess(code: Int, result : List<Top10>)
+    fun onShowGetNewCurriListFailure(code : Int)
 }

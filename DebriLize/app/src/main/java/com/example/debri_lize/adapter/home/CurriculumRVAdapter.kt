@@ -1,5 +1,6 @@
 package com.example.debri_lize.adapter.home
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,7 +13,7 @@ import com.example.debri_lize.data.curriculum.Curriculum
 import com.example.debri_lize.databinding.ItemCurriculumBinding
 import com.example.debri_lize.databinding.ItemCurriculumProfileBinding
 
-class CurriculumRVAdapter : RecyclerView.Adapter<CurriculumRVAdapter.ViewHolder>() {
+class CurriculumRVAdapter(val className : String) : RecyclerView.Adapter<CurriculumRVAdapter.ViewHolder>() {
 
     var datas = mutableListOf<Curriculum>()
 
@@ -20,10 +21,34 @@ class CurriculumRVAdapter : RecyclerView.Adapter<CurriculumRVAdapter.ViewHolder>
 
         val statusImg : ImageView = binding.profileCurriculumStatusIv
         val curriculumName : TextView = binding.profileCurriculumNameTv
+        val privateLayout = binding.profilePrivateLayout
 
         fun bind(item: Curriculum) {
             Glide.with(itemView).load(R.raw.curriculum).into(statusImg)
             curriculumName.text = item.curriculumName
+            binding.itemCurriculumAuthorTv.text = item.curriculumAuthor
+//            Log.d("created",item.createdAt.toString())
+
+            if(className=="ProfileActivity") {
+                privateLayout.visibility = View.VISIBLE
+                binding.itemCurriculumAuthorLayout.visibility = View.GONE
+                binding.profileCurriculumDateTv.text = item.createdAt
+            } else {
+                privateLayout.visibility = View.GONE
+                binding.itemCurriculumAuthorLayout.visibility = View.VISIBLE
+                binding.profileCurriculumDateTv.text = item.curriDesc
+            }
+
+
+            if(item.visibleStatus=="ACTIVE"){
+                binding.profilePrivateIv.setImageResource(R.drawable.ic_open)
+                binding.profilePrivateTv.text = "공개 중"
+            }else{
+                binding.profilePrivateIv.setImageResource(R.drawable.ic_hide)
+                binding.profilePrivateTv.text = "비공개"
+            }
+
+
         }
     }
 

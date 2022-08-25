@@ -27,7 +27,15 @@ class CurriculumService {
 
     private lateinit var completeChapterView: CompleteChapterView
 
+    private lateinit var createCurriLikeView: CreateCurriLikeView
+    private lateinit var cancelCurriLikeView: CancelCurriLikeView
+
+    private lateinit var showScrapCurriListView: ShowScrapCurriListView
     private lateinit var showTop10ListView: ShowTop10ListView
+
+    private lateinit var showGetNewCurriListView: ShowGetNewCurriListView
+
+    private lateinit var copyCurriculumView: CopyCurriculumView
 
     fun setCreateCurriculumView(createCurriculumView: CreateCurriculumView){
         this.createCurriculumView = createCurriculumView
@@ -43,6 +51,22 @@ class CurriculumService {
 
     fun setShowTop10ListView(showTop10ListView: ShowTop10ListView){
         this.showTop10ListView = showTop10ListView
+    }
+
+    fun setCreateCurriLikeView(createCurriLikeView: CreateCurriLikeView){
+        this.createCurriLikeView = createCurriLikeView
+    }
+
+    fun setCancelCurriLikeView(cancelCurriLikeView: CancelCurriLikeView){
+        this.cancelCurriLikeView = cancelCurriLikeView
+    }
+
+    fun setShowScrapCurriListView(showScrapCurriListView: ShowScrapCurriListView){
+        this.showScrapCurriListView = showScrapCurriListView
+    }
+
+    fun setShowGetNewCurriListView(showGetNewCurriListView: ShowGetNewCurriListView){
+        this.showGetNewCurriListView = showGetNewCurriListView
     }
 
     //edit
@@ -68,6 +92,10 @@ class CurriculumService {
 
     fun setResetCurriculumView(resetCurriculumView: ResetCurriculumView){
         this.resetCurriculumView = resetCurriculumView
+    }
+
+    fun setCopyCurriculumView(copyCurriculumView: CopyCurriculumView){
+        this.copyCurriculumView = copyCurriculumView
     }
 
     //chapter
@@ -250,6 +278,7 @@ class CurriculumService {
             //응답이 왔을 때 처리
             override fun onResponse(call: Call<BaseResponse<String>>, response: Response<BaseResponse<String>>) {
                 Log.d("deleteCurri", "response")
+                Log.d("response","${response}")
                 val resp: BaseResponse<String> = response.body()!!
                 Log.d("deleteCurriCode", resp.code.toString())
                 when(resp.code){
@@ -290,7 +319,74 @@ class CurriculumService {
         })
     }
 
-    //8.10 커리큘럼 좋아요(추천) TOP 10 리스트 조회 api
+    //8.8 커리큘럼 좋아요(추천) 생성 api
+    fun createCurriLike(curriIdx: Int){
+        val curriculumService = getRetrofit().create(RetrofitInterface::class.java)
+        curriculumService.createCurriLike(curriIdx, getJwt()!!).enqueue(object: Callback<BaseResponse<CurriculumLike>> {
+            //응답이 왔을 때 처리
+            override fun onResponse(call: Call<BaseResponse<CurriculumLike>>, response: Response<BaseResponse<CurriculumLike>>) {
+                Log.d("createCurriLike", "response")
+                val resp: BaseResponse<CurriculumLike> = response.body()!!
+                Log.d("createCurriLikeCode", resp.code.toString())
+                when(resp.code){
+                    //API code값 사용
+                    200->createCurriLikeView.onCreateCurriLikeSuccess(resp.code)
+                    else->createCurriLikeView.onCreateCurriLikeFailure(resp.code)
+                }
+            }
+            //실패했을 때 처리
+            override fun onFailure(call: Call<BaseResponse<CurriculumLike>>, t: Throwable) {
+                Log.d("createCurriLikeFail", t.toString())
+            }
+        })
+    }
+
+    //8.9 커리큘럼 좋아요(추천) 취소 api
+    fun cancelCurriLike(scrapIdx : Int){
+        val curriculumService = getRetrofit().create(RetrofitInterface::class.java)
+        curriculumService.cancelCurriLike(scrapIdx, getJwt()!!).enqueue(object: Callback<BaseResponse<String>> {
+            //응답이 왔을 때 처리
+            override fun onResponse(call: Call<BaseResponse<String>>, response: Response<BaseResponse<String>>) {
+                Log.d("cancelCurriLike", "response")
+                val resp: BaseResponse<String> = response.body()!!
+                Log.d("cancelCurriLikeCode", resp.code.toString())
+                when(resp.code){
+                    //API code값 사용
+                    200->cancelCurriLikeView.onDeleteCurriLikeSuccess(resp.code)
+                    else->cancelCurriLikeView.onDeleteCurriLikeFailure(resp.code)
+                }
+            }
+            //실패했을 때 처리
+            override fun onFailure(call: Call<BaseResponse<String>>, t: Throwable) {
+                Log.d("cancelCurriLikeFail", t.toString())
+            }
+        })
+    }
+
+    //8.10 커리큘럼 좋아요(추천) 리스트 조회 api
+    fun showScrapCurriList(){
+        val curriculumService = getRetrofit().create(RetrofitInterface::class.java)
+        curriculumService.showScrapCurriList(getJwt()!!).enqueue(object: Callback<BaseResponse<List<Curriculum>>> {
+            //응답이 왔을 때 처리
+            override fun onResponse(call: Call<BaseResponse<List<Curriculum>>>, response: Response<BaseResponse<List<Curriculum>>>) {
+                Log.d("showScrapCurriList", "response")
+                val resp: BaseResponse<List<Curriculum>> = response.body()!!
+                Log.d("showScrapCurriListCode", resp.code.toString())
+                when(resp.code){
+                    //API code값 사용
+                    200->showScrapCurriListView.onShowScrapCurriListSuccess(resp.code, resp.result)
+                    else->showScrapCurriListView.onShowScrapCurriListFailure(resp.code)
+                }
+            }
+            //실패했을 때 처리
+            override fun onFailure(call: Call<BaseResponse<List<Curriculum>>>, t: Throwable) {
+                Log.d("showScrapCurriListFail", t.toString())
+            }
+
+        })
+    }
+
+    //8.10.1 커리큘럼 좋아요(추천) TOP 10 리스트 조회 api
     fun showTop10List(){
         val curriculumService = getRetrofit().create(RetrofitInterface::class.java)
 
@@ -332,6 +428,55 @@ class CurriculumService {
             //실패했을 때 처리
             override fun onFailure(call: Call<BaseResponse<String>>, t: Throwable) {
                 Log.d("resetCurriFail", t.toString())
+            }
+
+        })
+    }
+
+    //8.13 커리큘럼 복붙 api
+    fun copyCurriculum(copyCurriculum: CopyCurriculum){
+        val curriculumService = getRetrofit().create(RetrofitInterface::class.java)
+        curriculumService.copyCurriculum(copyCurriculum, getJwt()!!).enqueue(object: Callback<BaseResponse<Copy>> {
+            //응답이 왔을 때 처리
+            override fun onResponse(call: Call<BaseResponse<Copy>>, response: Response<BaseResponse<Copy>>) {
+                Log.d("copyCurri", "response")
+                val resp: BaseResponse<Copy> = response.body()!!
+                Log.d("copyCurriCode", resp.code.toString())
+                Log.d("copy", resp.result.curriculumIdx.toString())
+                when(resp.code){
+                    //API code값 사용
+
+                    200->copyCurriculumView.onCopyCurriculumSuccess(resp.code)
+                    else->copyCurriculumView.onCopyCurriculumFailure(resp.code)
+                }
+            }
+            //실패했을 때 처리
+            override fun onFailure(call: Call<BaseResponse<Copy>>, t: Throwable) {
+                Log.d("copyCurriFail", t.toString())
+            }
+
+        })
+    }
+
+    //8.14 최신 커리큘럼 리스트 조회 api
+    fun showGetNewCurriList(){
+        val curriculumService = getRetrofit().create(RetrofitInterface::class.java)
+
+        curriculumService.showTop10List(getJwt()!!).enqueue(object: Callback<BaseResponse<List<Top10>>> {
+            //응답이 왔을 때 처리
+            override fun onResponse(call: Call<BaseResponse<List<Top10>>>, response: Response<BaseResponse<List<Top10>>>) {
+                Log.d("showGetNewCurriList", "response")
+                val resp: BaseResponse<List<Top10>> = response.body()!!
+                Log.d("showGetNewCurriListCode", resp.code.toString())
+                when(resp.code){
+                    //API code값 사용
+                    200->showGetNewCurriListView.onShowGetNewCurriListSuccess(resp.code, resp.result)
+                    else->showGetNewCurriListView.onShowGetNewCurriListFailure(resp.code)
+                }
+            }
+            //실패했을 때 처리
+            override fun onFailure(call: Call<BaseResponse<List<Top10>>>, t: Throwable) {
+                Log.d("showGetNewCurriListFail", t.toString())
             }
 
         })

@@ -47,12 +47,13 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Front"
-                    android:textSize="11dp"
-                    android:paddingStart="5dp"
-                    android:paddingEnd="5dp"
+                    android:fontFamily="@font/noto_sans_kr_bold"
+                    android:includeFontPadding="false"
+                    android:textSize="10dp"
+                    android:textColor="@color/white"
+                    android:paddingHorizontal="6dp"
                     android:paddingTop="2dp"
                     android:paddingBottom="2dp"
-                    android:textColor="@color/white"
                     android:background="@drawable/border_round_transparent_front_10"/>
 
                 <TextView

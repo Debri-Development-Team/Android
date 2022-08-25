@@ -58,6 +58,11 @@ class PostDetailActivity : AppCompatActivity(), PostDetailView, CommentCreateVie
         binding = ActivityPostDetailBinding.inflate(layoutInflater) //binding 초기화
         setContentView(binding.root)
 
+        //backbtn
+        binding.postDetailPreviousIv.setOnClickListener{
+            finish()
+        }
+
         //api - post
         postService.setPostDetailView(this)
 
@@ -191,8 +196,9 @@ class PostDetailActivity : AppCompatActivity(), PostDetailView, CommentCreateVie
                 touchEvent(bottomSheetComplainDetailDialog.findViewById(R.id.bottom_sheet_complain_page_tv1)!!)
                 bottomSheetComplainDetailDialog.findViewById<TextView>(R.id.bottom_sheet_complain_page_tv1)!!
                     .setOnClickListener {
-                        //api
-                        reportService.reportPost(ReportPost(postIdx, "광고, 스팸"))
+
+                        //유저 신고 다이얼로그
+                        reportDlg("광고, 스팸")
 
                         //다이얼로그 닫기
                         bottomSheetComplainDetailDialog.dismiss()
@@ -202,8 +208,10 @@ class PostDetailActivity : AppCompatActivity(), PostDetailView, CommentCreateVie
                 touchEvent(bottomSheetComplainDetailDialog.findViewById(R.id.bottom_sheet_complain_page_tv2)!!)
                 bottomSheetComplainDetailDialog.findViewById<TextView>(R.id.bottom_sheet_complain_page_tv2)!!
                     .setOnClickListener {
-                        //api
-                        reportService.reportPost(ReportPost(postIdx, "낚시, 도배"))
+
+                        //유저 신고 다이얼로그
+                        reportDlg("낚시, 도배")
+
 
                         //다이얼로그 닫기
                         bottomSheetComplainDetailDialog.dismiss()
@@ -213,8 +221,9 @@ class PostDetailActivity : AppCompatActivity(), PostDetailView, CommentCreateVie
                 touchEvent(bottomSheetComplainDetailDialog.findViewById(R.id.bottom_sheet_complain_page_tv3)!!)
                 bottomSheetComplainDetailDialog.findViewById<TextView>(R.id.bottom_sheet_complain_page_tv3)!!
                     .setOnClickListener {
-                        //api
-                        reportService.reportPost(ReportPost(postIdx, "개발과 무관한 게시물"))
+
+                        //유저 신고 다이얼로그
+                        reportDlg("개발과 무관한 게시물")
 
                         //다이얼로그 닫기
                         bottomSheetComplainDetailDialog.dismiss()
@@ -224,8 +233,9 @@ class PostDetailActivity : AppCompatActivity(), PostDetailView, CommentCreateVie
                 touchEvent(bottomSheetComplainDetailDialog.findViewById(R.id.bottom_sheet_complain_page_tv4)!!)
                 bottomSheetComplainDetailDialog.findViewById<TextView>(R.id.bottom_sheet_complain_page_tv4)!!
                     .setOnClickListener {
-                        //api
-                        reportService.reportPost(ReportPost(postIdx, "욕설, 비하"))
+
+                        //유저 신고 다이얼로그
+                        reportDlg("욕설, 비하")
 
                         //다이얼로그 닫기
                         bottomSheetComplainDetailDialog.dismiss()
@@ -243,10 +253,11 @@ class PostDetailActivity : AppCompatActivity(), PostDetailView, CommentCreateVie
                         dialog.setOnClickListenerETC(object:CustomDialog.ButtonClickListenerETC{
                             override fun onClicked(TF: Boolean, reason : String) {
                                 //텍스트 받아 넘기기
-                                //api
-                                reportService.reportPost(ReportPost(postIdx, reason))
 
-                                finish()
+                                //유저 신고 다이얼로그
+                                reportDlg(reason)
+
+//                                finish()
                             }
 
                         })
@@ -401,6 +412,35 @@ class PostDetailActivity : AppCompatActivity(), PostDetailView, CommentCreateVie
             bottomSheetDialog.dismiss()
         }
 
+    }
+
+    private fun reportDlg(text: String){
+        //신고 다이얼로그
+        val dialog = CustomDialog(this)
+        dialog.reportPostUserDlg()
+        val dialogETC = CustomDialog(this)
+        dialog.setOnClickListener(object:CustomDialog.ButtonClickListener {
+            override fun onClicked(TF: Boolean) {
+                //신고 사유 : 유저 신고 시 reason 필요
+                dialogETC.showReportDlg()
+                dialogETC.setOnClickListenerETC(object:CustomDialog.ButtonClickListenerETC {
+                    override fun onClicked(TF: Boolean, reason: String) {
+                        //유저 신고&차단 api
+                        reportService.reportUser(reason, postIdx)
+                        finish()
+                    }
+
+                })
+            }
+
+        })
+        /* 게시물 신고 후 유저 신고하면 오류
+        * 유저 신고 -> 게시물 신고 해야함
+        * api - post report
+        * 근데 이렇게 해도 에러남 ..
+        * 하원님이 팀원들이랑 회의해본다고 해씀
+        */
+        reportService.reportPost(ReportPost(postIdx, text))
     }
 
     private fun touchEvent(bind : TextView){
@@ -662,25 +702,7 @@ class PostDetailActivity : AppCompatActivity(), PostDetailView, CommentCreateVie
     override fun onReportPostSuccess(code: Int) {
         when(code){
             200->{
-                //신고 다이얼로그
-                val dialog = CustomDialog(this)
-                dialog.reportPostUserDlg()
-                val dialogETC = CustomDialog(this)
-                dialog.setOnClickListener(object:CustomDialog.ButtonClickListener {
-                    override fun onClicked(TF: Boolean) {
-                        //신고 사유 : 유저 신고 시 reason 필요
 
-                        dialogETC.showReportDlg()
-                        dialogETC.setOnClickListenerETC(object:CustomDialog.ButtonClickListenerETC {
-                            override fun onClicked(TF: Boolean, reason: String) {
-                                //유저 신고&차단 api
-                                reportService.reportUser(reason, postIdx)
-                            }
-
-                        })
-                    }
-
-                })
 
             }
         }

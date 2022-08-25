@@ -7,6 +7,7 @@ import android.view.View
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import com.example.debri_lize.R
+import com.example.debri_lize.activity.auth.ProfileActivity
 import com.example.debri_lize.adapter.start.CurriculumListRVAdapter
 import com.example.debri_lize.adapter.start.RoadMapListRVAdapter
 import com.example.debri_lize.data.curriculum.Curriculum
@@ -16,6 +17,7 @@ import com.example.debri_lize.data.curriculum.Top10
 import com.example.debri_lize.databinding.ActivityAddCurriculumChooseBinding
 import com.example.debri_lize.service.CurriculumService
 import com.example.debri_lize.service.RoadMapService
+import com.example.debri_lize.utils.getIsFirst
 import com.example.debri_lize.view.curriculum.CreateCurriculumView
 import com.example.debri_lize.view.curriculum.MyCurriculumListView
 import com.example.debri_lize.view.curriculum.ShowRoadMapListView
@@ -35,13 +37,31 @@ class AddCurriculumChooseActivity : AppCompatActivity(), CreateCurriculumView, S
         binding = ActivityAddCurriculumChooseBinding.inflate(layoutInflater) //binding 초기화
         setContentView(binding.root)
 
+        //click profile
+        binding.addCurriculumChooseDebriUserIv.setOnClickListener{
+            val intent = Intent(this, ProfileActivity::class.java)
+            startActivity(intent)
+        }
+
+        //backbtn
+        if(getIsFirst() == true){ //최초 로그인
+            binding.homeCurriculumPreviousIv.visibility = View.INVISIBLE
+        }else{
+            binding.homeCurriculumPreviousIv.visibility = View.VISIBLE
+            binding.homeCurriculumPreviousIv.setOnClickListener{
+                finish()
+            }
+        }
+
+
         binding.addCurriculumChooseNewIv.setOnClickListener{
             //add dialog code
 
-            //api - 8.1 커리큘럼 생성 api
-            var curriculumService = CurriculumService()
-            curriculumService.setCreateCurriculumView(this)
-            curriculumService.createCurriculum(NewCurriculum("curriName", "curriAuthor", "visible", "language"))
+            //data : AddCurriculumChooseActivity -> CurriculumSettingActivity
+            val intent = Intent(this, CurriculumSettingActivity::class.java)
+
+            startActivity(intent)
+
 
         }
 
@@ -131,6 +151,7 @@ class AddCurriculumChooseActivity : AppCompatActivity(), CreateCurriculumView, S
                     roadmapTopRVAdapter.setItemClickListener(object : CurriculumListRVAdapter.OnItemClickListener {
                         override fun onClick(v: View, position: Int) {
                             val intent = Intent(this@AddCurriculumChooseActivity, AddCurriculumDetailActivity::class.java)
+                            intent.putExtra("curriculumIdx", top10[position].curriculumIdx)
                             startActivity(intent)
                         }
                     })

@@ -4,7 +4,7 @@ import com.example.debri_lize.data.class_.LectureReview
 
 //7.6 강의 리뷰 작성 api
 interface CreateLectureReviewView {
-    fun onCreateLectureReviewSuccess(code: Int)
+    fun onCreateLectureReviewSuccess(code: Int, result : LectureReview)
     fun onCreateLectureReviewFailure(code : Int)
 }
 
