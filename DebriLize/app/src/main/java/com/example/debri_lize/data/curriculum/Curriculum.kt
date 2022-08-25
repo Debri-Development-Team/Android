@@ -19,6 +19,7 @@ data class Curriculum(
     @SerializedName(value = "status") val status: String? = "",
     @SerializedName(value = "visibleStatus") val visibleStatus: String? = "",
     @SerializedName(value = "curriDesc") val curriDesc: String? = "",
+    @SerializedName(value = "createdAt") val createdAt: String? = "",
     @PrimaryKey(autoGenerate = true) var roomIdx : Int =0
 )
 
@@ -36,8 +37,9 @@ data class CurriculumDetail(
     @SerializedName(value = "lectureListResList") val lectureListResList: List<LectureList>,
     @SerializedName(value = "chapterListResList") val chapterListResList: List<ChapterList>,
     @SerializedName(value = "dday") val dday: Int,
-    @SerializedName(value = "curriDesc") val curriDesc: String
-
+    @SerializedName(value = "curriDesc") val curriDesc: String,
+    @SerializedName(value = "curriLikeStatus") val curriLikeStatus: String,
+    @SerializedName(value = "scrapIdx") val scrapIdx: Int
 ) : Serializable
 
 data class LectureList(
@@ -115,7 +117,8 @@ data class NewCurriculum(
     @SerializedName(value = "curriName") val curriculumName: String,
     @SerializedName(value = "curriAuthor") val curriculumAuthor: String,
     @SerializedName(value = "visibleStatus") val visibleStatus: String,
-    @SerializedName(value = "langTag") val language: String
+    @SerializedName(value = "langTag") val language: String,
+    @SerializedName(value = "curriDesc") val curriDesc: String
 ) : Serializable
 
 //8.4.1 커리큘럼 제목 수정 api

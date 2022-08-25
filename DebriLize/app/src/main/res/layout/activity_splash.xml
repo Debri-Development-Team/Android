@@ -13,7 +13,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:layout_marginTop="240dp"/>
+        android:layout_marginTop="220dp"/>
 
     <ImageView
         android:id="@+id/splash_text"

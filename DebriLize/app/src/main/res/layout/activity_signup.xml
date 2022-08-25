@@ -388,7 +388,7 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="50dp"
+        android:layout_height="40dp"
         android:id="@+id/sign_up_agree1_layout"
         android:layout_marginTop="15dp"
         android:layout_marginStart="30dp"
@@ -415,7 +415,7 @@
             android:text="전체 약관에 동의합니다."
 
             android:textColor="@color/black"
-            android:textSize="16sp" />
+            android:textSize="12dp" />
     </LinearLayout>
 
     <ImageView
@@ -432,9 +432,9 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="50dp"
+        android:layout_height="40dp"
         android:id="@+id/sign_up_agree2_layout"
-        android:layout_marginTop="15dp"
+        android:layout_marginTop="10dp"
         android:layout_marginStart="30dp"
         android:layout_marginEnd="30dp"
         app:layout_constraintStart_toStartOf="parent"
@@ -458,7 +458,7 @@
             android:includeFontPadding="false"
             android:text="개인정보 약관에 동의합니다. (필수)"
             android:textColor="@color/black"
-            android:textSize="16sp" />
+            android:textSize="12dp" />
     </LinearLayout>
 
     <ImageView
@@ -475,9 +475,9 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="50dp"
+        android:layout_height="40dp"
         android:id="@+id/sign_up_agree3_layout"
-        android:layout_marginTop="15dp"
+        android:layout_marginTop="10dp"
         android:layout_marginStart="30dp"
         android:layout_marginEnd="30dp"
         app:layout_constraintStart_toStartOf="parent"
@@ -503,7 +503,7 @@
             android:includeFontPadding="false"
             android:text="서비스 홍보 약관에 동의합니다. (선택)"
             android:textColor="@color/black"
-            android:textSize="16sp" />
+            android:textSize="12dp" />
     </LinearLayout>
 
     <ImageView
