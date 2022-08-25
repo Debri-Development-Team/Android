@@ -35,6 +35,8 @@ class CurriculumService {
 
     private lateinit var showGetNewCurriListView: ShowGetNewCurriListView
 
+    private lateinit var copyCurriculumView: CopyCurriculumView
+
     fun setCreateCurriculumView(createCurriculumView: CreateCurriculumView){
         this.createCurriculumView = createCurriculumView
     }
@@ -90,6 +92,10 @@ class CurriculumService {
 
     fun setResetCurriculumView(resetCurriculumView: ResetCurriculumView){
         this.resetCurriculumView = resetCurriculumView
+    }
+
+    fun setCopyCurriculumView(copyCurriculumView: CopyCurriculumView){
+        this.copyCurriculumView = copyCurriculumView
     }
 
     //chapter
@@ -422,6 +428,31 @@ class CurriculumService {
             //실패했을 때 처리
             override fun onFailure(call: Call<BaseResponse<String>>, t: Throwable) {
                 Log.d("resetCurriFail", t.toString())
+            }
+
+        })
+    }
+
+    //8.13 커리큘럼 복붙 api
+    fun copyCurriculum(copyCurriculum: CopyCurriculum){
+        val curriculumService = getRetrofit().create(RetrofitInterface::class.java)
+        curriculumService.copyCurriculum(copyCurriculum, getJwt()!!).enqueue(object: Callback<BaseResponse<Copy>> {
+            //응답이 왔을 때 처리
+            override fun onResponse(call: Call<BaseResponse<Copy>>, response: Response<BaseResponse<Copy>>) {
+                Log.d("copyCurri", "response")
+                val resp: BaseResponse<Copy> = response.body()!!
+                Log.d("copyCurriCode", resp.code.toString())
+                Log.d("copy", resp.result.curriculumIdx.toString())
+                when(resp.code){
+                    //API code값 사용
+
+                    200->copyCurriculumView.onCopyCurriculumSuccess(resp.code)
+                    else->copyCurriculumView.onCopyCurriculumFailure(resp.code)
+                }
+            }
+            //실패했을 때 처리
+            override fun onFailure(call: Call<BaseResponse<Copy>>, t: Throwable) {
+                Log.d("copyCurriFail", t.toString())
             }
 
         })

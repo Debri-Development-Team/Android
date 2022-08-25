@@ -89,6 +89,12 @@ interface ResetCurriculumView {
     fun onResetCurriculumFailure(code : Int)
 }
 
+//8.13 커리큘럼 복붙 api
+interface CopyCurriculumView {
+    fun onCopyCurriculumSuccess(code: Int)
+    fun onCopyCurriculumFailure(code : Int)
+}
+
 //8.14 최신 커리큘럼 리스트 조회 api
 interface ShowGetNewCurriListView{
     fun onShowGetNewCurriListSuccess(code: Int, result : List<Top10>)

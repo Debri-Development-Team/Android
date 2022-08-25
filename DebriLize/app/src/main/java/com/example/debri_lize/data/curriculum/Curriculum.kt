@@ -103,6 +103,11 @@ data class Top10(
     @SerializedName(value = "curriDesc") val curriDesc: String? = ""
 ) : Serializable
 
+//8.13 커리큘럼 복붙 api
+data class Copy(
+    @SerializedName(value = "curriIdx") val curriculumIdx: Int? = 0,
+    @SerializedName(value = "curriCopySuccess") val success: Boolean?
+)
 
 //@Body
 //8.1 커리큘럼 생성 api
@@ -143,3 +148,9 @@ data class CompleteChapter(
     @SerializedName(value = "curriIdx") val curriIdx: Int? = 0,
     @SerializedName(value = "lectureIdx") val lectureIdx: Int? = 0
 ) : Serializable
+
+//8.13 커리큘럼 복붙 api
+data class CopyCurriculum(
+    @SerializedName(value = "targetCurriIdx") val targetCurriIdx: Int? = 0,
+    @SerializedName(value = "targetOwnerNickName") val targetOwnerNickName: String? = ""
+): Serializable

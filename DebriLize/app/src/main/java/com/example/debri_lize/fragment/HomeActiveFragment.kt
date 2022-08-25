@@ -49,7 +49,7 @@ class HomeActiveFragment(
     lateinit var chapterRVAdapter: ChapterRVAdapter
     lateinit var lectureRVAdapter: LectureRVAdapter
 
-    var arrayImg = arrayOf(R.drawable.ic_lecture_1, R.drawable.ic_lecture_2, R.drawable.ic_lecture_3)
+    var arrayImg = arrayOf(R.raw.green, R.raw.red, R.raw.purple)
 
     val chapter = ArrayList<ChapterList>()
     val lecture = ArrayList<LectureList>()
@@ -215,7 +215,9 @@ class HomeActiveFragment(
             dialog.setOnClickListener(object:CustomDialog.ButtonClickListener{
                 override fun onClicked(TF: Boolean) {
                     //api - 8.6 커리큘럼 삭제 api
+                    Log.d("deleteCurriIdx", curriculumIdx.toString())
                     curriculumService.deleteCurriculum(curriculumIdx)
+
                 }
             })
             bottomSheetDialog.dismiss()

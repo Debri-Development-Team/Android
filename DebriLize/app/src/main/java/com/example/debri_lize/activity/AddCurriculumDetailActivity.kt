@@ -17,6 +17,7 @@ import com.example.debri_lize.activity.auth.ProfileActivity
 import com.example.debri_lize.adapter.class_.ClassLectureRVAdapter
 import com.example.debri_lize.adapter.start.ReviewRVAdapter
 import com.example.debri_lize.data.class_.Lecture
+import com.example.debri_lize.data.curriculum.CopyCurriculum
 import com.example.debri_lize.data.curriculum.CurriculumDetail
 import com.example.debri_lize.data.curriculum.Review
 import com.example.debri_lize.databinding.ActivityAddCurriculumDetailBinding
@@ -28,7 +29,7 @@ import kotlin.concurrent.thread
 import kotlin.properties.Delegates
 
 class AddCurriculumDetailActivity : AppCompatActivity(), CreateReviewView, ShowReviewView, ShowCurriculumDetailView,
-    CreateCurriLikeView, CancelCurriLikeView {
+    CreateCurriLikeView, CancelCurriLikeView, CopyCurriculumView {
     lateinit var binding : ActivityAddCurriculumDetailBinding
 
     lateinit var classLectureRVAdapter: ClassLectureRVAdapter
@@ -72,6 +73,7 @@ class AddCurriculumDetailActivity : AppCompatActivity(), CreateReviewView, ShowR
         //data : CurriculumFragment -> AddCurriculumDetailActivity
         val intent = intent //전달할 데이터를 받을 Intent
         curriculumIdx = intent.getIntExtra("curriculumIdx", 0)
+
 
     }
 
@@ -224,6 +226,12 @@ class AddCurriculumDetailActivity : AppCompatActivity(), CreateReviewView, ShowR
                         }
                     }
                 }
+
+                //add btn - 8.13 코드추가
+                binding.addCurriculumDetailAddBtn.setOnClickListener{
+                    curriculumService.setCopyCurriculumView(this)
+                    curriculumService.copyCurriculum(CopyCurriculum(curriculumIdx, result.curriculumAuthor))
+                }
             }
         }
     }
@@ -326,6 +334,18 @@ class AddCurriculumDetailActivity : AppCompatActivity(), CreateReviewView, ShowR
 
     override fun onDeleteCurriLikeFailure(code: Int) {
         Log.d("deleteCurriLikeFail","$code")
+    }
+
+    override fun onCopyCurriculumSuccess(code: Int) {
+        when(code){
+            200->{
+
+            }
+        }
+    }
+
+    override fun onCopyCurriculumFailure(code: Int) {
+
     }
 
 

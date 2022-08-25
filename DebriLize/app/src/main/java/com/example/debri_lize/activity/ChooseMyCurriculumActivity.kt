@@ -78,7 +78,7 @@ class ChooseMyCurriculumActivity : AppCompatActivity(), MyCurriculumListView, Ad
                     curriculumRVAdapter.setItemClickListener(object : CurriculumRVAdapter.OnItemClickListener {
                         override fun onClick(v: View, position: Int) {
                             //api - 8.5 강의자료 추가 api : 홈 > 새로운 강의자료 추가하기
-                            curriculumService.addLectureInCurriculum(AddLecture(datas[position].curriculumIdx, lectureIdx))
+                            curriculumService.addLectureInCurriculum(AddLecture(datas[position].curriculumIdx, 3)) //lectureIdx 변경
                             Log.d("addLecture", AddLecture(datas[position].curriculumIdx, lectureIdx).toString())
                         }
                     })
