@@ -38,6 +38,14 @@
             android:name=".activity.auth.SignUpActivity"
             android:exported="true" />
         <activity
+            android:name=".activity.auth.SignUpEmailActivity"
+            android:exported="true" />
+        <activity
+            android:name=".activity.auth.SignUpTermActivity"
+            android:exported="true" />
+
+
+        <activity
             android:name=".activity.AddCurriculumActivity"
             android:exported="true" />
         <activity
