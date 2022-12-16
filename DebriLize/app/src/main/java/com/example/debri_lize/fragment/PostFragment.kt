@@ -15,7 +15,6 @@ import com.example.debri_lize.R
 import com.example.debri_lize.activity.MainActivity
 import com.example.debri_lize.activity.PostCreateActivity
 import com.example.debri_lize.activity.PostDetailActivity
-import com.example.debri_lize.activity.auth.ProfileActivity
 import com.example.debri_lize.data.board.Board
 import com.example.debri_lize.data.board.BoardFavorite
 import com.example.debri_lize.data.post.PostList
@@ -49,12 +48,6 @@ class PostFragment : Fragment(), EachPostListView {
 
     override fun onStart() {
         super.onStart()
-
-        //click profile
-        binding.postDebriUserIv.setOnClickListener{
-            val intent = Intent(context, ProfileActivity::class.java)
-            startActivity(intent)
-        }
 
         //data 받아오기 (BoardFragment -> BoardDetailFragment) : 게시판 이름
         var board = arguments?.getSerializable("board") as Board?

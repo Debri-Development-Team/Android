@@ -5,13 +5,9 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.bumptech.glide.Glide
-import com.example.debri_lize.R
-import com.example.debri_lize.activity.auth.ProfileActivity
 import com.example.debri_lize.adapter.start.CurriculumListRVAdapter
 import com.example.debri_lize.adapter.start.RoadMapListRVAdapter
 import com.example.debri_lize.data.curriculum.Curriculum
-import com.example.debri_lize.data.curriculum.NewCurriculum
 import com.example.debri_lize.data.curriculum.RoadMapList
 import com.example.debri_lize.data.curriculum.Top10
 import com.example.debri_lize.databinding.ActivityAddCurriculumChooseBinding
@@ -19,7 +15,6 @@ import com.example.debri_lize.service.CurriculumService
 import com.example.debri_lize.service.RoadMapService
 import com.example.debri_lize.utils.getIsFirst
 import com.example.debri_lize.view.curriculum.CreateCurriculumView
-import com.example.debri_lize.view.curriculum.MyCurriculumListView
 import com.example.debri_lize.view.curriculum.ShowRoadMapListView
 import com.example.debri_lize.view.curriculum.ShowTop10ListView
 
@@ -36,12 +31,6 @@ class AddCurriculumChooseActivity : AppCompatActivity(), CreateCurriculumView, S
         super.onCreate(savedInstanceState)
         binding = ActivityAddCurriculumChooseBinding.inflate(layoutInflater) //binding 초기화
         setContentView(binding.root)
-
-        //click profile
-        binding.addCurriculumChooseDebriUserIv.setOnClickListener{
-            val intent = Intent(this, ProfileActivity::class.java)
-            startActivity(intent)
-        }
 
         //backbtn
         if(getIsFirst() == true){ //최초 로그인

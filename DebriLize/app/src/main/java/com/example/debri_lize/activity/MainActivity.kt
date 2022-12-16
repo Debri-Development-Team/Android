@@ -62,6 +62,13 @@ class MainActivity : AppCompatActivity() {
                     return@setOnItemSelectedListener true
                 }
 
+                R.id.profileFragment -> {
+                    supportFragmentManager.beginTransaction()
+                        .replace(R.id.main_frm, ProfileFragment())
+                        .commitAllowingStateLoss()
+                    return@setOnItemSelectedListener true
+                }
+
             }
             false
         }

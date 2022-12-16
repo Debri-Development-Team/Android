@@ -3,7 +3,6 @@ package com.example.debri_lize.fragment
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
@@ -17,18 +16,14 @@ import com.example.debri_lize.CustomDialog
 import com.example.debri_lize.R
 import com.example.debri_lize.activity.LectureDetailActivity
 import com.example.debri_lize.activity.MainActivity
-import com.example.debri_lize.activity.auth.ProfileActivity
-import com.example.debri_lize.adapter.home.ChapterRVAdapter
 import com.example.debri_lize.adapter.home.LectureRVAdapter
 import com.example.debri_lize.data.curriculum.*
 import com.example.debri_lize.databinding.FragmentHomeInactiveBinding
 import com.example.debri_lize.service.CurriculumService
-import com.example.debri_lize.utils.saveCurriIdx
 import com.example.debri_lize.view.curriculum.*
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import java.sql.Timestamp
 import java.text.SimpleDateFormat
-import kotlin.properties.Delegates
 
 class HomeInactiveFragment(
     private var curriculumIdx: Int,

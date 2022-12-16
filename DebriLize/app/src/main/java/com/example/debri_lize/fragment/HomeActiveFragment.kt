@@ -20,7 +20,6 @@ import com.example.debri_lize.CustomDialog
 import com.example.debri_lize.R
 import com.example.debri_lize.activity.LectureDetailActivity
 import com.example.debri_lize.activity.MainActivity
-import com.example.debri_lize.activity.auth.ProfileActivity
 import com.example.debri_lize.adapter.home.ChapterRVAdapter
 import com.example.debri_lize.adapter.home.LectureRVAdapter
 import com.example.debri_lize.data.curriculum.*
@@ -32,7 +31,6 @@ import com.example.debri_lize.view.curriculum.*
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import java.sql.Timestamp
 import java.text.SimpleDateFormat
-import kotlin.properties.Delegates
 
 class HomeActiveFragment(
 

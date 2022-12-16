@@ -1,46 +1,55 @@
-package com.example.debri_lize.activity.auth
+package com.example.debri_lize.fragment
 
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import android.view.LayoutInflater
 import android.view.View
-import androidx.appcompat.app.AppCompatActivity
+import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.debri_lize.R
 import com.example.debri_lize.activity.AddCurriculumDetailActivity
+import com.example.debri_lize.activity.auth.LoginActivity
 import com.example.debri_lize.adapter.home.CurriculumRVAdapter
+import com.example.debri_lize.adapter.home.HomeVPAdapter
 import com.example.debri_lize.data.curriculum.Curriculum
-import com.example.debri_lize.databinding.ActivityProfileBinding
-import com.example.debri_lize.fragment.ScrapCurriculumFragment
-import com.example.debri_lize.fragment.ScrapPostFragment
+import com.example.debri_lize.databinding.FragmentHomeBinding
+import com.example.debri_lize.databinding.FragmentProfileBinding
 import com.example.debri_lize.service.CurriculumService
 import com.example.debri_lize.utils.ApplicationClass
 import com.example.debri_lize.utils.getUserID
 import com.example.debri_lize.utils.getUserName
 import com.example.debri_lize.view.curriculum.MyCurriculumListView
 
-class ProfileActivity : AppCompatActivity(), MyCurriculumListView {
-    lateinit var binding : ActivityProfileBinding
+class ProfileFragment : Fragment(), MyCurriculumListView{
+
+    lateinit var binding : FragmentProfileBinding
     lateinit var curriculumRVAdapter: CurriculumRVAdapter
     val datas = ArrayList<Curriculum>()
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        binding = ActivityProfileBinding.inflate(layoutInflater) //binding 초기화
-        setContentView(binding.root)
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        binding = FragmentProfileBinding.inflate(inflater, container, false)
+        return binding.root
 
+        //수정할 것
         //click logout
         binding.profileMenuLogoutTv.setOnClickListener{
             logout()
-            val intent = Intent(this, LoginActivity::class.java)
+            val intent = Intent(context, LoginActivity::class.java)
             //모든 화면 초기화
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_SINGLE_TOP)
             startActivity(intent)
         }
+
     }
 
     override fun onStart() {
         super.onStart()
+
         binding.profileUserNameTv.text = getUserName()
         binding.profileUserIdTv.text = getUserID()
 
@@ -49,28 +58,7 @@ class ProfileActivity : AppCompatActivity(), MyCurriculumListView {
         curriculumService.setMyCurriculumListView(this)
         curriculumService.myCurriculumList()
 
-        binding.profilePreviousIv.setOnClickListener {
-            finish()
-        }
-
-        //ProfileActivity -> ScrapPostFragment
-//        binding.profileScrapPostLayout.setOnClickListener{
-//
-//            //activity to fragment
-//            supportFragmentManager.beginTransaction()
-//                .replace(R.id.profile, ScrapPostFragment())
-//                .commit()
-//        }
-//
-//        //ProfileActivity -> ScrapCurriculumFragment
-//        binding.profileScrapCurriLayout.setOnClickListener {
-//            //activity to fragment
-//            supportFragmentManager.beginTransaction()
-//                .replace(R.id.profile, ScrapCurriculumFragment())
-//                .commit()
-//        }
     }
-
 
     private fun logout(){ //jwt=0으로 만들기 : 저장된 값X
         val editor = ApplicationClass.mSharedPreferences.edit()
@@ -81,7 +69,7 @@ class ProfileActivity : AppCompatActivity(), MyCurriculumListView {
     override fun onMyCurriculumListSuccess(code: Int, result: List<Curriculum>) {
         when(code){
             200->{
-                binding.profileCurriculumRv.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
+                binding.profileCurriculumRv.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
                 curriculumRVAdapter = CurriculumRVAdapter("ProfileActivity")
                 binding.profileCurriculumRv.adapter = curriculumRVAdapter
 
@@ -103,7 +91,7 @@ class ProfileActivity : AppCompatActivity(), MyCurriculumListView {
                     //click recyclerview item
                     curriculumRVAdapter.setItemClickListener(object : CurriculumRVAdapter.OnItemClickListener {
                         override fun onClick(v: View, position: Int) {
-                            val intent = Intent(this@ProfileActivity, AddCurriculumDetailActivity::class.java)
+                            val intent = Intent(context, AddCurriculumDetailActivity::class.java)
                             intent.putExtra("curriculumIdx", datas[position].curriculumIdx)
                             startActivity(intent)
 
@@ -117,4 +105,5 @@ class ProfileActivity : AppCompatActivity(), MyCurriculumListView {
     override fun onMyCurriculumListFailure(code: Int) {
         Log.d("mycurrilistfail","$code")
     }
+
 }
