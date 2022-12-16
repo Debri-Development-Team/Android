@@ -209,6 +209,7 @@
         <entry key="app/src/main/res/layout/fragment_bottom_sheet_complain.xml" value="0.21920289855072464" />
         <entry key="app/src/main/res/layout/fragment_bottom_sheet_complain_detail.xml" value="0.21920289855072464" />
         <entry key="app/src/main/res/layout/fragment_bottom_sheet_edit_delete.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/fragment_home.xml" value="0.32135416666666666" />
         <entry key="app/src/main/res/layout/fragment_home_active.xml" value="0.23777173913043478" />
         <entry key="app/src/main/res/layout/toast_report.xml" value="0.25" />
         <entry key="app/src/main/res/layout/toast_scrap.xml" value="0.121875" />
