@@ -17,7 +17,6 @@ import com.example.debri_lize.adapter.class_.ClassFavoriteRVAdapter
 import com.example.debri_lize.adapter.class_.ClassLectureRVAdapter
 import com.example.debri_lize.R
 import com.example.debri_lize.activity.LectureDetailActivity
-import com.example.debri_lize.activity.auth.ProfileActivity
 import com.example.debri_lize.data.class_.Lecture
 import com.example.debri_lize.data.class_.LectureFilter
 import com.example.debri_lize.databinding.FragmentClassBinding
@@ -87,11 +86,6 @@ class ClassFragment : Fragment(), LectureFavoriteView, LectureFilterView {
             }
         })
 
-        //click userImg -> profile
-        binding.classDebriUserIv.setOnClickListener{
-            val intent = Intent(context, ProfileActivity::class.java)
-            startActivity(intent)
-        }
 
         //검색어 입력 : search Lecture
         binding.classSearchEt.addTextChangedListener(object : TextWatcher{

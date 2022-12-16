@@ -10,7 +10,6 @@ import android.widget.AdapterView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.debri_lize.CustomDialog
-import com.example.debri_lize.activity.auth.ProfileActivity
 import com.example.debri_lize.data.board.Board
 import com.example.debri_lize.data.post.Post
 import com.example.debri_lize.service.PostService
@@ -42,13 +41,6 @@ class PostCreateActivity : AppCompatActivity(), PostCreateView, EditPostView, Bo
         super.onCreate(savedInstanceState)
         binding = ActivityPostCreateBinding.inflate(layoutInflater) //binding 초기화
         setContentView(binding.root)
-
-        //click userImg -> profile
-        binding.writeDebriUserIv.setOnClickListener{
-            val intent = Intent(this, ProfileActivity::class.java)
-            finish()
-            startActivity(intent)
-        }
 
         binding.writeBtn.text = "작성하기"
 
