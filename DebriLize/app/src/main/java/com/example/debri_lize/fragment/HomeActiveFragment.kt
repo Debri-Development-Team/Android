@@ -65,12 +65,6 @@ class HomeActiveFragment(
     ): View? {
         binding = FragmentHomeActiveBinding.inflate(inflater, container, false)
 
-        //click userImg -> profile
-        binding.homeDebriUserIv.setOnClickListener{
-            val intent = Intent(context, ProfileActivity::class.java)
-            startActivity(intent)
-        }
-
         //click add lecture -> ClassFragment
         binding.homeCurriculumAddLectureLayout.setOnClickListener{
             val passBundleBFragment = ClassFragment()
@@ -222,7 +216,7 @@ class HomeActiveFragment(
             bottomSheetDialog.dismiss()
         }
 
-        binding.homeCurriculumSettingLayout.setOnClickListener {
+        binding.homeCurriculumSettingIv.setOnClickListener {
             bottomSheetDialog.show()
         }
 
@@ -259,7 +253,7 @@ class HomeActiveFragment(
         val sdf = SimpleDateFormat("yyyy년 MM월 dd일")
         val date = sdf.format(timestamp)
 
-        return date+"에 완성함"
+        return date+"\n완성함"
     }
 
     private fun waveAnimation(progressRate : Int){
@@ -273,7 +267,11 @@ class HomeActiveFragment(
     override fun onShowCurriculumDetailSuccess(code: Int, result: CurriculumDetail) {
         when(code){
             200->{
-                //활성화
+                //비활성화
+                binding.homeCurriculumPauseLayout.setOnClickListener{
+                    curriculumService.setEditCurriculumStatusView(this)
+                    curriculumService.editCurriculumStatus(EditCurriculumStatus(curriculumIdx, "INACTIVE"))
+                }
 
                 //chapter
                 //동적으로 화면 크기 지정
@@ -341,25 +339,6 @@ class HomeActiveFragment(
                     chapterRVAdapter.notifyDataSetChanged()
                 }
 
-                //move
-                if(index==0){
-                    //1번째 커리큘럼
-                        binding.homeCurriculumPreviousIv.visibility = View.INVISIBLE
-                        binding.homeCurriculumNextIv.setOnClickListener{
-                            //다음 커리로 이동
-
-                        }
-                }else{
-
-                    binding.homeCurriculumPreviousIv.visibility = View.VISIBLE
-                    binding.homeCurriculumPreviousIv.setOnClickListener{
-                        //이전 커리로 이동
-                    }
-                    binding.homeCurriculumNextIv.setOnClickListener {
-                        //다음 커리로 이동
-                    }
-                }
-
                 //홈 화면
                 curriculumIdx = result.curriculumIdx
                 binding.homeCurriculumTitleTv.text = result.curriculumName //커리큘럼 이름
@@ -375,7 +354,7 @@ class HomeActiveFragment(
                 }
 
                 //dday
-                binding.homeCurriculumDdayTv.text = "D-"+result.dday.toString()
+                binding.homeCurriculumDdayTv.text = result.dday.toString()
 
                 //progress rate
                 waveAnimation(result.progressRate.toInt())
