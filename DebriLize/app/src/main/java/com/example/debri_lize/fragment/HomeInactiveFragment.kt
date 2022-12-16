@@ -59,12 +59,6 @@ class HomeInactiveFragment(
     override fun onStart() {
         super.onStart()
 
-        //click userImg -> profile
-        binding.homeDebriUserIv.setOnClickListener{
-            val intent = Intent(context, ProfileActivity::class.java)
-            startActivity(intent)
-        }
-
         //click add lecture -> ClassFragment
         binding.homeCurriculumAddLectureLayout.setOnClickListener{
             context.binding.mainBnv.selectedItemId = R.id.classFragment
@@ -200,7 +194,7 @@ class HomeInactiveFragment(
             bottomSheetDialog.dismiss()
         }
 
-        binding.homeCurriculumSettingLayout.setOnClickListener {
+        binding.homeCurriculumSettingIv.setOnClickListener {
             bottomSheetDialog.show()
         }
 
@@ -216,7 +210,7 @@ class HomeInactiveFragment(
         val sdf = SimpleDateFormat("yyyy년 MM월 dd일")
         val date = sdf.format(timestamp)
 
-        return date+"에 완성함"
+        return date+"\n완성함"
     }
 
     //8.3 커리큘럼 상세 조회 api : 홈
@@ -244,7 +238,15 @@ class HomeInactiveFragment(
                 }
 
                 //dday
-                binding.homeCurriculumDdayTv.text = "D-"+result.dday.toString()
+                if(result.dday<0){ //dday 지남
+                    binding.homeCurriculumDdayInfoTv.text = "D+"
+                    binding.homeCurriculumDdayTv.text = (-result.dday).toString()
+                }else if(result.dday == 0){ //dday 당일
+                    //색상 빨간색으로 변경
+
+                }else{ //dday
+                    binding.homeCurriculumDdayTv.text = result.dday.toString()
+                }
 
                 //progress rate
                 binding.homeCurriculumProgressTv2.text = result.progressRate.toInt().toString()

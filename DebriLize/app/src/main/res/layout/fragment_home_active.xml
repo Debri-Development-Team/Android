@@ -265,7 +265,7 @@ android:paddingHorizontal="20dp"
             android:id="@+id/home_lecture_tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="56dp"
+            android:layout_marginTop="125dp"
             android:layout_marginStart="30dp"
             android:text="관련 강의자료"
             android:textColor="@color/white"
@@ -273,7 +273,7 @@ android:paddingHorizontal="20dp"
             android:fontFamily="@font/noto_sans_kr_regular"
             android:includeFontPadding="false"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/home_curriculum_lecture_img_rv" />
+            app:layout_constraintTop_toBottomOf="@+id/home_curriculum_active_circle" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/home_curriculum_lecture_rv"

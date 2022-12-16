@@ -30,16 +30,6 @@ class AddCurriculumFragment : Fragment() {
     override fun onStart() {
         super.onStart()
 
-        binding.homeCurriculumPreviousIv.setOnClickListener{
-            //이전 커리로 이동
-        }
-
-        //click profile
-        binding.addCurriculumDebriUserIv.setOnClickListener{
-            val intent = Intent(context, ProfileActivity::class.java)
-            startActivity(intent)
-        }
-
         binding.addCurriculumCircleLayout.setOnClickListener{
             val intent = Intent(context, AddCurriculumChooseActivity::class.java)
             startActivity(intent)

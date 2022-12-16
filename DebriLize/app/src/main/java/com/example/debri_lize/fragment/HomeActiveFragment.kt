@@ -354,7 +354,15 @@ class HomeActiveFragment(
                 }
 
                 //dday
-                binding.homeCurriculumDdayTv.text = result.dday.toString()
+                if(result.dday<0){ //dday 지남
+                    binding.homeCurriculumDdayInfoTv.text = "D+"
+                    binding.homeCurriculumDdayTv.text = (-result.dday).toString()
+                }else if(result.dday == 0){ //dday 당일
+                    //색상 빨간색으로 변경
+
+                }else{ //dday
+                    binding.homeCurriculumDdayTv.text = result.dday.toString()
+                }
 
                 //progress rate
                 waveAnimation(result.progressRate.toInt())
