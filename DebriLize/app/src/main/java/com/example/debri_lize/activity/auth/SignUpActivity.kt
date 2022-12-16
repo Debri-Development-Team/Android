@@ -1,5 +1,6 @@
 package com.example.debri_lize.activity.auth
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.View
@@ -7,10 +8,16 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import com.example.debri_lize.R
+import com.example.debri_lize.activity.AddRoadmapDetailActivity
+import com.example.debri_lize.activity.auth.SignUpActivity.Singleton.agree2TF
+import com.example.debri_lize.activity.auth.SignUpActivity.Singleton.agree2TermCheck
+import com.example.debri_lize.activity.auth.SignUpActivity.Singleton.agree3TF
+import com.example.debri_lize.activity.auth.SignUpActivity.Singleton.agree3TermCheck
 import com.example.debri_lize.data.auth.UserSignup
 import com.example.debri_lize.service.AuthService
 import com.example.debri_lize.view.auth.SignUpView
 import com.example.debri_lize.databinding.ActivitySignupBinding
+import io.reactivex.Single
 import java.util.regex.Matcher
 import java.util.regex.Pattern
 import kotlin.concurrent.thread
@@ -19,13 +26,23 @@ import kotlin.concurrent.timer
 class SignUpActivity:AppCompatActivity(), SignUpView {
     lateinit var binding: ActivitySignupBinding
     private var agree1TF: Boolean = false
-    private var agree2TF: Boolean = false
-    private var agree3TF: Boolean = false
     private var idTF : Boolean = true
     private var pwTF : Boolean = true
     private var pwCkTF : Boolean = true
     private var birthTF : Boolean = true
     private var nicknameTF : Boolean = true
+
+    object Singleton {
+        var userID = ""
+
+
+        //termCheck = true : 이용약관 내용 확인 후 동의
+        var agree2TermCheck : Boolean = false
+        var agree3TermCheck : Boolean = false
+
+        var agree2TF: Boolean = false
+        var agree3TF: Boolean = false
+    }
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -33,21 +50,102 @@ class SignUpActivity:AppCompatActivity(), SignUpView {
         binding = ActivitySignupBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        //전체 동의
+        binding.signUpAgree1Layout.setOnClickListener {
+            if(!agree1TF){
+                agree1TF = true
+                agree2TF = true
+                agree3TF = true
+
+            }else{
+                agree1TF = false
+                agree2TF = false
+                agree3TF = false
+            }
+            clickBackgroundChange()
+        }
+
+        //이용약관 (필수)
+        binding.signUpAgree2Layout.setOnClickListener{
+            if(!agree2TermCheck){
+                val intent = Intent(this, SignUpTermActivity::class.java)
+                intent.putExtra("agreeIdx", 2)
+                startActivity(intent)
+
+            }else {
+                //클릭했을 때 체크전환
+                binding.signUpAgree2Layout.setOnClickListener {
+                    if(!agree2TF){
+                        binding.signUpBox2OnIv.visibility = View.VISIBLE
+                        agree2TF = true
+                        if(agree3TF) {
+                            agree1TF = true
+                            binding.signUpBox1OnIv.visibility = View.VISIBLE
+                        }
+                    }else{
+                        binding.signUpBox1OnIv.visibility = View.GONE
+                        binding.signUpBox2OnIv.visibility = View.GONE
+                        agree1TF = false
+                        agree2TF = false
+                    }
+                    clickBackgroundChange()
+                }
+            }
+
+        }
+
+        //이용약관 (선택)
+        binding.signUpAgree3Layout.setOnClickListener{
+            if(!agree3TermCheck){
+                val intent = Intent(this, SignUpTermActivity::class.java)
+                intent.putExtra("agreeIdx", 3)
+                startActivity(intent)
+
+            }else{
+                //클릭했을 때 체크전환
+                binding.signUpAgree3Layout.setOnClickListener {
+                    if(!agree3TF){
+                        binding.signUpBox3OnIv.visibility = View.VISIBLE
+                        agree3TF = true
+                        if(agree2TF) {
+                            agree1TF = true
+                            binding.signUpBox1OnIv.visibility = View.VISIBLE
+                        }
+                    }else{
+                        binding.signUpBox1OnIv.visibility = View.GONE
+                        binding.signUpBox3OnIv.visibility = View.GONE
+                        agree1TF = false
+                        agree3TF = false
+                    }
+                    clickBackgroundChange()
+                }
+            }
+
+        }
+
         //가입완료 버튼을 누르면 회원가입 끝
         binding.signUpSignUpBtn.setOnClickListener{
             signUp()
         }
 
-        binding.signUpBackLayout.setOnClickListener{
+        //back
+        binding.signUpBackIv.setOnClickListener{
             finish()
+        }
+
+        //email 인증
+        binding.signUpIdEt.setOnClickListener{
+            startActivity(Intent(this, SignUpEmailActivity::class.java))
         }
 
         //focus effect
         setFocus()
 
-        //약관 클릭
-        onClick()
+    }
 
+    override fun onStart() {
+        super.onStart()
+        clickBackgroundChange()
     }
 
 
@@ -145,64 +243,54 @@ class SignUpActivity:AppCompatActivity(), SignUpView {
     private fun inputFormatCheck(){
         if(!idTF){
             binding.signUpIdLayout.setBackgroundResource(R.drawable.border_round_red_transparent_10)
-            binding.signUpIdBarV.setBackgroundResource(R.drawable.vertical_line_red_2)
             binding.signUpIdTv.setTextColor(ContextCompat.getColor(this@SignUpActivity, R.color.red))
             //1초 후 효과 없애기
             thread(start = true){
                 Thread.sleep(1300)
                 runOnUiThread{
                     binding.signUpIdLayout.setBackgroundResource(R.drawable.border_round_white_transparent_10)
-                    binding.signUpIdBarV.setBackgroundResource(R.drawable.vertical_line_white_1)
                     binding.signUpIdTv.setTextColor(ContextCompat.getColor(this@SignUpActivity, R.color.white))
                 }
             }
         }
         if(!pwTF || !pwCkTF){
             binding.signUpPasswordLayout.setBackgroundResource(R.drawable.border_round_red_transparent_10)
-            binding.signUpPasswordBarV.setBackgroundResource(R.drawable.vertical_line_red_2)
             binding.signUpPasswordTv.setTextColor(ContextCompat.getColor(this@SignUpActivity, R.color.red))
 
             binding.signUpPasswordCheckLayout.setBackgroundResource(R.drawable.border_round_red_transparent_10)
-            binding.signUpPasswordCheckBarV.setBackgroundResource(R.drawable.vertical_line_red_2)
             binding.signUpPasswordCheckTv.setTextColor(ContextCompat.getColor(this@SignUpActivity, R.color.red))
 
             thread(start = true){
                 Thread.sleep(1300)
                 runOnUiThread{
                     binding.signUpPasswordLayout.setBackgroundResource(R.drawable.border_round_white_transparent_10)
-                    binding.signUpPasswordBarV.setBackgroundResource(R.drawable.vertical_line_white_1)
                     binding.signUpPasswordTv.setTextColor(ContextCompat.getColor(this@SignUpActivity, R.color.white))
 
                     binding.signUpPasswordCheckLayout.setBackgroundResource(R.drawable.border_round_white_transparent_10)
-                    binding.signUpPasswordCheckBarV.setBackgroundResource(R.drawable.vertical_line_white_1)
                     binding.signUpPasswordCheckTv.setTextColor(ContextCompat.getColor(this@SignUpActivity, R.color.white))
                 }
             }
         }
         if(!nicknameTF){
             binding.signUpNicknameLayout.setBackgroundResource(R.drawable.border_round_red_transparent_10)
-            binding.signUpNicknameBarV.setBackgroundResource(R.drawable.vertical_line_red_2)
             binding.signUpNicknameTv.setTextColor(ContextCompat.getColor(this@SignUpActivity, R.color.red))
 
             thread(start = true){
                 Thread.sleep(1300)
                 runOnUiThread{
                     binding.signUpNicknameLayout.setBackgroundResource(R.drawable.border_round_white_transparent_10)
-                    binding.signUpNicknameBarV.setBackgroundResource(R.drawable.vertical_line_white_1)
                     binding.signUpNicknameTv.setTextColor(ContextCompat.getColor(this@SignUpActivity, R.color.white))
                 }
             }
         }
         if(!birthTF){
             binding.signUpBirthLayout.setBackgroundResource(R.drawable.border_round_red_transparent_10)
-            binding.signUpBirthBarV.setBackgroundResource(R.drawable.vertical_line_red_2)
             binding.signUpBirthTv.setTextColor(ContextCompat.getColor(this@SignUpActivity, R.color.red))
 
             thread(start = true){
                 Thread.sleep(1300)
                 runOnUiThread{
                     binding.signUpBirthLayout.setBackgroundResource(R.drawable.border_round_white_transparent_10)
-                    binding.signUpBirthBarV.setBackgroundResource(R.drawable.vertical_line_white_1)
                     binding.signUpBirthTv.setTextColor(ContextCompat.getColor(this@SignUpActivity, R.color.white))
                 }
             }
@@ -258,91 +346,45 @@ class SignUpActivity:AppCompatActivity(), SignUpView {
         return returnValue
     }
 
-    //약관 클릭
-    private fun onClick(){
-        //전체 동의
-        binding.signUpAgree1Layout.setOnClickListener {
-            if(!agree1TF){
-                binding.signUpBox1OnIv.visibility = View.VISIBLE
-                binding.signUpBox2OnIv.visibility = View.VISIBLE
-                binding.signUpBox3OnIv.visibility = View.VISIBLE
-                agree1TF = true
-                agree2TF = true
-                agree3TF = true
-            }else{
-                binding.signUpBox1OnIv.visibility = View.GONE
-                binding.signUpBox2OnIv.visibility = View.GONE
-                binding.signUpBox3OnIv.visibility = View.GONE
-                agree1TF = false
-                agree2TF = false
-                agree3TF = false
-            }
-            clickBackgroundChange()
-        }
-
-        //개인정보 약관(필수)
-        binding.signUpAgree2Layout.setOnClickListener {
-            if(!agree2TF){
-                binding.signUpBox2OnIv.visibility = View.VISIBLE
-                agree2TF = true
-                if(agree3TF) {
-                    agree1TF = true
-                    binding.signUpBox1OnIv.visibility = View.VISIBLE
-                }
-            }else{
-                binding.signUpBox1OnIv.visibility = View.GONE
-                binding.signUpBox2OnIv.visibility = View.GONE
-                agree1TF = false
-                agree2TF = false
-            }
-            clickBackgroundChange()
-        }
-
-        //홍보 약관(선택)
-        binding.signUpAgree3Layout.setOnClickListener {
-            if(!agree3TF){
-                binding.signUpBox3OnIv.visibility = View.VISIBLE
-                agree3TF = true
-                if(agree2TF) {
-                    agree1TF = true
-                    binding.signUpBox1OnIv.visibility = View.VISIBLE
-                }
-            }else{
-                binding.signUpBox1OnIv.visibility = View.GONE
-                binding.signUpBox3OnIv.visibility = View.GONE
-                agree1TF = false
-                agree3TF = false
-            }
-            clickBackgroundChange()
-        }
-
-    }
 
     //약관 클릭
     private fun clickBackgroundChange(){
         //click agree1
         if(agree1TF){
-            binding.signUpAgree1Layout.setBackgroundResource(R.drawable.border_round_debri_gray_6)
+            binding.signUpAgreeLayout.setBackgroundResource(R.drawable.border_round_debri_gray_6)
             binding.signUpAgree2Layout.setBackgroundResource(R.drawable.border_round_debri_gray_6)
             binding.signUpAgree3Layout.setBackgroundResource(R.drawable.border_round_debri_gray_6)
+
+            binding.signUpBox1OnIv.visibility = View.VISIBLE
+            binding.signUpBox2OnIv.visibility = View.VISIBLE
+            binding.signUpBox3OnIv.visibility = View.VISIBLE
+
         }else{
-            binding.signUpAgree1Layout.setBackgroundResource(R.drawable.border_round_transparent_gray_6)
+            binding.signUpAgreeLayout.setBackgroundResource(R.drawable.border_round_transparent_gray_6)
             binding.signUpAgree2Layout.setBackgroundResource(R.drawable.border_round_transparent_gray_6)
             binding.signUpAgree3Layout.setBackgroundResource(R.drawable.border_round_transparent_gray_6)
+
+            binding.signUpBox1OnIv.visibility = View.GONE
+            binding.signUpBox2OnIv.visibility = View.GONE
+            binding.signUpBox3OnIv.visibility = View.GONE
         }
 
         //click agree2
         if(agree2TF){
-            binding.signUpAgree2Layout.setBackgroundResource(R.drawable.border_round_debri_gray_6)
+            binding.signUpAgree2Layout.setBackgroundResource(R.drawable.border_round_transparent_debri_6)
+            binding.signUpBox2OnIv.visibility = View.VISIBLE
         }else{
-            binding.signUpAgree2Layout.setBackgroundResource(R.drawable.border_round_transparent_gray_6)
+            binding.signUpAgree2Layout.setBackgroundResource(R.drawable.border_round_transparent_white_6)
+            binding.signUpBox2OnIv.visibility = View.GONE
         }
 
         //click agree3
         if(agree3TF){
-            binding.signUpAgree3Layout.setBackgroundResource(R.drawable.border_round_debri_gray_6)
+            binding.signUpAgree3Layout.setBackgroundResource(R.drawable.border_round_transparent_debri_6)
+            binding.signUpBox3OnIv.visibility = View.VISIBLE
         }else{
-            binding.signUpAgree3Layout.setBackgroundResource(R.drawable.border_round_transparent_gray_6)
+            binding.signUpAgree3Layout.setBackgroundResource(R.drawable.border_round_transparent_white_6)
+            binding.signUpBox3OnIv.visibility = View.GONE
         }
 
     }
@@ -356,12 +398,10 @@ class SignUpActivity:AppCompatActivity(), SignUpView {
                 if (hasFocus) {
                     //  포커스시
                     binding.signUpIdLayout.setBackgroundResource(R.drawable.border_round_debri_transparent_10)
-                    binding.signUpIdBarV.setBackgroundResource(R.drawable.vertical_line_debri_2)
                     binding.signUpIdTv.setTextColor(ContextCompat.getColor(this@SignUpActivity, R.color.debri))
                 } else {
                     //  포커스 뺏겼을 때
                     binding.signUpIdLayout.setBackgroundResource(R.drawable.border_round_white_transparent_10)
-                    binding.signUpIdBarV.setBackgroundResource(R.drawable.vertical_line_white_1)
                     binding.signUpIdTv.setTextColor(ContextCompat.getColor(this@SignUpActivity, R.color.white))
                 }
             }
@@ -373,12 +413,10 @@ class SignUpActivity:AppCompatActivity(), SignUpView {
                 if (hasFocus) {
                     //  포커스시
                     binding.signUpPasswordLayout.setBackgroundResource(R.drawable.border_round_debri_transparent_10)
-                    binding.signUpPasswordBarV.setBackgroundResource(R.drawable.vertical_line_debri_2)
                     binding.signUpPasswordTv.setTextColor(ContextCompat.getColor(this@SignUpActivity, R.color.debri))
                 } else {
                     //  포커스 뺏겼을 때
                     binding.signUpPasswordLayout.setBackgroundResource(R.drawable.border_round_white_transparent_10)
-                    binding.signUpPasswordBarV.setBackgroundResource(R.drawable.vertical_line_white_1)
                     binding.signUpPasswordTv.setTextColor(ContextCompat.getColor(this@SignUpActivity, R.color.white))
                 }
             }
@@ -390,12 +428,10 @@ class SignUpActivity:AppCompatActivity(), SignUpView {
                 if (hasFocus) {
                     //  포커스시
                     binding.signUpPasswordCheckLayout.setBackgroundResource(R.drawable.border_round_debri_transparent_10)
-                    binding.signUpPasswordCheckBarV.setBackgroundResource(R.drawable.vertical_line_debri_2)
                     binding.signUpPasswordCheckTv.setTextColor(ContextCompat.getColor(this@SignUpActivity, R.color.debri))
                 } else {
                     //  포커스 뺏겼을 때
                     binding.signUpPasswordCheckLayout.setBackgroundResource(R.drawable.border_round_white_transparent_10)
-                    binding.signUpPasswordCheckBarV.setBackgroundResource(R.drawable.vertical_line_white_1)
                     binding.signUpPasswordCheckTv.setTextColor(ContextCompat.getColor(this@SignUpActivity, R.color.white))
                 }
             }
@@ -407,12 +443,10 @@ class SignUpActivity:AppCompatActivity(), SignUpView {
                 if (hasFocus) {
                     //  포커스시
                     binding.signUpBirthLayout.setBackgroundResource(R.drawable.border_round_debri_transparent_10)
-                    binding.signUpBirthBarV.setBackgroundResource(R.drawable.vertical_line_debri_2)
                     binding.signUpBirthTv.setTextColor(ContextCompat.getColor(this@SignUpActivity, R.color.debri))
                 } else {
                     //  포커스 뺏겼을 때
                     binding.signUpBirthLayout.setBackgroundResource(R.drawable.border_round_white_transparent_10)
-                    binding.signUpBirthBarV.setBackgroundResource(R.drawable.vertical_line_white_1)
                     binding.signUpBirthTv.setTextColor(ContextCompat.getColor(this@SignUpActivity, R.color.white))
                 }
             }
@@ -424,12 +458,10 @@ class SignUpActivity:AppCompatActivity(), SignUpView {
                 if (hasFocus) {
                     //  포커스시
                     binding.signUpNicknameLayout.setBackgroundResource(R.drawable.border_round_debri_transparent_10)
-                    binding.signUpNicknameBarV.setBackgroundResource(R.drawable.vertical_line_debri_2)
                     binding.signUpNicknameTv.setTextColor(ContextCompat.getColor(this@SignUpActivity, R.color.debri))
                 } else {
                     //  포커스 뺏겼을 때
                     binding.signUpNicknameLayout.setBackgroundResource(R.drawable.border_round_white_transparent_10)
-                    binding.signUpNicknameBarV.setBackgroundResource(R.drawable.vertical_line_white_1)
                     binding.signUpNicknameTv.setTextColor(ContextCompat.getColor(this@SignUpActivity, R.color.white))
                 }
             }

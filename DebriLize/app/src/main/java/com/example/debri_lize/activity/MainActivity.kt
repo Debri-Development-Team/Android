@@ -19,7 +19,9 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater) //binding 초기화
         setContentView(binding.root)
 
+
         initBottomNavigation()
+
 
     }
 
