@@ -7,7 +7,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import com.example.debri_lize.activity.auth.ProfileActivity
 import com.example.debri_lize.adapter.home.HomeVPAdapter
 import com.example.debri_lize.data.curriculum.Curriculum
 import com.example.debri_lize.databinding.FragmentHomeBinding
@@ -54,7 +53,12 @@ class HomeFragment : Fragment(), MyCurriculumListView {
                     j++
                 }
 
-                fragmentList.add(AddCurriculumFragment())
+                if(j<=20){ //20 : 커리큘럼 최대 개수
+                    fragmentList.add(AddCurriculumFragment())
+                }else{
+                    fragmentList.add(AddXCurriculumFragment())
+                }
+
 
                 //ViewPagerAdapter 초기화
                 homeVPAdapter = HomeVPAdapter(this)

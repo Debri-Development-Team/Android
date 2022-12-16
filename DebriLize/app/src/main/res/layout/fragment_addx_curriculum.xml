@@ -2,6 +2,7 @@
 <androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/darkmode_background">
@@ -15,15 +16,16 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
-        android:gravity="center"
+        android:gravity="center_horizontal"
         android:orientation="vertical"
-        android:background="@drawable/circle_debri_transparent_8">
+        android:background="@drawable/circle_red_transparent_8">
 
         <ImageView
             android:id="@+id/add_curriculum_plus_iv"
             android:layout_width="50dp"
             android:layout_height="50dp"
-            android:src="@drawable/ic_plus"
+            android:src="@drawable/ic_x"
+            android:layout_marginTop="78dp"
             />
 
     </LinearLayout>
@@ -32,12 +34,12 @@
         android:id="@+id/add_curriculum_add_tv1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="새로운 커리큘럼 시작하기"
+        android:text="더 이상 새로운 커리큘럼을 생성 할 수 없어요!"
         android:textColor="@color/white"
-        android:textSize="18dp"
+        android:textSize="15dp"
         android:fontFamily="@font/noto_sans_kr_bold"
         android:includeFontPadding="false"
-        android:layout_marginBottom="7dp"
+        android:layout_marginBottom="18dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintBottom_toTopOf="@+id/add_curriculum_add_tv2" />
@@ -46,16 +48,16 @@
         android:id="@+id/add_curriculum_add_tv2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:text="&quot;눌러서 새로운 강의를 찾아보기&quot;"
+        android:text="너무 많은 커리큘럼이 저장되어 있어요!\n기존의 커리큘럼을 삭제 해주세요"
         android:textColor="@color/white"
         android:textSize="12dp"
         android:fontFamily="@font/noto_sans_kr_regular"
         android:includeFontPadding="false"
-        android:layout_marginBottom="50dp"
+        android:layout_marginBottom="91dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintBottom_toBottomOf="@+id/add_curriculum_circle_layout" />
+        app:layout_constraintBottom_toBottomOf="@+id/add_curriculum_circle_layout"
+        android:gravity="center_horizontal"/>
 
 
 
