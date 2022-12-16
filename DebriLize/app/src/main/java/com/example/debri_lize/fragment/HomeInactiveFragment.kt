@@ -224,26 +224,9 @@ class HomeInactiveFragment(
         when(code){
             200->{
                 //8.4.3 커리큘럼 활성 상태 수정 api
-                curriculumService.setEditCurriculumStatusView(this)
-                curriculumService.editCurriculumStatus(EditCurriculumStatus(curriculumIdx, "ACTIVE"))
-
-                //move
-                if(index==0){
-                    //1번째 커리큘럼
-                    binding.homeCurriculumPreviousIv.visibility = View.INVISIBLE
-                    binding.homeCurriculumNextIv.setOnClickListener{
-                        //다음 커리로 이동
-
-                    }
-                }else{
-
-                    binding.homeCurriculumPreviousIv.visibility = View.VISIBLE
-                    binding.homeCurriculumPreviousIv.setOnClickListener{
-                        //이전 커리로 이동
-                    }
-                    binding.homeCurriculumNextIv.setOnClickListener {
-                        //다음 커리로 이동
-                    }
+                binding.homeCurriculumActiveLayout.setOnClickListener{
+                    curriculumService.setEditCurriculumStatusView(this)
+                    curriculumService.editCurriculumStatus(EditCurriculumStatus(curriculumIdx, "ACTIVE"))
                 }
 
                 //홈 화면
