@@ -24,4 +24,11 @@
     <style name="Theme.DebriLize.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 
     <style name="Theme.DebriLize.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+    
+    <style name="tab_text"
+        parent="@android:style/TextAppearance.Widget.TabWidget">
+        <item name="android:fontFamily">@font/noto_sans_kr_bold</item>
+        <item name="android:textSize">16dp</item>
+        <item name="fontStyle">normal</item>
+    </style>
 </resources>

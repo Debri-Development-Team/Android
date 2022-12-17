@@ -26,4 +26,7 @@
     <color name="roadmap">#484848</color>
     <color name="review">#D9D9D9</color>
     <color name="darkGreen">#1D361D</color>
+    <color name="darkmode_category">#142141</color>
+    <color name="gray_stroke">#8C8C8C</color>
+
 </resources>
