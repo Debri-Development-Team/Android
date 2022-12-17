@@ -1,0 +1,271 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/transparent">
+
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/border_round_top_darkmode_light_10"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintBottom_toBottomOf="parent">
+
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:layout_marginStart="25dp"
+    android:layout_marginEnd="25dp"
+    android:layout_marginTop="10dp">
+
+    <View
+        android:layout_width="50dp"
+        android:layout_height="5dp"
+        android:layout_gravity="center"
+        android:background="@drawable/border_round_gray_10"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="카테고리 설정"
+        android:textColor="@color/white"
+        android:fontFamily="@font/noto_sans_kr_bold"
+        android:textSize="20dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="20dp"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="학습 목표 언어"
+        android:textColor="@color/white"
+        android:textSize="17dp"
+        android:fontFamily="@font/noto_sans_kr_regular"
+        android:includeFontPadding="false"
+        android:layout_marginBottom="20dp"
+        android:layout_marginTop="10dp"/>
+
+    <LinearLayout
+        android:id="@+id/class_radiogroup_linearlayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:weightSum="3"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_weight="1"
+            android:layout_marginEnd="7dp">
+            <CheckBox
+                android:id="@+id/class_curri_tag_front_cb"
+                android:layout_width="match_parent"
+                android:layout_height="35dp"
+                android:background="@drawable/selector_class_radio_front"
+                android:button="@null"
+                android:drawableEnd="@drawable/selector_class_radio_text"
+                android:fontFamily="@font/noto_sans_kr_bold"
+                android:includeFontPadding="false"
+                android:paddingStart="20dp"
+                android:paddingEnd="7dp"
+                android:text="Front"
+                android:textColor="@color/white"
+                android:textSize="14dp"
+                android:visibility="visible" />
+            <CheckBox
+                android:id="@+id/class_curri_tag_c_cb"
+                android:layout_width="match_parent"
+                android:layout_height="35dp"
+                android:text="C 언어"
+                android:textColor="@drawable/selector_class_radio_text"
+                android:button="@null"
+                android:paddingStart="20dp"
+                android:visibility="visible"
+                android:fontFamily="@font/noto_sans_kr_bold"
+                android:includeFontPadding="false"
+                android:textSize="14dp"
+                android:paddingEnd="7dp"
+                android:layout_marginTop="7dp"
+                android:drawableEnd="@drawable/selector_class_radio_text"
+                android:background="@drawable/selector_class_radio_c"/>
+        </LinearLayout>
+
+        <CheckBox
+            android:id="@+id/class_curri_tag_back_cb"
+            android:layout_width="match_parent"
+            android:layout_height="35dp"
+            android:text="Back"
+            android:layout_weight="1"
+            android:textColor="@drawable/selector_class_radio_text"
+            android:button="@null"
+            android:paddingStart="20dp"
+            android:visibility="visible"
+            android:fontFamily="@font/noto_sans_kr_bold"
+            android:includeFontPadding="false"
+            android:textSize="14dp"
+            android:paddingEnd="7dp"
+            android:layout_marginEnd="6dp"
+            android:layout_marginStart="2dp"
+            android:drawableEnd="@drawable/selector_class_radio_text"
+            android:background="@drawable/selector_class_radio_back"/>
+        <CheckBox
+            android:id="@+id/class_curri_tag_python_cb"
+            android:layout_width="match_parent"
+            android:layout_height="35dp"
+            android:text="Python"
+            android:layout_weight="1"
+            android:textColor="@drawable/selector_class_radio_text"
+            android:button="@null"
+            android:paddingStart="20dp"
+            android:visibility="visible"
+            android:fontFamily="@font/noto_sans_kr_bold"
+            android:includeFontPadding="false"
+            android:textSize="14dp"
+            android:paddingEnd="7dp"
+            android:layout_marginStart="3dp"
+            android:drawableEnd="@drawable/selector_class_radio_text"
+            android:background="@drawable/selector_class_radio_python"/>
+
+
+        </LinearLayout>
+
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="강의 매체"
+        android:textColor="@color/white"
+        android:textSize="17dp"
+        android:fontFamily="@font/noto_sans_kr_regular"
+        android:includeFontPadding="false"
+        android:layout_marginBottom="20dp"
+        android:layout_marginTop="25dp"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="15dp"
+        android:layout_marginEnd="15dp">
+
+        <RadioGroup
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:weightSum="2">
+
+            <RadioButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="서적"
+                android:textColor="@color/white"
+                android:textSize="17dp"
+                android:fontFamily="@font/noto_sans_kr_medium"
+                android:includeFontPadding="false"
+                android:button="@null"
+                android:gravity="center"
+                android:layout_marginEnd="5dp"
+                android:paddingTop="15dp"
+                android:paddingBottom="10dp"
+                android:drawableTop="@drawable/selector_category_radio_book"
+                android:background="@drawable/selector_category_radio_background"/>
+            <RadioButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="영상"
+                android:textColor="@color/white"
+                android:textSize="17dp"
+                android:fontFamily="@font/noto_sans_kr_medium"
+                android:includeFontPadding="false"
+                android:button="@null"
+                android:gravity="center_horizontal"
+                android:layout_marginStart="5dp"
+                android:paddingTop="15dp"
+                android:paddingBottom="10dp"
+                android:drawableTop="@drawable/selector_category_radio_video"
+                android:background="@drawable/selector_category_radio_background"/>
+        </RadioGroup>
+
+
+    </LinearLayout>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="유/무료"
+        android:textColor="@color/white"
+        android:textSize="17dp"
+        android:fontFamily="@font/noto_sans_kr_regular"
+        android:includeFontPadding="false"
+        android:layout_marginBottom="20dp"
+        android:layout_marginTop="25dp"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="15dp"
+        android:layout_marginEnd="15dp">
+
+        <RadioGroup
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:weightSum="2">
+
+            <RadioButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="유료"
+                android:textColor="@color/white"
+                android:textSize="17dp"
+                android:fontFamily="@font/noto_sans_kr_medium"
+                android:includeFontPadding="false"
+                android:button="@null"
+                android:gravity="center"
+                android:layout_marginEnd="5dp"
+                android:paddingTop="10dp"
+                android:paddingBottom="10dp"
+                android:background="@drawable/selector_category_radio_background"/>
+            <RadioButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="무료"
+                android:textColor="@color/white"
+                android:textSize="17dp"
+                android:fontFamily="@font/noto_sans_kr_medium"
+                android:includeFontPadding="false"
+                android:button="@null"
+                android:gravity="center"
+                android:layout_marginStart="5dp"
+                android:paddingTop="10dp"
+                android:paddingBottom="10dp"
+                android:background="@drawable/selector_category_radio_background"/>
+        </RadioGroup>
+
+
+    </LinearLayout>
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/post_write_btn"
+        android:layout_width="150dp"
+        android:layout_height="45dp"
+        android:background="@drawable/border_round_transparent_debri_10"
+        android:text="확정하기"
+        android:layout_gravity="center"
+        android:textColor="@color/darkmode_category"
+        android:fontFamily="@font/noto_sans_kr_black"
+        android:textSize="16dp"
+        android:textStyle="bold"
+        android:includeFontPadding="false"
+        android:layout_marginBottom="40dp"
+        android:layout_marginTop="50dp"/>
+
+</LinearLayout>
+</LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

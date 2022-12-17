@@ -84,4 +84,7 @@ dependencies {
 
     //blur
     implementation 'com.github.mmin18:realtimeblurview:1.2.1'
+
+    //tablayout
+    implementation 'com.google.android.material:material:1.4.0'
 }
