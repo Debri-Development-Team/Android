@@ -13,6 +13,8 @@ import com.example.debri_lize.activity.auth.SignUpActivity.Singleton.agree2TF
 import com.example.debri_lize.activity.auth.SignUpActivity.Singleton.agree2TermCheck
 import com.example.debri_lize.activity.auth.SignUpActivity.Singleton.agree3TF
 import com.example.debri_lize.activity.auth.SignUpActivity.Singleton.agree3TermCheck
+import com.example.debri_lize.activity.auth.SignUpActivity.Singleton.certificationTF
+import com.example.debri_lize.activity.auth.SignUpActivity.Singleton.userID
 import com.example.debri_lize.data.auth.UserSignup
 import com.example.debri_lize.service.AuthService
 import com.example.debri_lize.view.auth.SignUpView
@@ -34,6 +36,9 @@ class SignUpActivity:AppCompatActivity(), SignUpView {
 
     object Singleton {
         var userID = ""
+
+        //인증 여부
+        var certificationTF : Boolean = false
 
 
         //termCheck = true : 이용약관 내용 확인 후 동의
@@ -145,6 +150,7 @@ class SignUpActivity:AppCompatActivity(), SignUpView {
 
     override fun onStart() {
         super.onStart()
+        binding.signUpIdEt.text = userID
         clickBackgroundChange()
     }
 
@@ -170,7 +176,7 @@ class SignUpActivity:AppCompatActivity(), SignUpView {
         val birthday : String = binding.signUpBirthEt.text.toString().trim()
 
         //이메일 형식이 잘못된 경우
-        if(isEmail(id)){
+        if(isEmail(id) && certificationTF){
             idTF = true
         }else{
             Log.d("id","$id")

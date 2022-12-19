@@ -15,6 +15,12 @@ data class User(
     @SerializedName(value = "firstLogin") var firstLogin : Boolean
 )
 
+// 1.5 이메일 api
+data class Email(
+    @SerializedName(value = "authNumber") var code : Int,
+    @SerializedName(value = "timeout") var timeout : Int
+)
+
 //5.1 jwt ACCESS-TOKEN 갱신 api
 data class Token(
     @SerializedName(value = "accessToken") var accessToken : String,
