@@ -74,7 +74,7 @@
         android:background="@drawable/border_round_white_transparent_10">
 
         <EditText
-            android:id="@+id/sign_up_id_et"
+            android:id="@+id/sign_up_email_id_et"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@null"
@@ -192,7 +192,7 @@
         app:layout_constraintBottom_toBottomOf="@+id/sign_up_email_code_time_tv1"/>
 
     <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/login_btn1"
+        android:id="@+id/sign_up_email_code_check_btn"
         android:layout_width="120dp"
         android:layout_height="40dp"
         android:background="@drawable/border_round_transparent_debri_6"

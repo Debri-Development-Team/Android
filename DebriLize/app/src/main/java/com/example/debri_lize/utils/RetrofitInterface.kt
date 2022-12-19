@@ -1,10 +1,7 @@
 package com.example.debri_lize.utils
 
 import com.example.debri_lize.base.BaseResponse
-import com.example.debri_lize.data.auth.Token
-import com.example.debri_lize.data.auth.User
-import com.example.debri_lize.data.auth.UserLogin
-import com.example.debri_lize.data.auth.UserSignup
+import com.example.debri_lize.data.auth.*
 import com.example.debri_lize.data.board.Board
 import com.example.debri_lize.data.board.BoardFavorite
 import com.example.debri_lize.data.class_.Lecture
@@ -32,6 +29,10 @@ interface RetrofitInterface {
     //1.2 로그인 api
     @POST("api/auth/login")
     fun login(@Body user : UserLogin): Call<BaseResponse<User>>
+
+    //1.5 이메일 인증 api
+    @POST("/api/auth/authEmail")
+    fun getCode(@Body emailAddress : String) : Call<BaseResponse<Email>>
 
     //2.1 게시판 즐겨찾기 생성 api
     @POST("api/board/scrap/{boardIdx}")
