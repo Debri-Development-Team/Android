@@ -14,36 +14,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <LinearLayout
-        android:id="@+id/class_debri_layout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="26dp"
-        android:layout_marginStart="30dp"
-        android:layout_marginEnd="30dp"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:orientation="horizontal"
-        android:gravity="center_vertical">
 
-        <ImageView
-            android:id="@+id/class_debri_logo_iv"
-            android:layout_width="121dp"
-            android:layout_height="30.68dp"
-            android:src="@drawable/logo_debri_img_eng" />
-
-        <View
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:layout_weight="1" />
-
-        <ImageView
-            android:id="@+id/class_debri_user_iv"
-            android:layout_width="54dp"
-            android:layout_height="54dp"
-            android:src="@drawable/ic_profile"/>
-    </LinearLayout>
 
     <LinearLayout
         android:id="@+id/class_list_text_layout"
@@ -55,7 +26,7 @@
         android:layout_marginEnd="30dp"
         android:gravity="center_vertical"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/class_debri_layout" >
+        app:layout_constraintTop_toTopOf="parent">
         <TextView
             android:id="@+id/class_class_list_tv"
             android:layout_width="wrap_content"
@@ -64,11 +35,21 @@
             android:textColor="@color/white"
             android:fontFamily="@font/noto_sans_kr_bold"
             android:includeFontPadding="false"
-            android:textSize="18dp" />
+            android:textSize="20dp" />
         <View
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:layout_weight="1" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="A-Z"
+            android:textColor="@color/debri"
+            android:fontFamily="@font/noto_sans_kr_black"
+            android:textSize="15dp"
+            android:includeFontPadding="false"
+            android:layout_marginEnd="10dp"/>
+
         <ImageView
             android:id="@+id/class_filter_iv"
             android:layout_width="19.2dp"
@@ -89,7 +70,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/class_list_text_layout"
         android:gravity="center_vertical"
-        android:background="@drawable/border_round_white_transparent_10">
+        android:background="@drawable/border_round_gray_clearness8_10">
 
         <ImageView
             android:id="@+id/class_search_iv"
@@ -125,240 +106,147 @@
         android:layout_marginEnd="30dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/class_search_layout">
-        <TextView
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="언어"
-            android:textColor="@color/white"
-            android:gravity="center"
-            android:textSize="11dp"
-            android:fontFamily="@font/noto_sans_kr_regular"
-            android:includeFontPadding="false"
-            android:layout_weight="1"
-            android:background="@drawable/border_line_tag"/>
-        <TextView
+            android:orientation="vertical"
+            android:layout_weight="1">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="언어"
+                android:textColor="@color/white"
+                android:gravity="center"
+                android:textSize="11dp"
+                android:fontFamily="@font/noto_sans_kr_regular"
+                android:includeFontPadding="false"
+                android:background="@drawable/border_line_tag"/>
+            <TextView
+                android:id="@+id/class_curri_tag_btn"
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:layout_marginBottom="7dp"
+                android:background="@drawable/border_round_gray_transparent_18"
+                android:drawableEnd="@drawable/ic_arrow_bottom"
+                android:fontFamily="@font/noto_sans_kr_bold"
+                android:includeFontPadding="false"
+                android:gravity="center_vertical"
+                android:paddingStart="30dp"
+                android:paddingEnd="15dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="10dp"
+                android:layout_marginStart="5dp"
+                android:text="전체"
+                android:textColor="@color/white"
+                android:textSize="13dp"
+                android:visibility="visible" />
+        </LinearLayout>
+
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="매체"
-            android:textColor="@color/white"
-            android:gravity="center"
-            android:textSize="11dp"
-            android:fontFamily="@font/noto_sans_kr_regular"
-            android:includeFontPadding="false"
-            android:layout_weight="1"
-            android:background="@drawable/border_line_tag"/>
-        <TextView
+            android:orientation="vertical"
+            android:layout_weight="1">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="매체"
+                android:textColor="@color/white"
+                android:gravity="center"
+                android:textSize="11dp"
+                android:fontFamily="@font/noto_sans_kr_regular"
+                android:includeFontPadding="false"
+                android:background="@drawable/border_line_tag"/>
+            <TextView
+                android:id="@+id/class_media_tag_btn"
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:layout_marginBottom="7dp"
+                android:background="@drawable/border_round_gray_transparent_18"
+                android:drawableEnd="@drawable/ic_arrow_bottom"
+                android:fontFamily="@font/noto_sans_kr_bold"
+                android:includeFontPadding="false"
+                android:gravity="center_vertical"
+                android:paddingStart="30dp"
+                android:paddingEnd="15dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="10dp"
+                android:layout_marginStart="5dp"
+                android:text="전체"
+                android:textColor="@color/white"
+                android:textSize="13dp"
+                android:visibility="visible" />
+        </LinearLayout>
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="유/무료"
-            android:textColor="@color/white"
-            android:gravity="center"
-            android:textSize="11dp"
-            android:layout_weight="1"
-            android:fontFamily="@font/noto_sans_kr_regular"
-            android:includeFontPadding="false"/>
+            android:orientation="vertical"
+            android:layout_weight="1">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="유/무료"
+                android:textColor="@color/white"
+                android:gravity="center"
+                android:textSize="11dp"
+                android:fontFamily="@font/noto_sans_kr_regular"
+                android:includeFontPadding="false"/>
+            <TextView
+                android:id="@+id/class_price_tag_btn"
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:layout_marginBottom="7dp"
+                android:background="@drawable/border_round_gray_transparent_18"
+                android:drawableEnd="@drawable/ic_arrow_bottom"
+                android:fontFamily="@font/noto_sans_kr_bold"
+                android:includeFontPadding="false"
+                android:gravity="center_vertical"
+                android:paddingStart="30dp"
+                android:paddingEnd="15dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="10dp"
+                android:layout_marginStart="5dp"
+                android:text="전체"
+                android:textColor="@color/white"
+                android:textSize="13dp"
+                android:visibility="visible" />
+        </LinearLayout>
+
+
 
     </LinearLayout>
     <LinearLayout
-        android:id="@+id/class_radiogroup_linearlayout"
+        android:id="@+id/class_tablayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:weightSum="3"
+        android:orientation="vertical"
+        android:layout_marginTop="10dp"
         android:layout_marginStart="30dp"
         android:layout_marginEnd="30dp"
-        android:layout_marginTop="10dp"
-        android:paddingBottom="5dp"
         app:layout_constraintTop_toBottomOf="@id/class_tagname_layout"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent">
-        <LinearLayout
+        <com.google.android.material.tabs.TabLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:orientation="vertical"
-            android:id="@+id/class_curri_tag_language_layout"
-            android:layout_marginEnd="5dp">
+            android:background="@color/darkmode_background"
+            app:tabSelectedTextColor="@color/white"
+            app:tabTextColor="@color/white"
+            app:tabIndicatorColor="@color/debri"
 
-            <CheckBox
-                android:id="@+id/class_curri_tag_front_cb"
-                android:layout_width="match_parent"
-                android:layout_height="37dp"
-                android:layout_marginBottom="7dp"
-                android:background="@drawable/selector_class_radio_front"
-                android:button="@null"
-                android:drawableEnd="@drawable/selector_class_radio_text"
-                android:fontFamily="@font/noto_sans_kr_bold"
-                android:includeFontPadding="false"
-                android:paddingStart="20dp"
-                android:paddingEnd="7dp"
-                android:text="Front"
-                android:textColor="@color/white"
-                android:textSize="14dp"
-                android:visibility="visible" />
-            <CheckBox
-                android:id="@+id/class_curri_tag_back_cb"
-                android:layout_width="match_parent"
-                android:layout_height="37dp"
-                android:text="Back"
-                android:textColor="@drawable/selector_class_radio_text"
-                android:button="@null"
-                android:paddingStart="20dp"
-                android:visibility="visible"
-                android:fontFamily="@font/noto_sans_kr_bold"
-                android:includeFontPadding="false"
-                android:textSize="14dp"
-                android:paddingEnd="7dp"
-                android:layout_marginBottom="7dp"
-                android:drawableEnd="@drawable/selector_class_radio_text"
-                android:background="@drawable/selector_class_radio_back"/>
-            <CheckBox
-                android:id="@+id/class_curri_tag_python_cb"
-                android:layout_width="match_parent"
-                android:layout_height="37dp"
-                android:text="Python"
-                android:textColor="@drawable/selector_class_radio_text"
-                android:button="@null"
-                android:paddingStart="20dp"
-                android:visibility="visible"
-                android:fontFamily="@font/noto_sans_kr_bold"
-                android:includeFontPadding="false"
-                android:textSize="14dp"
-                android:paddingEnd="7dp"
-                android:layout_marginBottom="7dp"
-                android:drawableEnd="@drawable/selector_class_radio_text"
-                android:background="@drawable/selector_class_radio_python"/>
-            <CheckBox
-                android:id="@+id/class_curri_tag_c_cb"
-                android:layout_width="match_parent"
-                android:layout_height="37dp"
-                android:text="C 언어"
-                android:textColor="@drawable/selector_class_radio_text"
-                android:button="@null"
-                android:paddingStart="20dp"
-                android:visibility="visible"
-                android:fontFamily="@font/noto_sans_kr_bold"
-                android:includeFontPadding="false"
-                android:textSize="14dp"
-                android:paddingEnd="7dp"
-                android:layout_marginBottom="7dp"
-                android:drawableEnd="@drawable/selector_class_radio_text"
-                android:background="@drawable/selector_class_radio_c"/>
-        </LinearLayout>
-
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:orientation="vertical"
-            android:layout_marginStart="2dp"
-            android:id="@+id/class_curri_tag_media_layout"
-            android:layout_marginEnd="3dp">
-            <CheckBox
-                android:id="@+id/class_curri_tag_book_cb"
-                android:layout_width="match_parent"
-                android:layout_height="37dp"
-                android:text="서적"
-                android:textColor="@drawable/selector_class_radio_text"
-                android:button="@null"
-                android:visibility="visible"
-                android:fontFamily="@font/noto_sans_kr_bold"
-                android:includeFontPadding="false"
-                android:textSize="14dp"
-                android:layout_marginBottom="7dp"
-                android:paddingEnd="7dp"
-                android:paddingStart="20dp"
-                android:drawableEnd="@drawable/selector_class_radio_text"
-                android:background="@drawable/selector_class_radio_media"/>
-            <CheckBox
-                android:id="@+id/class_curri_tag_video_cb"
-                android:layout_width="match_parent"
-                android:layout_height="37dp"
-                android:text="영상"
-                android:textColor="@drawable/selector_class_radio_text"
-                android:button="@null"
-                android:visibility="visible"
-                android:fontFamily="@font/noto_sans_kr_bold"
-                android:includeFontPadding="false"
-                android:textSize="14dp"
-                android:drawableEnd="@drawable/selector_class_radio_text"
-                android:paddingEnd="7dp"
-                android:paddingStart="20dp"
-                android:layout_marginBottom="7dp"
-                android:background="@drawable/selector_class_radio_media"/>
-
-
-        </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/class_curri_tag_price_layout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:orientation="vertical"
-        android:layout_marginStart="5dp">
-
-        <CheckBox
-            android:id="@+id/class_price_tag_forfree_cb"
-            android:layout_width="match_parent"
-            android:layout_height="37dp"
-            android:layout_marginBottom="7dp"
-            android:background="@drawable/selector_class_radio_price"
-            android:button="@null"
-            android:drawableEnd="@drawable/selector_class_radio_text"
-            android:fontFamily="@font/noto_sans_kr_bold"
-            android:includeFontPadding="false"
-            android:paddingStart="20dp"
-            android:paddingEnd="7dp"
-            android:text="무료"
-            android:textColor="@drawable/selector_class_radio_text"
-            android:textSize="14dp"
-            android:visibility="visible" />
-        <CheckBox
-            android:id="@+id/class_price_tag_no_forfree_cb"
-            android:layout_width="match_parent"
-            android:layout_height="37dp"
-            android:text="유료"
-            android:textColor="@drawable/selector_class_radio_text"
-            android:button="@null"
-            android:visibility="visible"
-            android:fontFamily="@font/noto_sans_kr_bold"
-            android:includeFontPadding="false"
-            android:textSize="14dp"
-            android:layout_marginBottom="7dp"
-            android:drawableEnd="@drawable/selector_class_radio_text"
-            android:paddingEnd="7dp"
-            android:paddingStart="20dp"
-            android:background="@drawable/selector_class_radio_price"/>
-
-    </LinearLayout>
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/class_favorite_layout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:layout_marginStart="30dp"
-        android:layout_marginEnd="30dp"
-        android:layout_marginTop="25dp"
-        android:visibility="visible"
-        app:layout_constraintTop_toBottomOf="@id/class_radiogroup_linearlayout"
-        app:layout_constraintStart_toStartOf="parent">
-
-        <TextView
-            android:id="@+id/class_favorite_tv"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="즐겨찾기한 강의"
-            android:textColor="@color/white"
-            android:textSize="20dp"
-            android:fontFamily="@font/noto_sans_kr_bold"
-            android:includeFontPadding="false" />
-
+            app:tabIndicatorHeight="4dp"
+            app:tabTextAppearance="@style/tab_text">
+            <com.google.android.material.tabs.TabItem
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="전체 강의" />
+            <com.google.android.material.tabs.TabItem
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="즐겨찾기"/>
+        </com.google.android.material.tabs.TabLayout>
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/class_favorite_rv"
+            android:id="@+id/class_lecturelist_rv"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="15dp"
@@ -369,24 +257,74 @@
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"/>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/class_favorite_rv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:orientation="vertical"
+            android:overScrollMode="never"
+            android:nestedScrollingEnabled="false"
+            tools:listitem="item_board_favorite"
+            android:visibility="gone"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"/>
+<!--        <androidx.viewpager2.widget.ViewPager2-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content">-->
+<!--            -->
+<!--        </androidx.viewpager2.widget.ViewPager2>-->
+
     </LinearLayout>
 
 
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/class_lecturelist_rv"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="15dp"
-        android:layout_marginStart="30dp"
-        android:layout_marginEnd="30dp"
-        android:orientation="vertical"
-        android:overScrollMode="never"
-        android:nestedScrollingEnabled="false"
-        android:visibility="visible"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/class_favorite_layout"/>
+
+
+
+<!--    <LinearLayout-->
+<!--        android:id="@+id/class_favorite_layout"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:orientation="vertical"-->
+<!--        android:layout_marginStart="30dp"-->
+<!--        android:layout_marginEnd="30dp"-->
+<!--        android:layout_marginTop="25dp"-->
+<!--        android:visibility="visible"-->
+<!--        app:layout_constraintTop_toBottomOf="@id/class_tablayout"-->
+<!--        app:layout_constraintStart_toStartOf="parent">-->
+
+<!--        <TextView-->
+<!--            android:id="@+id/class_favorite_tv"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:text="즐겨찾기한 강의"-->
+<!--            android:textColor="@color/white"-->
+<!--            android:textSize="20dp"-->
+<!--            android:fontFamily="@font/noto_sans_kr_bold"-->
+<!--            android:includeFontPadding="false" />-->
+
+
+<!--    </LinearLayout>-->
+
+
+
+<!--    <androidx.recyclerview.widget.RecyclerView-->
+<!--        android:id="@+id/class_lecturelist_rv"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_marginTop="15dp"-->
+<!--        android:layout_marginStart="30dp"-->
+<!--        android:layout_marginEnd="30dp"-->
+<!--        android:orientation="vertical"-->
+<!--        android:overScrollMode="never"-->
+<!--        android:nestedScrollingEnabled="false"-->
+<!--        android:visibility="visible"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintTop_toBottomOf="@id/class_favorite_layout"/>-->
 </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.core.widget.NestedScrollView>
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -55,7 +55,7 @@ class ClassFragment : Fragment(), LectureFavoriteView, LectureFilterView {
         super.onStart()
 
         //태그 클릭 효과
-        onRadioButtonClicked()
+//        onRadioButtonClicked()
 
         //api - lectureFavorite
         classService.setLectureFavoriteView(this)
@@ -85,6 +85,13 @@ class ClassFragment : Fragment(), LectureFavoriteView, LectureFilterView {
                 }
             }
         })
+
+
+        //click userImg -> profile
+//        binding.classDebriUserIv.setOnClickListener{
+//            val intent = Intent(context, ProfileActivity::class.java)
+//            startActivity(intent)
+//        }
 
 
         //검색어 입력 : search Lecture
@@ -181,12 +188,12 @@ class ClassFragment : Fragment(), LectureFavoriteView, LectureFilterView {
     private fun showList(){
         if(filterNum+filterNum2==0){
             //즐겨찾기 강의 view -> VISIBLE
-            binding.classFavoriteLayout.visibility = View.VISIBLE
+            binding.classFavoriteRv.visibility = View.VISIBLE
             //필터 강의 리스트 view -> GONE
             binding.classLecturelistRv.visibility = View.GONE
         }else{
             //즐겨찾기 강의 view -> GONE
-            binding.classFavoriteLayout.visibility = View.GONE
+            binding.classFavoriteRv.visibility = View.GONE
             //필터 강의 view -> VISIBLE
             binding.classLecturelistRv.visibility = View.VISIBLE
         }
@@ -195,160 +202,160 @@ class ClassFragment : Fragment(), LectureFavoriteView, LectureFilterView {
     }
 
 
-    private fun onRadioButtonClicked(){
-        //언어
-        //front
-        binding.classCurriTagFrontCb.setOnCheckedChangeListener { button, checked ->
-            if(checked){
-                binding.classCurriTagBackCb.visibility = View.GONE
-                binding.classCurriTagCCb.visibility = View.GONE
-                binding.classCurriTagPythonCb.visibility = View.GONE
-
-                filterNum++
-                lectureFilter.lang = button.text.toString()
-            }else{
-                binding.classCurriTagBackCb.visibility = View.VISIBLE
-                binding.classCurriTagCCb.visibility = View.VISIBLE
-                binding.classCurriTagPythonCb.visibility = View.VISIBLE
-
-                filterNum--
-                lectureFilter.lang = ""
-            }
-
-            showList()
-
-        }
-        //back
-        binding.classCurriTagBackCb.setOnCheckedChangeListener { button, checked ->
-            if(checked){
-                binding.classCurriTagFrontCb.visibility = View.GONE
-                binding.classCurriTagCCb.visibility = View.GONE
-                binding.classCurriTagPythonCb.visibility = View.GONE
-
-                filterNum++
-                lectureFilter.lang = button.text.toString()
-
-            }else{
-                binding.classCurriTagFrontCb.visibility = View.VISIBLE
-                binding.classCurriTagCCb.visibility = View.VISIBLE
-                binding.classCurriTagPythonCb.visibility = View.VISIBLE
-
-                filterNum--
-                lectureFilter.lang = ""
-            }
-            showList()
-        }
-        //C language
-        binding.classCurriTagCCb.setOnCheckedChangeListener { button, checked ->
-            if(checked){
-                binding.classCurriTagBackCb.visibility = View.GONE
-                binding.classCurriTagFrontCb.visibility = View.GONE
-                binding.classCurriTagPythonCb.visibility = View.GONE
-
-                filterNum++
-                lectureFilter.lang = button.text.toString()
-
-            }else{
-                binding.classCurriTagBackCb.visibility = View.VISIBLE
-                binding.classCurriTagFrontCb.visibility = View.VISIBLE
-                binding.classCurriTagPythonCb.visibility = View.VISIBLE
-
-                filterNum--
-                lectureFilter.lang = ""
-            }
-            showList()
-        }
-        //python
-        binding.classCurriTagPythonCb.setOnCheckedChangeListener { button, checked ->
-            if(checked){
-                binding.classCurriTagBackCb.visibility = View.GONE
-                binding.classCurriTagCCb.visibility = View.GONE
-                binding.classCurriTagFrontCb.visibility = View.GONE
-
-                filterNum++
-                lectureFilter.lang = button.text.toString()
-
-            }else{
-                binding.classCurriTagBackCb.visibility = View.VISIBLE
-                binding.classCurriTagCCb.visibility = View.VISIBLE
-                binding.classCurriTagFrontCb.visibility = View.VISIBLE
-
-                filterNum--
-                lectureFilter.lang = ""
-            }
-            showList()
-        }
-
-        //서적 or 영상
-        //서적
-        binding.classCurriTagBookCb.setOnCheckedChangeListener { button, checked ->
-            if(checked){
-                binding.classCurriTagVideoCb.visibility = View.GONE
-
-                filterNum++
-                lectureFilter.type = button.text.toString()
-
-            }else{
-                binding.classCurriTagVideoCb.visibility = View.VISIBLE
-
-                filterNum--
-                lectureFilter.type = ""
-            }
-            showList()
-        }
-        //영상
-        binding.classCurriTagVideoCb.setOnCheckedChangeListener { button, checked ->
-            if(checked){
-                binding.classCurriTagBookCb.visibility = View.GONE
-
-                filterNum++
-                lectureFilter.type = button.text.toString()
-
-            }else{
-                binding.classCurriTagBookCb.visibility = View.VISIBLE
-
-                filterNum--
-                lectureFilter.type = ""
-
-            }
-            showList()
-        }
-
-        //가격
-        //무료
-        binding.classPriceTagForfreeCb.setOnCheckedChangeListener { button, checked ->
-            if(checked){
-                binding.classPriceTagNoForfreeCb.visibility = View.GONE
-
-                filterNum++
-                lectureFilter.price = button.text.toString()
-            }else{
-                binding.classPriceTagNoForfreeCb.visibility = View.VISIBLE
-
-                filterNum--
-                lectureFilter.price = ""
-            }
-            showList()
-        }
-        //유료
-        binding.classPriceTagNoForfreeCb.setOnCheckedChangeListener { button, checked ->
-            if(checked){
-                binding.classPriceTagForfreeCb.visibility = View.GONE
-
-                filterNum++
-                lectureFilter.price = button.text.toString()
-            }else{
-                binding.classPriceTagForfreeCb.visibility = View.VISIBLE
-
-                filterNum--
-                lectureFilter.price = ""
-            }
-            showList()
-        }
-
-
-
-    }
+//    private fun onRadioButtonClicked(){
+//        //언어
+//        //front
+//        binding.classCurriTagFrontCb.setOnCheckedChangeListener { button, checked ->
+//            if(checked){
+//                binding.classCurriTagBackCb.visibility = View.GONE
+//                binding.classCurriTagCCb.visibility = View.GONE
+//                binding.classCurriTagPythonCb.visibility = View.GONE
+//
+//                filterNum++
+//                lectureFilter.lang = button.text.toString()
+//            }else{
+//                binding.classCurriTagBackCb.visibility = View.VISIBLE
+//                binding.classCurriTagCCb.visibility = View.VISIBLE
+//                binding.classCurriTagPythonCb.visibility = View.VISIBLE
+//
+//                filterNum--
+//                lectureFilter.lang = ""
+//            }
+//
+//            showList()
+//
+//        }
+//        //back
+//        binding.classCurriTagBackCb.setOnCheckedChangeListener { button, checked ->
+//            if(checked){
+//                binding.classCurriTagFrontCb.visibility = View.GONE
+//                binding.classCurriTagCCb.visibility = View.GONE
+//                binding.classCurriTagPythonCb.visibility = View.GONE
+//
+//                filterNum++
+//                lectureFilter.lang = button.text.toString()
+//
+//            }else{
+//                binding.classCurriTagFrontCb.visibility = View.VISIBLE
+//                binding.classCurriTagCCb.visibility = View.VISIBLE
+//                binding.classCurriTagPythonCb.visibility = View.VISIBLE
+//
+//                filterNum--
+//                lectureFilter.lang = ""
+//            }
+//            showList()
+//        }
+//        //C language
+//        binding.classCurriTagCCb.setOnCheckedChangeListener { button, checked ->
+//            if(checked){
+//                binding.classCurriTagBackCb.visibility = View.GONE
+//                binding.classCurriTagFrontCb.visibility = View.GONE
+//                binding.classCurriTagPythonCb.visibility = View.GONE
+//
+//                filterNum++
+//                lectureFilter.lang = button.text.toString()
+//
+//            }else{
+//                binding.classCurriTagBackCb.visibility = View.VISIBLE
+//                binding.classCurriTagFrontCb.visibility = View.VISIBLE
+//                binding.classCurriTagPythonCb.visibility = View.VISIBLE
+//
+//                filterNum--
+//                lectureFilter.lang = ""
+//            }
+//            showList()
+//        }
+//        //python
+//        binding.classCurriTagPythonCb.setOnCheckedChangeListener { button, checked ->
+//            if(checked){
+//                binding.classCurriTagBackCb.visibility = View.GONE
+//                binding.classCurriTagCCb.visibility = View.GONE
+//                binding.classCurriTagFrontCb.visibility = View.GONE
+//
+//                filterNum++
+//                lectureFilter.lang = button.text.toString()
+//
+//            }else{
+//                binding.classCurriTagBackCb.visibility = View.VISIBLE
+//                binding.classCurriTagCCb.visibility = View.VISIBLE
+//                binding.classCurriTagFrontCb.visibility = View.VISIBLE
+//
+//                filterNum--
+//                lectureFilter.lang = ""
+//            }
+//            showList()
+//        }
+//
+//        //서적 or 영상
+//        //서적
+//        binding.classCurriTagBookCb.setOnCheckedChangeListener { button, checked ->
+//            if(checked){
+//                binding.classCurriTagVideoCb.visibility = View.GONE
+//
+//                filterNum++
+//                lectureFilter.type = button.text.toString()
+//
+//            }else{
+//                binding.classCurriTagVideoCb.visibility = View.VISIBLE
+//
+//                filterNum--
+//                lectureFilter.type = ""
+//            }
+//            showList()
+//        }
+//        //영상
+//        binding.classCurriTagVideoCb.setOnCheckedChangeListener { button, checked ->
+//            if(checked){
+//                binding.classCurriTagBookCb.visibility = View.GONE
+//
+//                filterNum++
+//                lectureFilter.type = button.text.toString()
+//
+//            }else{
+//                binding.classCurriTagBookCb.visibility = View.VISIBLE
+//
+//                filterNum--
+//                lectureFilter.type = ""
+//
+//            }
+//            showList()
+//        }
+//
+//        //가격
+//        //무료
+//        binding.classPriceTagForfreeCb.setOnCheckedChangeListener { button, checked ->
+//            if(checked){
+//                binding.classPriceTagNoForfreeCb.visibility = View.GONE
+//
+//                filterNum++
+//                lectureFilter.price = button.text.toString()
+//            }else{
+//                binding.classPriceTagNoForfreeCb.visibility = View.VISIBLE
+//
+//                filterNum--
+//                lectureFilter.price = ""
+//            }
+//            showList()
+//        }
+//        //유료
+//        binding.classPriceTagNoForfreeCb.setOnCheckedChangeListener { button, checked ->
+//            if(checked){
+//                binding.classPriceTagForfreeCb.visibility = View.GONE
+//
+//                filterNum++
+//                lectureFilter.price = button.text.toString()
+//            }else{
+//                binding.classPriceTagForfreeCb.visibility = View.VISIBLE
+//
+//                filterNum--
+//                lectureFilter.price = ""
+//            }
+//            showList()
+//        }
+//
+//
+//
+//    }
 
 
 
