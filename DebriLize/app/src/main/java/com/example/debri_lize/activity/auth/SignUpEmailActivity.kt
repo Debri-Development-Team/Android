@@ -4,6 +4,8 @@ import android.annotation.SuppressLint
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -14,14 +16,24 @@ import com.example.debri_lize.data.auth.UserLogin
 import com.example.debri_lize.databinding.ActivitySignupEmailBinding
 import com.example.debri_lize.service.AuthService
 import com.example.debri_lize.utils.*
+import com.example.debri_lize.utils.ApplicationClass.Companion.TAG
 import com.example.debri_lize.view.auth.EmailView
+import io.reactivex.Completable.timer
+import java.sql.Timestamp
+import java.text.SimpleDateFormat
+import java.util.*
 import kotlin.properties.Delegates
 
 class SignUpEmailActivity : AppCompatActivity(), EmailView {
 
     lateinit var binding: ActivitySignupEmailBinding
+
+    var emailAddress : String = ""
     var emailCode : Int = 0
     var timeout : Int = 0
+
+    //timer
+    private var timerTask : Timer? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -31,17 +43,12 @@ class SignUpEmailActivity : AppCompatActivity(), EmailView {
         //인증 코드 보내기
         binding.signUpEmailSendCodeBtn.setOnClickListener {
             //인증 코드 받기
-            var emailAddress : String = binding.signUpEmailIdEt.text.toString()
+            emailAddress = binding.signUpEmailIdEt.text.toString()
 
             //1.5 이메일 인증 API
             val authService = AuthService()
             authService.setEmailView(this)
             authService.getCode(emailAddress)
-
-            //인증 코드 이메일 전송
-            sendEmail(emailAddress)
-
-            //timeout으로 타이머 기능 추가
 
         }
 
@@ -76,6 +83,10 @@ class SignUpEmailActivity : AppCompatActivity(), EmailView {
         }
 
 
+
+
+
+
         //back
         binding.signUpEmailBackIv.setOnClickListener{
             finish()
@@ -91,6 +102,9 @@ class SignUpEmailActivity : AppCompatActivity(), EmailView {
             200-> {
                 emailCode = result.code
                 timeout = result.timeout
+
+                //인증 코드 이메일 전송
+                sendEmail(emailAddress)
             }
         }
     }
@@ -120,5 +134,41 @@ class SignUpEmailActivity : AppCompatActivity(), EmailView {
         } else {
             Toast.makeText(this, "메일을 전송할 수 없습니다", Toast.LENGTH_LONG).show()
         }
+
+        //timer
+        startTimer()
+    }
+
+    //timer
+    private fun startTimer(){
+        var mSecond: Long = timeout.toLong()
+
+        val sdf = SimpleDateFormat("mm:ss")
+        val mTimer = Timer()
+        // 반복적으로 사용할 TimerTask
+        var mTimerTask = object : TimerTask() {
+            override fun run() {
+                val mHandler = Handler(Looper.getMainLooper())
+                mHandler.postDelayed({
+                    // 반복실행할 구문
+                    mSecond = mSecond - 1000
+                    Log.d(TAG,"$mSecond")
+
+                    if (mSecond <= 0) {
+                        //타이머 종료
+                        mTimer.cancel()
+                        binding.signUpEmailCodeTimeTv2.text = "00:00"
+
+                        emailCode = 0 //인증코드 비활성화
+                    }
+
+                    val time = sdf.format(mSecond)
+                    binding.signUpEmailCodeTimeTv2.text = time
+
+
+                }, 0)
+            }
+        }
+        mTimer.schedule(mTimerTask, 0, 1000)
     }
 }

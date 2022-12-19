@@ -31,7 +31,7 @@ interface RetrofitInterface {
     fun login(@Body user : UserLogin): Call<BaseResponse<User>>
 
     //1.5 이메일 인증 api
-    @POST("/api/auth/authEmail")
+    @POST("api/auth/authEmail")
     fun getCode(@Body emailAddress : String) : Call<BaseResponse<Email>>
 
     //2.1 게시판 즐겨찾기 생성 api
