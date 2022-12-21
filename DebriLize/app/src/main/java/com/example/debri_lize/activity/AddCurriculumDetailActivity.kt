@@ -7,6 +7,7 @@ import android.view.KeyEvent
 import android.view.View
 import android.view.animation.Animation
 import android.view.animation.AnimationUtils
+import android.widget.TextView
 import android.widget.Toast
 import androidx.annotation.UiThread
 import androidx.appcompat.app.AppCompatActivity
@@ -150,8 +151,19 @@ class AddCurriculumDetailActivity : AppCompatActivity(), CreateReviewView, ShowR
                 //screen
                 binding.addCurriculumDetailNameTv.text = result.curriculumName
                 binding.addCurriculumDetailDetailTv.text = result.curriDesc
-                binding.addCurriculumDetailAuthorTv.text = result.curriculumAuthor
-                //binding.addCurriculumDetailDdayTv2.text = result.
+                binding.itemCurriculumAuthorTv1.text = result.curriculumAuthor
+                binding.addCurriculumDetailDdayTv2.text = result.dday.toString()
+
+                val language : TextView = binding.itemCurriculumLangTagTv
+                //language tag
+                language.text = result.language
+
+                when(language.text){
+                    "Front" -> language.setBackgroundResource(R.drawable.border_round_transparent_front_10)
+                    "Back" -> language.setBackgroundResource(R.drawable.border_round_transparent_back_10)
+                    "C 언어" -> language.setBackgroundResource(R.drawable.border_round_transparent_c_10)
+                    "Python" -> language.setBackgroundResource(R.drawable.border_round_transparent_python_10)
+                }
 
                 Log.d("currilikestatus","${result}")
 
