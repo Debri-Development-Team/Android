@@ -7,6 +7,7 @@ import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import android.util.Log
+import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.debri_lize.activity.AddCurriculumActivity
@@ -31,9 +32,6 @@ class SignUpEmailActivity : AppCompatActivity(), EmailView {
     var emailAddress : String = ""
     var emailCode : Int = 0
     var timeout : Int = 0
-
-    //timer
-    private var timerTask : Timer? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -65,11 +63,12 @@ class SignUpEmailActivity : AppCompatActivity(), EmailView {
             //인증 코드 이메일 전송
             sendEmail(emailAddress)
 
-            //timeout으로 타이머 기능 추가
+            SignUpActivity.Singleton.sendEmailTF = true
         }
 
         //인증하기
         binding.signUpEmailCodeCheckBtn.setOnClickListener {
+            binding.signUpEmailResendCodeBtn.isEnabled = false //코드 재전송 버튼 비활성화
             var inputCode : String = binding.signUpEmailCodeEt.text.toString()
             if(emailCode == inputCode.toInt()){
                 //인증 성공
@@ -80,21 +79,21 @@ class SignUpEmailActivity : AppCompatActivity(), EmailView {
                 //인증 실패
 
             }
+
         }
-
-
-
-
-
 
         //back
         binding.signUpEmailBackIv.setOnClickListener{
             finish()
         }
 
+        //수정필요
+        if(SignUpActivity.Singleton.sendEmailTF){
+            binding.signUpEmailSendCodeBtn.visibility = View.GONE
+            binding.signUpEmailResendCodeBtn.visibility = View.VISIBLE
+        }
+
     }
-
-
 
     //인증 코드 받기
     override fun onEmailSuccess(code: Int, result: Email) {
@@ -105,6 +104,7 @@ class SignUpEmailActivity : AppCompatActivity(), EmailView {
 
                 //인증 코드 이메일 전송
                 sendEmail(emailAddress)
+
             }
         }
     }
@@ -160,6 +160,7 @@ class SignUpEmailActivity : AppCompatActivity(), EmailView {
                         binding.signUpEmailCodeTimeTv2.text = "00:00"
 
                         emailCode = 0 //인증코드 비활성화
+                        binding.signUpEmailResendCodeBtn.isClickable = true //코드 재전송 버튼 활성화
                     }
 
                     val time = sdf.format(mSecond)
