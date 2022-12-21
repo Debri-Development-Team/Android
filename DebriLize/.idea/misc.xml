@@ -195,6 +195,7 @@
         <entry key="app/src/main/res/drawable-v24/vertical_line_debri_2.xml" value="0.122" />
         <entry key="app/src/main/res/drawable/border_line_top.xml" value="0.1" />
         <entry key="app/src/main/res/drawable/border_line_top_30.xml" value="0.1" />
+        <entry key="app/src/main/res/drawable/border_round_gray_transparent_10.xml" value="0.1" />
         <entry key="app/src/main/res/drawable/circle_red_transparent_8.xml" value="0.1385" />
         <entry key="app/src/main/res/drawable/default_dot.xml" value="0.1335" />
         <entry key="app/src/main/res/drawable/ic_report_red.xml" value="0.1" />
@@ -224,11 +225,14 @@
         <entry key="app/src/main/res/layout/fragment_bottom_sheet_complain.xml" value="0.21920289855072464" />
         <entry key="app/src/main/res/layout/fragment_bottom_sheet_complain_detail.xml" value="0.21920289855072464" />
         <entry key="app/src/main/res/layout/fragment_bottom_sheet_edit_delete.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/fragment_class.xml" value="0.32135416666666666" />
+        <entry key="app/src/main/res/layout/fragment_curriculum.xml" value="0.2545289855072464" />
         <entry key="app/src/main/res/layout/fragment_home.xml" value="0.1" />
         <entry key="app/src/main/res/layout/fragment_home_active.xml" value="0.1" />
         <entry key="app/src/main/res/layout/fragment_home_inactive.xml" value="0.32135416666666666" />
         <entry key="app/src/main/res/layout/fragment_profile.xml" value="0.32135416666666666" />
         <entry key="app/src/main/res/layout/item_curriculum_lecture.xml" value="0.25" />
+        <entry key="app/src/main/res/layout/item_curriculum_profile.xml" value="0.23822463768115942" />
         <entry key="app/src/main/res/layout/toast_report.xml" value="0.25" />
         <entry key="app/src/main/res/layout/toast_scrap.xml" value="0.121875" />
         <entry key="app/src/main/res/menu/bottom_nav_menu.xml" value="0.32135416666666666" />

@@ -43,7 +43,7 @@
                         android:fontFamily="@font/noto_sans_kr_bold"
                         android:includeFontPadding="false"
                         android:textColor="@color/white"
-                        android:textSize="15sp"
+                        android:textSize="15dp"
                         android:maxLines="1"
                         android:ellipsize="end"/>
 
