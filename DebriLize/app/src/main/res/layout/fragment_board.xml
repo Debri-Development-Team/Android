@@ -31,36 +31,34 @@
         app:layout_constraintTop_toTopOf="parent"/>
 
     <LinearLayout
+        android:id="@+id/board_search_layout"
         android:layout_width="match_parent"
         android:layout_height="40dp"
-        android:id="@+id/board_search_layout"
+        android:layout_marginStart="28dp"
         android:layout_marginTop="17dp"
-        android:layout_marginStart="30dp"
-        android:layout_marginEnd="30dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/board_name_tv"
+        android:background="@drawable/border_round_gray_clearness8_10"
         android:gravity="center_vertical"
-        android:background="@drawable/border_round_white_transparent_10">
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/board_name_tv">
 
         <ImageView
             android:id="@+id/board_search_iv"
             android:layout_width="20.4dp"
             android:layout_height="20.4dp"
-            android:src="@drawable/btm_nav_search"
             android:layout_marginStart="15dp"
-            />
+            android:src="@drawable/btm_nav_search" />
 
         <TextView
             android:id="@+id/board_search_tv"
             android:layout_width="280dp"
             android:layout_height="wrap_content"
+            android:layout_marginStart="16.8dp"
             android:background="@null"
-            android:text="게시물 검색하기"
-            android:textColor="@color/white"
-            android:textSize="14dp"
             android:fontFamily="@font/noto_sans_kr_regular"
             android:includeFontPadding="false"
-            android:layout_marginStart="16.8dp"/>
+            android:text="게시물 검색하기"
+            android:textColor="@color/white"
+            android:textSize="14dp" />
 
     </LinearLayout>
 
@@ -68,7 +66,7 @@
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:id="@+id/board_post_scrap_layout"
-        android:layout_marginTop="26dp"
+        android:layout_marginTop="18dp"
         android:layout_marginStart="30dp"
         android:layout_marginEnd="30dp"
         app:layout_constraintStart_toStartOf="parent"
