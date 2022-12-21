@@ -20,13 +20,23 @@ class CurriculumListRVAdapter : RecyclerView.Adapter<CurriculumListRVAdapter.Vie
         val statusImg : ImageView = binding.itemCurriculumStatusIv
         val curriculumName : TextView = binding.itemCurriculumNameTv
         val curriculumAuthor : TextView = binding.itemCurriculumAuthorTv
+        val language : TextView = binding.itemCurriculumLangTagTv
 
         fun bind(item: Curriculum) {
             Glide.with(itemView).load(R.raw.curriculum).into(statusImg)
             curriculumName.text = item.curriculumName
             curriculumAuthor.text = "by" + item.curriculumAuthor
+            binding.itemCurriculumDetailTv.text = item.curriDesc
 
-            binding.itemCurriculumDetailTv.visibility = View.INVISIBLE
+            //language tag
+            language.text = item.langtag
+
+            when(language.text){
+                "Front" -> language.setBackgroundResource(R.drawable.border_round_transparent_front_10)
+                "Back" -> language.setBackgroundResource(R.drawable.border_round_transparent_back_10)
+                "C 언어" -> language.setBackgroundResource(R.drawable.border_round_transparent_c_10)
+                "Python" -> language.setBackgroundResource(R.drawable.border_round_transparent_python_10)
+            }
         }
     }
 

@@ -32,17 +32,37 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
         <TextView
             android:id="@+id/item_curriculum_name_tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="서버 로드맵"
-            android:fontFamily="@font/noto_sans_kr_regular"
+            android:fontFamily="@font/noto_sans_kr_bold"
             android:includeFontPadding="false"
             android:textColor="@color/white"
-            android:textSize="18sp"
+            android:textSize="14dp"
             android:maxLines="1"
             android:ellipsize="end"/>
+
+        <TextView
+            android:id="@+id/item_curriculum_lang_tag_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Front"
+            android:fontFamily="@font/noto_sans_kr_bold"
+            android:includeFontPadding="false"
+            android:textSize="9dp"
+            android:textColor="@color/white"
+            android:paddingVertical="2dp"
+            android:paddingHorizontal="6dp"
+            android:layout_marginStart="8dp"
+            android:background="@drawable/border_round_transparent_front_10"/>
+        </LinearLayout>
 
         <TextView
             android:id="@+id/item_curriculum_detail_tv"
@@ -52,7 +72,7 @@
             android:fontFamily="@font/noto_sans_kr_regular"
             android:includeFontPadding="false"
             android:textColor="@color/white"
-            android:textSize="12sp" />
+            android:textSize="10dp" />
 
         <TextView
             android:id="@+id/item_curriculum_author_tv"
@@ -62,7 +82,7 @@
             android:fontFamily="@font/noto_sans_kr_regular"
             android:includeFontPadding="false"
             android:textColor="@color/white"
-            android:textSize="12sp"
+            android:textSize="10dp"
             android:layout_marginTop="15dp"/>
 
     </LinearLayout>
@@ -74,9 +94,9 @@
 
     <ImageView
         android:id="@+id/profile_curriculum_next_iv"
-        android:layout_width="10dp"
-        android:layout_height="17dp"
-        android:src="@drawable/btn_next"/>
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/btn_next_white"/>
 
 </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
