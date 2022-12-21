@@ -207,9 +207,12 @@
         <entry key="app/src/main/res/drawable/ic_vector.xml" value="0.122" />
         <entry key="app/src/main/res/drawable/selected_dot.xml" value="0.14" />
         <entry key="app/src/main/res/drawable/tab_dot.xml" value="0.1335" />
+        <entry key="app/src/main/res/layout/activity_add_curriculum.xml" value="0.32135416666666666" />
         <entry key="app/src/main/res/layout/activity_add_curriculum_choose.xml" value="0.25317028985507245" />
         <entry key="app/src/main/res/layout/activity_add_curriculum_detail.xml" value="0.25317028985507245" />
         <entry key="app/src/main/res/layout/activity_add_roadmap_detail.xml" value="0.264945652173913" />
+        <entry key="app/src/main/res/layout/activity_choose_my_curriculum.xml" value="0.32135416666666666" />
+        <entry key="app/src/main/res/layout/activity_curriculum_setting.xml" value="0.32135416666666666" />
         <entry key="app/src/main/res/layout/activity_lecture_detail.xml" value="0.3157894736842105" />
         <entry key="app/src/main/res/layout/activity_login.xml" value="0.2971014492753623" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.27309782608695654" />
