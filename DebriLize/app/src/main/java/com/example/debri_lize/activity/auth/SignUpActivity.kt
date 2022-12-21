@@ -39,6 +39,7 @@ class SignUpActivity:AppCompatActivity(), SignUpView {
 
         //인증 여부
         var certificationTF : Boolean = false
+        var sendEmailTF : Boolean = false
 
 
         //termCheck = true : 이용약관 내용 확인 후 동의
