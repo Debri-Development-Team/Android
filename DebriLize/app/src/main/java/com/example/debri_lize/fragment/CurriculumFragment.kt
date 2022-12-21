@@ -49,13 +49,6 @@ class CurriculumFragment : Fragment(), ShowTop10ListView, ShowGetNewCurriListVie
         curriculumService.setShowGetNewCurriListView(this)
         curriculumService.showGetNewCurriList()
 
-        //CurriculumFragment -> ScrapCurriculumFragment
-        binding.curriculumScrapLayout.setOnClickListener {
-            (context as MainActivity).supportFragmentManager.beginTransaction()
-                .replace(R.id.main_frm, ScrapCurriculumFragment()).commitAllowingStateLoss()
-        }
-
-
     }
 
 

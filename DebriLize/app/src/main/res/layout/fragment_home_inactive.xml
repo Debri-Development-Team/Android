@@ -43,7 +43,7 @@
                         android:fontFamily="@font/noto_sans_kr_bold"
                         android:includeFontPadding="false"
                         android:textColor="@color/white"
-                        android:textSize="15sp"
+                        android:textSize="15dp"
                         android:maxLines="1"
                         android:ellipsize="end"/>
 
@@ -303,7 +303,7 @@
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/home_lecture_tv"
-                android:background="@drawable/border_line_top"/>
+                android:background="@drawable/border_line_bottom"/>
 
             <LinearLayout
                 android:layout_width="match_parent"
