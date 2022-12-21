@@ -33,17 +33,20 @@ class ProfileFragment : Fragment(), MyCurriculumListView{
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentProfileBinding.inflate(inflater, container, false)
-        return binding.root
+
 
         //수정할 것
         //click logout
         binding.profileMenuLogoutTv.setOnClickListener{
             logout()
-            val intent = Intent(context, LoginActivity::class.java)
+            val intent = Intent(activity, LoginActivity::class.java)
+
             //모든 화면 초기화
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_SINGLE_TOP)
             startActivity(intent)
         }
+
+        return binding.root
 
     }
 

@@ -11,7 +11,7 @@
         android:layout_width="152dp"
         android:layout_height="106dp"
         android:src="@drawable/logo_debri_img"
-        android:layout_marginTop="140dp"
+        android:layout_marginTop="120dp"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"/>
@@ -179,7 +179,6 @@
         android:textColor="@color/white"
         android:fontFamily="@font/noto_sans_kr_regular"
         android:includeFontPadding="false"
-        android:layout_marginBottom="66dp"
         app:layout_constraintTop_toBottomOf="@+id/login_sign_up_btn"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
