@@ -152,7 +152,8 @@ class AddCurriculumDetailActivity : AppCompatActivity(), CreateReviewView, ShowR
                 binding.addCurriculumDetailNameTv.text = result.curriculumName
                 binding.addCurriculumDetailDetailTv.text = result.curriDesc
                 binding.itemCurriculumAuthorTv1.text = result.curriculumAuthor
-                binding.addCurriculumDetailDdayTv2.text = result.dday.toString()
+                binding.addCurriculumDetailCntTv.text = result.curriLikeCount.toString()
+                binding.addCurriculumDetailDdayTv2.text = result.totalDday.toString()
 
                 val language : TextView = binding.itemCurriculumLangTagTv
                 //language tag

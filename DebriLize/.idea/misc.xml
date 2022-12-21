@@ -210,6 +210,7 @@
         <entry key="app/src/main/res/layout/activity_add_curriculum_choose.xml" value="0.25317028985507245" />
         <entry key="app/src/main/res/layout/activity_add_curriculum_detail.xml" value="0.25317028985507245" />
         <entry key="app/src/main/res/layout/activity_add_roadmap_detail.xml" value="0.264945652173913" />
+        <entry key="app/src/main/res/layout/activity_lecture_detail.xml" value="0.3157894736842105" />
         <entry key="app/src/main/res/layout/activity_login.xml" value="0.2971014492753623" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.27309782608695654" />
         <entry key="app/src/main/res/layout/activity_post_create.xml" value="0.1" />
@@ -218,6 +219,7 @@
         <entry key="app/src/main/res/layout/activity_signup_email.xml" value="0.22916666666666666" />
         <entry key="app/src/main/res/layout/activity_signup_term.xml" value="0.27309782608695654" />
         <entry key="app/src/main/res/layout/activity_signup_term1.xml" value="0.27309782608695654" />
+        <entry key="app/src/main/res/layout/activity_splash.xml" value="0.32135416666666666" />
         <entry key="app/src/main/res/layout/dialog_cancel.xml" value="0.23802083333333332" />
         <entry key="app/src/main/res/layout/dialog_edit_cancel.xml" value="0.21920289855072464" />
         <entry key="app/src/main/res/layout/dialog_edit_check.xml" value="0.335" />
@@ -226,7 +228,7 @@
         <entry key="app/src/main/res/layout/fragment_addX_curriculum.xml" value="0.32135416666666666" />
         <entry key="app/src/main/res/layout/fragment_add_curriculum.xml" value="0.32135416666666666" />
         <entry key="app/src/main/res/layout/fragment_addx_curriculum.xml" value="0.32135416666666666" />
-        <entry key="app/src/main/res/layout/fragment_board.xml" value="0.25" />
+        <entry key="app/src/main/res/layout/fragment_board.xml" value="0.335" />
         <entry key="app/src/main/res/layout/fragment_bottom_sheet_complain.xml" value="0.21920289855072464" />
         <entry key="app/src/main/res/layout/fragment_bottom_sheet_complain_detail.xml" value="0.21920289855072464" />
         <entry key="app/src/main/res/layout/fragment_bottom_sheet_edit_delete.xml" value="0.1" />
