@@ -17,6 +17,7 @@ import com.example.debri_lize.activity.PostCreateActivity
 import com.example.debri_lize.activity.PostDetailActivity
 import com.example.debri_lize.data.board.Board
 import com.example.debri_lize.data.board.BoardFavorite
+import com.example.debri_lize.data.post.PostInfo
 import com.example.debri_lize.data.post.PostList
 import com.example.debri_lize.service.PostService
 import com.example.debri_lize.view.post.EachPostListView
@@ -32,6 +33,7 @@ class PostFragment : Fragment(), EachPostListView {
     private val datas = ArrayList<PostList>()
 
     var boardIdx by Delegates.notNull<Int>()
+    var pageNum : Int = 1
     var boardName by Delegates.notNull<String>()
 
     //search post
@@ -70,16 +72,21 @@ class PostFragment : Fragment(), EachPostListView {
             binding.postFavoriteIv.setImageResource(R.drawable.ic_favorite_on)
         }
 
+
+
         //fragment to fragment
         binding.postPreviousIv.setOnClickListener{
             (context as MainActivity).supportFragmentManager.beginTransaction()
                 .replace(R.id.main_frm, BoardFragment()).commitAllowingStateLoss()
         }
 
+//        Log.d("boardIdx",boardIdx.toString())
+
+
         //api
         val postService = PostService()
         postService.seteachPostListView(this)
-        postService.showEachPostList(boardIdx) //변경필요
+        postService.showEachPostList(boardIdx, pageNum) //변경필요
 
         //create post
         binding.postWriteBtn.setOnClickListener{
@@ -126,7 +133,7 @@ class PostFragment : Fragment(), EachPostListView {
         postRVAdapter.filterList(filteredData)
     }
 
-    override fun onEachPostListSuccess(code: Int, result: List<PostList>) {
+    override fun onEachPostListSuccess(code: Int, result: PostInfo) {
         when(code){
             //개발할 때는 userIdx 저장이 필요할수도
             200-> {
@@ -141,7 +148,7 @@ class PostFragment : Fragment(), EachPostListView {
                 //data
                 datas.apply {
 
-                    for (i in result){
+                    for (i in result.postList){
                         datas.add(PostList(i.boardIdx, i.postIdx, i.authorName, i.postName, i.likeCnt, i.likeStatus, i.scrapStatus, i.timeAfterCreated, i.commentCnt, i.boardName))
                     }
 
@@ -194,7 +201,7 @@ class PostFragment : Fragment(), EachPostListView {
     }
 
     override fun onEachPostListFailure(code: Int) {
-
+        Log.d("eachpostlistfail",code.toString())
     }
 
 }

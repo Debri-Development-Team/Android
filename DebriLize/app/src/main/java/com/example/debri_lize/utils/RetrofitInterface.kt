@@ -75,12 +75,12 @@ interface RetrofitInterface {
     fun cancelPostLike(@Body postLikeCancel: PostLikeCancel, @Header("ACCESS-TOKEN") authToken: String) : Call<BaseResponse<String>>
 
     //3.7 [특정 게시판] 게시물 리스트 조회 api
-    @GET("api/post/getList/{boardIdx}")
-    fun showEachPostList(@Path("boardIdx") boardIdx: Int, @Header("ACCESS-TOKEN") authToken: String) : Call<BaseResponse<List<PostList>>>
+    @GET("api/post/getList/{boardIdx}/{pageNum}")
+    fun showEachPostList(@Path("boardIdx") boardIdx: Int, @Path("pageNum") pageNum: Int, @Header("ACCESS-TOKEN") authToken: String) : Call<BaseResponse<PostInfo>>
 
     //3.7.1 [전체 범위(키워드 검색)] 게시물 리스트 조회 api
     @POST("api/post/getSearchList")
-    fun showPostList(@Body keyword: String, @Header("ACCESS-TOKEN") authToken: String) : Call<BaseResponse<List<PostList>>>
+    fun showPostList(@Body keyword: String, @Header("ACCESS-TOKEN") authToken: String) : Call<BaseResponse<PostInfo>>
 
     //3.8 게시물 조회 api
     @GET("api/post/get/{postIdx}")
