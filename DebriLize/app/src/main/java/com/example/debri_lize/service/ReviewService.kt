@@ -4,6 +4,7 @@ import android.util.Log
 import com.example.debri_lize.utils.RetrofitInterface
 import com.example.debri_lize.base.BaseResponse
 import com.example.debri_lize.data.class_.LectureReview
+import com.example.debri_lize.data.class_.ShowLectureReview
 import com.example.debri_lize.data.curriculum.Review
 import com.example.debri_lize.data.curriculum.ShowReview
 import com.example.debri_lize.utils.getJwt
@@ -66,15 +67,15 @@ class ReviewService {
     }
 
     //7.6.1 강의 리뷰 조회 api
-    fun showLectureReview(lectureIdx : Int){
+    fun showLectureReview(pageNum: Int, lectureIdx : Int){
         Log.d("showLectureReview", "enter")
         //서비스 객체 생성
         val reviewService = getRetrofit().create(RetrofitInterface::class.java)
-        reviewService.showLectureReview(lectureIdx, getJwt()!!).enqueue(object: Callback<BaseResponse<List<LectureReview>>> {
+        reviewService.showLectureReview(pageNum, lectureIdx, getJwt()!!).enqueue(object: Callback<BaseResponse<ShowLectureReview>> {
             //응답이 왔을 때 처리
-            override fun onResponse(call: Call<BaseResponse<List<LectureReview>>>, response: Response<BaseResponse<List<LectureReview>>>) {
+            override fun onResponse(call: Call<BaseResponse<ShowLectureReview>>, response: Response<BaseResponse<ShowLectureReview>>) {
                 Log.d("showLectureReview", "response")
-                val resp: BaseResponse<List<LectureReview>> = response.body()!!
+                val resp: BaseResponse<ShowLectureReview> = response.body()!!
                 Log.d("showLectureReviewCode", resp.code.toString())
                 when(val code = resp.code){
                     //API code값 사용
@@ -83,7 +84,7 @@ class ReviewService {
                 }
             }
             //실패했을 때 처리
-            override fun onFailure(call: Call<BaseResponse<List<LectureReview>>>, t: Throwable) {
+            override fun onFailure(call: Call<BaseResponse<ShowLectureReview>>, t: Throwable) {
                 Log.d("showLectureReviewFail", t.toString())
             }
 

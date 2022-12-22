@@ -18,6 +18,7 @@ import com.example.debri_lize.R
 import com.example.debri_lize.activity.LectureDetailActivity
 import com.example.debri_lize.data.class_.Lecture
 import com.example.debri_lize.data.class_.LectureFilter
+import com.example.debri_lize.data.class_.SearchLecture
 import com.example.debri_lize.databinding.FragmentClassBinding
 import com.example.debri_lize.service.ClassService
 import com.example.debri_lize.utils.getUserIdx
@@ -35,8 +36,9 @@ class ClassFragment : Fragment(), LectureFavoriteView, LectureFilterView {
     val classService = ClassService()
     val lectureFilter = LectureFilter()
 
-    var filterNum : Int = 0
-    var filterNum2 : Int = 0
+    private var pageNum : Int = 1 //현재 페이지 번호
+    var page : Int = 1      //현재 페이지가 속한 곳 pageNum이 1~5면 1, 6~10이면 2
+    var totalPage : Int = 0
 
     var category : LectureFilter? = null
 
@@ -68,12 +70,8 @@ class ClassFragment : Fragment(), LectureFavoriteView, LectureFilterView {
 
         classService.showLectureSearch(lectureFilter)
 
-
-        //click filter btn
-//        binding.classFilterIv.setOnClickListener{
-//            //bottom sheet
-//            bottomSheet()
-//        }
+        //페이징 버튼 클릭
+        pageButtonClick()
 
         //focus
         binding.classSearchEt.setOnFocusChangeListener(object : View.OnFocusChangeListener {
@@ -91,11 +89,7 @@ class ClassFragment : Fragment(), LectureFavoriteView, LectureFilterView {
         })
 
 
-        //click userImg -> profile
-//        binding.classDebriUserIv.setOnClickListener{
-//            val intent = Intent(context, ProfileActivity::class.java)
-//            startActivity(intent)
-//        }
+
 
 
         //fragment to fragment : category select
@@ -126,6 +120,7 @@ class ClassFragment : Fragment(), LectureFavoriteView, LectureFilterView {
                     0 -> {
                         binding.classLecturelistRv.visibility = View.VISIBLE
                         binding.classFavoriteRv.visibility = View.GONE
+                        binding.lecturePageLayout.visibility = View.VISIBLE
                         Log.d("탭","0")
                         Log.d("lecturefilter",lectureFilter.toString())
                         classService.showLectureSearch(lectureFilter)
@@ -134,6 +129,7 @@ class ClassFragment : Fragment(), LectureFavoriteView, LectureFilterView {
                     1 -> {
                         binding.classLecturelistRv.visibility = View.GONE
                         binding.classFavoriteRv.visibility = View.VISIBLE
+                        binding.lecturePageLayout.visibility = View.GONE
                         Log.d("탭","1")
                         Log.d("lecturefilter",lectureFilter.toString())
                         classService.showLectureFavorite(getUserIdx()!!)
@@ -223,52 +219,6 @@ class ClassFragment : Fragment(), LectureFavoriteView, LectureFilterView {
 
     }
 
-    //bottom sheet
-//    private fun bottomSheet(){
-//
-//        val bottomSheetDialog = BottomSheetDialog(requireContext())
-//
-//        var bottomSheetView : View = layoutInflater.inflate(R.layout.fragment_bottom_sheet_two, null)
-//        bottomSheetDialog.setContentView(bottomSheetView)
-//
-//        bottomSheetView.findViewById<TextView>(R.id.bottom_sheet_two_tv).text = "강의 정렬하기"
-//        bottomSheetView.findViewById<TextView>(R.id.bottom_sheet_two_tv1).text = "가나다 순 정렬"
-//        bottomSheetView.findViewById<TextView>(R.id.bottom_sheet_two_tv2).text = "좋아요 순 정렬"
-//
-//        //가나다 순
-//        touchEvent(bottomSheetView.findViewById(R.id.bottom_sheet_two_tv1))
-//        bottomSheetView.findViewById<TextView>(R.id.bottom_sheet_two_tv1).setOnClickListener {
-//
-////            datas.sortBy { it.lectureName }
-////            datas_f.sortBy { it.lectureName }
-//
-//
-//            bottomSheetDialog.dismiss()
-//        }
-//        //좋아요 순
-//        touchEvent(bottomSheetView.findViewById(R.id.bottom_sheet_two_tv2))
-//        bottomSheetView.findViewById<TextView>(R.id.bottom_sheet_two_tv2).setOnClickListener {
-//
-////            datas.sortBy { it.likeNumber }
-////            datas_f.sortBy { it.likeNumber }
-//
-//
-//            bottomSheetDialog.dismiss()
-//        }
-//
-//
-//        binding.classFilterIv.setOnClickListener {
-//            bottomSheetDialog.show()
-//        }
-//
-//        //close button
-//        bottomSheetView.findViewById<TextView>(R.id.bottom_sheet_close_tv).setOnClickListener {
-//            bottomSheetDialog.dismiss()
-//        }
-//
-//
-//    }
-
     private fun touchEvent(bind : TextView){
         bind.setOnTouchListener(object : View.OnTouchListener {
             override fun onTouch(view: View?, event: MotionEvent?): Boolean {
@@ -348,7 +298,7 @@ class ClassFragment : Fragment(), LectureFavoriteView, LectureFilterView {
         }
     }
 
-    override fun onLectureFilterSuccess(code: Int, result: List<Lecture>) {
+    override fun onLectureFilterSuccess(code: Int, result: SearchLecture) {
         when(code){
             200->{
                 val datas = ArrayList<Lecture>()
@@ -356,8 +306,22 @@ class ClassFragment : Fragment(), LectureFavoriteView, LectureFilterView {
                 classLectureRVAdapter = ClassLectureRVAdapter()
                 binding.classLecturelistRv.adapter = classLectureRVAdapter
 
+                totalPage = if(result.lectureCount%12==0) result.lectureCount/12 else result.lectureCount/12 + 1
+                page = if(pageNum%5==0) pageNum/5 else pageNum/5+1
+
+                pageButton()
+
+                if(result.lectureCount == 0){
+                    binding.lecturePagenum1Tv.visibility = View.INVISIBLE
+                    binding.lecturePagenum2Tv.visibility = View.INVISIBLE
+                    binding.lecturePagenum3Tv.visibility = View.INVISIBLE
+                    binding.lecturePagenum4Tv.visibility = View.INVISIBLE
+                    binding.lecturePagenum5Tv.visibility = View.INVISIBLE
+                    binding.lecturePageNextIv.visibility = View.INVISIBLE
+                }
+
                 datas.apply {
-                    for (i in result) {
+                    for (i in result.lectureList) {
                         datas.add(
                             Lecture(i.lectureIdx, i.lectureName, i.chapterNum, i.language, i.media, i.price, i.userScrap, i.scrapNumber, i.usedCount, i.likeNumber, i.userLike, i.lectureDesc, i.srcLink)
                         )
@@ -403,6 +367,133 @@ class ClassFragment : Fragment(), LectureFavoriteView, LectureFilterView {
         }
     }
 
+    private fun pageButtonClick() {
+        binding.lecturePagenum1Tv.setOnClickListener {
+            pageNum = (page - 1) * 5 + 1
+            lectureFilter.pageNum = pageNum
+            pageButton()
+            classService.showLectureSearch(lectureFilter)
+        }
+        binding.lecturePagenum2Tv.setOnClickListener {
+            pageNum = (page - 1) * 5 + 2
+            lectureFilter.pageNum = pageNum
+            pageButton()
+            classService.showLectureSearch(lectureFilter)
+        }
+        binding.lecturePagenum3Tv.setOnClickListener {
+            pageNum = (page - 1) * 5 + 3
+            lectureFilter.pageNum = pageNum
+            pageButton()
+            classService.showLectureSearch(lectureFilter)
+        }
+        binding.lecturePagenum4Tv.setOnClickListener {
+            pageNum = (page - 1) * 5 + 4
+            lectureFilter.pageNum = pageNum
+            pageButton()
+            classService.showLectureSearch(lectureFilter)
+        }
+        binding.lecturePagenum5Tv.setOnClickListener {
+            pageNum = (page - 1) * 5 + 5
+            lectureFilter.pageNum = pageNum
+            pageButton()
+            classService.showLectureSearch(lectureFilter)
+        }
+        binding.lecturePagePreviousIv.setOnClickListener {
+            pageNum = (page-2)*5 + 1
+            lectureFilter.pageNum = pageNum
+            pageButton()
+            classService.showLectureSearch(lectureFilter)
+        }
+        binding.lecturePageNextIv.setOnClickListener {
+            pageNum = page * 5 + 1
+            lectureFilter.pageNum = pageNum
+            pageButton()
+            classService.showLectureSearch(lectureFilter)
+        }
+
+    }
+
+
+
+    private fun pageButton(){
+        //페이지 번호
+        binding.lecturePagenum1Tv.text = ((page-1)*5+1).toString()
+        binding.lecturePagenum2Tv.text = ((page-1)*5+2).toString()
+        binding.lecturePagenum3Tv.text = ((page-1)*5+3).toString()
+        binding.lecturePagenum4Tv.text = ((page-1)*5+4).toString()
+        binding.lecturePagenum5Tv.text = ((page-1)*5+5).toString()
+
+        //화살표 visibility 설정
+        if(page == 1)   binding.lecturePagePreviousIv.visibility = View.INVISIBLE
+        else    binding.lecturePagePreviousIv.visibility = View.VISIBLE
+        if(totalPage>=(page-1)*5+1 && totalPage<=(page-1)*5+5)
+            binding.lecturePageNextIv.visibility = View.INVISIBLE
+        else    binding.lecturePageNextIv.visibility = View.VISIBLE
+
+        //숫자 버튼 visibility 설정
+        if(totalPage-page*5 == -1){
+            binding.lecturePagenum2Tv.visibility = View.VISIBLE
+            binding.lecturePagenum3Tv.visibility = View.VISIBLE
+            binding.lecturePagenum4Tv.visibility = View.VISIBLE
+            binding.lecturePagenum5Tv.visibility = View.INVISIBLE
+        }else if(totalPage-page*5 == -2){
+            binding.lecturePagenum2Tv.visibility = View.VISIBLE
+            binding.lecturePagenum3Tv.visibility = View.VISIBLE
+            binding.lecturePagenum4Tv.visibility = View.INVISIBLE
+            binding.lecturePagenum5Tv.visibility = View.INVISIBLE
+        } else if(totalPage-page*5 == -3){
+            binding.lecturePagenum2Tv.visibility = View.VISIBLE
+            binding.lecturePagenum3Tv.visibility = View.INVISIBLE
+            binding.lecturePagenum4Tv.visibility = View.INVISIBLE
+            binding.lecturePagenum5Tv.visibility = View.INVISIBLE
+        }
+        else if(totalPage-page*5 == -4){
+            binding.lecturePagenum2Tv.visibility = View.INVISIBLE
+            binding.lecturePagenum3Tv.visibility = View.INVISIBLE
+            binding.lecturePagenum4Tv.visibility = View.INVISIBLE
+            binding.lecturePagenum5Tv.visibility = View.INVISIBLE
+        }else{
+            binding.lecturePagenum2Tv.visibility = View.VISIBLE
+            binding.lecturePagenum3Tv.visibility = View.VISIBLE
+            binding.lecturePagenum4Tv.visibility = View.VISIBLE
+            binding.lecturePagenum5Tv.visibility = View.VISIBLE
+        }
+
+
+        //background circle 설정
+        if(pageNum%5 == 1) {
+            binding.lecturePagenum1Tv.setBackgroundResource(R.drawable.circle_debri_debri_8)
+            binding.lecturePagenum2Tv.setBackgroundResource(R.color.transparent)
+            binding.lecturePagenum3Tv.setBackgroundResource(R.color.transparent)
+            binding.lecturePagenum4Tv.setBackgroundResource(R.color.transparent)
+            binding.lecturePagenum5Tv.setBackgroundResource(R.color.transparent)
+        }else if(pageNum%5 == 2){
+            binding.lecturePagenum1Tv.setBackgroundResource(R.color.transparent)
+            binding.lecturePagenum2Tv.setBackgroundResource(R.drawable.circle_debri_debri_8)
+            binding.lecturePagenum3Tv.setBackgroundResource(R.color.transparent)
+            binding.lecturePagenum4Tv.setBackgroundResource(R.color.transparent)
+            binding.lecturePagenum5Tv.setBackgroundResource(R.color.transparent)
+        }else if(pageNum%5 == 3){
+            binding.lecturePagenum1Tv.setBackgroundResource(R.color.transparent)
+            binding.lecturePagenum2Tv.setBackgroundResource(R.color.transparent)
+            binding.lecturePagenum3Tv.setBackgroundResource(R.drawable.circle_debri_debri_8)
+            binding.lecturePagenum4Tv.setBackgroundResource(R.color.transparent)
+            binding.lecturePagenum5Tv.setBackgroundResource(R.color.transparent)
+        }else if(pageNum%5 == 4){
+            binding.lecturePagenum1Tv.setBackgroundResource(R.color.transparent)
+            binding.lecturePagenum2Tv.setBackgroundResource(R.color.transparent)
+            binding.lecturePagenum3Tv.setBackgroundResource(R.color.transparent)
+            binding.lecturePagenum4Tv.setBackgroundResource(R.drawable.circle_debri_debri_8)
+            binding.lecturePagenum5Tv.setBackgroundResource(R.color.transparent)
+        }else if(pageNum%5 == 0){
+            binding.lecturePagenum1Tv.setBackgroundResource(R.color.transparent)
+            binding.lecturePagenum2Tv.setBackgroundResource(R.color.transparent)
+            binding.lecturePagenum3Tv.setBackgroundResource(R.color.transparent)
+            binding.lecturePagenum4Tv.setBackgroundResource(R.color.transparent)
+            binding.lecturePagenum5Tv.setBackgroundResource(R.drawable.circle_debri_debri_8)
+        }
+
+    }
 
 }
 
