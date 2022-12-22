@@ -97,6 +97,7 @@ class ClassFragment : Fragment(), LectureFavoriteView, LectureFilterView {
 //            startActivity(intent)
 //        }
 
+
         //fragment to fragment : category select
         binding.classCurriTagBtn.setOnClickListener{
             activity?.supportFragmentManager!!.beginTransaction()
@@ -197,6 +198,7 @@ class ClassFragment : Fragment(), LectureFavoriteView, LectureFilterView {
             }
         }
 
+
         //검색어 입력 : search Lecture
         binding.classSearchEt.addTextChangedListener(object : TextWatcher{
             //입력이 끝날 때
@@ -296,8 +298,6 @@ class ClassFragment : Fragment(), LectureFavoriteView, LectureFilterView {
         if (category?.price != null) lectureFilter.price = category!!.price
 
     }
-
-
 
     override fun onLectureFavoriteSuccess(code: Int, result: List<Lecture>) {
         when(code){

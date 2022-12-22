@@ -12,6 +12,7 @@ import com.example.debri_lize.data.curriculum.Curriculum
 import com.example.debri_lize.databinding.FragmentHomeBinding
 import com.example.debri_lize.service.CurriculumService
 import com.example.debri_lize.view.curriculum.MyCurriculumListView
+import com.google.android.material.tabs.TabLayoutMediator
 
 class HomeFragment : Fragment(), MyCurriculumListView {
 
@@ -69,6 +70,10 @@ class HomeFragment : Fragment(), MyCurriculumListView {
                 Log.d("fragment", fragmentList.toString())
                 Log.d("fragment", homeVPAdapter.fragments.toString())
                 Log.d("fragment", homeVPAdapter.fragments.size.toString())
+
+                TabLayoutMediator(binding.homeContentTl, binding.homeContentVp){tab, position ->
+                    //implementation
+                }.attach()
 
             }
         }

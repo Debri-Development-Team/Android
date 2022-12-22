@@ -41,8 +41,6 @@ class ChooseMyCurriculumActivity : AppCompatActivity(), MyCurriculumListView, Ad
         lectureIdx = intent.getIntExtra("lectureIdx", 0)
         lectureName = intent.getStringExtra("lectureName").toString()
 
-        //screen
-        binding.chooseMyCurriLectureNameTv.text = lectureName
 
         //backbtn
         binding.postPreviousIv.setOnClickListener{
