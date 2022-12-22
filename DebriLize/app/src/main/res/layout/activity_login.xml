@@ -124,7 +124,8 @@
             android:textSize="14dp"
             android:fontFamily="@font/noto_sans_kr_regular"
             android:includeFontPadding="false"
-            android:layout_marginStart="40dp"/>
+            android:layout_marginStart="40dp"
+            />
 
     </LinearLayout>
 
@@ -143,7 +144,7 @@
         android:id="@+id/login_sign_up_btn"
         android:layout_width="match_parent"
         android:layout_height="40dp"
-        android:background="@drawable/border_round_white_transparent_10"
+        android:background="@drawable/border_round_white_transparent_6"
         android:text="가입하기"
         android:textColor="@color/white"
         android:fontFamily="@font/noto_sans_kr_bold"
