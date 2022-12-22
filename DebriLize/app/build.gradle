@@ -96,5 +96,6 @@ dependencies {
     //tablayout
     implementation 'com.google.android.material:material:1.4.0'
 
-
+    //페이징 버튼
+//    implementation 'com.github.lakue119:LakuePagingButton:1.0.0'
 }

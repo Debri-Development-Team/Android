@@ -1,6 +1,7 @@
 package com.example.debri_lize.view.post
 
 import com.example.debri_lize.data.post.PostDetail
+import com.example.debri_lize.data.post.PostInfo
 import com.example.debri_lize.data.post.PostList
 
 //3.1 게시물 생성 api
@@ -34,13 +35,13 @@ interface CancelPostLikeView {
 
 //3.7 [특정 게시판] 게시물 리스트 조회 api
 interface EachPostListView {
-    fun onEachPostListSuccess(code: Int, result: List<PostList>)
+    fun onEachPostListSuccess(code: Int, result: PostInfo)
     fun onEachPostListFailure(code : Int)
 }
 
 //3.7.1 [전체 범위(키워드 검색)] 게시물 리스트 조회 api
 interface PostListView {
-    fun onPostListSuccess(code: Int, result: List<PostList>)
+    fun onPostListSuccess(code: Int, result: PostInfo)
     fun onPostListFailure(code : Int)
 }
 

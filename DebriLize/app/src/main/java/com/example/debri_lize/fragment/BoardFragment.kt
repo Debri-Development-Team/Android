@@ -109,6 +109,7 @@ class BoardFragment : Fragment(), UnScrapBoardListView, ScrapBoardListView, Canc
 
                 datas.clear()
 
+
                 //data : 전체
                 datas.apply {
                     for (i in result){
