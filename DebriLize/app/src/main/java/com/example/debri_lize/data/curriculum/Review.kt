@@ -11,4 +11,8 @@ data class Review(
     @SerializedName(value = "content") val content: String
 ) : Serializable
 
-
+//8.12.1 커리큘럼 리뷰 조회 api
+data class ShowReview(
+    @SerializedName(value = "reviewList") val reviewList: List<Review>,
+    @SerializedName(value = "reviewCount") val reviewCount: Int
+)

@@ -240,7 +240,7 @@ interface RetrofitInterface {
 
     //8.12.1 커리큘럼 리뷰 조회 api
     @GET("api/curri/review/getList/{curriIdx}")
-    fun showReview(@Path("curriIdx") curriIdx: Int, @Header("ACCESS-TOKEN") authToken: String) : Call<BaseResponse<List<Review>>>
+    fun showReview(@Path("curriIdx") curriIdx: Int, @Query("pageNum") pageNum: Int?, @Header("ACCESS-TOKEN") authToken: String) : Call<BaseResponse<ShowReview>>
 
     //8.13 커리큘럼 복붙 api
     @POST("api/curri/copy")

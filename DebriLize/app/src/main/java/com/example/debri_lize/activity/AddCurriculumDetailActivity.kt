@@ -20,6 +20,7 @@ import com.example.debri_lize.data.class_.Lecture
 import com.example.debri_lize.data.curriculum.CopyCurriculum
 import com.example.debri_lize.data.curriculum.CurriculumDetail
 import com.example.debri_lize.data.curriculum.Review
+import com.example.debri_lize.data.curriculum.ShowReview
 import com.example.debri_lize.databinding.ActivityAddCurriculumDetailBinding
 import com.example.debri_lize.service.CurriculumService
 import com.example.debri_lize.service.ReviewService
@@ -40,6 +41,9 @@ class AddCurriculumDetailActivity : AppCompatActivity(), CreateReviewView, ShowR
 
     //review
     val review = ArrayList<Review>()
+    private var pageNum : Int = 1 //현재 페이지 번호
+    var page : Int = 1      //현재 페이지가 속한 곳 pageNum이 1~5면 1, 6~10이면 2
+    var totalPage : Int = 0
 
     //api
     var reviewService = ReviewService()
@@ -85,6 +89,9 @@ class AddCurriculumDetailActivity : AppCompatActivity(), CreateReviewView, ShowR
             false
         }
 
+        //리뷰 페이징 버튼
+        pageButtonClick()
+
         //lecture recycler view
         binding.addCurriculumDetailLectureRv.layoutManager =
             LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
@@ -105,7 +112,7 @@ class AddCurriculumDetailActivity : AppCompatActivity(), CreateReviewView, ShowR
 
         //8.12.1 커리큘럼 리뷰 조회 api
         reviewService.setShowReviewView(this)
-        reviewService.showReview(curriculumIdx)
+        reviewService.showReview(curriculumIdx, pageNum)
     }
 
     //live animation
@@ -277,7 +284,7 @@ class AddCurriculumDetailActivity : AppCompatActivity(), CreateReviewView, ShowR
                 Toast.makeText(this, "review ok", Toast.LENGTH_SHORT).show()
                 binding.addCurriculumDetailWriteReviewEt.text.clear()
                 reviewService.setShowReviewView(this)
-                reviewService.showReview(59)
+                reviewService.showReview(curriculumIdx, pageNum)
             }
         }
     }
@@ -286,36 +293,59 @@ class AddCurriculumDetailActivity : AppCompatActivity(), CreateReviewView, ShowR
 
     }
 
-    override fun onShowReviewSuccess(code: Int, result: List<Review>) {
+    override fun onShowReviewSuccess(code: Int, result: ShowReview) {
         when(code){
             200->{
-                if(result.isNotEmpty()){
-                    var j = 0
-                    thread(start = true) {
-                        while(true){
-                            runOnUiThread{
-                                review.clear()
-                                review.apply {
-                                    for (cnt in 1..3){
-                                        review.add(Review(result[j].curriculumIdx, result[j].authorName, result[j].content))
+                binding.addCurriculumDetailReviewRv.layoutManager =
+                    LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
+                reviewRVAdapter = ReviewRVAdapter()
+                binding.addCurriculumDetailReviewRv.adapter = reviewRVAdapter
 
-                                        j++
-                                        if(j>=result.size){
-                                            j = 0
-                                        }
-                                    }
-                                    reviewRVAdapter.datas = review
-                                    reviewRVAdapter.notifyDataSetChanged()
-                                }
-                                binding.addCurriculumDetailReviewRv.startLayoutAnimation()
-                            }
-                            Thread.sleep(5000)
-                        }
+                review.clear()
+
+
+                totalPage = if(result.reviewCount!!%12==0) result.reviewCount!!/12 else result.reviewCount!!/12 + 1
+                page = if(pageNum%5==0) pageNum/5 else pageNum/5+1
+
+                Log.d("reviewCount",result.reviewCount.toString())
+                pageButton()
+
+                review.apply {
+                    for (i in result.reviewList) {
+                                        review.add(Review(i.curriculumIdx, i.authorName, i.content))
                     }
+
+                    reviewRVAdapter.datas = review
+                    reviewRVAdapter.notifyDataSetChanged()
                 }
+//                if(result.isNotEmpty()){
+//                    var j = 0
+//                    thread(start = true) {
+//                        while(true){
+//                            runOnUiThread{
+//                                review.clear()
+//                                review.apply {
+//                                    for (cnt in 1..3){
+//                                        review.add(Review(result[j].curriculumIdx, result[j].authorName, result[j].content))
+//
+//                                        j++
+//                                        if(j>=result.size){
+//                                            j = 0
+//                                        }
+//                                    }
+//                                    reviewRVAdapter.datas = review
+//                                    reviewRVAdapter.notifyDataSetChanged()
+//                                }
+//                                binding.addCurriculumDetailReviewRv.startLayoutAnimation()
+//                            }
+//                            Thread.sleep(5000)
+//                        }
+//                    }
+//                }
             }
         }
     }
+
 
     override fun onShowReviewFailure(code: Int) {
 
@@ -357,5 +387,123 @@ class AddCurriculumDetailActivity : AppCompatActivity(), CreateReviewView, ShowR
 
     }
 
+    private fun pageButtonClick() {
+        binding.addCurriDetailReviewPagenum1Tv.setOnClickListener {
+            pageNum = (page - 1) * 5 + 1
+            pageButton()
+            reviewService.showReview(curriculumIdx, pageNum)
+        }
+        binding.addCurriDetailReviewPagenum2Tv.setOnClickListener {
+            pageNum = (page - 1) * 5 + 2
+            pageButton()
+            reviewService.showReview(curriculumIdx, pageNum)
+        }
+        binding.addCurriDetailReviewPagenum3Tv.setOnClickListener {
+            pageNum = (page - 1) * 5 + 3
+            pageButton()
+            reviewService.showReview(curriculumIdx, pageNum)
+        }
+        binding.addCurriDetailReviewPagenum4Tv.setOnClickListener {
+            pageNum = (page - 1) * 5 + 4
+            pageButton()
+            reviewService.showReview(curriculumIdx, pageNum)
+        }
+        binding.addCurriDetailReviewPagenum5Tv.setOnClickListener {
+            pageNum = (page - 1) * 5 + 5
+            pageButton()
+            reviewService.showReview(curriculumIdx, pageNum)
+        }
+        binding.addCurriDetailReviewPagePreviousIv.setOnClickListener {
+            pageNum = (page-2)*5 + 1
+            pageButton()
+            reviewService.showReview(curriculumIdx, pageNum)
+        }
+        binding.addCurriDetailReviewPageNextIv.setOnClickListener {
+            pageNum = page * 5 + 1
+            pageButton()
+            reviewService.showReview(curriculumIdx, pageNum)
+        }
 
+    }
+
+
+
+    private fun pageButton(){
+        //페이지 번호
+        binding.addCurriDetailReviewPagenum1Tv.text = ((page-1)*5+1).toString()
+        binding.addCurriDetailReviewPagenum2Tv.text = ((page-1)*5+2).toString()
+        binding.addCurriDetailReviewPagenum3Tv.text = ((page-1)*5+3).toString()
+        binding.addCurriDetailReviewPagenum4Tv.text = ((page-1)*5+4).toString()
+        binding.addCurriDetailReviewPagenum5Tv.text = ((page-1)*5+5).toString()
+
+        //화살표 visibility 설정
+        if(page == 1)   binding.addCurriDetailReviewPagePreviousIv.visibility = View.INVISIBLE
+        else    binding.addCurriDetailReviewPagePreviousIv.visibility = View.VISIBLE
+        if(totalPage>=(page-1)*5+1 && totalPage<=(page-1)*5+5)
+            binding.addCurriDetailReviewPageNextIv.visibility = View.INVISIBLE
+        else    binding.addCurriDetailReviewPageNextIv.visibility = View.VISIBLE
+
+        //숫자 버튼 visibility 설정
+        if(totalPage-page*5 == -1){
+            binding.addCurriDetailReviewPagenum2Tv.visibility = View.VISIBLE
+            binding.addCurriDetailReviewPagenum3Tv.visibility = View.VISIBLE
+            binding.addCurriDetailReviewPagenum4Tv.visibility = View.VISIBLE
+            binding.addCurriDetailReviewPagenum5Tv.visibility = View.INVISIBLE
+        }else if(totalPage-page*5 == -2){
+            binding.addCurriDetailReviewPagenum2Tv.visibility = View.VISIBLE
+            binding.addCurriDetailReviewPagenum3Tv.visibility = View.VISIBLE
+            binding.addCurriDetailReviewPagenum4Tv.visibility = View.INVISIBLE
+            binding.addCurriDetailReviewPagenum5Tv.visibility = View.INVISIBLE
+        } else if(totalPage-page*5 == -3){
+            binding.addCurriDetailReviewPagenum2Tv.visibility = View.VISIBLE
+            binding.addCurriDetailReviewPagenum3Tv.visibility = View.INVISIBLE
+            binding.addCurriDetailReviewPagenum4Tv.visibility = View.INVISIBLE
+            binding.addCurriDetailReviewPagenum5Tv.visibility = View.INVISIBLE
+        }
+        else if(totalPage-page*5 == -4){
+            binding.addCurriDetailReviewPagenum2Tv.visibility = View.INVISIBLE
+            binding.addCurriDetailReviewPagenum3Tv.visibility = View.INVISIBLE
+            binding.addCurriDetailReviewPagenum4Tv.visibility = View.INVISIBLE
+            binding.addCurriDetailReviewPagenum5Tv.visibility = View.INVISIBLE
+        }else{
+            binding.addCurriDetailReviewPagenum2Tv.visibility = View.VISIBLE
+            binding.addCurriDetailReviewPagenum3Tv.visibility = View.VISIBLE
+            binding.addCurriDetailReviewPagenum4Tv.visibility = View.VISIBLE
+            binding.addCurriDetailReviewPagenum5Tv.visibility = View.VISIBLE
+        }
+
+        //background circle 설정
+        if(pageNum%5 == 1) {
+            binding.addCurriDetailReviewPagenum1Tv.setBackgroundResource(R.drawable.circle_debri_debri_8)
+            binding.addCurriDetailReviewPagenum2Tv.setBackgroundResource(R.color.transparent)
+            binding.addCurriDetailReviewPagenum3Tv.setBackgroundResource(R.color.transparent)
+            binding.addCurriDetailReviewPagenum4Tv.setBackgroundResource(R.color.transparent)
+            binding.addCurriDetailReviewPagenum5Tv.setBackgroundResource(R.color.transparent)
+        }else if(pageNum%5 == 2){
+            binding.addCurriDetailReviewPagenum1Tv.setBackgroundResource(R.color.transparent)
+            binding.addCurriDetailReviewPagenum2Tv.setBackgroundResource(R.drawable.circle_debri_debri_8)
+            binding.addCurriDetailReviewPagenum3Tv.setBackgroundResource(R.color.transparent)
+            binding.addCurriDetailReviewPagenum4Tv.setBackgroundResource(R.color.transparent)
+            binding.addCurriDetailReviewPagenum5Tv.setBackgroundResource(R.color.transparent)
+        }else if(pageNum%5 == 3){
+            binding.addCurriDetailReviewPagenum1Tv.setBackgroundResource(R.color.transparent)
+            binding.addCurriDetailReviewPagenum2Tv.setBackgroundResource(R.color.transparent)
+            binding.addCurriDetailReviewPagenum3Tv.setBackgroundResource(R.drawable.circle_debri_debri_8)
+            binding.addCurriDetailReviewPagenum4Tv.setBackgroundResource(R.color.transparent)
+            binding.addCurriDetailReviewPagenum5Tv.setBackgroundResource(R.color.transparent)
+        }else if(pageNum%5 == 4){
+            binding.addCurriDetailReviewPagenum1Tv.setBackgroundResource(R.color.transparent)
+            binding.addCurriDetailReviewPagenum2Tv.setBackgroundResource(R.color.transparent)
+            binding.addCurriDetailReviewPagenum3Tv.setBackgroundResource(R.color.transparent)
+            binding.addCurriDetailReviewPagenum4Tv.setBackgroundResource(R.drawable.circle_debri_debri_8)
+            binding.addCurriDetailReviewPagenum5Tv.setBackgroundResource(R.color.transparent)
+        }else if(pageNum%5 == 0){
+            binding.addCurriDetailReviewPagenum1Tv.setBackgroundResource(R.color.transparent)
+            binding.addCurriDetailReviewPagenum2Tv.setBackgroundResource(R.color.transparent)
+            binding.addCurriDetailReviewPagenum3Tv.setBackgroundResource(R.color.transparent)
+            binding.addCurriDetailReviewPagenum4Tv.setBackgroundResource(R.color.transparent)
+            binding.addCurriDetailReviewPagenum5Tv.setBackgroundResource(R.drawable.circle_debri_debri_8)
+        }
+
+    }
 }
