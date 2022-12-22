@@ -216,8 +216,9 @@
         <entry key="app/src/main/res/layout/activity_lecture_detail.xml" value="0.3157894736842105" />
         <entry key="app/src/main/res/layout/activity_login.xml" value="0.2971014492753623" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.27309782608695654" />
-        <entry key="app/src/main/res/layout/activity_post_create.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/activity_post_create.xml" value="0.28701477050781254" />
         <entry key="app/src/main/res/layout/activity_post_detail.xml" value="0.25" />
+        <entry key="app/src/main/res/layout/activity_post_list.xml" value="0.32135416666666666" />
         <entry key="app/src/main/res/layout/activity_signup.xml" value="0.2971014492753623" />
         <entry key="app/src/main/res/layout/activity_signup_email.xml" value="0.22916666666666666" />
         <entry key="app/src/main/res/layout/activity_signup_term.xml" value="0.27309782608695654" />
@@ -242,6 +243,8 @@
         <entry key="app/src/main/res/layout/fragment_home_inactive.xml" value="0.32135416666666666" />
         <entry key="app/src/main/res/layout/fragment_post.xml" value="0.23097826086956522" />
         <entry key="app/src/main/res/layout/fragment_profile.xml" value="0.32135416666666666" />
+        <entry key="app/src/main/res/layout/fragment_scrap_curriculum.xml" value="0.32135416666666666" />
+        <entry key="app/src/main/res/layout/fragment_scrap_post.xml" value="0.32135416666666666" />
         <entry key="app/src/main/res/layout/item_curriculum.xml" value="0.32135416666666666" />
         <entry key="app/src/main/res/layout/item_curriculum_lecture.xml" value="0.25" />
         <entry key="app/src/main/res/layout/item_curriculum_profile.xml" value="0.23822463768115942" />
