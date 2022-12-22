@@ -5,6 +5,7 @@ import android.content.Intent
 import android.graphics.Insets
 import android.os.Build
 import android.os.Bundle
+import android.text.method.PasswordTransformationMethod
 import android.util.DisplayMetrics
 import android.util.Log
 import android.view.*
@@ -52,6 +53,9 @@ class LoginActivity:AppCompatActivity(), LoginView, TokenView {
         binding.loginBtn.setOnClickListener{
             login()
         }
+
+        //password dot size
+        binding.loginPasswordEt.transformationMethod = CustomPasswordTransformationMethod()
 
     }
 
@@ -323,6 +327,31 @@ class LoginActivity:AppCompatActivity(), LoginView, TokenView {
             }
         })*/
     }
+
+
+    //password 가려지는 모양 변경
+    class CustomCharSequence(private val source: CharSequence): CharSequence {
+
+        override val length: Int
+            get() = source.length
+
+        override fun get(index: Int): Char {
+            return '●' //원하는 문자로 변경
+        }
+
+        override fun subSequence(startIndex: Int, endIndex: Int): CharSequence {
+            return source.subSequence(startIndex, endIndex)
+        }
+    }
+
+    class CustomPasswordTransformationMethod : PasswordTransformationMethod() {
+
+        override fun getTransformation(source: CharSequence, view: View?): CharSequence {
+            return CustomCharSequence(source)
+        }
+    }
+
+
 
 
 }

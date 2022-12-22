@@ -251,6 +251,9 @@
         <entry key="app/src/main/res/layout/item_curriculum.xml" value="0.32135416666666666" />
         <entry key="app/src/main/res/layout/item_curriculum_lecture.xml" value="0.25" />
         <entry key="app/src/main/res/layout/item_curriculum_profile.xml" value="0.23822463768115942" />
+        <entry key="app/src/main/res/layout/item_post.xml" value="0.26197916666666665" />
+        <entry key="app/src/main/res/layout/spinner_custom.xml" value="0.21829710144927536" />
+        <entry key="app/src/main/res/layout/spinner_getview.xml" value="0.21829710144927536" />
         <entry key="app/src/main/res/layout/toast_report.xml" value="0.25" />
         <entry key="app/src/main/res/layout/toast_scrap.xml" value="0.121875" />
         <entry key="app/src/main/res/menu/bottom_nav_menu.xml" value="0.32135416666666666" />
