@@ -13,9 +13,7 @@
 <androidx.constraintlayout.widget.ConstraintLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-
-
-
+    
     <LinearLayout
         android:id="@+id/class_list_text_layout"
         android:layout_width="match_parent"
@@ -41,6 +39,7 @@
             android:layout_height="0dp"
             android:layout_weight="1" />
         <TextView
+            android:id="@+id/class_sort_a_z_tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="A-Z"
@@ -49,6 +48,14 @@
             android:textSize="15dp"
             android:includeFontPadding="false"
             android:layout_marginEnd="10dp"/>
+
+        <ImageView
+            android:id="@+id/class_sort_like_iv"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:src="@drawable/ic_like_on"
+            android:layout_marginEnd="10dp"
+            android:visibility="gone"/>
 
         <ImageView
             android:id="@+id/class_filter_iv"
@@ -216,7 +223,6 @@
 
     </LinearLayout>
     <LinearLayout
-        android:id="@+id/class_tablayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
@@ -227,6 +233,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent">
         <com.google.android.material.tabs.TabLayout
+            android:id="@+id/class_tablayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/darkmode_background"
@@ -271,60 +278,11 @@
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"/>
-<!--        <androidx.viewpager2.widget.ViewPager2-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="wrap_content">-->
-<!--            -->
-<!--        </androidx.viewpager2.widget.ViewPager2>-->
 
     </LinearLayout>
 
-
-
-
-
-
-<!--    <LinearLayout-->
-<!--        android:id="@+id/class_favorite_layout"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:orientation="vertical"-->
-<!--        android:layout_marginStart="30dp"-->
-<!--        android:layout_marginEnd="30dp"-->
-<!--        android:layout_marginTop="25dp"-->
-<!--        android:visibility="visible"-->
-<!--        app:layout_constraintTop_toBottomOf="@id/class_tablayout"-->
-<!--        app:layout_constraintStart_toStartOf="parent">-->
-
-<!--        <TextView-->
-<!--            android:id="@+id/class_favorite_tv"-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:text="즐겨찾기한 강의"-->
-<!--            android:textColor="@color/white"-->
-<!--            android:textSize="20dp"-->
-<!--            android:fontFamily="@font/noto_sans_kr_bold"-->
-<!--            android:includeFontPadding="false" />-->
-
-
-<!--    </LinearLayout>-->
-
-
-
-<!--    <androidx.recyclerview.widget.RecyclerView-->
-<!--        android:id="@+id/class_lecturelist_rv"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:layout_marginTop="15dp"-->
-<!--        android:layout_marginStart="30dp"-->
-<!--        android:layout_marginEnd="30dp"-->
-<!--        android:orientation="vertical"-->
-<!--        android:overScrollMode="never"-->
-<!--        android:nestedScrollingEnabled="false"-->
-<!--        android:visibility="visible"-->
-<!--        app:layout_constraintStart_toStartOf="parent"-->
-<!--        app:layout_constraintEnd_toEndOf="parent"-->
-<!--        app:layout_constraintTop_toBottomOf="@id/class_favorite_layout"/>-->
+    
+    
 </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.core.widget.NestedScrollView>
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -85,6 +85,7 @@ class ClassService {
             //응답이 왔을 때 처리
             override fun onResponse(call: Call<BaseResponse<List<Lecture>>>, response: Response<BaseResponse<List<Lecture>>>) {
                 Log.d("lecturefilter", "response")
+                Log.d("lecturefilterresponse",response.body().toString())
                 val resp: BaseResponse<List<Lecture>> = response.body()!!
                 Log.d("lecturefilterCode", resp.code.toString())
                 when(resp.code){
