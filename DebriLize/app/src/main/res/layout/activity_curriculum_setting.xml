@@ -30,7 +30,7 @@
         app:realtimeBlurRadius="15dp"
         app:realtimeOverlayColor="@color/transparent"
         android:background="@drawable/circle_debri_opacity_30"
-        android:layout_marginTop="45dp"
+        android:layout_marginTop="40dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.494"
         app:layout_constraintStart_toStartOf="parent"
@@ -192,9 +192,9 @@
         <CheckBox
             android:id="@+id/curriculum_setting_front_cb"
             android:layout_width="match_parent"
-            android:layout_height="37dp"
+            android:layout_height="35dp"
             android:layout_marginBottom="7dp"
-            android:background="@drawable/selector_class_radio_front"
+            android:background="@drawable/selector_curri_setting_front"
             android:button="@null"
             android:drawableEnd="@drawable/selector_class_radio_text"
             android:fontFamily="@font/noto_sans_kr_bold"
@@ -209,7 +209,7 @@
         <CheckBox
             android:id="@+id/curriculum_setting_back_cb"
             android:layout_width="match_parent"
-            android:layout_height="37dp"
+            android:layout_height="35dp"
             android:text="Back"
             android:textColor="@drawable/selector_class_radio_text"
             android:button="@null"
@@ -222,11 +222,11 @@
             android:layout_marginBottom="7dp"
             android:layout_marginTop="5dp"
             android:drawableEnd="@drawable/selector_class_radio_text"
-            android:background="@drawable/selector_class_radio_back"/>
+            android:background="@drawable/selector_curri_setting_back"/>
         <CheckBox
             android:id="@+id/curriculum_setting_python_cb"
             android:layout_width="match_parent"
-            android:layout_height="37dp"
+            android:layout_height="35dp"
             android:text="Python"
             android:textColor="@drawable/selector_class_radio_text"
             android:button="@null"
@@ -239,11 +239,11 @@
             android:layout_marginTop="5dp"
             android:layout_marginBottom="7dp"
             android:drawableEnd="@drawable/selector_class_radio_text"
-            android:background="@drawable/selector_class_radio_python"/>
+            android:background="@drawable/selector_curri_setting_python"/>
         <CheckBox
             android:id="@+id/curriculum_setting_c_cb"
             android:layout_width="match_parent"
-            android:layout_height="37dp"
+            android:layout_height="35dp"
             android:text="C 언어"
             android:textColor="@drawable/selector_class_radio_text"
             android:button="@null"
@@ -256,7 +256,7 @@
             android:layout_marginTop="5dp"
             android:layout_marginBottom="7dp"
             android:drawableEnd="@drawable/selector_class_radio_text"
-            android:background="@drawable/selector_class_radio_c"/>
+            android:background="@drawable/selector_curri_setting_c"/>
 
     </LinearLayout>
 

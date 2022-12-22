@@ -33,6 +33,8 @@ class CurriculumSettingActivity : AppCompatActivity(), CreateCurriculumView {
         binding = ActivityCurriculumSettingBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+
+
         //버튼 클릭한 텍스트 받아오기
         radioBtnClick()
         //focus effect
