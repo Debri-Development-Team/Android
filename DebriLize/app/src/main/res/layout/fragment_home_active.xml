@@ -115,7 +115,7 @@ android:paddingHorizontal="20dp"
                         android:layout_height="wrap_content"
                         android:text="D-"
                         android:textColor="@color/white"
-                        android:textSize="28sp"
+                        android:textSize="28dp"
                         android:fontFamily="@font/noto_sans_kr_bold"
                         android:includeFontPadding="false"
                         />
@@ -126,7 +126,7 @@ android:paddingHorizontal="20dp"
                         android:layout_height="wrap_content"
                         android:text="223"
                         android:textColor="@color/debri"
-                        android:textSize="28sp"
+                        android:textSize="28dp"
                         android:fontFamily="@font/noto_sans_kr_bold"
                         android:includeFontPadding="false"/>
                 </LinearLayout>
