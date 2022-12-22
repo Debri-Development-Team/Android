@@ -310,6 +310,15 @@ class AddCurriculumDetailActivity : AppCompatActivity(), CreateReviewView, ShowR
                 Log.d("reviewCount",result.reviewCount.toString())
                 pageButton()
 
+                if(result.reviewCount == 0){
+                    binding.addCurriDetailReviewPagenum1Tv.visibility = View.INVISIBLE
+                    binding.addCurriDetailReviewPagenum2Tv.visibility = View.INVISIBLE
+                    binding.addCurriDetailReviewPagenum3Tv.visibility = View.INVISIBLE
+                    binding.addCurriDetailReviewPagenum4Tv.visibility = View.INVISIBLE
+                    binding.addCurriDetailReviewPagenum5Tv.visibility = View.INVISIBLE
+                    binding.addCurriDetailReviewPageNextIv.visibility = View.INVISIBLE
+                }
+
                 review.apply {
                     for (i in result.reviewList) {
                                         review.add(Review(i.curriculumIdx, i.authorName, i.content))

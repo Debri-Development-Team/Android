@@ -18,6 +18,7 @@ import com.example.debri_lize.R
 import com.example.debri_lize.activity.LectureDetailActivity
 import com.example.debri_lize.data.class_.Lecture
 import com.example.debri_lize.data.class_.LectureFilter
+import com.example.debri_lize.data.class_.SearchLecture
 import com.example.debri_lize.databinding.FragmentClassBinding
 import com.example.debri_lize.service.ClassService
 import com.example.debri_lize.utils.getUserIdx
@@ -348,7 +349,7 @@ class ClassFragment : Fragment(), LectureFavoriteView, LectureFilterView {
         }
     }
 
-    override fun onLectureFilterSuccess(code: Int, result: List<Lecture>) {
+    override fun onLectureFilterSuccess(code: Int, result: SearchLecture) {
         when(code){
             200->{
                 val datas = ArrayList<Lecture>()
@@ -357,7 +358,7 @@ class ClassFragment : Fragment(), LectureFavoriteView, LectureFilterView {
                 binding.classLecturelistRv.adapter = classLectureRVAdapter
 
                 datas.apply {
-                    for (i in result) {
+                    for (i in result.lectureList) {
                         datas.add(
                             Lecture(i.lectureIdx, i.lectureName, i.chapterNum, i.language, i.media, i.price, i.userScrap, i.scrapNumber, i.usedCount, i.likeNumber, i.userLike, i.lectureDesc, i.srcLink)
                         )

@@ -12,3 +12,8 @@ data class LectureReview(
 ) : Serializable
 
 
+//7.6.1 강의 리뷰 조회 api
+data class ShowLectureReview(
+    @SerializedName(value = "reviewList") val reviewList: List<LectureReview>,
+    @SerializedName(value = "reviewCount") val reviewCount: Int
+)

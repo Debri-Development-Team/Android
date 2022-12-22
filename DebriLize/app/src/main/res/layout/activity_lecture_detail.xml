@@ -437,6 +437,126 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 android:layout_marginBottom="40dp"/>
 
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/lecture_detail_review_page_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:weightSum="7"
+                android:layout_marginStart="50dp"
+                android:layout_marginEnd="50dp"
+                android:layout_marginTop="20dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/lecture_detail_review_rv">
+
+                <ImageView
+                    android:id="@+id/lecture_detail_review_page_previous_iv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="35dp"
+                    android:src="@drawable/ic_previous"
+                    android:layout_weight="1"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintEnd_toStartOf="@id/lecture_detail_review_pagenum1_tv"
+                    app:layout_constraintBottom_toBottomOf="parent"/>
+
+
+                <TextView
+                    android:id="@+id/lecture_detail_review_pagenum1_tv"
+                    android:layout_width="35dp"
+                    android:layout_height="35dp"
+                    android:text="1"
+                    android:textColor="@color/white"
+                    android:textSize="15dp"
+                    android:fontFamily="@font/noto_sans_kr_black"
+                    android:includeFontPadding="false"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:background="@drawable/circle_debri_debri_8"
+                    app:layout_constraintStart_toEndOf="@id/lecture_detail_review_page_previous_iv"
+                    app:layout_constraintEnd_toStartOf="@id/lecture_detail_review_pagenum2_tv"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"/>
+                <TextView
+                    android:id="@+id/lecture_detail_review_pagenum2_tv"
+                    android:layout_width="35dp"
+                    android:layout_height="35dp"
+                    android:text="2"
+                    android:textColor="@color/white"
+                    android:textSize="15dp"
+                    android:fontFamily="@font/noto_sans_kr_black"
+                    android:includeFontPadding="false"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:background="@drawable/circle_debri_debri_8"
+                    app:layout_constraintStart_toEndOf="@id/lecture_detail_review_pagenum1_tv"
+                    app:layout_constraintEnd_toStartOf="@id/lecture_detail_review_pagenum3_tv"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"/>
+                <TextView
+                    android:id="@+id/lecture_detail_review_pagenum3_tv"
+                    android:layout_width="35dp"
+                    android:layout_height="35dp"
+                    android:text="3"
+                    android:textColor="@color/white"
+                    android:textSize="15dp"
+                    android:fontFamily="@font/noto_sans_kr_black"
+                    android:includeFontPadding="false"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    app:layout_constraintStart_toEndOf="@id/lecture_detail_review_pagenum2_tv"
+                    app:layout_constraintEnd_toStartOf="@id/lecture_detail_review_pagenum4_tv"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"/>
+                <TextView
+                    android:id="@+id/lecture_detail_review_pagenum4_tv"
+                    android:layout_width="35dp"
+                    android:layout_height="35dp"
+                    android:text="4"
+                    android:textColor="@color/white"
+                    android:textSize="15dp"
+                    android:fontFamily="@font/noto_sans_kr_black"
+                    android:includeFontPadding="false"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintEnd_toStartOf="@id/lecture_detail_review_pagenum5_tv"
+                    app:layout_constraintStart_toEndOf="@id/lecture_detail_review_pagenum3_tv"
+                    app:layout_constraintBottom_toBottomOf="parent"/>
+                <TextView
+                    android:id="@+id/lecture_detail_review_pagenum5_tv"
+                    android:layout_width="35dp"
+                    android:layout_height="35dp"
+                    android:text="5"
+                    android:textColor="@color/white"
+                    android:textSize="15dp"
+                    android:fontFamily="@font/noto_sans_kr_black"
+                    android:includeFontPadding="false"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintEnd_toStartOf="@id/lecture_detail_review_page_next_iv"
+                    app:layout_constraintStart_toEndOf="@id/lecture_detail_review_pagenum4_tv"
+                    app:layout_constraintBottom_toBottomOf="parent"/>
+
+                <ImageView
+                    android:id="@+id/lecture_detail_review_page_next_iv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="35dp"
+                    android:layout_weight="1"
+                    android:src="@drawable/ic_next"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/lecture_detail_review_pagenum5_tv"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"/>
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="20dp"
+                app:layout_constraintStart_toStartOf="@id/lecture_detail_review_rv"
+                app:layout_constraintTop_toBottomOf="@id/lecture_detail_review_page_layout"/>
+
     </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.core.widget.NestedScrollView>
 

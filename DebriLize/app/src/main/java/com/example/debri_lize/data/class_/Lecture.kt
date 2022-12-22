@@ -20,6 +20,12 @@ data class Lecture(
     @SerializedName(value = "publisher") var publisher : String? = ""
 ) : Serializable
 
+//7.4.1 강의 검색 api
+data class SearchLecture(
+    @SerializedName(value = "lectureList") var lectureList : List<Lecture>,
+    @SerializedName(value = "lectureCount") var lectureCount : Int
+)
+
 //7.7 강의 좋아요
 data class LikeSuccess(
     @SerializedName(value = "likeSuccess") var likeSuccess : Boolean

@@ -155,7 +155,14 @@ class PostFragment : Fragment(), EachPostListView {
 
 
                 pageButton()
-//                pageButtonClick()
+                if(result.postCount == 0){
+                    binding.postPagenum1Tv.visibility = View.INVISIBLE
+                    binding.postPagenum2Tv.visibility = View.INVISIBLE
+                    binding.postPagenum3Tv.visibility = View.INVISIBLE
+                    binding.postPagenum4Tv.visibility = View.INVISIBLE
+                    binding.postPagenum5Tv.visibility = View.INVISIBLE
+                    binding.postPageNextIv.visibility = View.INVISIBLE
+                }
 
 
                 //data

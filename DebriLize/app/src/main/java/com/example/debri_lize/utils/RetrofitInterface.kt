@@ -4,10 +4,7 @@ import com.example.debri_lize.base.BaseResponse
 import com.example.debri_lize.data.auth.*
 import com.example.debri_lize.data.board.Board
 import com.example.debri_lize.data.board.BoardFavorite
-import com.example.debri_lize.data.class_.Lecture
-import com.example.debri_lize.data.class_.LectureReview
-import com.example.debri_lize.data.class_.LectureScrap
-import com.example.debri_lize.data.class_.LikeSuccess
+import com.example.debri_lize.data.class_.*
 import com.example.debri_lize.data.curriculum.*
 import com.example.debri_lize.data.post.*
 import com.example.debri_lize.data.post.Comment
@@ -152,7 +149,7 @@ interface RetrofitInterface {
 
     //7.4.1 강의 검색 api
     @GET("api/lecture/search")
-    fun showLectureSearch(@Query ("lang") lang:String?,@Query ("type") type:String?,@Query ("price") price:String?,@Query ("key") key:String?, @Header("ACCESS-TOKEN") authToken: String) : Call<BaseResponse<List<Lecture>>>
+    fun showLectureSearch(@Query ("lang") lang:String?,@Query ("type") type:String?,@Query ("price") price:String?,@Query ("key") key:String?, @Query ("pageNum") pageNum: Int?, @Header("ACCESS-TOKEN") authToken: String) : Call<BaseResponse<SearchLecture>>
 
     //7.5 로드맵 리스트 조회 api
     @GET("api/lecture/roadmap/list")
@@ -167,8 +164,8 @@ interface RetrofitInterface {
     fun createLectureReview(@Body lectureReview : LectureReview, @Header("ACCESS-TOKEN") authToken: String) :Call<BaseResponse<LectureReview>>
 
     //7.6.1 강의 리뷰 조회 api
-    @GET("api/lecture/review/get")
-    fun showLectureReview(@Query ("lectureIdx") lectureIdx:Int?, @Header("ACCESS-TOKEN") authToken: String) :Call<BaseResponse<List<LectureReview>>>
+    @GET("api/lecture/review/get/{pageNum}")
+    fun showLectureReview(@Path ("pageNum") pageNum: Int, @Query ("lectureIdx") lectureIdx:Int?, @Header("ACCESS-TOKEN") authToken: String) :Call<BaseResponse<ShowLectureReview>>
 
     //7.7 강의 좋아요 api
     @POST("api/lecture/like/create")
