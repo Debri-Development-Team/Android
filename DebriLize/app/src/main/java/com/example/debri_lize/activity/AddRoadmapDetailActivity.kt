@@ -11,14 +11,16 @@ import com.example.debri_lize.adapter.class_.ClassLectureRVAdapter
 import com.example.debri_lize.data.class_.Lecture
 import com.example.debri_lize.data.curriculum.CopyCurriculum
 import com.example.debri_lize.data.curriculum.RoadMap
+import com.example.debri_lize.data.curriculum.copyRoadMap
 import com.example.debri_lize.databinding.ActivityAddRoadmapDetailBinding
 import com.example.debri_lize.service.CurriculumService
 import com.example.debri_lize.service.RoadMapService
 import com.example.debri_lize.view.curriculum.CopyCurriculumView
+import com.example.debri_lize.view.curriculum.CopyRoadMapView
 import com.example.debri_lize.view.curriculum.ShowRoadMapDetailView
 import kotlin.properties.Delegates
 
-class AddRoadmapDetailActivity : AppCompatActivity(), ShowRoadMapDetailView, CopyCurriculumView {
+class AddRoadmapDetailActivity : AppCompatActivity(), ShowRoadMapDetailView, CopyCurriculumView, CopyRoadMapView {
     lateinit var binding : ActivityAddRoadmapDetailBinding
 
     lateinit var classLectureRVAdapter: ClassLectureRVAdapter
@@ -99,7 +101,10 @@ class AddRoadmapDetailActivity : AppCompatActivity(), ShowRoadMapDetailView, Cop
                     //click recyclerview item
                     classLectureRVAdapter.setItemClickListener(object : ClassLectureRVAdapter.OnItemClickListener {
                         override fun onClick(v: View, position: Int) {
-
+                            val intent = Intent(this@AddRoadmapDetailActivity, LectureDetailActivity::class.java)
+                            intent.putExtra("lectureIdx", lecture[position].lectureIdx)
+                            intent.putExtra("lectureName", lecture[position].lectureName)
+                            startActivity(intent)
 
                         }
                     })
@@ -107,10 +112,10 @@ class AddRoadmapDetailActivity : AppCompatActivity(), ShowRoadMapDetailView, Cop
 
                 binding.itemCurriculumDetailStartBtn.setOnClickListener {
 
-                    //커리큘럼에 추가하기
-                    var curriculumService = CurriculumService()
-                    curriculumService.setCopyCurriculumView(this)
-                    curriculumService.copyCurriculum(CopyCurriculum(result[0].roadmapIdx, result[0].authorName))
+                    //7.5.2 로드맵 to 커리큘럼 api
+                    var roadMapService = RoadMapService()
+                    roadMapService.setCopyRoadMapView(this)
+                    roadMapService.copyRoadmapToCurri(copyRoadMap(result[0].roadmapIdx, result[0].roadmapName,"Back" ,result[0].roadmapExplain))
 
                     finish()
                 }
@@ -132,6 +137,18 @@ class AddRoadmapDetailActivity : AppCompatActivity(), ShowRoadMapDetailView, Cop
     }
 
     override fun onCopyCurriculumFailure(code: Int) {
+
+    }
+
+    override fun onCopyRoadMapSuccess(code: Int) {
+        when(code){
+            200->{
+
+            }
+        }
+    }
+
+    override fun onCopyRoadMapFailure(code: Int) {
 
     }
 

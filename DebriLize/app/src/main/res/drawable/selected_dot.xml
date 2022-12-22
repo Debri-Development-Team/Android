@@ -9,7 +9,7 @@
         <corners android:radius="10dp"/>
         <size android:width ="50dp"
             android:height="4dp"/>
-        <solid android:color="@color/debri"/>
+        <solid android:color="@color/white"/>
 
     </shape>
 </item>
