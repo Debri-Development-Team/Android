@@ -3,15 +3,10 @@ package com.example.debri_lize.service
 import android.util.Log
 import com.example.debri_lize.utils.RetrofitInterface
 import com.example.debri_lize.base.BaseResponse
-import com.example.debri_lize.data.curriculum.Review
-import com.example.debri_lize.data.curriculum.RoadMap
-import com.example.debri_lize.data.curriculum.RoadMapList
+import com.example.debri_lize.data.curriculum.*
 import com.example.debri_lize.utils.getJwt
 import com.example.debri_lize.utils.getRetrofit
-import com.example.debri_lize.view.curriculum.CreateReviewView
-import com.example.debri_lize.view.curriculum.ShowReviewView
-import com.example.debri_lize.view.curriculum.ShowRoadMapDetailView
-import com.example.debri_lize.view.curriculum.ShowRoadMapListView
+import com.example.debri_lize.view.curriculum.*
 import com.example.debri_lize.view.post.ReportCommentView
 import retrofit2.Call
 import retrofit2.Callback
@@ -21,6 +16,7 @@ class RoadMapService {
     private lateinit var showRoadMapListView: ShowRoadMapListView
 
     private lateinit var showRoadMapDetailView: ShowRoadMapDetailView
+    private lateinit var copyRoadMapView : CopyRoadMapView
 
     fun setShowRoadMapListView(showRoadMapListView: ShowRoadMapListView){
         this.showRoadMapListView = showRoadMapListView
@@ -28,6 +24,10 @@ class RoadMapService {
 
     fun setShowRoadMapDetailView(showRoadMapDetailView: ShowRoadMapDetailView){
         this.showRoadMapDetailView = showRoadMapDetailView
+    }
+
+    fun setCopyRoadMapView(copyRoadMapView: CopyRoadMapView){
+        this.copyRoadMapView = copyRoadMapView
     }
 
     //7.5 로드맵 리스트 조회 api
@@ -75,6 +75,31 @@ class RoadMapService {
             //실패했을 때 처리
             override fun onFailure(call: Call<BaseResponse<List<RoadMap>>>, t: Throwable) {
                 Log.d("showReviewFail", t.toString())
+            }
+
+        })
+    }
+
+    //7.5.2 로드맵 to 커리큘럼 api
+    fun copyRoadmapToCurri(copyRoadMap: copyRoadMap){
+        Log.d("copyRoadMap", "enter")
+        //서비스 객체 생성
+        val reviewService = getRetrofit().create(RetrofitInterface::class.java)
+        reviewService.copyRoadmapToCurri(copyRoadMap, getJwt()!!).enqueue(object: Callback<BaseResponse<CurriIdx>> {
+            //응답이 왔을 때 처리
+            override fun onResponse(call: Call<BaseResponse<CurriIdx>>, response: Response<BaseResponse<CurriIdx>>) {
+                Log.d("copyRoadMap", "response")
+                val resp: BaseResponse<CurriIdx> = response.body()!!
+                Log.d("copyRoadMapCode", resp.code.toString())
+                when(val code = resp.code){
+                    //API code값 사용
+                    200->copyRoadMapView.onCopyRoadMapSuccess(code)
+                    else-> copyRoadMapView.onCopyRoadMapFailure(code)
+                }
+            }
+            //실패했을 때 처리
+            override fun onFailure(call: Call<BaseResponse<CurriIdx>>, t: Throwable) {
+                Log.d("copyRoadMapFail", t.toString())
             }
 
         })

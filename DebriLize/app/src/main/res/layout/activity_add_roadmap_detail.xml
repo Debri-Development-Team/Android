@@ -276,7 +276,7 @@
                     android:id="@+id/add_roadmap_detail_check_iv1"
                     android:layout_width="22dp"
                     android:layout_height="22dp"
-                    android:src="@drawable/ic_circle" />
+                    android:src="@drawable/ic_circle_white" />
 
             </LinearLayout>
 
@@ -311,7 +311,7 @@
                         android:text="2. Back-end 기초"
                         android:fontFamily="@font/noto_sans_kr_bold"
                         android:includeFontPadding="false"
-                        android:textColor="@color/white"
+                        android:textColor="#30ffffff"
                         android:textSize="14dp"
                         android:maxLines="1"
                         android:ellipsize="end"/>
@@ -323,7 +323,7 @@
                         android:text="Language [Python / JAVA]\nDBMS [MySQL / SQL]\n프레임워크 [Spring / Node / 장고 ] "
                         android:fontFamily="@font/noto_sans_kr_regular"
                         android:includeFontPadding="false"
-                        android:textColor="@color/white"
+                        android:textColor="#30ffffff"
                         android:textSize="10dp"
                         android:layout_marginStart="20dp"
                         android:layout_marginTop="5dp"/>
@@ -371,7 +371,7 @@
                         android:text="3. Back-end 심화"
                         android:fontFamily="@font/noto_sans_kr_bold"
                         android:includeFontPadding="false"
-                        android:textColor="@color/white"
+                        android:textColor="#30ffffff"
                         android:textSize="14dp"
                         android:maxLines="1"
                         android:ellipsize="end"/>
@@ -383,7 +383,7 @@
                         android:text="API [REST / JSON]\n클라우드 서버 [AWS]\n인증 [JWT]"
                         android:fontFamily="@font/noto_sans_kr_regular"
                         android:includeFontPadding="false"
-                        android:textColor="@color/white"
+                        android:textColor="#30ffffff"
                         android:textSize="10dp"
                         android:layout_marginStart="20dp"
                         android:layout_marginTop="5dp"/>
@@ -430,7 +430,7 @@
                         android:text="4. Tools"
                         android:fontFamily="@font/noto_sans_kr_bold"
                         android:includeFontPadding="false"
-                        android:textColor="@color/white"
+                        android:textColor="#30ffffff"
                         android:textSize="14dp"
                         android:maxLines="1"
                         android:ellipsize="end"/>
@@ -442,7 +442,7 @@
                         android:text="Version Control System [git]"
                         android:fontFamily="@font/noto_sans_kr_regular"
                         android:includeFontPadding="false"
-                        android:textColor="@color/white"
+                        android:textColor="#30ffffff"
                         android:textSize="10dp"
                         android:layout_marginStart="20dp"
                         android:layout_marginTop="5dp"/>

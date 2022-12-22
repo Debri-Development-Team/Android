@@ -17,7 +17,7 @@ data class RoadMapList(
 //7.5.1 로드맵 상세 조회 api
 data class RoadMap(
     @SerializedName(value = "roadmapIdx") val roadmapIdx: Int,
-    @SerializedName(value = "roadmapName") val roadmapName: String? = "",
+    @SerializedName(value = "roadmapName") val roadmapName: String = "",
     @SerializedName(value = "roadmapExplain") val roadmapExplain: String,
     @SerializedName(value = "authorName") val authorName: String? = "",
     @SerializedName(value = "requireDay") val requireDay: Int,
@@ -47,3 +47,11 @@ data class RoadMapLecture( //화면에 띄워지는 강의자료
     @SerializedName(value = "userLike") val userLike: Boolean,
     @SerializedName(value = "pcurriIdx") val pcurriIdx: Int
 ) : Serializable
+
+//7.5.2 로드맵 to 커리큘럼 api
+data class copyRoadMap(
+    @SerializedName(value = "roadmapIdx") val roadmapIdx: Int,
+    @SerializedName(value = "roadmapName") val roadmapName: String,
+    @SerializedName(value = "langTag") val langTag :String,
+    @SerializedName(value = "roadmapExplain") val roadmapExplain: String
+)

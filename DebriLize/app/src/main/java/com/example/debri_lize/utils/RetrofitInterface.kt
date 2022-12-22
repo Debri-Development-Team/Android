@@ -159,6 +159,10 @@ interface RetrofitInterface {
     @GET("api/lecture/roadmap/view")
     fun showRoadMapDetail(@Query ("mod") mod:String?, @Header("ACCESS-TOKEN") authToken: String) :Call<BaseResponse<List<RoadMap>>>
 
+    //7.5.2 로드맵 to 커리큘럼 api
+    @POST("api/lecture/roadmap/copy")
+    fun copyRoadmapToCurri(@Body copyRoadMap : copyRoadMap, @Header("ACCESS-TOKEN") authToken: String) : Call<BaseResponse<CurriIdx>>
+
     //7.6 강의 리뷰 작성 api
     @POST("api/lecture/review/create")
     fun createLectureReview(@Body lectureReview : LectureReview, @Header("ACCESS-TOKEN") authToken: String) :Call<BaseResponse<LectureReview>>

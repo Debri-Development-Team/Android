@@ -33,14 +33,10 @@ class AddCurriculumChooseActivity : AppCompatActivity(), CreateCurriculumView, S
         setContentView(binding.root)
 
         //backbtn
-        if(getIsFirst() == true){ //최초 로그인
-            binding.homeCurriculumPreviousIv.visibility = View.INVISIBLE
-        }else{
-            binding.homeCurriculumPreviousIv.visibility = View.VISIBLE
+
             binding.homeCurriculumPreviousIv.setOnClickListener{
                 finish()
             }
-        }
 
 
         binding.addCurriculumChooseNewIv.setOnClickListener{
@@ -104,9 +100,16 @@ class AddCurriculumChooseActivity : AppCompatActivity(), CreateCurriculumView, S
                     //click recyclerview item
                     roadmapRVAdapter.setItemClickListener(object : RoadMapListRVAdapter.OnItemClickListener {
                         override fun onClick(v: View, position: Int) {
-                            val intent = Intent(this@AddCurriculumChooseActivity, AddRoadmapDetailActivity::class.java)
-                            intent.putExtra("roadMapIdx", roadMap[position].roadmapIdx)
-                            startActivity(intent)
+
+                            if(roadMap[position].roadmapIdx==1){ //서버 로드맵
+                                val intent = Intent(this@AddCurriculumChooseActivity, AddRoadmapDetailActivity::class.java)
+                                intent.putExtra("roadMapIdx", roadMap[position].roadmapIdx)
+                                startActivity(intent)
+                            }else{ //안드로이드 로드맵
+                                //준비중입니다 팝업창 추가
+
+                            }
+
                         }
                     })
                 }
