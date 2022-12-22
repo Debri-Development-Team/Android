@@ -4,6 +4,7 @@ import android.util.Log
 import com.example.debri_lize.utils.RetrofitInterface
 import com.example.debri_lize.base.BaseResponse
 import com.example.debri_lize.data.curriculum.*
+import com.example.debri_lize.fragment.CurriculumFragment
 import com.example.debri_lize.utils.getJwt
 import com.example.debri_lize.utils.getRetrofit
 import com.example.debri_lize.view.curriculum.*
