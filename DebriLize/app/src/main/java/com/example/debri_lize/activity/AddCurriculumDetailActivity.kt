@@ -13,7 +13,6 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import com.example.debri_lize.R
-import com.example.debri_lize.activity.auth.ProfileActivity
 import com.example.debri_lize.adapter.class_.ClassLectureRVAdapter
 import com.example.debri_lize.adapter.start.ReviewRVAdapter
 import com.example.debri_lize.data.class_.Lecture
@@ -51,12 +50,6 @@ class AddCurriculumDetailActivity : AppCompatActivity(), CreateReviewView, ShowR
         setContentView(binding.root)
 
         Glide.with(this).load(R.raw.curriculum).into(binding.addCurriculumDetailStatusIv)
-
-        //click userImg
-        binding.addCurriculumDetailDebriUserIv.setOnClickListener{
-            val intent = Intent(this, ProfileActivity::class.java)
-            startActivity(intent)
-        }
 
         //backbtn
         binding.addCurriculumDetailNextIv.setOnClickListener{

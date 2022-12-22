@@ -1,6 +1,5 @@
 package com.example.debri_lize.fragment
 
-import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -10,8 +9,6 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.example.debri_lize.R
 import com.example.debri_lize.activity.AddCurriculumChooseActivity
-import com.example.debri_lize.activity.MainActivity
-import com.example.debri_lize.activity.auth.ProfileActivity
 import com.example.debri_lize.databinding.FragmentAddCurriculumBinding
 
 class AddCurriculumFragment : Fragment() {
@@ -29,16 +26,6 @@ class AddCurriculumFragment : Fragment() {
 
     override fun onStart() {
         super.onStart()
-
-        binding.homeCurriculumPreviousIv.setOnClickListener{
-            //이전 커리로 이동
-        }
-
-        //click profile
-        binding.addCurriculumDebriUserIv.setOnClickListener{
-            val intent = Intent(context, ProfileActivity::class.java)
-            startActivity(intent)
-        }
 
         binding.addCurriculumCircleLayout.setOnClickListener{
             val intent = Intent(context, AddCurriculumChooseActivity::class.java)

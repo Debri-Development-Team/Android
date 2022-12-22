@@ -19,7 +19,9 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater) //binding 초기화
         setContentView(binding.root)
 
+
         initBottomNavigation()
+
 
     }
 
@@ -56,6 +58,13 @@ class MainActivity : AppCompatActivity() {
                 R.id.curriculumFragment -> {
                     supportFragmentManager.beginTransaction()
                         .replace(R.id.main_frm, CurriculumFragment())
+                        .commitAllowingStateLoss()
+                    return@setOnItemSelectedListener true
+                }
+
+                R.id.profileFragment -> {
+                    supportFragmentManager.beginTransaction()
+                        .replace(R.id.main_frm, ProfileFragment())
                         .commitAllowingStateLoss()
                     return@setOnItemSelectedListener true
                 }

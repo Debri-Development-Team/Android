@@ -11,14 +11,11 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.debri_lize.R
 import com.example.debri_lize.activity.AddCurriculumDetailActivity
 import com.example.debri_lize.activity.MainActivity
-import com.example.debri_lize.activity.auth.ProfileActivity
 import com.example.debri_lize.adapter.home.CurriculumRVAdapter
 import com.example.debri_lize.data.curriculum.Curriculum
-import com.example.debri_lize.data.curriculum.CurriculumDetail
 import com.example.debri_lize.data.curriculum.Top10
 import com.example.debri_lize.databinding.FragmentCurriculumBinding
 import com.example.debri_lize.service.CurriculumService
-import com.example.debri_lize.view.curriculum.ShowCurriculumDetailView
 import com.example.debri_lize.view.curriculum.ShowGetNewCurriListView
 import com.example.debri_lize.view.curriculum.ShowTop10ListView
 
@@ -58,11 +55,6 @@ class CurriculumFragment : Fragment(), ShowTop10ListView, ShowGetNewCurriListVie
                 .replace(R.id.main_frm, ScrapCurriculumFragment()).commitAllowingStateLoss()
         }
 
-        //click userImg -> profile
-        binding.curriDebriUserIv.setOnClickListener{
-            val intent = Intent(context, ProfileActivity::class.java)
-            startActivity(intent)
-        }
 
     }
 

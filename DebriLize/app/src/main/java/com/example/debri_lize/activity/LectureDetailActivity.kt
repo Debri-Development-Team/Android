@@ -5,15 +5,12 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.KeyEvent
-import android.view.View
 import android.view.animation.Animation
 import android.view.animation.AnimationUtils
 import android.widget.Toast
 import androidx.annotation.UiThread
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.debri_lize.R
-import com.example.debri_lize.activity.auth.LoginActivity
-import com.example.debri_lize.activity.auth.ProfileActivity
 import com.example.debri_lize.adapter.class_.LectureReviewRVAdapter
 import com.example.debri_lize.data.class_.Lecture
 import com.example.debri_lize.data.class_.LectureReview
@@ -64,12 +61,6 @@ class LectureDetailActivity : AppCompatActivity(), ShowLectureDetailView, Create
         super.onStart()
 
         liveAnimation()
-
-        //click profile
-        binding.lectureDetailUserusedTv.setOnClickListener{
-            val intent = Intent(this, ProfileActivity::class.java)
-            startActivity(intent)
-        }
 
         //add curriculum
         binding.lectureDetailCurriAddBtn.setOnClickListener{

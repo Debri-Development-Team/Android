@@ -35,10 +35,10 @@ class LoginActivity:AppCompatActivity(), LoginView, TokenView {
         setContentView(binding.root)
 
         //set UI size
-        var screenWidth = getScreenWidth(this) / getDeviceDpi() // px to dp
-        Log.d("screenWidth", screenWidth.toString())
-        saveSize(screenWidth)
-        setSize()
+//        var screenWidth = getScreenWidth(this) / getDeviceDpi() // px to dp
+//        Log.d("screenWidth", screenWidth.toString())
+//        saveSize(screenWidth)
+//        setSize()
 
         setFocus() //focus effect
         setMouseEvent() //mouse event
@@ -56,58 +56,58 @@ class LoginActivity:AppCompatActivity(), LoginView, TokenView {
     }
 
     //get screenWidth (pixel)
-    private fun getScreenWidth(activity: Activity): Int {
-        return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
-            val windowMetrics = activity.windowManager.currentWindowMetrics
-            val insets: Insets = windowMetrics.windowInsets
-                .getInsetsIgnoringVisibility(WindowInsets.Type.systemBars())
-            windowMetrics.bounds.width() - insets.left - insets.right
-        } else {
-            val displayMetrics = DisplayMetrics()
-            activity.windowManager.defaultDisplay.getMetrics(displayMetrics)
-            displayMetrics.widthPixels
-        }
-    }
+//    private fun getScreenWidth(activity: Activity): Int {
+//        return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+//            val windowMetrics = activity.windowManager.currentWindowMetrics
+//            val insets: Insets = windowMetrics.windowInsets
+//                .getInsetsIgnoringVisibility(WindowInsets.Type.systemBars())
+//            windowMetrics.bounds.width() - insets.left - insets.right
+//        } else {
+//            val displayMetrics = DisplayMetrics()
+//            activity.windowManager.defaultDisplay.getMetrics(displayMetrics)
+//            displayMetrics.widthPixels
+//        }
+//    }
 
     //get screen density (DPI)
-    private fun getDeviceDpi(): Int {
-
-        val density = resources.displayMetrics.density.toInt()
-        val result = when {
-            density >= 4.0 -> "xxxhdpi"
-            density >= 3.0 -> "xxhdpi"
-            density >= 2.0 -> "xhdpi"
-            density >= 1.5 -> "hdpi"
-            density >= 1.0 -> "mdpi"
-            else -> "ldpi"
-        }
-        Log.d("density", density.toString())
-        saveUISize("dpi", density)
-
-        return density
-    }
+//    private fun getDeviceDpi(): Int {
+//
+//        val density = resources.displayMetrics.density.toInt()
+//        val result = when {
+//            density >= 4.0 -> "xxxhdpi"
+//            density >= 3.0 -> "xxhdpi"
+//            density >= 2.0 -> "xhdpi"
+//            density >= 1.5 -> "hdpi"
+//            density >= 1.0 -> "mdpi"
+//            else -> "ldpi"
+//        }
+//        Log.d("density", density.toString())
+//        saveUISize("dpi", density)
+//
+//        return density
+//    }
 
     //save UI Size (dp)
-    private fun saveSize(screenWidth : Int){
-
-        //dp to px : px = dp * density
-        //px to dp : dp = px / density
-        //signUp, login button
-        saveUISize("authButton", ((screenWidth-60)/2 - 15) * getDeviceDpi()) //dimens.xml에서 margin, padding값 가져올 것
-    }
+//    private fun saveSize(screenWidth : Int){
+//
+//        //dp to px : px = dp * density
+//        //px to dp : dp = px / density
+//        //signUp, login button
+//        saveUISize("authButton", ((screenWidth-60)/2 - 15) * getDeviceDpi()) //dimens.xml에서 margin, padding값 가져올 것
+//    }
 
     //set UI Size (px)
-    private fun setSize(){
-        //signUp button
-        binding.loginSignUpBtn.layoutParams = binding.loginSignUpBtn.layoutParams.apply {
-            this.width = getUISize("authButton")
-        }
-
-        //login button
-        binding.loginBtn.layoutParams = binding.loginBtn.layoutParams.apply {
-            this.width = getUISize("authButton")
-        }
-    }
+//    private fun setSize(){
+//        //signUp button
+//        binding.loginSignUpBtn.layoutParams = binding.loginSignUpBtn.layoutParams.apply {
+//            this.width = getUISize("authButton")
+//        }
+//
+//        //login button
+//        binding.loginBtn.layoutParams = binding.loginBtn.layoutParams.apply {
+//            this.width = getUISize("authButton")
+//        }
+//    }
 
     //set UI Size
 

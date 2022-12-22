@@ -2,8 +2,8 @@
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
     <item android:state_checked="true" >
         <shape android:shape="rectangle">
-            <solid android:color="@color/debri" />
-            <stroke android:width="3dp" android:color="@color/transparent" />
+            <solid android:color="@color/darkmode_category" />
+            <stroke android:width="3dp" android:color="@color/debri" />
             <corners android:radius="9dp"/>
         </shape>
     </item>

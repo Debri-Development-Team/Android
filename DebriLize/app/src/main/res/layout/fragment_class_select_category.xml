@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:background="@color/transparent">
+    android:background="@color/darkmode_background">
 
 <LinearLayout
     android:layout_width="match_parent"
@@ -151,17 +151,19 @@
         android:layout_marginEnd="15dp">
 
         <RadioGroup
+            android:id="@+id/class_category_type_rg"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:weightSum="2">
 
             <RadioButton
+                android:id="@+id/class_category_book_rb"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="서적"
-                android:textColor="@color/white"
+                android:textColor="@drawable/selector_category_radio_book"
                 android:textSize="17dp"
                 android:fontFamily="@font/noto_sans_kr_medium"
                 android:includeFontPadding="false"
@@ -173,11 +175,12 @@
                 android:drawableTop="@drawable/selector_category_radio_book"
                 android:background="@drawable/selector_category_radio_background"/>
             <RadioButton
+                android:id="@+id/class_category_video_rb"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="영상"
-                android:textColor="@color/white"
+                android:textColor="@drawable/selector_category_radio_book"
                 android:textSize="17dp"
                 android:fontFamily="@font/noto_sans_kr_medium"
                 android:includeFontPadding="false"
@@ -211,17 +214,19 @@
         android:layout_marginEnd="15dp">
 
         <RadioGroup
+            android:id="@+id/class_category_price_rg"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:weightSum="2">
 
             <RadioButton
+                android:id="@+id/class_category_nofree_rb"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="유료"
-                android:textColor="@color/white"
+                android:textColor="@drawable/selector_category_radio_book"
                 android:textSize="17dp"
                 android:fontFamily="@font/noto_sans_kr_medium"
                 android:includeFontPadding="false"
@@ -232,11 +237,12 @@
                 android:paddingBottom="10dp"
                 android:background="@drawable/selector_category_radio_background"/>
             <RadioButton
+                android:id="@+id/class_category_free_rb"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="무료"
-                android:textColor="@color/white"
+                android:textColor="@drawable/selector_category_radio_book"
                 android:textSize="17dp"
                 android:fontFamily="@font/noto_sans_kr_medium"
                 android:includeFontPadding="false"
@@ -252,7 +258,7 @@
     </LinearLayout>
 
     <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/post_write_btn"
+        android:id="@+id/class_category_btn"
         android:layout_width="150dp"
         android:layout_height="45dp"
         android:background="@drawable/border_round_transparent_debri_10"

@@ -1,0 +1,211 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/darkmode_background">
+
+    <ImageView
+        android:id="@+id/sign_up_email_back_iv"
+        android:layout_width="7.5dp"
+        android:layout_height="19dp"
+        android:layout_marginTop="40dp"
+        android:layout_marginStart="29dp"
+        android:src="@drawable/back_white"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"/>
+
+    <TextView
+        android:id="@+id/sign_up_email_tv1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="회원가입"
+        android:textColor="@color/white"
+        android:fontFamily="@font/noto_sans_kr_bold"
+        android:textSize="18sp"
+        android:includeFontPadding="false"
+        app:layout_constraintTop_toTopOf="@+id/sign_up_email_back_iv"
+        app:layout_constraintBottom_toBottomOf="@+id/sign_up_email_back_iv"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+    <TextView
+        android:id="@+id/sign_up_email_tv2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="이메일 인증"
+        android:textColor="@color/white"
+        android:fontFamily="@font/noto_sans_kr_regular"
+        android:textSize="14sp"
+        android:includeFontPadding="false"
+        android:layout_marginTop="2dp"
+        app:layout_constraintTop_toBottomOf="@+id/sign_up_email_tv1"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+    <TextView
+        android:id="@+id/sign_up_email_id_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="이메일 (ID)"
+        android:fontFamily="@font/noto_sans_kr_bold"
+        android:includeFontPadding="false"
+        android:textColor="@color/white"
+        android:textSize="12sp"
+        android:layout_marginTop="49dp"
+        android:layout_marginStart="40dp"
+        android:paddingStart="10dp"
+        android:background="@drawable/border_line_left"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/sign_up_email_tv2"/>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:id="@+id/sign_up_email_id_layout"
+        android:layout_marginTop="10dp"
+        android:layout_marginStart="30dp"
+        android:layout_marginEnd="30dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/sign_up_email_id_tv"
+        android:gravity="center_vertical"
+        android:background="@drawable/border_round_white_transparent_10">
+
+        <EditText
+            android:id="@+id/sign_up_id_et"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@null"
+            android:inputType="text"
+            android:textColorHint="@color/white"
+            android:textColor="@color/white"
+            android:textSize="14sp"
+            android:fontFamily="@font/noto_sans_kr_regular"
+            android:layout_marginHorizontal="16dp"
+            android:includeFontPadding="false"/>
+    </LinearLayout>
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/sign_up_email_send_code_btn"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:background="@drawable/border_round_transparent_debri_6"
+        android:text="인증코드 보내기"
+        android:textColor="@color/darkmode_background"
+        android:fontFamily="@font/noto_sans_kr_bold"
+        android:textSize="14sp"
+        android:includeFontPadding="false"
+        android:layout_marginTop="14dp"
+        android:layout_marginHorizontal="30dp"
+        app:layout_constraintTop_toBottomOf="@+id/sign_up_email_id_layout"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/sign_up_email_resend_code_btn"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:background="@drawable/border_round_white_transparent_10"
+        android:text="코드 다시 받기"
+        android:textColor="@color/white"
+        android:fontFamily="@font/noto_sans_kr_bold"
+        android:textSize="14sp"
+        android:includeFontPadding="false"
+        android:layout_marginTop="10dp"
+        android:layout_marginHorizontal="30dp"
+        app:layout_constraintTop_toBottomOf="@+id/sign_up_email_send_code_btn"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+    <TextView
+        android:id="@+id/sign_up_email_code_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="40dp"
+        android:text="인증코드"
+        android:fontFamily="@font/noto_sans_kr_bold"
+        android:includeFontPadding="false"
+        android:textColor="@color/white"
+        android:textSize="12sp"
+        android:layout_marginTop="50dp"
+        android:paddingStart="10dp"
+        android:background="@drawable/border_line_left"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/sign_up_email_resend_code_btn"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:id="@+id/sign_up_email_code_layout"
+        android:layout_marginTop="10dp"
+        android:layout_marginStart="30dp"
+        android:layout_marginEnd="30dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/sign_up_email_code_tv"
+        android:gravity="center_vertical"
+        android:background="@drawable/border_round_white_transparent_10">
+
+
+        <EditText
+            android:id="@+id/sign_up_email_code_et"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@null"
+            android:textColorHint="@color/white"
+            android:textColor="@color/white"
+            android:inputType="textPassword"
+            android:textSize="14dp"
+            android:fontFamily="@font/noto_sans_kr_regular"
+            android:includeFontPadding="false"
+            android:layout_marginHorizontal="16dp"/>
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/sign_up_email_code_time_tv1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="46dp"
+        android:text="만료까지 남은 시간"
+        android:fontFamily="@font/noto_sans_kr_regular"
+        android:includeFontPadding="false"
+        android:textColor="@color/white"
+        android:textSize="12sp"
+        android:layout_marginTop="9dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/sign_up_email_code_layout"/>
+
+    <TextView
+        android:id="@+id/sign_up_email_code_time_tv2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="6dp"
+        android:text="00:00"
+        android:fontFamily="@font/noto_sans_kr_bold"
+        android:includeFontPadding="false"
+        android:textColor="@color/white"
+        android:textSize="14sp"
+        app:layout_constraintStart_toEndOf="@+id/sign_up_email_code_time_tv1"
+        app:layout_constraintTop_toTopOf="@+id/sign_up_email_code_time_tv1"
+        app:layout_constraintBottom_toBottomOf="@+id/sign_up_email_code_time_tv1"/>
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/login_btn1"
+        android:layout_width="120dp"
+        android:layout_height="40dp"
+        android:background="@drawable/border_round_transparent_debri_6"
+        android:text="인증하기"
+        android:textColor="@color/darkmode_background"
+        android:fontFamily="@font/noto_sans_kr_bold"
+        android:textSize="14sp"
+        android:includeFontPadding="false"
+        android:layout_marginTop="41dp"
+        android:layout_marginHorizontal="30dp"
+        app:layout_constraintTop_toBottomOf="@+id/sign_up_email_code_time_tv2"
+        android:layout_marginEnd="30dp"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -3,7 +3,6 @@ package com.example.debri_lize.fragment
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
@@ -17,18 +16,14 @@ import com.example.debri_lize.CustomDialog
 import com.example.debri_lize.R
 import com.example.debri_lize.activity.LectureDetailActivity
 import com.example.debri_lize.activity.MainActivity
-import com.example.debri_lize.activity.auth.ProfileActivity
-import com.example.debri_lize.adapter.home.ChapterRVAdapter
 import com.example.debri_lize.adapter.home.LectureRVAdapter
 import com.example.debri_lize.data.curriculum.*
 import com.example.debri_lize.databinding.FragmentHomeInactiveBinding
 import com.example.debri_lize.service.CurriculumService
-import com.example.debri_lize.utils.saveCurriIdx
 import com.example.debri_lize.view.curriculum.*
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import java.sql.Timestamp
 import java.text.SimpleDateFormat
-import kotlin.properties.Delegates
 
 class HomeInactiveFragment(
     private var curriculumIdx: Int,
@@ -58,12 +53,6 @@ class HomeInactiveFragment(
 
     override fun onStart() {
         super.onStart()
-
-        //click userImg -> profile
-        binding.homeDebriUserIv.setOnClickListener{
-            val intent = Intent(context, ProfileActivity::class.java)
-            startActivity(intent)
-        }
 
         //click add lecture -> ClassFragment
         binding.homeCurriculumAddLectureLayout.setOnClickListener{
@@ -200,7 +189,7 @@ class HomeInactiveFragment(
             bottomSheetDialog.dismiss()
         }
 
-        binding.homeCurriculumSettingLayout.setOnClickListener {
+        binding.homeCurriculumSettingIv.setOnClickListener {
             bottomSheetDialog.show()
         }
 
@@ -216,7 +205,7 @@ class HomeInactiveFragment(
         val sdf = SimpleDateFormat("yyyy년 MM월 dd일")
         val date = sdf.format(timestamp)
 
-        return date+"에 완성함"
+        return date+"\n완성함"
     }
 
     //8.3 커리큘럼 상세 조회 api : 홈
@@ -224,26 +213,9 @@ class HomeInactiveFragment(
         when(code){
             200->{
                 //8.4.3 커리큘럼 활성 상태 수정 api
-                curriculumService.setEditCurriculumStatusView(this)
-                curriculumService.editCurriculumStatus(EditCurriculumStatus(curriculumIdx, "ACTIVE"))
-
-                //move
-                if(index==0){
-                    //1번째 커리큘럼
-                    binding.homeCurriculumPreviousIv.visibility = View.INVISIBLE
-                    binding.homeCurriculumNextIv.setOnClickListener{
-                        //다음 커리로 이동
-
-                    }
-                }else{
-
-                    binding.homeCurriculumPreviousIv.visibility = View.VISIBLE
-                    binding.homeCurriculumPreviousIv.setOnClickListener{
-                        //이전 커리로 이동
-                    }
-                    binding.homeCurriculumNextIv.setOnClickListener {
-                        //다음 커리로 이동
-                    }
+                binding.homeCurriculumActiveLayout.setOnClickListener{
+                    curriculumService.setEditCurriculumStatusView(this)
+                    curriculumService.editCurriculumStatus(EditCurriculumStatus(curriculumIdx, "ACTIVE"))
                 }
 
                 //홈 화면
@@ -261,7 +233,15 @@ class HomeInactiveFragment(
                 }
 
                 //dday
-                binding.homeCurriculumDdayTv.text = "D-"+result.dday.toString()
+                if(result.dday<0){ //dday 지남
+                    binding.homeCurriculumDdayInfoTv.text = "D+"
+                    binding.homeCurriculumDdayTv.text = (-result.dday).toString()
+                }else if(result.dday == 0){ //dday 당일
+                    //색상 빨간색으로 변경
+
+                }else{ //dday
+                    binding.homeCurriculumDdayTv.text = result.dday.toString()
+                }
 
                 //progress rate
                 binding.homeCurriculumProgressTv2.text = result.progressRate.toInt().toString()

@@ -14,7 +14,6 @@ import com.example.debri_lize.R
 import com.example.debri_lize.activity.MainActivity
 import com.example.debri_lize.activity.PostCreateActivity
 import com.example.debri_lize.activity.PostDetailActivity
-import com.example.debri_lize.activity.auth.ProfileActivity
 import com.example.debri_lize.data.post.PostList
 import com.example.debri_lize.service.PostService
 import com.example.debri_lize.databinding.FragmentScrapPostBinding
@@ -42,12 +41,6 @@ class ScrapPostFragment : Fragment(), ShowScrapPostListView {
 
     override fun onStart() {
         super.onStart()
-
-        //click profile
-        binding.postScrapDebriUserIv.setOnClickListener{
-            val intent = Intent(context, ProfileActivity::class.java)
-            startActivity(intent)
-        }
 
         //fragment to fragment
         binding.postScrapPreviousIv.setOnClickListener{
