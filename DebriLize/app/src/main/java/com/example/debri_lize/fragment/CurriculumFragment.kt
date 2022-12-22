@@ -8,18 +8,19 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.debri_lize.R
 import com.example.debri_lize.activity.AddCurriculumDetailActivity
-import com.example.debri_lize.activity.MainActivity
 import com.example.debri_lize.adapter.home.CurriculumRVAdapter
 import com.example.debri_lize.data.curriculum.Curriculum
 import com.example.debri_lize.data.curriculum.Top10
 import com.example.debri_lize.databinding.FragmentCurriculumBinding
 import com.example.debri_lize.service.CurriculumService
 import com.example.debri_lize.view.curriculum.ShowGetNewCurriListView
+import com.example.debri_lize.view.curriculum.ShowScrapCurriListView
 import com.example.debri_lize.view.curriculum.ShowTop10ListView
+import com.google.android.material.tabs.TabLayout
 
-class CurriculumFragment : Fragment(), ShowTop10ListView, ShowGetNewCurriListView {
+class CurriculumFragment : Fragment(), ShowTop10ListView, ShowGetNewCurriListView,
+    ShowScrapCurriListView {
 
     lateinit var binding: FragmentCurriculumBinding
     lateinit var curriculumRVAdapter: CurriculumRVAdapter
@@ -49,6 +50,32 @@ class CurriculumFragment : Fragment(), ShowTop10ListView, ShowGetNewCurriListVie
         curriculumService.setShowGetNewCurriListView(this)
         curriculumService.showGetNewCurriList()
 
+        curriculumService.setShowScrapCurriListView(this)
+
+
+        //탭 클릭
+        binding.curriculumTablayout.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener{
+            override fun onTabSelected(tab: TabLayout.Tab?) {
+                when(tab!!.position) {
+                    0 -> {
+                        binding.curriculumTotalRv.visibility = View.VISIBLE
+                        binding.curriculumFavoriteRv.visibility = View.GONE
+                        curriculumService.showGetNewCurriList()
+                    }
+                    1 -> {
+                        binding.curriculumTotalRv.visibility = View.GONE
+                        binding.curriculumFavoriteRv.visibility = View.VISIBLE
+                        curriculumService.showScrapCurriList()
+                    }
+                }
+
+            }
+            override fun onTabUnselected(tab: TabLayout.Tab?) {
+            }
+            override fun onTabReselected(tab: TabLayout.Tab?) {
+            }
+        }
+        )
     }
 
 
@@ -97,9 +124,9 @@ class CurriculumFragment : Fragment(), ShowTop10ListView, ShowGetNewCurriListVie
     override fun onShowGetNewCurriListSuccess(code: Int, result: List<Top10>) {
         when(code){
             200->{
-                binding.curriculumRecentRegisterRv.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
+                binding.curriculumTotalRv.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
                 curriculumRVAdapter = CurriculumRVAdapter("CurriculumFragment")
-                binding.curriculumRecentRegisterRv.adapter = curriculumRVAdapter
+                binding.curriculumTotalRv.adapter = curriculumRVAdapter
 
 
                 newdatas.clear()
@@ -133,6 +160,45 @@ class CurriculumFragment : Fragment(), ShowTop10ListView, ShowGetNewCurriListVie
 
     override fun onShowGetNewCurriListFailure(code: Int) {
         Log.d("showgetnewcurrilistfail","$code")
+    }
+
+    override fun onShowScrapCurriListSuccess(code: Int, result: List<Curriculum>) {
+        when(code){
+            200->{
+                binding.curriculumFavoriteRv.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
+                curriculumRVAdapter = CurriculumRVAdapter("CurriculumFragment")
+                binding.curriculumFavoriteRv.adapter = curriculumRVAdapter
+
+                newdatas.clear()
+
+                newdatas.apply {
+//                    var count = 0
+
+                    for (i in result){
+                        newdatas.add(Curriculum(i.curriculumIdx, i.curriculumName, i.curriculumAuthor, i.status, i.curriDesc))
+//                        count++
+//                        if(count==5) break
+                    }
+
+                    curriculumRVAdapter.datas = newdatas
+                    curriculumRVAdapter.notifyDataSetChanged()
+
+                    //click recyclerview item
+                    curriculumRVAdapter.setItemClickListener(object : CurriculumRVAdapter.OnItemClickListener{
+                        override fun onClick(v: View, position: Int) {
+                            val intent = Intent(context, AddCurriculumDetailActivity::class.java)
+                            intent.putExtra("curriculumIdx", newdatas[position].curriculumIdx)
+                            startActivity(intent)
+
+                        }
+                    })
+                }
+            }
+        }
+    }
+
+    override fun onShowScrapCurriListFailure(code: Int) {
+        Log.d("showscrapcurrilistfailure","$code")
     }
 
 
