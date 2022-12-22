@@ -20,6 +20,7 @@ import com.example.debri_lize.utils.*
 import com.example.debri_lize.utils.ApplicationClass.Companion.TAG
 import com.example.debri_lize.view.auth.EmailView
 import io.reactivex.Completable.timer
+import io.reactivex.Single
 import java.sql.Timestamp
 import java.text.SimpleDateFormat
 import java.util.*
@@ -50,25 +51,8 @@ class SignUpEmailActivity : AppCompatActivity(), EmailView {
 
         }
 
-        //인증 코드 재전송
-        binding.signUpEmailResendCodeBtn.setOnClickListener {
-            //인증 코드 받기
-            var emailAddress : String = binding.signUpEmailIdEt.text.toString()
-
-            //1.5 이메일 인증 API
-            val authService = AuthService()
-            authService.setEmailView(this)
-            authService.getCode(emailAddress)
-
-            //인증 코드 이메일 전송
-            sendEmail(emailAddress)
-
-            SignUpActivity.Singleton.sendEmailTF = true
-        }
-
         //인증하기
         binding.signUpEmailCodeCheckBtn.setOnClickListener {
-            binding.signUpEmailResendCodeBtn.isEnabled = false //코드 재전송 버튼 비활성화
             var inputCode : String = binding.signUpEmailCodeEt.text.toString()
             if(emailCode == inputCode.toInt()){
                 //인증 성공
@@ -85,14 +69,19 @@ class SignUpEmailActivity : AppCompatActivity(), EmailView {
         //back
         binding.signUpEmailBackIv.setOnClickListener{
             finish()
+            saveSendEmailTF(false)
         }
 
-        //수정필요
-        if(SignUpActivity.Singleton.sendEmailTF){
-            binding.signUpEmailSendCodeBtn.visibility = View.GONE
-            binding.signUpEmailResendCodeBtn.visibility = View.VISIBLE
-        }
 
+
+    }
+
+    override fun onStart() {
+        super.onStart()
+        Log.d("sendEmail", getSendEmailTF().toString())
+        if(getSendEmailTF()==true){
+            binding.signUpEmailSendCodeBtn.isEnabled = false //이메일 전송 버튼 비활성화
+        }
     }
 
     //인증 코드 받기
@@ -141,6 +130,8 @@ class SignUpEmailActivity : AppCompatActivity(), EmailView {
 
     //timer
     private fun startTimer(){
+        saveSendEmailTF(sendEmailTF = true)
+
         var mSecond: Long = timeout.toLong()
 
         val sdf = SimpleDateFormat("mm:ss")
@@ -160,7 +151,9 @@ class SignUpEmailActivity : AppCompatActivity(), EmailView {
                         binding.signUpEmailCodeTimeTv2.text = "00:00"
 
                         emailCode = 0 //인증코드 비활성화
-                        binding.signUpEmailResendCodeBtn.isClickable = true //코드 재전송 버튼 활성화
+
+                        saveSendEmailTF(false)
+                        binding.signUpEmailSendCodeBtn.isEnabled = true //이메일 전송 버튼 활성화
                     }
 
                     val time = sdf.format(mSecond)

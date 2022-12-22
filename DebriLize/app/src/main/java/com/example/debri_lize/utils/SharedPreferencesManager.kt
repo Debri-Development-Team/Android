@@ -92,3 +92,13 @@ fun savePostIdx(postIdx: Int) {
 }
 
 fun getPostIdx(): Int? = mSharedPreferences.getInt("postIdx",0)
+
+//sendEmail
+fun saveSendEmailTF(sendEmailTF: Boolean) {
+    val editor = mSharedPreferences.edit()
+    editor.putBoolean("sendEmailTF", sendEmailTF)
+
+    editor.apply()
+}
+
+fun getSendEmailTF(): Boolean? = mSharedPreferences.getBoolean("sendEmailTF", true)
