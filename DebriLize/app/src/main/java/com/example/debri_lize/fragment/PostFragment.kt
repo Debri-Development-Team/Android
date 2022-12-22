@@ -243,8 +243,16 @@ class PostFragment : Fragment(), EachPostListView {
             pageButton()
             postService.showEachPostList(boardIdx, pageNum)
         }
-//        Log.d("pageclick",pageNum.toString())
-
+        binding.postPreviousIv.setOnClickListener {
+            pageNum = (page-2)*5+1
+            pageButton()
+            postService.showEachPostList(boardIdx, pageNum)
+        }
+        binding.postPageNextIv.setOnClickListener {
+            pageNum = page*5+1
+            pageButton()
+            postService.showEachPostList(boardIdx, pageNum)
+        }
 
 
     }
