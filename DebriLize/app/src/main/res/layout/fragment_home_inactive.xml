@@ -68,7 +68,7 @@
                             android:fontFamily="@font/noto_sans_kr_regular"
                             android:includeFontPadding="false"
                             android:textColor="@color/white"
-                            android:textSize="10sp"
+                            android:textSize="10dp"
                             android:layout_gravity="center"
                             android:layout_marginStart="7dp"/>
 
@@ -117,7 +117,7 @@
                         android:layout_height="wrap_content"
                         android:text="D-"
                         android:textColor="@color/white"
-                        android:textSize="28sp"
+                        android:textSize="28dp"
                         android:fontFamily="@font/noto_sans_kr_bold"
                         android:includeFontPadding="false"
                         />
@@ -128,7 +128,7 @@
                         android:layout_height="wrap_content"
                         android:text="223"
                         android:textColor="@color/debri"
-                        android:textSize="28sp"
+                        android:textSize="28dp"
                         android:fontFamily="@font/noto_sans_kr_bold"
                         android:includeFontPadding="false"/>
                 </LinearLayout>
@@ -288,6 +288,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/home_curriculum_inactive_layout" />
 
+
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/home_curriculum_lecture_rv"
                 android:layout_width="match_parent"
@@ -302,8 +303,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/home_lecture_tv"
-                android:background="@drawable/border_line_bottom"/>
+                app:layout_constraintTop_toBottomOf="@+id/home_lecture_tv"/>
 
             <LinearLayout
                 android:layout_width="match_parent"
