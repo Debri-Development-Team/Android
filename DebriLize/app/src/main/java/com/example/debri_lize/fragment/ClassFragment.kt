@@ -1,6 +1,7 @@
 package com.example.debri_lize.fragment
 
 import android.content.Intent
+import android.graphics.Color
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -124,25 +125,25 @@ class ClassFragment : Fragment(), LectureFavoriteView, LectureFilterView {
             "Back"->{
                 binding.classCurriTagBtn.setText("Back")
                 binding.classCurriTagBtn.setBackgroundResource(R.drawable.border_round_transparent_back_18)
-//                binding.classCurriTagBtn.setTextColor(R.color.darkmode_background)
+                binding.classCurriTagBtn.setTextColor(Color.parseColor("#0A1123"))
 
             }
             "Python"->{
                 binding.classCurriTagBtn.setText("Python")
                 binding.classCurriTagBtn.setBackgroundResource(R.drawable.border_round_transparent_python_18)
-//                binding.classCurriTagBtn.setTextColor(R.color.darkmode_background)
+                binding.classCurriTagBtn.setTextColor(Color.parseColor("#0A1123"))
 
             }
             "C 언어"->{
                 binding.classCurriTagBtn.setText("C 언어")
                 binding.classCurriTagBtn.setBackgroundResource(R.drawable.border_round_transparent_c_18)
-//                binding.classCurriTagBtn.setTextColor(R.color.darkmode_background)
+                binding.classCurriTagBtn.setTextColor(Color.parseColor("#0A1123"))
 
             }
             ""->{
                 binding.classCurriTagBtn.setText("전체")
                 binding.classCurriTagBtn.setBackgroundResource(R.drawable.border_round_gray_transparent_18)
-//                binding.classCurriTagBtn.setTextColor(R.color.white)
+                binding.classCurriTagBtn.setTextColor(Color.parseColor("#FFFFFFFF"))
 
             }
 
