@@ -1,6 +1,7 @@
 package com.example.debri_lize.activity
 
 import android.content.Intent
+import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -43,6 +44,8 @@ class LectureDetailActivity : AppCompatActivity(), ShowLectureDetailView, Create
     private lateinit var lectureName : String
 
     val classService = ClassService()
+
+    var lectureInfo : String? = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -105,6 +108,12 @@ class LectureDetailActivity : AppCompatActivity(), ShowLectureDetailView, Create
 
         classService.setCreateLectureLikeView(this)
         classService.setDeleteLectureLikeView(this)
+
+        //강의 정보 확인하기 버튼 : url 연결
+        binding.lectureDetailLectureinfoCheckBtn.setOnClickListener{
+            val intentURL = Intent(Intent.ACTION_VIEW, Uri.parse(lectureInfo))
+            startActivity(intentURL)
+        }
     }
 
 
@@ -146,7 +155,7 @@ class LectureDetailActivity : AppCompatActivity(), ShowLectureDetailView, Create
                 binding.lectureDetailPublisherTv.text = result.publisher
                 binding.lectureDetailLikenumTv.text = result.likeNumber.toString()
 
-
+                lectureInfo = result.srcLink
 
                     when(language.text){
                         "Front" -> language.setBackgroundResource(R.drawable.border_round_transparent_front_10)
