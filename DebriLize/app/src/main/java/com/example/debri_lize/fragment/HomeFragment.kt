@@ -3,10 +3,14 @@ package com.example.debri_lize.fragment
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
+import android.widget.Toast
 import androidx.fragment.app.Fragment
+import com.example.debri_lize.R
 import com.example.debri_lize.adapter.home.HomeVPAdapter
 import com.example.debri_lize.data.curriculum.Curriculum
 import com.example.debri_lize.databinding.FragmentHomeBinding
@@ -57,7 +61,17 @@ class HomeFragment : Fragment(), MyCurriculumListView {
                 if(j<=20){ //20 : 커리큘럼 최대 개수
                     fragmentList.add(AddCurriculumFragment())
                 }else{
-                    fragmentList.add(AddXCurriculumFragment())
+//                    fragmentList.add(AddXCurriculumFragment())
+                    //커리 최대 개수 토스트 메세지 (테스트 안해봄)
+                    var addxCurriToast = layoutInflater.inflate(R.layout.toast_prepare,null)
+                    addxCurriToast.findViewById<TextView>(R.id.toast_prepare_roadmap_tv).text = "더 이상 커리큘럼을 생성할 수 없어요!"
+                    addxCurriToast.findViewById<TextView>(R.id.toast_prepare_tv).text = ""
+                    addxCurriToast.findViewById<TextView>(R.id.toast_update_tv).text = "기존의 커리큘럼을 삭제해주세요"
+                    var toast = Toast(context)
+                    toast.view = addxCurriToast
+                    toast.setGravity(Gravity.CENTER_HORIZONTAL,0,0)
+                    toast.show()
+
                 }
 
 

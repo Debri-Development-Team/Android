@@ -3,8 +3,11 @@ package com.example.debri_lize.activity
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.Gravity
 import android.view.View
+import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.debri_lize.R
 import com.example.debri_lize.adapter.start.CurriculumListRVAdapter
 import com.example.debri_lize.adapter.start.RoadMapListRVAdapter
 import com.example.debri_lize.data.curriculum.Curriculum
@@ -107,6 +110,11 @@ class AddCurriculumChooseActivity : AppCompatActivity(), CreateCurriculumView, S
                                 startActivity(intent)
                             }else{ //안드로이드 로드맵
                                 //준비중입니다 팝업창 추가
+                                var prepareToast = layoutInflater.inflate(R.layout.toast_prepare,null)
+                                var toast = Toast(this@AddCurriculumChooseActivity)
+                                toast.view = prepareToast
+                                toast.setGravity(Gravity.CENTER_HORIZONTAL,0,0)
+                                toast.show()
 
                             }
 
