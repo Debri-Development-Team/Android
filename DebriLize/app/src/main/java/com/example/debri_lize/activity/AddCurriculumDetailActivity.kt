@@ -1,6 +1,7 @@
 package com.example.debri_lize.activity
 
 import android.content.Intent
+import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
 import android.view.KeyEvent
@@ -177,13 +178,15 @@ class AddCurriculumDetailActivity : AppCompatActivity(), CreateReviewView, ShowR
 
                 //커리큘럼 좋아요 상태 api 시트에 추가되면 수정
 
-//                if(result.curriLikeStatus=="ACTIVE")  {
-//                    binding.addCurriculumLikeIv.setImageResource(R.drawable.ic_like_on)
-//                    binding.addCurriculumLikeLayout.setBackgroundResource(R.drawable.border_round_debri_darkmode_10)
-//                }else{
-//                    binding.addCurriculumLikeIv.setImageResource(R.drawable.ic_like_off)
-//                    binding.addCurriculumLikeLayout.setBackgroundResource(R.drawable.border_round_white_transparent_10)
-//                }
+                if(result.curriLikeStatus=="ACTIVE")  {
+                    binding.addCurriculumLikeIv.setImageResource(R.drawable.ic_like_on)
+                    binding.addCurriculumLikeLayout.setBackgroundResource(R.drawable.border_round_debri_darkmode_10)
+                    binding.addCurriculumLikeTv.setTextColor(Color.parseColor("#66CC66"))
+                }else{
+                    binding.addCurriculumLikeIv.setImageResource(R.drawable.ic_like_dark)
+                    binding.addCurriculumLikeLayout.setBackgroundResource(R.drawable.border_round_transparent_debri_10)
+                    binding.addCurriculumLikeTv.setTextColor(Color.parseColor("#0A1123"))
+                }
 
                 //lecture recycler view
                 lecture.clear()
