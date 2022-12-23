@@ -1,6 +1,7 @@
 package com.example.debri_lize.activity.auth
 
 import android.content.Intent
+import android.graphics.Color
 import android.os.Bundle
 import android.text.method.PasswordTransformationMethod
 import android.util.Log
@@ -235,8 +236,8 @@ class SignUpActivity:AppCompatActivity(), SignUpView {
             thread(start = true){
                 Thread.sleep(1300)
                 runOnUiThread{
-                    binding.signUpSignUpBtn.setTextColor(ContextCompat.getColor(this@SignUpActivity, R.color.white))
-                    binding.signUpSignUpBtn.setBackgroundResource(R.drawable.border_round_transparent_gray_6)
+                    binding.signUpSignUpBtn.setTextColor(Color.parseColor("#50ffffff"))
+                    binding.signUpSignUpBtn.setBackgroundResource(R.drawable.border_round_gray_clearness8_10)
 
                 }
             }
@@ -256,65 +257,65 @@ class SignUpActivity:AppCompatActivity(), SignUpView {
     private fun inputFormatCheck(){
         if(!idTF){
             binding.signUpIdLayout.setBackgroundResource(R.drawable.border_round_red_transparent_10)
-            binding.signUpIdTv.setTextColor(ContextCompat.getColor(this@SignUpActivity, R.color.red))
+            binding.signUpIdTv.setBackgroundResource(R.drawable.border_line_left_red_2)
+
             //1초 후 효과 없애기
             thread(start = true){
                 Thread.sleep(1300)
                 runOnUiThread{
                     binding.signUpIdLayout.setBackgroundResource(R.drawable.border_round_white_transparent_10)
-                    binding.signUpIdTv.setTextColor(ContextCompat.getColor(this@SignUpActivity, R.color.white))
+                    binding.signUpIdTv.setBackgroundResource(R.drawable.border_line_left)
                 }
             }
         }
         if(!pwTF || !pwCkTF){
             binding.signUpPasswordLayout.setBackgroundResource(R.drawable.border_round_red_transparent_10)
-            binding.signUpPasswordTv.setTextColor(ContextCompat.getColor(this@SignUpActivity, R.color.red))
+            binding.signUpPasswordTv.setBackgroundResource(R.drawable.border_line_left_red_2)
 
             binding.signUpPasswordCheckLayout.setBackgroundResource(R.drawable.border_round_red_transparent_10)
-            binding.signUpPasswordCheckTv.setTextColor(ContextCompat.getColor(this@SignUpActivity, R.color.red))
+            binding.signUpPasswordCheckTv.setBackgroundResource(R.drawable.border_line_left_red_2)
 
             thread(start = true){
                 Thread.sleep(1300)
                 runOnUiThread{
                     binding.signUpPasswordLayout.setBackgroundResource(R.drawable.border_round_white_transparent_10)
-                    binding.signUpPasswordTv.setTextColor(ContextCompat.getColor(this@SignUpActivity, R.color.white))
+                    binding.signUpPasswordTv.setBackgroundResource(R.drawable.border_line_left)
 
                     binding.signUpPasswordCheckLayout.setBackgroundResource(R.drawable.border_round_white_transparent_10)
-                    binding.signUpPasswordCheckTv.setTextColor(ContextCompat.getColor(this@SignUpActivity, R.color.white))
+                    binding.signUpPasswordCheckTv.setBackgroundResource(R.drawable.border_line_left)
                 }
             }
         }
         if(!nicknameTF){
             binding.signUpNicknameLayout.setBackgroundResource(R.drawable.border_round_red_transparent_10)
-            binding.signUpNicknameTv.setTextColor(ContextCompat.getColor(this@SignUpActivity, R.color.red))
-
+            binding.signUpNicknameTv.setBackgroundResource(R.drawable.border_line_left_red_2)
             thread(start = true){
                 Thread.sleep(1300)
                 runOnUiThread{
                     binding.signUpNicknameLayout.setBackgroundResource(R.drawable.border_round_white_transparent_10)
-                    binding.signUpNicknameTv.setTextColor(ContextCompat.getColor(this@SignUpActivity, R.color.white))
+                    binding.signUpNicknameTv.setBackgroundResource(R.drawable.border_line_left)
                 }
             }
         }
         if(!birthTF){
             binding.signUpBirthLayout.setBackgroundResource(R.drawable.border_round_red_transparent_10)
-            binding.signUpBirthTv.setTextColor(ContextCompat.getColor(this@SignUpActivity, R.color.red))
-
+            binding.signUpBirthTv.setBackgroundResource(R.drawable.border_line_left_red_2)
             thread(start = true){
                 Thread.sleep(1300)
                 runOnUiThread{
                     binding.signUpBirthLayout.setBackgroundResource(R.drawable.border_round_white_transparent_10)
-                    binding.signUpBirthTv.setTextColor(ContextCompat.getColor(this@SignUpActivity, R.color.white))
+                    binding.signUpBirthTv.setBackgroundResource(R.drawable.border_line_left)
                 }
             }
         }
         if(!agree2TF){
-            binding.signUpAgree2Layout.setBackgroundResource(R.drawable.border_round_red_gray_6)
+            binding.signUpAgree2Layout.setBackgroundResource(R.drawable.border_round_transparent_red_6)
+
 
             thread(start = true){
                 Thread.sleep(1300)
                 runOnUiThread{
-                    binding.signUpAgree2Layout.setBackgroundResource(R.drawable.border_round_transparent_gray_6)
+                    binding.signUpAgree2Layout.setBackgroundResource(R.drawable.border_round_transparent_white_6)
                 }
             }
         }
@@ -411,11 +412,11 @@ class SignUpActivity:AppCompatActivity(), SignUpView {
                 if (hasFocus) {
                     //  포커스시
                     binding.signUpIdLayout.setBackgroundResource(R.drawable.border_round_debri_transparent_10)
-                    binding.signUpIdTv.setTextColor(ContextCompat.getColor(this@SignUpActivity, R.color.debri))
+                    binding.signUpIdTv.setBackgroundResource(R.drawable.border_line_left_debri)
                 } else {
                     //  포커스 뺏겼을 때
                     binding.signUpIdLayout.setBackgroundResource(R.drawable.border_round_white_transparent_10)
-                    binding.signUpIdTv.setTextColor(ContextCompat.getColor(this@SignUpActivity, R.color.white))
+                    binding.signUpIdTv.setBackgroundResource(R.drawable.border_line_left)
                 }
             }
         })
@@ -426,11 +427,11 @@ class SignUpActivity:AppCompatActivity(), SignUpView {
                 if (hasFocus) {
                     //  포커스시
                     binding.signUpPasswordLayout.setBackgroundResource(R.drawable.border_round_debri_transparent_10)
-                    binding.signUpPasswordTv.setTextColor(ContextCompat.getColor(this@SignUpActivity, R.color.debri))
+                    binding.signUpPasswordTv.setBackgroundResource(R.drawable.border_line_left_debri)
                 } else {
                     //  포커스 뺏겼을 때
                     binding.signUpPasswordLayout.setBackgroundResource(R.drawable.border_round_white_transparent_10)
-                    binding.signUpPasswordTv.setTextColor(ContextCompat.getColor(this@SignUpActivity, R.color.white))
+                    binding.signUpPasswordTv.setBackgroundResource(R.drawable.border_line_left)
                 }
             }
         })
@@ -441,11 +442,11 @@ class SignUpActivity:AppCompatActivity(), SignUpView {
                 if (hasFocus) {
                     //  포커스시
                     binding.signUpPasswordCheckLayout.setBackgroundResource(R.drawable.border_round_debri_transparent_10)
-                    binding.signUpPasswordCheckTv.setTextColor(ContextCompat.getColor(this@SignUpActivity, R.color.debri))
+                    binding.signUpPasswordCheckTv.setBackgroundResource(R.drawable.border_line_left_debri)
                 } else {
                     //  포커스 뺏겼을 때
                     binding.signUpPasswordCheckLayout.setBackgroundResource(R.drawable.border_round_white_transparent_10)
-                    binding.signUpPasswordCheckTv.setTextColor(ContextCompat.getColor(this@SignUpActivity, R.color.white))
+                    binding.signUpPasswordCheckTv.setBackgroundResource(R.drawable.border_line_left)
                 }
             }
         })
@@ -456,11 +457,11 @@ class SignUpActivity:AppCompatActivity(), SignUpView {
                 if (hasFocus) {
                     //  포커스시
                     binding.signUpBirthLayout.setBackgroundResource(R.drawable.border_round_debri_transparent_10)
-                    binding.signUpBirthTv.setTextColor(ContextCompat.getColor(this@SignUpActivity, R.color.debri))
+                    binding.signUpBirthTv.setBackgroundResource(R.drawable.border_line_left_debri)
                 } else {
                     //  포커스 뺏겼을 때
                     binding.signUpBirthLayout.setBackgroundResource(R.drawable.border_round_white_transparent_10)
-                    binding.signUpBirthTv.setTextColor(ContextCompat.getColor(this@SignUpActivity, R.color.white))
+                    binding.signUpBirthTv.setBackgroundResource(R.drawable.border_line_left)
                 }
             }
         })
@@ -471,11 +472,11 @@ class SignUpActivity:AppCompatActivity(), SignUpView {
                 if (hasFocus) {
                     //  포커스시
                     binding.signUpNicknameLayout.setBackgroundResource(R.drawable.border_round_debri_transparent_10)
-                    binding.signUpNicknameTv.setTextColor(ContextCompat.getColor(this@SignUpActivity, R.color.debri))
+                    binding.signUpNicknameTv.setBackgroundResource(R.drawable.border_line_left_debri)
                 } else {
                     //  포커스 뺏겼을 때
                     binding.signUpNicknameLayout.setBackgroundResource(R.drawable.border_round_white_transparent_10)
-                    binding.signUpNicknameTv.setTextColor(ContextCompat.getColor(this@SignUpActivity, R.color.white))
+                    binding.signUpNicknameTv.setBackgroundResource(R.drawable.border_line_left)
                 }
             }
         })

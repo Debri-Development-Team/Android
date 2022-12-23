@@ -7,9 +7,13 @@ import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import android.util.Log
+import android.view.Gravity
 import android.view.View
+import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
+import com.example.debri_lize.R
 import com.example.debri_lize.activity.AddCurriculumActivity
 import com.example.debri_lize.activity.MainActivity
 import com.example.debri_lize.data.auth.Email
@@ -24,13 +28,14 @@ import io.reactivex.Single
 import java.sql.Timestamp
 import java.text.SimpleDateFormat
 import java.util.*
+import kotlin.concurrent.thread
 import kotlin.properties.Delegates
 
 class SignUpEmailActivity : AppCompatActivity(), EmailView {
 
     lateinit var binding: ActivitySignupEmailBinding
 
-    var emailAddress : String = ""
+    var emailAddress : String? = ""
     var emailCode : Int = 0
     var timeout : Int = 0
 
@@ -41,26 +46,83 @@ class SignUpEmailActivity : AppCompatActivity(), EmailView {
 
         //인증 코드 보내기
         binding.signUpEmailSendCodeBtn.setOnClickListener {
+
             //인증 코드 받기
             emailAddress = binding.signUpEmailIdEt.text.toString()
 
-            //1.5 이메일 인증 API
-            val authService = AuthService()
-            authService.setEmailView(this)
-            authService.getCode(emailAddress)
+            //이메일 입력 안한 경우
+            if(emailAddress == "")  {
+                binding.signUpEmailIdLayout.setBackgroundResource(R.drawable.border_round_red_transparent_10)
+                binding.signUpEmailIdTv.setBackgroundResource(R.drawable.border_line_left_red_2)
+
+                //1초 후 효과 없애기
+                thread(start = true){
+                    Thread.sleep(1300)
+                    runOnUiThread{
+                        binding.signUpEmailIdLayout.setBackgroundResource(R.drawable.border_round_white_transparent_10)
+                        binding.signUpEmailIdTv.setBackgroundResource(R.drawable.border_line_left)
+                    }
+                }
+            }else{
+                //1.5 이메일 인증 API
+                val authService = AuthService()
+                authService.setEmailView(this)
+                authService.getCode(emailAddress!!)
+            }
+
+
+
 
         }
 
         //인증하기
         binding.signUpEmailCodeCheckBtn.setOnClickListener {
+
+            if(emailAddress == "")  {
+                binding.signUpEmailIdLayout.setBackgroundResource(R.drawable.border_round_red_transparent_10)
+                binding.signUpEmailIdTv.setBackgroundResource(R.drawable.border_line_left_red_2)
+
+                //1초 후 효과 없애기
+                thread(start = true){
+                    Thread.sleep(1300)
+                    runOnUiThread{
+                        binding.signUpEmailIdLayout.setBackgroundResource(R.drawable.border_round_white_transparent_10)
+                        binding.signUpEmailIdTv.setBackgroundResource(R.drawable.border_line_left)
+                    }
+                }
+            }
+
             var inputCode : String = binding.signUpEmailCodeEt.text.toString()
-            if(emailCode == inputCode.toInt()){
+            val itCode : Int = if(inputCode=="") -1 else inputCode.toInt()
+
+            if(emailCode == itCode && emailCode!=0){
                 //인증 성공
                 SignUpActivity.Singleton.userID = binding.signUpEmailIdEt.text.toString()
                 SignUpActivity.Singleton.certificationTF = true
                 finish()
             }else{
                 //인증 실패
+                binding.signUpEmailCodeLayout.setBackgroundResource(R.drawable.border_round_red_transparent_10)
+                binding.signUpEmailCodeTv.setBackgroundResource(R.drawable.border_line_left_red_2)
+
+                //1초 후 효과 없애기
+                thread(start = true){
+                    Thread.sleep(1300)
+                    runOnUiThread{
+                        binding.signUpEmailCodeLayout.setBackgroundResource(R.drawable.border_round_white_transparent_10)
+                        binding.signUpEmailCodeTv.setBackgroundResource(R.drawable.border_line_left)
+                    }
+                }
+
+                //toast message
+                var codexToast = layoutInflater.inflate(R.layout.toast_prepare,null)
+                codexToast.findViewById<TextView>(R.id.toast_prepare_roadmap_tv).text = "인증코드가 일치하지 않습니다!"
+                codexToast.findViewById<TextView>(R.id.toast_prepare_tv).text = ""
+                codexToast.findViewById<TextView>(R.id.toast_update_tv).text = "다시 입력하거나, 코드를 다시 받아주세요"
+                var toast = Toast(this)
+                toast.view = codexToast
+                toast.setGravity(Gravity.CENTER_HORIZONTAL,0,0)
+                toast.show()
 
             }
 
@@ -73,6 +135,8 @@ class SignUpEmailActivity : AppCompatActivity(), EmailView {
         }
 
 
+        //focus effect
+        setFocus()
 
     }
 
@@ -92,7 +156,7 @@ class SignUpEmailActivity : AppCompatActivity(), EmailView {
                 timeout = result.timeout
 
                 //인증 코드 이메일 전송
-                sendEmail(emailAddress)
+                sendEmail(emailAddress!!)
 
             }
         }
@@ -165,4 +229,36 @@ class SignUpEmailActivity : AppCompatActivity(), EmailView {
         }
         mTimer.schedule(mTimerTask, 0, 1000)
     }
+
+    private fun setFocus(){
+        //email id focus
+        binding.signUpEmailIdEt.setOnFocusChangeListener(object : View.OnFocusChangeListener{
+            override fun onFocusChange(view: View, hasFocus: Boolean) {
+                if(hasFocus){
+                    //포커스 시
+                    binding.signUpEmailIdLayout.setBackgroundResource(R.drawable.border_round_debri_transparent_10)
+                    binding.signUpEmailIdTv.setBackgroundResource(R.drawable.border_line_left_debri)
+                }else{
+                    //포커스 뺏겼을 떄
+                    binding.signUpEmailIdLayout.setBackgroundResource(R.drawable.border_round_white_transparent_10)
+                    binding.signUpEmailIdTv.setBackgroundResource(R.drawable.border_line_left)
+                }
+            }
+        })
+        //email code focus
+        binding.signUpEmailCodeEt.setOnFocusChangeListener(object : View.OnFocusChangeListener{
+            override fun onFocusChange(view: View, hasFocus: Boolean) {
+                if(hasFocus){
+                    //포커스 시
+                    binding.signUpEmailCodeLayout.setBackgroundResource(R.drawable.border_round_debri_transparent_10)
+                    binding.signUpEmailCodeTv.setBackgroundResource(R.drawable.border_line_left_debri)
+                }else{
+                    //포커스 뺏겼을 떄
+                    binding.signUpEmailCodeLayout.setBackgroundResource(R.drawable.border_round_white_transparent_10)
+                    binding.signUpEmailCodeTv.setBackgroundResource(R.drawable.border_line_left)
+                }
+            }
+        })
+    }
+
 }
