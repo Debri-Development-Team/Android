@@ -28,7 +28,7 @@
             android:text="회원가입"
             android:textColor="@color/white"
             android:fontFamily="@font/noto_sans_kr_bold"
-            android:textSize="18sp"
+            android:textSize="18dp"
             android:includeFontPadding="false"
             app:layout_constraintTop_toTopOf="@+id/sign_up_back_iv"
             app:layout_constraintBottom_toBottomOf="@+id/sign_up_back_iv"
@@ -42,7 +42,7 @@
             android:text="정보 입력"
             android:textColor="@color/white"
             android:fontFamily="@font/noto_sans_kr_regular"
-            android:textSize="14sp"
+            android:textSize="14dp"
             android:includeFontPadding="false"
             android:layout_marginTop="2dp"
             app:layout_constraintTop_toBottomOf="@+id/sign_up_tv1"
@@ -57,7 +57,7 @@
             android:fontFamily="@font/noto_sans_kr_bold"
             android:includeFontPadding="false"
             android:textColor="@color/white"
-            android:textSize="12sp"
+            android:textSize="12dp"
             android:layout_marginTop="49dp"
             android:layout_marginStart="40dp"
             android:paddingStart="10dp"
@@ -86,7 +86,7 @@
                 android:inputType="text"
                 android:textColorHint="@color/white"
                 android:textColor="@color/white"
-                android:textSize="14sp"
+                android:textSize="14dp"
                 android:fontFamily="@font/noto_sans_kr_regular"
                 android:layout_marginHorizontal="16dp"
                 android:includeFontPadding="false"/>
@@ -101,7 +101,7 @@
             android:fontFamily="@font/noto_sans_kr_bold"
             android:includeFontPadding="false"
             android:textColor="@color/white"
-            android:textSize="12sp"
+            android:textSize="12dp"
             android:layout_marginTop="20dp"
             android:paddingStart="10dp"
             android:background="@drawable/border_line_left"
@@ -145,7 +145,7 @@
             android:fontFamily="@font/noto_sans_kr_bold"
             android:includeFontPadding="false"
             android:textColor="@color/white"
-            android:textSize="12sp"
+            android:textSize="12dp"
             android:paddingStart="10dp"
             android:layout_marginTop="16dp"
             android:background="@drawable/border_line_left"
@@ -174,7 +174,7 @@
                 android:textColorHint="@color/white"
                 android:textColor="@color/white"
                 android:inputType="textPassword"
-                android:textSize="14sp"
+                android:textSize="14dp"
                 android:fontFamily="@font/noto_sans_kr_regular"
                 android:includeFontPadding="false"
                 android:layout_marginHorizontal="16dp"/>
@@ -192,7 +192,7 @@
             android:includeFontPadding="false"
             android:paddingStart="10dp"
             android:textColor="@color/white"
-            android:textSize="12sp"
+            android:textSize="12dp"
             android:background="@drawable/border_line_left"
             android:layout_marginTop="16dp"
             app:layout_constraintStart_toStartOf="parent"
@@ -231,7 +231,7 @@
             android:layout_height="wrap_content"
             android:id="@+id/sign_up_nickname_tv"
             android:text="닉네임"
-            android:textSize="12sp"
+            android:textSize="12dp"
             android:textColor="@color/white"
             android:fontFamily="@font/noto_sans_kr_bold"
             android:includeFontPadding="false"
@@ -264,7 +264,7 @@
                 android:inputType="text"
                 android:textColorHint="@color/white"
                 android:textColor="@color/white"
-                android:textSize="14sp"
+                android:textSize="14dp"
                 android:fontFamily="@font/noto_sans_kr_regular"
                 android:includeFontPadding="false"
                 android:layout_marginHorizontal="16dp"/>
@@ -320,7 +320,7 @@
                     android:includeFontPadding="false"
                     android:text="전체 약관에 동의합니다."
                     android:textColor="@color/black"
-                    android:textSize="12sp" />
+                    android:textSize="12dp" />
             </LinearLayout>
 
             <ImageView
@@ -362,7 +362,8 @@
                     android:includeFontPadding="false"
                     android:text="개인정보 약관에 동의합니다. (필수)"
                     android:textColor="@color/black"
-                    android:textSize="12sp" />
+                    android:textSize="12dp"
+                    android:background="@drawable/border_line_bottom"/>
             </LinearLayout>
 
             <ImageView
@@ -405,7 +406,8 @@
                     android:includeFontPadding="false"
                     android:text="서비스 홍보 약관에 동의합니다. (선택)"
                     android:textColor="@color/black"
-                    android:textSize="12sp" />
+                    android:textSize="12dp"
+                    android:background="@drawable/border_line_bottom"/>
             </LinearLayout>
 
             <ImageView
@@ -426,11 +428,11 @@
             android:id="@+id/sign_up_sign_up_btn"
             android:layout_width="170dp"
             android:layout_height="60dp"
-            android:background="@drawable/border_round_transparent_gray_6"
+            android:background="@drawable/border_round_gray_clearness8_10"
             android:text="시작하기"
-            android:textColor="@color/darkmode_background"
+            android:textColor="#50ffffff"
             android:fontFamily="@font/noto_sans_kr_bold"
-            android:textSize="20sp"
+            android:textSize="20dp"
             android:includeFontPadding="false"
             android:layout_marginTop="50dp"
             android:layout_marginBottom="40dp"

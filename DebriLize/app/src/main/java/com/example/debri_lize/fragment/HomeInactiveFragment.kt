@@ -2,6 +2,7 @@ package com.example.debri_lize.fragment
 
 import android.content.Context
 import android.content.Intent
+import android.graphics.Color
 import android.os.Bundle
 import android.view.Gravity
 import android.view.LayoutInflater
@@ -205,7 +206,7 @@ class HomeInactiveFragment(
         val sdf = SimpleDateFormat("yyyy년 MM월 dd일")
         val date = sdf.format(timestamp)
 
-        return date+"\n완성함"
+        return date
     }
 
     //8.3 커리큘럼 상세 조회 api : 홈
@@ -236,15 +237,28 @@ class HomeInactiveFragment(
                 if(result.dday<0){ //dday 지남
                     binding.homeCurriculumDdayInfoTv.text = "D+"
                     binding.homeCurriculumDdayTv.text = (-result.dday).toString()
+                    binding.homeCurriculumDateTv.text = timestampToDate(result.createdAt) + "\n완성함" //커리큘럼 생성 날짜
                 }else if(result.dday == 0){ //dday 당일
+                    binding.homeCurriculumDdayTv.text = "day"
                     //색상 빨간색으로 변경
-
+                    binding.homeCurriculumDdayTv.setTextColor(Color.parseColor("#FF0000"))
+                    binding.homeCurriculumDateTv.text = timestampToDate(result.createdAt) + "\n완성함" //커리큘럼 생성 날짜
                 }else{ //dday
                     binding.homeCurriculumDdayTv.text = result.dday.toString()
+                    //색상 초록색으로 변경
+                    binding.homeCurriculumDdayTv.setTextColor(Color.parseColor("#66CC66"))
+                    binding.homeCurriculumDateTv.text = timestampToDate(result.createdAt) + "\n시작함" //커리큘럼 생성 날짜
                 }
 
                 //progress rate
                 binding.homeCurriculumProgressTv2.text = result.progressRate.toInt().toString()
+                if(result.progressRate.toInt()<100){
+                    //색상 빨간색으로 변경
+                    binding.homeCurriculumProgressTv2.setTextColor(Color.parseColor("#FF0000"))
+                }else{
+                    //색상 초록색으로 변경
+                    binding.homeCurriculumProgressTv2.setTextColor(Color.parseColor("#66CC66"))
+                }
 
                 //lecture
                 lecture.clear()

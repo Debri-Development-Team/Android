@@ -470,9 +470,10 @@ class PostDetailActivity : AppCompatActivity(), PostDetailView, CommentCreateVie
         when(code){
             200->{
                 Log.d("PostDetailresult","$result")
+
+                val time = binding.postDetailTimeTv
                 postDetail = result
                 binding.postDetailTitleTv.text = result.postName
-                binding.postDetailTimeTv.text = result.timeAfterCreated.toString()+"분 전"
                 binding.postDetailAuthorTv.text = result.authorName
                 binding.postDetailContentTv.text = result.postContents
                 binding.postDetailCountCommentTv.text = "("+result.commentCnt.toString()+")"
@@ -482,6 +483,24 @@ class PostDetailActivity : AppCompatActivity(), PostDetailView, CommentCreateVie
                     binding.postDetailMenuLikeNumTv.text = result.likeCnt.toString()
                 else
                     binding.postDetailMenuLikeNumTv.text = "99+"
+
+                if(result.timeAfterCreated == 0){
+                    time.text = "방금 전"
+                }else if (result.timeAfterCreated < 60) {
+                    time.text = result.timeAfterCreated.toString() + "분 전"
+                }else if (result.timeAfterCreated < 1440){
+                    var hour = result.timeAfterCreated/60
+                    time.text = hour.toString() + "시간 전"
+                }else if (result.timeAfterCreated < 43200){
+                    var day = result.timeAfterCreated/1440
+                    time.text = day.toString() + "일 전"
+                }else if (result.timeAfterCreated < 525600){
+                    var month = result.timeAfterCreated/43200
+                    time.text = month.toString() + "달 전"
+                }else{
+                    var year = result.timeAfterCreated/525600
+                    time.text = year.toString() + "년 전"
+                }
 
                 //bottom sheet
                 bottomSheetPost()
@@ -501,12 +520,10 @@ class PostDetailActivity : AppCompatActivity(), PostDetailView, CommentCreateVie
 
                 //postdeatil 새로 들어와도 scrapStatus 상태 저장
                 if(result.scrapStatus!!){
-                    binding.postDetailMenuScrapLayout.setBackgroundResource(R.drawable.border_round_transparent_debri_10)
-                    binding.postDetailMenuScrapTv.setTextColor(ContextCompat.getColor(this@PostDetailActivity, R.color.darkmode_background))
-                    binding.postDetailMenuScrapIv.setImageResource(R.drawable.ic_scrap_darkmode)
+                    binding.postDetailMenuScrapLayout.setBackgroundResource(R.drawable.border_round_debri_darkmode_10)
+                    binding.postDetailMenuScrapIv.setImageResource(R.drawable.ic_scrap_on)
                 }else{
                     binding.postDetailMenuScrapLayout.setBackgroundResource(R.drawable.border_round_white_transparent_10)
-                    binding.postDetailMenuScrapTv.setTextColor(ContextCompat.getColor(this@PostDetailActivity, R.color.white))
                     binding.postDetailMenuScrapIv.setImageResource(R.drawable.ic_scrap_white)
                 }
 

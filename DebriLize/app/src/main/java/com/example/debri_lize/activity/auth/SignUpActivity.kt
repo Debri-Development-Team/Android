@@ -2,6 +2,7 @@ package com.example.debri_lize.activity.auth
 
 import android.content.Intent
 import android.os.Bundle
+import android.text.method.PasswordTransformationMethod
 import android.util.Log
 import android.view.View
 import android.widget.Toast
@@ -19,11 +20,10 @@ import com.example.debri_lize.data.auth.UserSignup
 import com.example.debri_lize.service.AuthService
 import com.example.debri_lize.view.auth.SignUpView
 import com.example.debri_lize.databinding.ActivitySignupBinding
-import io.reactivex.Single
+import com.example.debri_lize.utils.saveSendEmailTF
 import java.util.regex.Matcher
 import java.util.regex.Pattern
 import kotlin.concurrent.thread
-import kotlin.concurrent.timer
 
 class SignUpActivity:AppCompatActivity(), SignUpView {
     lateinit var binding: ActivitySignupBinding
@@ -39,7 +39,6 @@ class SignUpActivity:AppCompatActivity(), SignUpView {
 
         //인증 여부
         var certificationTF : Boolean = false
-        var sendEmailTF : Boolean = false
 
 
         //termCheck = true : 이용약관 내용 확인 후 동의
@@ -55,6 +54,12 @@ class SignUpActivity:AppCompatActivity(), SignUpView {
         super.onCreate(savedInstanceState)
         binding = ActivitySignupBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        //password dot size
+        binding.signUpPasswordEt.transformationMethod = LoginActivity.CustomPasswordTransformationMethod()
+        binding.signUpPasswordCheckEt.transformationMethod = LoginActivity.CustomPasswordTransformationMethod()
+
+        saveSendEmailTF(false)
 
         //전체 동의
         binding.signUpAgree1Layout.setOnClickListener {
@@ -153,6 +158,7 @@ class SignUpActivity:AppCompatActivity(), SignUpView {
         super.onStart()
         binding.signUpIdEt.text = userID
         clickBackgroundChange()
+
     }
 
 

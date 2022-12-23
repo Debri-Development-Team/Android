@@ -62,7 +62,7 @@ class CurriculumRVAdapter(val className : String) : RecyclerView.Adapter<Curricu
 
             //language tag
             language.text = item.langtag
-
+            Log.d("curri langtag", item.langtag)
             when(language.text){
                 "Front" -> language.setBackgroundResource(R.drawable.border_round_transparent_front_10)
                 "Back" -> language.setBackgroundResource(R.drawable.border_round_transparent_back_10)

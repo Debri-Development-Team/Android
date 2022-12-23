@@ -219,7 +219,7 @@
         <entry key="app/src/main/res/layout/activity_login.xml" value="0.2971014492753623" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.27309782608695654" />
         <entry key="app/src/main/res/layout/activity_post_create.xml" value="0.28701477050781254" />
-        <entry key="app/src/main/res/layout/activity_post_detail.xml" value="0.25" />
+        <entry key="app/src/main/res/layout/activity_post_detail.xml" value="0.21486544211875266" />
         <entry key="app/src/main/res/layout/activity_post_list.xml" value="0.32135416666666666" />
         <entry key="app/src/main/res/layout/activity_signup.xml" value="0.2971014492753623" />
         <entry key="app/src/main/res/layout/activity_signup_email.xml" value="0.22916666666666666" />
@@ -242,14 +242,18 @@
         <entry key="app/src/main/res/layout/fragment_curriculum.xml" value="0.2545289855072464" />
         <entry key="app/src/main/res/layout/fragment_home.xml" value="0.1" />
         <entry key="app/src/main/res/layout/fragment_home_active.xml" value="0.335" />
-        <entry key="app/src/main/res/layout/fragment_home_inactive.xml" value="0.32135416666666666" />
+        <entry key="app/src/main/res/layout/fragment_home_inactive.xml" value="0.335" />
         <entry key="app/src/main/res/layout/fragment_post.xml" value="0.23097826086956522" />
         <entry key="app/src/main/res/layout/fragment_profile.xml" value="0.32135416666666666" />
         <entry key="app/src/main/res/layout/fragment_scrap_curriculum.xml" value="0.32135416666666666" />
         <entry key="app/src/main/res/layout/fragment_scrap_post.xml" value="0.32135416666666666" />
+        <entry key="app/src/main/res/layout/item_comment.xml" value="0.26197916666666665" />
         <entry key="app/src/main/res/layout/item_curriculum.xml" value="0.32135416666666666" />
         <entry key="app/src/main/res/layout/item_curriculum_lecture.xml" value="0.25" />
         <entry key="app/src/main/res/layout/item_curriculum_profile.xml" value="0.23822463768115942" />
+        <entry key="app/src/main/res/layout/item_post.xml" value="0.26197916666666665" />
+        <entry key="app/src/main/res/layout/spinner_custom.xml" value="0.21829710144927536" />
+        <entry key="app/src/main/res/layout/spinner_getview.xml" value="0.21829710144927536" />
         <entry key="app/src/main/res/layout/toast_report.xml" value="0.25" />
         <entry key="app/src/main/res/layout/toast_scrap.xml" value="0.121875" />
         <entry key="app/src/main/res/menu/bottom_nav_menu.xml" value="0.32135416666666666" />
