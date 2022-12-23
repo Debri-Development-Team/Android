@@ -28,7 +28,7 @@
         android:src="@drawable/ic_previous" />
 
     <LinearLayout
-        android:layout_width="150dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
@@ -36,7 +36,8 @@
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:layout_marginBottom="2dp">
             <TextView
                 android:id="@+id/profile_curriculum_name_tv"
                 android:layout_width="100dp"
@@ -58,8 +59,11 @@
                 android:includeFontPadding="false"
                 android:textSize="10dp"
                 android:textColor="@color/white"
+                android:layout_gravity="center"
                 android:paddingVertical="2dp"
-                android:paddingHorizontal="6dp"
+                android:paddingStart="8dp"
+                android:paddingEnd="8dp"
+                android:layout_marginStart="5dp"
                 android:background="@drawable/border_round_transparent_front_10"/>
 
         </LinearLayout>
@@ -136,6 +140,42 @@
                 android:textColor="@color/white"
                 android:fontFamily="@font/noto_sans_kr_medium"
                 android:includeFontPadding="false" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/item_curriculum_likenum_layout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:visibility="gone">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="받은 추천 수"
+                android:textColor="@color/white"
+                android:fontFamily="@font/noto_sans_kr_bold"
+                android:includeFontPadding="false"
+                android:textSize="12dp"/>
+            <TextView
+                android:id="@+id/item_curriculum_likenum_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="1000"
+                android:textColor="@color/debri"
+                android:fontFamily="@font/noto_sans_kr_bold"
+                android:includeFontPadding="false"
+                android:layout_marginStart="10dp"
+                android:textSize="12dp"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="개"
+                android:textColor="@color/white"
+                android:fontFamily="@font/noto_sans_kr_bold"
+                android:layout_marginStart="2dp"
+                android:textSize="12dp"
+                android:includeFontPadding="false"/>
+
         </LinearLayout>
 
 

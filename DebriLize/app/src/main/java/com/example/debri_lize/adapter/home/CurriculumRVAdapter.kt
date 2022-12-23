@@ -1,5 +1,6 @@
 package com.example.debri_lize.adapter.home
 
+import android.provider.ContactsContract
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -15,6 +16,7 @@ import com.example.debri_lize.data.curriculum.Curriculum
 import com.example.debri_lize.databinding.ItemCurriculumBinding
 import com.example.debri_lize.databinding.ItemCurriculumProfileBinding
 import org.json.JSONObject.NULL
+import java.util.Date
 
 class CurriculumRVAdapter(val className : String) : RecyclerView.Adapter<CurriculumRVAdapter.ViewHolder>() {
 
@@ -33,19 +35,26 @@ class CurriculumRVAdapter(val className : String) : RecyclerView.Adapter<Curricu
             curriculumName.text = item.curriculumName
             binding.itemCurriculumAuthorTv.text = item.curriculumAuthor
 //            Log.d("created",item.createdAt.toString())
+            Log.d("curriculum",item.toString())
 
             if(className=="ProfileActivity") {
                 privateLayout.visibility = View.VISIBLE
                 binding.itemCurriculumAuthorLayout.visibility = View.GONE
-                binding.profileCurriculumDateTv.text = item.createdAt
+                //시작 날짜 TODO: 확인필요
+                binding.profileCurriculumDateTv.text = item.createdAt.toString()
                 binding.profileCurriculumDateTv.visibility = View.VISIBLE
                 binding.profileCurriculumDescTv.text = item.curriDesc
                 binding.profileCurriculumDescTv.visibility = View.GONE
 
-            } else {
+            }else if(className=="myCurriculum"){
+                privateLayout.visibility = View.GONE
+//                binding.itemCurriculumLikenumLayout.visibility = View.VISIBLE
+//                binding.itemCurriculumLikenumTv.text = item.
+            }
+            else {
                 privateLayout.visibility = View.GONE
                 binding.itemCurriculumAuthorLayout.visibility = View.VISIBLE
-                binding.profileCurriculumDateTv.text = item.createdAt
+
                 binding.profileCurriculumDateTv.visibility = View.GONE
                 binding.profileCurriculumDescTv.text = item.curriDesc
                 binding.profileCurriculumDescTv.visibility = View.VISIBLE

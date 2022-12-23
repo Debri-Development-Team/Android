@@ -19,7 +19,7 @@ data class Curriculum(
     @SerializedName(value = "status") val status: String? = "",
     @SerializedName(value = "visibleStatus") val visibleStatus: String? = "",
     @SerializedName(value = "curriDesc") val curriDesc: String? = "",
-    @SerializedName(value = "createdAt") val createdAt: String? = "",
+    @SerializedName(value = "createdAt") val createdAt: Int? = 0,
     @SerializedName(value = "langTag") val langtag : String = "",
     @PrimaryKey(autoGenerate = true) var roomIdx : Int =0
 )

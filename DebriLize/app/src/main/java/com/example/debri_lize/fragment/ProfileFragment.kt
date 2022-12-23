@@ -25,7 +25,10 @@ class ProfileFragment : Fragment(), MyCurriculumListView{
 
     lateinit var binding : FragmentProfileBinding
     lateinit var curriculumRVAdapter: CurriculumRVAdapter
+    lateinit var myCurriculumRVAdapter : CurriculumRVAdapter
+
     val datas = ArrayList<Curriculum>()
+    val mydatas = ArrayList<Curriculum>()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -72,24 +75,34 @@ class ProfileFragment : Fragment(), MyCurriculumListView{
     override fun onMyCurriculumListSuccess(code: Int, result: List<Curriculum>) {
         when(code){
             200->{
+                //진행중인 커리큘럼
                 binding.profileCurriculumRv.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
                 curriculumRVAdapter = CurriculumRVAdapter("ProfileActivity")
                 binding.profileCurriculumRv.adapter = curriculumRVAdapter
 
+                //내가 등록한 커리큘럼
+                binding.profileMyCurriculumRv.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
+                myCurriculumRVAdapter = CurriculumRVAdapter("myCurriculum")
+                binding.profileMyCurriculumRv.adapter = myCurriculumRVAdapter
+
                 datas.clear()
+                mydatas.clear()
 
                 //data : 전체
-                datas.apply {
-
+                mydatas.apply {
                     for (i in result){
-                        datas.add(Curriculum(i.curriculumIdx, i.curriculumName, i.curriculumAuthor, i.status, i.visibleStatus, i.curriDesc))
+                        //활성 상태면 '진행중인 커리큘럼'에 추가
+                        if(i.status == "ACTIVE")
+                            datas.add(Curriculum(i.curriculumIdx, i.curriculumName, i.curriculumAuthor, i.status, i.visibleStatus, i.curriDesc,i.createdAt, i.langtag))
+                        //내가 등록한 커리큘럼
+                        mydatas.add(Curriculum(i.curriculumIdx,i.curriculumName,i.curriculumAuthor,i.status,i.visibleStatus,i.curriDesc,i.createdAt, i.langtag))
                     }
-
 
                     curriculumRVAdapter.datas = datas
                     curriculumRVAdapter.notifyDataSetChanged()
 
-
+                    myCurriculumRVAdapter.datas = mydatas
+                    myCurriculumRVAdapter.notifyDataSetChanged()
 
                     //click recyclerview item
                     curriculumRVAdapter.setItemClickListener(object : CurriculumRVAdapter.OnItemClickListener {
@@ -100,7 +113,17 @@ class ProfileFragment : Fragment(), MyCurriculumListView{
 
                         }
                     })
+                    myCurriculumRVAdapter.setItemClickListener(object : CurriculumRVAdapter.OnItemClickListener {
+                        override fun onClick(v: View, position: Int) {
+                            val intent = Intent(context, AddCurriculumDetailActivity::class.java)
+                            intent.putExtra("curriculumIdx", datas[position].curriculumIdx)
+                            startActivity(intent)
+
+                        }
+                    })
                 }
+
+
             }
         }
     }
