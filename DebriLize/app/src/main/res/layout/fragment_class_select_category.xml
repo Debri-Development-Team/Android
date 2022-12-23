@@ -63,7 +63,7 @@
             <CheckBox
                 android:id="@+id/class_curri_tag_front_cb"
                 android:layout_width="match_parent"
-                android:layout_height="35dp"
+                android:layout_height="30dp"
                 android:background="@drawable/selector_class_radio_front"
                 android:button="@null"
                 android:drawableEnd="@drawable/selector_class_radio_text"
@@ -78,7 +78,7 @@
             <CheckBox
                 android:id="@+id/class_curri_tag_c_cb"
                 android:layout_width="match_parent"
-                android:layout_height="35dp"
+                android:layout_height="30dp"
                 android:text="C 언어"
                 android:textColor="@drawable/selector_class_radio_text"
                 android:button="@null"
@@ -96,7 +96,7 @@
         <CheckBox
             android:id="@+id/class_curri_tag_back_cb"
             android:layout_width="match_parent"
-            android:layout_height="35dp"
+            android:layout_height="30dp"
             android:text="Back"
             android:layout_weight="1"
             android:textColor="@drawable/selector_class_radio_text"
@@ -114,7 +114,7 @@
         <CheckBox
             android:id="@+id/class_curri_tag_python_cb"
             android:layout_width="match_parent"
-            android:layout_height="35dp"
+            android:layout_height="30dp"
             android:text="Python"
             android:layout_weight="1"
             android:textColor="@drawable/selector_class_radio_text"

@@ -113,6 +113,78 @@ class ClassFragment : Fragment(), LectureFavoriteView, LectureFilterView {
         category = arguments?.getSerializable("category") as LectureFilter?
         showFilter()
 
+
+
+        when(category?.lang){
+            "Front"->{
+                binding.classCurriTagBtn.setText("Front")
+                binding.classCurriTagBtn.setBackgroundResource(R.drawable.border_round_transparent_front_18)
+
+            }
+            "Back"->{
+                binding.classCurriTagBtn.setText("Back")
+                binding.classCurriTagBtn.setBackgroundResource(R.drawable.border_round_transparent_back_18)
+//                binding.classCurriTagBtn.setTextColor(R.color.darkmode_background)
+
+            }
+            "Python"->{
+                binding.classCurriTagBtn.setText("Python")
+                binding.classCurriTagBtn.setBackgroundResource(R.drawable.border_round_transparent_python_18)
+//                binding.classCurriTagBtn.setTextColor(R.color.darkmode_background)
+
+            }
+            "C 언어"->{
+                binding.classCurriTagBtn.setText("C 언어")
+                binding.classCurriTagBtn.setBackgroundResource(R.drawable.border_round_transparent_c_18)
+//                binding.classCurriTagBtn.setTextColor(R.color.darkmode_background)
+
+            }
+            ""->{
+                binding.classCurriTagBtn.setText("전체")
+                binding.classCurriTagBtn.setBackgroundResource(R.drawable.border_round_gray_transparent_18)
+//                binding.classCurriTagBtn.setTextColor(R.color.white)
+
+            }
+
+        }
+
+        when(category?.type){
+            "서적"->{
+                binding.classMediaTagBtn.setText("서적")
+                //TODO : background 추가
+
+            }
+            "영상"->{
+                binding.classMediaTagBtn.setText("영상")
+                //TODO: background 추가
+
+            }
+            ""->{
+                binding.classMediaTagBtn.setText("전체")
+                binding.classMediaTagBtn.setBackgroundResource(R.drawable.border_round_gray_transparent_18)
+
+            }
+        }
+        when(category?.price){
+            "무료"->{
+                binding.classPriceTagBtn.setText("무료")
+                //TODO : background 수정
+                binding.classPriceTagBtn.setBackgroundResource(R.drawable.border_round_gray_transparent_18)
+
+            }
+            "유료"->{
+                binding.classPriceTagBtn.setText("유료")
+                //TODO : background 수정
+                binding.classPriceTagBtn.setBackgroundResource(R.drawable.border_round_gray_transparent_18)
+
+            }
+            ""->{
+                binding.classPriceTagBtn.setText("전체")
+                binding.classPriceTagBtn.setBackgroundResource(R.drawable.border_round_gray_transparent_18)
+
+            }
+        }
+
         //탭 클릭
         binding.classTablayout.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener{
             override fun onTabSelected(tab: TabLayout.Tab?) {
@@ -167,7 +239,7 @@ class ClassFragment : Fragment(), LectureFavoriteView, LectureFilterView {
                 toast.setGravity(Gravity.CENTER_HORIZONTAL,0,0)
                 toast.show()
 
-                //TODO: 좋아요 순 정렬하기
+                //좋아요 순 정렬하기
                 sortStatus = "like"
                 classService.showLectureSearch(lectureFilter)
                 classService.showLectureFavorite(getUserIdx()!!)
@@ -187,7 +259,7 @@ class ClassFragment : Fragment(), LectureFavoriteView, LectureFilterView {
                 toast.setGravity(Gravity.CENTER_HORIZONTAL,0,0)
                 toast.show()
 
-                //TODO: 가나다 순 정렬하기
+                //가나다 순 정렬하기
                 sortStatus = "AtoZ"
                 classService.showLectureSearch(lectureFilter)
                 classService.showLectureFavorite(getUserIdx()!!)
@@ -243,10 +315,11 @@ class ClassFragment : Fragment(), LectureFavoriteView, LectureFilterView {
 
     private fun showFilter(){
         //category로 받아온 데이터를 lectureFilter로 넣기
+        Log.d("category",category.toString())
         if (category?.lang != null) lectureFilter.lang = category!!.lang
         if (category?.type != null) lectureFilter.type = category!!.type
         if (category?.price != null) lectureFilter.price = category!!.price
-
+        classService.showLectureSearch(lectureFilter)
     }
 
     override fun onLectureFavoriteSuccess(code: Int, result: List<Lecture>) {

@@ -93,7 +93,7 @@ class ClassSelectCategoryFragment : Fragment() {
                 binding.classCurriTagFrontCb.isChecked = false
                 binding.classCurriTagBackCb.isChecked = false
                 binding.classCurriTagPythonCb.isChecked = false
-                category.lang = "C"
+                category.lang = "C 언어"
             }else{
                 category.lang = ""
             }
