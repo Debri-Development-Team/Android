@@ -112,6 +112,7 @@ class ClassFragment : Fragment(), LectureFavoriteView, LectureFilterView {
         //데이터 받아오기 by ClassSelectCategoryFragment
         category = arguments?.getSerializable("category") as LectureFilter?
         showFilter()
+        classService.showLectureSearch(lectureFilter)
 
         //탭 클릭
         binding.classTablayout.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener{
@@ -167,7 +168,7 @@ class ClassFragment : Fragment(), LectureFavoriteView, LectureFilterView {
                 toast.setGravity(Gravity.CENTER_HORIZONTAL,0,0)
                 toast.show()
 
-                //TODO: 좋아요 순 정렬하기
+                //좋아요 순 정렬하기
                 sortStatus = "like"
                 classService.showLectureSearch(lectureFilter)
                 classService.showLectureFavorite(getUserIdx()!!)
@@ -187,7 +188,7 @@ class ClassFragment : Fragment(), LectureFavoriteView, LectureFilterView {
                 toast.setGravity(Gravity.CENTER_HORIZONTAL,0,0)
                 toast.show()
 
-                //TODO: 가나다 순 정렬하기
+                //가나다 순 정렬하기
                 sortStatus = "AtoZ"
                 classService.showLectureSearch(lectureFilter)
                 classService.showLectureFavorite(getUserIdx()!!)
@@ -243,6 +244,7 @@ class ClassFragment : Fragment(), LectureFavoriteView, LectureFilterView {
 
     private fun showFilter(){
         //category로 받아온 데이터를 lectureFilter로 넣기
+        Log.d("category",category.toString())
         if (category?.lang != null) lectureFilter.lang = category!!.lang
         if (category?.type != null) lectureFilter.type = category!!.type
         if (category?.price != null) lectureFilter.price = category!!.price
