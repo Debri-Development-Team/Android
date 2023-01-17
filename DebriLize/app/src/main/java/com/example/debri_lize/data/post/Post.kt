@@ -67,4 +67,8 @@ data class PostLikeCancel(
     @SerializedName(value = "userIdx") var userIdx : Int? = 0
 )
 
-
+//3.7.1
+data class SearchPost(
+    @SerializedName(value = "keyword") var keyword : String? = "",
+    @SerializedName(value = "pageNum") var pageNum : Int? = 0
+)

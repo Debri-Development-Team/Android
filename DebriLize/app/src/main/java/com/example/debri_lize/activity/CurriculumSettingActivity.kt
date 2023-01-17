@@ -58,6 +58,7 @@ class CurriculumSettingActivity : AppCompatActivity(), CreateCurriculumView {
         //start btn
         binding.curriculumSettingStartBtn.setOnClickListener {
             if(curriName.isNotBlank() && curriExplain.isNotBlank() && langText.isNotBlank() && publicText.isNotBlank()){
+                Log.d("curriInfo",curriName)
                 //api - 8.1 커리큘럼 생성 api
                 var curriculumService = CurriculumService()
                 curriculumService.setCreateCurriculumView(this)

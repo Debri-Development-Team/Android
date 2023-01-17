@@ -145,10 +145,10 @@ class PostService {
         })
     }
 
-    fun showPostList(keyword : String){
+    fun showPostList(searchPost:SearchPost){
         Log.d("postList", "enter")
         val postService = getRetrofit().create(RetrofitInterface::class.java)
-        postService.showPostList(keyword, getJwt()!!).enqueue(object: Callback<BaseResponse<PostInfo>> {
+        postService.showPostList(searchPost, getJwt()!!).enqueue(object: Callback<BaseResponse<PostInfo>> {
             //응답이 왔을 때 처리
             override fun onResponse(call: Call<BaseResponse<PostInfo>>, response: Response<BaseResponse<PostInfo>>) {
                 Log.d("postList", "response")
@@ -192,10 +192,10 @@ class PostService {
         })
     }
 
-    fun showScrapPostList(){
+    fun showScrapPostList(pageNum: Int){
         Log.d("showScrapPostList", "enter")
         val postService = getRetrofit().create(RetrofitInterface::class.java)
-        postService.showScrapPostList(getJwt()!!).enqueue(object: Callback<BaseResponse<List<PostList>>> {
+        postService.showScrapPostList(pageNum, getJwt()!!).enqueue(object: Callback<BaseResponse<List<PostList>>> {
             //응답이 왔을 때 처리
             override fun onResponse(call: Call<BaseResponse<List<PostList>>>, response: Response<BaseResponse<List<PostList>>>) {
                 Log.d("showScrapPostList", "response")
