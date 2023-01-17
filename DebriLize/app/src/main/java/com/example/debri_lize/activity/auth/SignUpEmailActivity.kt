@@ -163,7 +163,19 @@ class SignUpEmailActivity : AppCompatActivity(), EmailView {
     }
 
     override fun onEmailFailure(code: Int, message: String) {
-
+        when(code){
+            3070->{
+                //toast
+                var emailToast = layoutInflater.inflate(R.layout.toast_prepare,null)
+                emailToast.findViewById<TextView>(R.id.toast_prepare_roadmap_tv).text = "이미 사용 중인 이메일입니다!"
+                emailToast.findViewById<TextView>(R.id.toast_prepare_tv).text = ""
+                emailToast.findViewById<TextView>(R.id.toast_update_tv).text = "다른 이메일을 입력해주세요"
+                var toast = Toast(this)
+                toast.view = emailToast
+                toast.setGravity(Gravity.CENTER_HORIZONTAL,0,0)
+                toast.show()
+            }
+        }
     }
 
     //인증 코드 이메일 보내기

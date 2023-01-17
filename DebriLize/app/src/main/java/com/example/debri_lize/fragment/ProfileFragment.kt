@@ -95,7 +95,7 @@ class ProfileFragment : Fragment(), MyCurriculumListView{
                         if(i.status == "ACTIVE")
                             datas.add(Curriculum(i.curriculumIdx, i.curriculumName, i.curriculumAuthor, i.status, i.visibleStatus, i.curriDesc,i.createdAt, i.langtag))
                         //내가 등록한 커리큘럼
-                        mydatas.add(Curriculum(i.curriculumIdx,i.curriculumName,i.curriculumAuthor,i.status,i.visibleStatus,i.curriDesc,i.createdAt, i.langtag))
+                        mydatas.add(Curriculum(i.curriculumIdx,i.curriculumName,i.curriculumAuthor,i.status,i.visibleStatus,i.curriDesc,i.createdAt, i.langtag, i.scrapCount))
                     }
 
                     curriculumRVAdapter.datas = datas

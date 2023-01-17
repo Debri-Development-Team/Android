@@ -12,6 +12,7 @@ import com.example.debri_lize.R
 import com.example.debri_lize.adapter.post.PostRVAdapter
 import com.example.debri_lize.data.post.PostInfo
 import com.example.debri_lize.data.post.PostList
+import com.example.debri_lize.data.post.SearchPost
 import com.example.debri_lize.databinding.ActivityPostListBinding
 import com.example.debri_lize.service.PostService
 import com.example.debri_lize.view.post.PostListView
@@ -55,7 +56,7 @@ class PostListActivity : AppCompatActivity(), PostListView {
                 //api
                 val postService = PostService()
                 postService.setPostListView(this@PostListActivity)
-                postService.showPostList(binding.postListSearchEt.text.toString())
+                postService.showPostList(SearchPost(binding.postListSearchEt.text.toString(),1))    //TODO:pageNum
                 Log.d("postListSearch",binding.postListSearchEt.text.toString())
 
                 true

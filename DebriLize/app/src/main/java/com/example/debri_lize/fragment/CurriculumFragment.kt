@@ -61,6 +61,7 @@ class CurriculumFragment : Fragment(), ShowTop10ListView, ShowGetNewCurriListVie
                         binding.curriculumTotalRv.visibility = View.VISIBLE
                         binding.curriculumFavoriteRv.visibility = View.GONE
                         curriculumService.showGetNewCurriList()
+
                     }
                     1 -> {
                         binding.curriculumTotalRv.visibility = View.GONE
@@ -95,7 +96,8 @@ class CurriculumFragment : Fragment(), ShowTop10ListView, ShowGetNewCurriListVie
                     var count = 0
 
                     for (i in result){
-                        datas.add(Curriculum(i.curriIdx, i.curriName, i.curriAuthor, i.status))
+//                        Log.d("curri", i.toString())
+                        datas.add(Curriculum(i.curriIdx, i.curriName, i.curriAuthor, i.status, i.visibleStatus, i.curriDesc, i.createdAt, i.langtag))
                         count++
                         if(count==5) break
                     }
@@ -136,7 +138,8 @@ class CurriculumFragment : Fragment(), ShowTop10ListView, ShowGetNewCurriListVie
                     var count = 0
 
                     for (i in result){
-                        newdatas.add(Curriculum(i.curriIdx, i.curriName, i.curriAuthor, i.status, i.curriDesc))
+                        Log.d("total lang",i.toString())
+                        newdatas.add(Curriculum(i.curriIdx, i.curriName, i.curriAuthor, i.visibleStatus, i.status, i.curriDesc, i.createdAt, i.langtag))
                         count++
                         if(count==5) break
                     }
@@ -175,7 +178,7 @@ class CurriculumFragment : Fragment(), ShowTop10ListView, ShowGetNewCurriListVie
 //                    var count = 0
 
                     for (i in result){
-                        newdatas.add(Curriculum(i.curriculumIdx, i.curriculumName, i.curriculumAuthor, i.status, i.curriDesc))
+                        newdatas.add(Curriculum(i.curriculumIdx, i.curriculumName, i.curriculumAuthor, i.status, i.visibleStatus, i.curriDesc, i.createdAt, i.langtag))
 //                        count++
 //                        if(count==5) break
                     }

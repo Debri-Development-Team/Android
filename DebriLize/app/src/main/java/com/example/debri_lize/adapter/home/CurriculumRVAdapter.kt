@@ -40,16 +40,17 @@ class CurriculumRVAdapter(val className : String) : RecyclerView.Adapter<Curricu
             if(className=="ProfileActivity") {
                 privateLayout.visibility = View.VISIBLE
                 binding.itemCurriculumAuthorLayout.visibility = View.GONE
-                //시작 날짜 TODO: 확인필요
-                binding.profileCurriculumDateTv.text = item.createdAt.toString()
+                //시작 날짜 TODO: 유닉스 시간 변환하기
+//                binding.profileCurriculumDateTv.text = Date(((item.createdAt)!! /86400).toLong())
                 binding.profileCurriculumDateTv.visibility = View.VISIBLE
                 binding.profileCurriculumDescTv.text = item.curriDesc
                 binding.profileCurriculumDescTv.visibility = View.GONE
 
             }else if(className=="myCurriculum"){
                 privateLayout.visibility = View.GONE
-//                binding.itemCurriculumLikenumLayout.visibility = View.VISIBLE
-//                binding.itemCurriculumLikenumTv.text = item.
+                binding.itemCurriculumLikenumLayout.visibility = View.VISIBLE
+                binding.itemCurriculumLikenumTv.text = item.scrapCount.toString()
+                binding.itemCurriculumAuthorLayout.visibility = View.GONE
             }
             else {
                 privateLayout.visibility = View.GONE

@@ -325,7 +325,7 @@ class AddCurriculumDetailActivity : AppCompatActivity(), CreateReviewView, ShowR
 
                 review.apply {
                     for (i in result.reviewList) {
-                                        review.add(Review(i.curriculumIdx, i.authorName, i.content))
+                          review.add(Review(i.curriculumIdx, i.authorName, i.content))
                     }
 
                     reviewRVAdapter.datas = review

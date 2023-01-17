@@ -80,17 +80,19 @@ class PostFragment : Fragment(), EachPostListView {
         }
 
 
-        //fragment to fragment
-        binding.postPreviousIv.setOnClickListener{
-            (context as MainActivity).supportFragmentManager.beginTransaction()
-                .replace(R.id.main_frm, BoardFragment()).commitAllowingStateLoss()
-        }
-
-
         //api
-
         postService.seteachPostListView(this)
         postService.showEachPostList(boardIdx, pageNum) //변경필요
+
+        //fragment to fragment
+        binding.postPreviousIv.setOnClickListener{
+            Log.d("postprevious","enter")
+            activity?.supportFragmentManager!!.beginTransaction()
+                .replace(R.id.main_frm, BoardFragment())
+                .commit()
+//            (context as MainActivity).supportFragmentManager.beginTransaction()
+//                .replace(R.id.main_frm, BoardFragment()).commitAllowingStateLoss()
+        }
 
         //create post
         binding.postWriteBtn.setOnClickListener{
@@ -213,6 +215,7 @@ class PostFragment : Fragment(), EachPostListView {
                         val searchText: String = binding.postSearchEt.text.toString()
                         //Log.d("editText","$searchText")
                         searchFilter(searchText)
+                        pageButton()
                     }
 
                 })

@@ -1,5 +1,8 @@
 package com.example.debri_lize.fragment
 
+
+
+import android.app.Fragment
 import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
@@ -11,7 +14,6 @@ import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.core.content.ContextCompat
-import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.debri_lize.adapter.class_.ClassFavoriteRVAdapter
 import com.example.debri_lize.adapter.class_.ClassLectureRVAdapter
@@ -28,7 +30,7 @@ import com.example.debri_lize.view.class_.LectureFilterView
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.tabs.TabLayout
 
-class ClassFragment : Fragment(), LectureFavoriteView, LectureFilterView {
+class ClassFragment : androidx.fragment.app.Fragment(), LectureFavoriteView, LectureFilterView {
 
     lateinit var binding: FragmentClassBinding
     lateinit var classfavoriteRVAdapter: ClassFavoriteRVAdapter
@@ -40,6 +42,7 @@ class ClassFragment : Fragment(), LectureFavoriteView, LectureFilterView {
     private var pageNum : Int = 1 //현재 페이지 번호
     var page : Int = 1      //현재 페이지가 속한 곳 pageNum이 1~5면 1, 6~10이면 2
     var totalPage : Int = 0
+    var lectureCount : Int = 0
 
     var category : LectureFilter? = null
 
@@ -69,7 +72,7 @@ class ClassFragment : Fragment(), LectureFavoriteView, LectureFilterView {
         classService.setLectureFavoriteView(this)
         classService.setLectureFilterView(this)
 
-        classService.showLectureSearch(lectureFilter)
+//        classService.showLectureSearch(lectureFilter)
 
         //페이징 버튼 클릭
         pageButtonClick()
@@ -152,37 +155,25 @@ class ClassFragment : Fragment(), LectureFavoriteView, LectureFilterView {
         when(category?.type){
             "서적"->{
                 binding.classMediaTagBtn.setText("서적")
-                //TODO : background 추가
-
             }
             "영상"->{
                 binding.classMediaTagBtn.setText("영상")
-                //TODO: background 추가
-
             }
             ""->{
                 binding.classMediaTagBtn.setText("전체")
                 binding.classMediaTagBtn.setBackgroundResource(R.drawable.border_round_gray_transparent_18)
-
             }
         }
         when(category?.price){
             "무료"->{
                 binding.classPriceTagBtn.setText("무료")
-                //TODO : background 수정
-                binding.classPriceTagBtn.setBackgroundResource(R.drawable.border_round_gray_transparent_18)
-
             }
             "유료"->{
                 binding.classPriceTagBtn.setText("유료")
-                //TODO : background 수정
-                binding.classPriceTagBtn.setBackgroundResource(R.drawable.border_round_gray_transparent_18)
-
             }
             ""->{
                 binding.classPriceTagBtn.setText("전체")
                 binding.classPriceTagBtn.setBackgroundResource(R.drawable.border_round_gray_transparent_18)
-
             }
         }
 
@@ -283,6 +274,7 @@ class ClassFragment : Fragment(), LectureFavoriteView, LectureFilterView {
                 val searchText: String = binding.classSearchEt.text.toString()
                 Log.d("editText","$searchText")
                 lectureFilter.key = searchText
+                classService.showLectureSearch(lectureFilter)
 //                if(searchText=="")  filterNum2 = 0
 //                else filterNum2 = 1
 //                showList()
@@ -383,16 +375,14 @@ class ClassFragment : Fragment(), LectureFavoriteView, LectureFilterView {
                 totalPage = if(result.lectureCount%12==0) result.lectureCount/12 else result.lectureCount/12 + 1
                 page = if(pageNum%5==0) pageNum/5 else pageNum/5+1
 
+
+                lectureCount = result.lectureCount
+
+                Log.d("lecturecount",lectureCount.toString())
+
                 pageButton()
 
-                if(result.lectureCount == 0){
-                    binding.lecturePagenum1Tv.visibility = View.INVISIBLE
-                    binding.lecturePagenum2Tv.visibility = View.INVISIBLE
-                    binding.lecturePagenum3Tv.visibility = View.INVISIBLE
-                    binding.lecturePagenum4Tv.visibility = View.INVISIBLE
-                    binding.lecturePagenum5Tv.visibility = View.INVISIBLE
-                    binding.lecturePageNextIv.visibility = View.INVISIBLE
-                }
+
 
                 datas.apply {
                     for (i in result.lectureList) {
@@ -531,6 +521,15 @@ class ClassFragment : Fragment(), LectureFavoriteView, LectureFilterView {
             binding.lecturePagenum3Tv.visibility = View.VISIBLE
             binding.lecturePagenum4Tv.visibility = View.VISIBLE
             binding.lecturePagenum5Tv.visibility = View.VISIBLE
+        }
+
+        if(lectureCount == 0){
+            binding.lecturePagenum1Tv.visibility = View.INVISIBLE
+            binding.lecturePagenum2Tv.visibility = View.INVISIBLE
+            binding.lecturePagenum3Tv.visibility = View.INVISIBLE
+            binding.lecturePagenum4Tv.visibility = View.INVISIBLE
+            binding.lecturePagenum5Tv.visibility = View.INVISIBLE
+            binding.lecturePageNextIv.visibility = View.INVISIBLE
         }
 
 

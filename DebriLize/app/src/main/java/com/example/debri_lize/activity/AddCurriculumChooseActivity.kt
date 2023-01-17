@@ -141,7 +141,7 @@ class AddCurriculumChooseActivity : AppCompatActivity(), CreateCurriculumView, S
 
                     //나중에 랭킹순으로 뜨도록 변경
                     for(i in result){
-                        top10.add(Curriculum(i.curriIdx,i.curriName,i.curriAuthor, i.status))
+                        top10.add(Curriculum(i.curriIdx,i.curriName,i.curriAuthor, i.status, i.visibleStatus, i.curriDesc, i.createdAt, i.langtag))
                     }
 
                     roadmapTopRVAdapter.datas = top10

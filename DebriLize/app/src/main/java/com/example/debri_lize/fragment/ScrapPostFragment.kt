@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -54,7 +55,8 @@ class ScrapPostFragment : Fragment(), ShowScrapPostListView {
         //api
         val postService = PostService()
         postService.setShowScrapPostListView(this)
-        postService.showScrapPostList()
+        //TODO : pageNum
+        postService.showScrapPostList(1)
 
         //create post
         binding.postWriteBtn.setOnClickListener{
@@ -115,6 +117,7 @@ class ScrapPostFragment : Fragment(), ShowScrapPostListView {
                     for (i in result){
                         datas.add(PostList(i.boardIdx, i.postIdx, i.authorName, i.postName, i.likeCnt, i.likeStatus, i.scrapStatus, i.timeAfterCreated, i.commentCnt, i.boardName))
                     }
+                    Log.d("scrapPostdata",datas.toString())
 
                     postRVAdapter.datas = datas
                     postRVAdapter.notifyDataSetChanged()
