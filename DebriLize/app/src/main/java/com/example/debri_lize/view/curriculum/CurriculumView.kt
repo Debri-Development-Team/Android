@@ -1,9 +1,6 @@
 package com.example.debri_lize.view.curriculum
 
-import com.example.debri_lize.data.curriculum.Curriculum
-import com.example.debri_lize.data.curriculum.CurriculumDetail
-import com.example.debri_lize.data.curriculum.CurriculumLike
-import com.example.debri_lize.data.curriculum.Top10
+import com.example.debri_lize.data.curriculum.*
 
 //8.1 커리큘럼 생성 api
 interface CreateCurriculumView {
@@ -97,6 +94,6 @@ interface CopyCurriculumView {
 
 //8.14 최신 커리큘럼 리스트 조회 api
 interface ShowGetNewCurriListView{
-    fun onShowGetNewCurriListSuccess(code: Int, result : List<Top10>)
+    fun onShowGetNewCurriListSuccess(code: Int, result : List<RecentCurriculum>)
     fun onShowGetNewCurriListFailure(code : Int)
 }

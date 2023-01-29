@@ -248,6 +248,6 @@ interface RetrofitInterface {
     fun copyCurriculum(@Body copyCurriculum : CopyCurriculum, @Header("ACCESS-TOKEN") authToken: String) : Call<BaseResponse<Copy>>
 
     //8.14 최신 커리큘럼 리스트 조회 api
-    @POST("api/curri/getNewList")
-    fun showGetNewCurriList(@Header("ACCESS-TOKEN") authToken: String) : Call<BaseResponse<List<Top10>>>
+    @GET("api/curri/getNewList")
+    fun showGetNewCurriList(@Header("ACCESS-TOKEN") authToken: String) : Call<BaseResponse<List<RecentCurriculum>>>
 }
