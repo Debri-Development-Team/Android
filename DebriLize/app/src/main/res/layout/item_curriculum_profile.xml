@@ -28,21 +28,47 @@
         android:src="@drawable/ic_previous" />
 
     <LinearLayout
-        android:layout_width="150dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/profile_curriculum_name_tv"
-            android:layout_width="150dp"
+
+        <LinearLayout
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:ellipsize="end"
-            android:fontFamily="@font/noto_sans_kr_regular"
-            android:includeFontPadding="false"
-            android:maxLines="1"
-            android:text="자바 첫 걸음"
-            android:textColor="@color/white"
-            android:textSize="18sp" />
+            android:orientation="horizontal"
+            android:layout_marginBottom="2dp">
+            <TextView
+                android:id="@+id/profile_curriculum_name_tv"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:ellipsize="end"
+                android:fontFamily="@font/noto_sans_kr_regular"
+                android:includeFontPadding="false"
+                android:maxLines="1"
+                android:text="자바 첫 걸음"
+                android:textColor="@color/white"
+                android:textSize="14dp" />
+
+            <TextView
+                android:id="@+id/item_curriculum_lecture_img_tag_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Front"
+                android:fontFamily="@font/noto_sans_kr_bold"
+                android:includeFontPadding="false"
+                android:textSize="10dp"
+                android:textColor="@color/white"
+                android:layout_gravity="center"
+                android:paddingVertical="2dp"
+                android:paddingStart="8dp"
+                android:paddingEnd="8dp"
+                android:layout_marginStart="5dp"
+                android:background="@drawable/border_round_transparent_front_10"/>
+
+        </LinearLayout>
+
+
 
         <TextView
             android:id="@+id/profile_curriculum_date_tv"
@@ -52,10 +78,23 @@
             android:fontFamily="@font/noto_sans_kr_regular"
             android:includeFontPadding="false"
             android:textColor="@color/white"
-            android:textSize="12dp"
+            android:textSize="10dp"
             android:visibility="visible"
             android:ellipsize="end"
             android:maxLines="1"/>
+
+        <TextView
+            android:id="@+id/profile_curriculum_desc_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Basic Tools 에 대한 이해"
+            android:fontFamily="@font/noto_sans_kr_regular"
+            android:includeFontPadding="false"
+            android:textColor="@color/white"
+            android:textSize="10dp"
+            android:visibility="gone"
+            android:ellipsize="end"
+            android:maxLines="1" />
 
         <LinearLayout
             android:id="@+id/profile_private_layout"
@@ -103,6 +142,42 @@
                 android:includeFontPadding="false" />
         </LinearLayout>
 
+        <LinearLayout
+            android:id="@+id/item_curriculum_likenum_layout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:visibility="gone">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="받은 추천 수"
+                android:textColor="@color/white"
+                android:fontFamily="@font/noto_sans_kr_bold"
+                android:includeFontPadding="false"
+                android:textSize="12dp"/>
+            <TextView
+                android:id="@+id/item_curriculum_likenum_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="1000"
+                android:textColor="@color/debri"
+                android:fontFamily="@font/noto_sans_kr_bold"
+                android:includeFontPadding="false"
+                android:layout_marginStart="10dp"
+                android:textSize="12dp"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="개"
+                android:textColor="@color/white"
+                android:fontFamily="@font/noto_sans_kr_bold"
+                android:layout_marginStart="2dp"
+                android:textSize="12dp"
+                android:includeFontPadding="false"/>
+
+        </LinearLayout>
+
 
     </LinearLayout>
 
@@ -113,9 +188,9 @@
 
     <ImageView
         android:id="@+id/profile_curriculum_next_iv"
-        android:layout_width="18dp"
-        android:layout_height="40dp"
-        android:src="@drawable/btn_next"/>
+        android:layout_width="6dp"
+        android:layout_height="14dp"
+        android:src="@drawable/btn_next_white"/>
 
 </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

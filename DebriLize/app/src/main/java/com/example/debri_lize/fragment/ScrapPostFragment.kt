@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -14,7 +15,7 @@ import com.example.debri_lize.R
 import com.example.debri_lize.activity.MainActivity
 import com.example.debri_lize.activity.PostCreateActivity
 import com.example.debri_lize.activity.PostDetailActivity
-import com.example.debri_lize.activity.auth.ProfileActivity
+import com.example.debri_lize.data.post.PostInfo
 import com.example.debri_lize.data.post.PostList
 import com.example.debri_lize.service.PostService
 import com.example.debri_lize.databinding.FragmentScrapPostBinding
@@ -43,12 +44,6 @@ class ScrapPostFragment : Fragment(), ShowScrapPostListView {
     override fun onStart() {
         super.onStart()
 
-        //click profile
-        binding.postScrapDebriUserIv.setOnClickListener{
-            val intent = Intent(context, ProfileActivity::class.java)
-            startActivity(intent)
-        }
-
         //fragment to fragment
         binding.postScrapPreviousIv.setOnClickListener{
             (context as MainActivity).supportFragmentManager.beginTransaction()
@@ -61,7 +56,8 @@ class ScrapPostFragment : Fragment(), ShowScrapPostListView {
         //api
         val postService = PostService()
         postService.setShowScrapPostListView(this)
-        postService.showScrapPostList()
+        //TODO : pageNum
+        postService.showScrapPostList(1)
 
         //create post
         binding.postWriteBtn.setOnClickListener{
@@ -104,7 +100,7 @@ class ScrapPostFragment : Fragment(), ShowScrapPostListView {
     }
 
     //recycler view
-    override fun onShowScrapPostListSuccess(code: Int, result: List<PostList>) {
+    override fun onShowScrapPostListSuccess(code: Int, result: PostInfo) {
         when(code){
             //개발할 때는 userIdx 저장이 필요할수도
             200-> {
@@ -119,9 +115,10 @@ class ScrapPostFragment : Fragment(), ShowScrapPostListView {
                 //data
                 datas.apply {
 
-                    for (i in result){
+                    for (i in result.postList){
                         datas.add(PostList(i.boardIdx, i.postIdx, i.authorName, i.postName, i.likeCnt, i.likeStatus, i.scrapStatus, i.timeAfterCreated, i.commentCnt, i.boardName))
                     }
+                    Log.d("scrapPostdata",datas.toString())
 
                     postRVAdapter.datas = datas
                     postRVAdapter.notifyDataSetChanged()

@@ -10,7 +10,9 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.debri_lize.R
 import com.example.debri_lize.adapter.post.PostRVAdapter
+import com.example.debri_lize.data.post.PostInfo
 import com.example.debri_lize.data.post.PostList
+import com.example.debri_lize.data.post.SearchPost
 import com.example.debri_lize.databinding.ActivityPostListBinding
 import com.example.debri_lize.service.PostService
 import com.example.debri_lize.view.post.PostListView
@@ -54,7 +56,7 @@ class PostListActivity : AppCompatActivity(), PostListView {
                 //api
                 val postService = PostService()
                 postService.setPostListView(this@PostListActivity)
-                postService.showPostList(binding.postListSearchEt.text.toString())
+                postService.showPostList(SearchPost(binding.postListSearchEt.text.toString(),1))    //TODO:pageNum
                 Log.d("postListSearch",binding.postListSearchEt.text.toString())
 
                 true
@@ -80,7 +82,7 @@ class PostListActivity : AppCompatActivity(), PostListView {
 
     }
 
-    override fun onPostListSuccess(code: Int, result: List<PostList>) {
+    override fun onPostListSuccess(code: Int, result: PostInfo) {
         when(code){
             //개발할 때는 userIdx 저장이 필요할수도
             200-> {
@@ -92,8 +94,8 @@ class PostListActivity : AppCompatActivity(), PostListView {
                 //data
                 datas.clear()
                 datas.apply {
-                    Log.d("resultSize", result.size.toString())
-                    for (i in result){
+//                    Log.d("resultSize", result.size.toString())
+                    for (i in result.postList){
                         Log.d("postlist","$result")
                         datas.add(PostList(i.boardIdx, i.postIdx, i.authorName, i.postName, i.likeCnt, i.likeStatus,i.scrapStatus, i.timeAfterCreated, i.commentCnt, i.boardName))
                     }

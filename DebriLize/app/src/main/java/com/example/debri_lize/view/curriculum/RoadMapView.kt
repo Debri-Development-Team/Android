@@ -14,3 +14,9 @@ interface ShowRoadMapDetailView {
     fun onShowRoadMapDetailSuccess(code: Int, result : List<RoadMap>)
     fun onShowRoadMapDetailFailure(code : Int)
 }
+
+//7.5.2 로드맵 to 커리큘럼 api
+interface CopyRoadMapView {
+    fun onCopyRoadMapSuccess(code: Int)
+    fun onCopyRoadMapFailure(code : Int)
+}

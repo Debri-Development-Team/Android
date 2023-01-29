@@ -259,6 +259,7 @@ class CustomDialog(context: Context) {
 
 
 
+
     interface ButtonClickListener{
         fun onClicked(TF: Boolean)
     }

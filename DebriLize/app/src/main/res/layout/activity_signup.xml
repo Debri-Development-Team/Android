@@ -6,372 +6,272 @@
     android:layout_height="match_parent">
 
     <androidx.constraintlayout.widget.ConstraintLayout
-
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:background="@color/darkmode_background"
         >
 
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/sign_up_back_layout"
+        <ImageView
+            android:id="@+id/sign_up_back_iv"
+            android:layout_width="7.5dp"
+            android:layout_height="19dp"
             android:layout_marginTop="40dp"
-            android:layout_marginStart="30dp"
-            android:layout_marginEnd="30dp"
+            android:layout_marginStart="29dp"
+            android:src="@drawable/back_white"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            android:gravity="center">
-
-            <ImageView
-                android:id="@+id/sign_up_back_iv"
-                android:layout_width="19.33dp"
-                android:layout_height="17.41dp"
-                android:src="@drawable/ic_back" />
-
-            <TextView
-                android:id="@+id/sign_up_back_tv"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="돌아가기"
-                android:textColor="@color/white"
-                android:fontFamily="@font/noto_sans_kr_regular"
-                android:textSize="12dp"
-                android:includeFontPadding="false"
-                android:layout_marginStart="10.83dp"/>
-
-        </LinearLayout>
-
-
-
-
-        <ImageView
-            android:id="@+id/sign_up_logo_debri_iv"
-            android:layout_width="152dp"
-            android:layout_height="106dp"
-            android:src="@drawable/logo_debri_img"
-            android:layout_marginTop="93dp"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"/>
-
-        <ImageView
-            android:id="@+id/sign_up_logo_debri_eng_kor_iv"
-            android:layout_width="223.81dp"
-            android:layout_height="43.61dp"
-            android:src="@drawable/logo_debri_eng_kor_white"
-            android:layout_marginTop="17.58dp"
-            app:layout_constraintTop_toBottomOf="@+id/sign_up_logo_debri_iv"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"/>
-
+            app:layout_constraintStart_toStartOf="parent"/>
 
         <TextView
-            android:id="@+id/sign_up_logo_debri_tv"
+            android:id="@+id/sign_up_tv1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="15dp"
-            android:text="&quot;개발과 관련된 모든 것들을 연결합니다.&quot;"
+            android:text="회원가입"
             android:textColor="@color/white"
-            android:textSize="12dp"
+            android:fontFamily="@font/noto_sans_kr_bold"
+            android:textSize="18dp"
+            android:includeFontPadding="false"
+            app:layout_constraintTop_toTopOf="@+id/sign_up_back_iv"
+            app:layout_constraintBottom_toBottomOf="@+id/sign_up_back_iv"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"/>
+
+        <TextView
+            android:id="@+id/sign_up_tv2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="정보 입력"
+            android:textColor="@color/white"
+            android:fontFamily="@font/noto_sans_kr_regular"
+            android:textSize="14dp"
+            android:includeFontPadding="false"
+            android:layout_marginTop="2dp"
+            app:layout_constraintTop_toBottomOf="@+id/sign_up_tv1"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"/>
+
+        <TextView
+            android:id="@+id/sign_up_id_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="이메일 (ID)"
             android:fontFamily="@font/noto_sans_kr_bold"
             android:includeFontPadding="false"
-            app:layout_constraintEnd_toEndOf="parent"
+            android:textColor="@color/white"
+            android:textSize="12dp"
+            android:layout_marginTop="49dp"
+            android:layout_marginStart="40dp"
+            android:paddingStart="10dp"
+            android:background="@drawable/border_line_left"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/sign_up_logo_debri_eng_kor_iv" />
+            app:layout_constraintTop_toBottomOf="@+id/sign_up_tv2"/>
+
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="40dp"
             android:id="@+id/sign_up_id_layout"
-            android:layout_marginTop="49dp"
+            android:layout_marginTop="10dp"
             android:layout_marginStart="30dp"
             android:layout_marginEnd="30dp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/sign_up_logo_debri_tv"
+            app:layout_constraintTop_toBottomOf="@+id/sign_up_id_tv"
             android:gravity="center_vertical"
             android:background="@drawable/border_round_white_transparent_10">
 
             <TextView
-                android:id="@+id/sign_up_id_tv"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="15dp"
-                android:text="ID"
-                android:fontFamily="@font/noto_sans_kr_regular"
-                android:includeFontPadding="false"
-                android:textColor="@color/white"
-                android:textSize="16dp" />
-
-
-            <EditText
                 android:id="@+id/sign_up_id_et"
-                android:layout_width="250dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@null"
-                android:hint="아이디(이메일)"
                 android:inputType="text"
                 android:textColorHint="@color/white"
                 android:textColor="@color/white"
                 android:textSize="14dp"
                 android:fontFamily="@font/noto_sans_kr_regular"
-                android:includeFontPadding="false"
-                android:layout_marginStart="50dp"/>
+                android:layout_marginHorizontal="16dp"
+                android:includeFontPadding="false"/>
         </LinearLayout>
 
-        <View
-            android:id="@+id/sign_up_id_bar_v"
-            android:layout_width="23.16dp"
-            android:layout_height="23.16dp"
-            android:background="@drawable/vertical_line_white_1"
-            android:layout_marginStart="48dp"
-            app:layout_constraintTop_toTopOf="@+id/sign_up_id_layout"
-            app:layout_constraintBottom_toBottomOf="@+id/sign_up_id_layout"
-            app:layout_constraintStart_toStartOf="@+id/sign_up_id_layout"
-            />
+        <TextView
+            android:id="@+id/sign_up_password_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="40dp"
+            android:text="비밀번호"
+            android:fontFamily="@font/noto_sans_kr_bold"
+            android:includeFontPadding="false"
+            android:textColor="@color/white"
+            android:textSize="12dp"
+            android:layout_marginTop="20dp"
+            android:paddingStart="10dp"
+            android:background="@drawable/border_line_left"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/sign_up_id_layout"/>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="40dp"
             android:id="@+id/sign_up_password_layout"
-            android:layout_marginTop="15dp"
+            android:layout_marginTop="10dp"
             android:layout_marginStart="30dp"
             android:layout_marginEnd="30dp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/sign_up_id_layout"
+            app:layout_constraintTop_toBottomOf="@+id/sign_up_password_tv"
             android:gravity="center_vertical"
             android:background="@drawable/border_round_white_transparent_10">
-
-            <TextView
-                android:id="@+id/sign_up_password_tv"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="15dp"
-                android:text="PW"
-                android:fontFamily="@font/noto_sans_kr_regular"
-                android:includeFontPadding="false"
-                android:textColor="@color/white"
-                android:textSize="16dp"/>
-
 
 
             <EditText
                 android:id="@+id/sign_up_password_et"
-                android:layout_width="220dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@null"
-                android:hint="비밀번호"
                 android:textColorHint="@color/white"
                 android:textColor="@color/white"
                 android:inputType="textPassword"
                 android:textSize="14dp"
                 android:fontFamily="@font/noto_sans_kr_regular"
                 android:includeFontPadding="false"
-                android:layout_marginStart="41dp"/>
+                android:layout_marginHorizontal="16dp"/>
 
         </LinearLayout>
 
-        <View
-            android:id="@+id/sign_up_password_bar_v"
-            android:layout_width="23.16dp"
-            android:layout_height="23.16dp"
-            android:background="@drawable/vertical_line_white_1"
-            android:layout_marginStart="48dp"
-            app:layout_constraintTop_toTopOf="@+id/sign_up_password_layout"
-            app:layout_constraintBottom_toBottomOf="@+id/sign_up_password_layout"
-            app:layout_constraintStart_toStartOf="@+id/sign_up_password_layout"
-            />
-
-        <ImageView
-            android:id="@+id/sign_up_capslock_password_iv"
-            android:layout_width="24dp"
-            android:layout_height="24dp"
-            android:layout_marginEnd="8dp"
-            android:src="@drawable/ic_capslock"
-            app:layout_constraintBottom_toBottomOf="@+id/sign_up_password_layout"
-            app:layout_constraintEnd_toEndOf="@+id/sign_up_password_layout"
-            app:layout_constraintTop_toTopOf="@+id/sign_up_password_layout" />
+        <TextView
+            android:id="@+id/sign_up_password_check_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="40dp"
+            android:text="비밀번호확인"
+            android:fontFamily="@font/noto_sans_kr_bold"
+            android:includeFontPadding="false"
+            android:textColor="@color/white"
+            android:textSize="12dp"
+            android:paddingStart="10dp"
+            android:layout_marginTop="16dp"
+            android:background="@drawable/border_line_left"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/sign_up_password_layout"/>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="40dp"
             android:id="@+id/sign_up_password_check_layout"
-            android:layout_marginTop="15dp"
+            android:layout_marginTop="10dp"
             android:layout_marginStart="30dp"
             android:layout_marginEnd="30dp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/sign_up_password_layout"
+            app:layout_constraintTop_toBottomOf="@+id/sign_up_password_check_tv"
             android:gravity="center_vertical"
             android:background="@drawable/border_round_white_transparent_10">
 
-            <TextView
-                android:id="@+id/sign_up_password_check_tv"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="15dp"
-                android:text="비밀번호\n확인"
-                android:fontFamily="@font/noto_sans_kr_regular"
-                android:includeFontPadding="false"
-                android:textColor="@color/white"
-                android:textSize="9dp"/>
+
 
             <EditText
                 android:id="@+id/sign_up_password_check_et"
-                android:layout_width="220dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@null"
-                android:hint="비밀번호 확인"
                 android:textColorHint="@color/white"
                 android:textColor="@color/white"
                 android:inputType="textPassword"
                 android:textSize="14dp"
                 android:fontFamily="@font/noto_sans_kr_regular"
                 android:includeFontPadding="false"
-                android:layout_marginStart="31dp"/>
+                android:layout_marginHorizontal="16dp"/>
 
 
         </LinearLayout>
 
-        <View
-            android:id="@+id/sign_up_password_check_bar_v"
-            android:layout_width="23.16dp"
-            android:layout_height="23.16dp"
-            android:background="@drawable/vertical_line_white_1"
-            android:layout_marginStart="48dp"
-            app:layout_constraintTop_toTopOf="@+id/sign_up_password_check_layout"
-            app:layout_constraintBottom_toBottomOf="@+id/sign_up_password_check_layout"
-            app:layout_constraintStart_toStartOf="@+id/sign_up_password_check_layout"
-            />
-
-
-        <ImageView
-            android:id="@+id/sign_up_capslock_password_check_iv"
-            android:layout_width="24dp"
-            android:layout_height="24dp"
-            android:layout_marginEnd="8dp"
-            android:src="@drawable/ic_capslock"
-            app:layout_constraintBottom_toBottomOf="@+id/sign_up_password_check_layout"
-            app:layout_constraintEnd_toEndOf="@+id/sign_up_password_check_layout"
-            app:layout_constraintTop_toTopOf="@+id/sign_up_password_check_layout" />
+        <TextView
+            android:id="@+id/sign_up_birth_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="40dp"
+            android:text="생년월일"
+            android:fontFamily="@font/noto_sans_kr_bold"
+            android:includeFontPadding="false"
+            android:paddingStart="10dp"
+            android:textColor="@color/white"
+            android:textSize="12dp"
+            android:background="@drawable/border_line_left"
+            android:layout_marginTop="16dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/sign_up_password_check_layout"/>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="40dp"
             android:id="@+id/sign_up_birth_layout"
-            android:layout_marginTop="15dp"
+            android:layout_marginTop="10dp"
             android:layout_marginStart="30dp"
             android:layout_marginEnd="30dp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/sign_up_password_check_layout"
+            app:layout_constraintTop_toBottomOf="@+id/sign_up_birth_tv"
             android:gravity="center_vertical"
             android:background="@drawable/border_round_white_transparent_10">
-
-            <TextView
-                android:id="@+id/sign_up_birth_tv"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="15dp"
-                android:text="생년\n월일"
-                android:fontFamily="@font/noto_sans_kr_regular"
-                android:includeFontPadding="false"
-                android:textColor="@color/white"
-                android:textSize="9dp"/>
 
 
 
             <EditText
                 android:id="@+id/sign_up_birth_et"
-                android:layout_width="250dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@null"
-                android:hint="1990-01-01"
                 android:inputType="text"
                 android:textColorHint="@color/white"
                 android:textColor="@color/white"
                 android:textSize="14dp"
                 android:fontFamily="@font/noto_sans_kr_regular"
                 android:includeFontPadding="false"
-                android:layout_marginStart="46dp"/>
+                android:layout_marginHorizontal="16dp"/>
         </LinearLayout>
-        <View
-            android:id="@+id/sign_up_birth_bar_v"
-            android:layout_width="23.16dp"
-            android:layout_height="23.16dp"
-            android:background="@drawable/vertical_line_white_1"
-            android:layout_marginStart="48dp"
-            app:layout_constraintTop_toTopOf="@+id/sign_up_birth_layout"
-            app:layout_constraintBottom_toBottomOf="@+id/sign_up_birth_layout"
-            app:layout_constraintStart_toStartOf="@+id/sign_up_birth_layout"
-            />
 
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/sign_up_nickname_tv"
+            android:text="닉네임"
+            android:textSize="12dp"
+            android:textColor="@color/white"
+            android:fontFamily="@font/noto_sans_kr_bold"
+            android:includeFontPadding="false"
+            android:layout_marginStart="40dp"
+            android:layout_marginTop="16dp"
+            app:layout_constraintStart_toStartOf="parent"
+            android:background="@drawable/border_line_left"
+            android:paddingStart="10dp"
+            app:layout_constraintTop_toBottomOf="@+id/sign_up_birth_layout"
+            />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="40dp"
             android:id="@+id/sign_up_nickname_layout"
-            android:layout_marginTop="15dp"
+            android:layout_marginTop="10dp"
             android:layout_marginStart="30dp"
             android:layout_marginEnd="30dp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/sign_up_birth_layout"
+            app:layout_constraintTop_toBottomOf="@+id/sign_up_nickname_tv"
             android:gravity="center_vertical"
             android:background="@drawable/border_round_white_transparent_10">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/sign_up_nickname_tv"
-                android:text="닉네임"
-                android:textSize="9dp"
-                android:textColor="@color/white"
-                android:fontFamily="@font/noto_sans_kr_regular"
-                android:includeFontPadding="false"
-                android:layout_marginStart="15dp"
-                />
-
 
 
             <EditText
                 android:id="@+id/sign_up_nickname_et"
-                android:layout_width="250dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@null"
-                android:hint="데브리"
                 android:inputType="text"
                 android:textColorHint="@color/white"
                 android:textColor="@color/white"
                 android:textSize="14dp"
                 android:fontFamily="@font/noto_sans_kr_regular"
                 android:includeFontPadding="false"
-                android:layout_marginStart="40dp"/>
+                android:layout_marginHorizontal="16dp"/>
         </LinearLayout>
 
 
-        <View
-            android:id="@+id/sign_up_nickname_bar_v"
-            android:layout_width="23.16dp"
-            android:layout_height="23.16dp"
-            android:background="@drawable/vertical_line_white_1"
-            android:layout_marginStart="48dp"
-            app:layout_constraintTop_toTopOf="@+id/sign_up_nickname_layout"
-            app:layout_constraintBottom_toBottomOf="@+id/sign_up_nickname_layout"
-            app:layout_constraintStart_toStartOf="@+id/sign_up_nickname_layout"
-            />
 
-
-    <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/sign_up_sign_up_btn"
-        android:layout_width="170dp"
-        android:layout_height="60dp"
-        android:background="@drawable/border_round_transparent_gray_6"
-        android:text="시작하기"
-        android:textColor="@color/darkmode_background"
-        android:fontFamily="@font/noto_sans_kr_bold"
-        android:textSize="20sp"
-        android:includeFontPadding="false"
-        android:layout_marginTop="15dp"
-        app:layout_constraintTop_toBottomOf="@+id/sign_up_nickname_layout"
-        app:layout_constraintEnd_toEndOf="@+id/sign_up_nickname_layout"/>
 
     <ProgressBar
         android:id="@+id/sign_up_loading_pb"
@@ -385,137 +285,160 @@
         app:layout_constraintTop_toTopOf="parent"
         android:visibility="gone"/>
 
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:id="@+id/sign_up_agree1_layout"
-        android:layout_marginTop="15dp"
-        android:layout_marginStart="30dp"
-        android:layout_marginEnd="30dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/sign_up_sign_up_btn"
-        android:gravity="center_vertical"
-        android:background="@drawable/border_round_transparent_gray_6">
-
-        <ImageView
-            android:layout_width="25dp"
-            android:layout_height="25dp"
-            android:layout_marginStart="15dp"
-            android:id="@+id/sign_up_box1_off_iv"
-            android:background="@drawable/border_round_transparent_white_6" />
-
-        <TextView
-            android:id="@+id/sign_up_agree1_tv"
-            android:layout_width="wrap_content"
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/sign_up_agree_layout"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:fontFamily="@font/noto_sans_kr_regular"
+            android:layout_marginTop="33dp"
+            android:layout_marginHorizontal="30dp"
+            android:background="@drawable/border_round_transparent_gray_6"
+            app:layout_constraintTop_toBottomOf="@+id/sign_up_nickname_layout"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:id="@+id/sign_up_agree1_layout"
+                android:gravity="center_vertical"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent">
+
+                <ImageView
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:layout_marginStart="10dp"
+                    android:id="@+id/sign_up_box1_off_iv"
+                    android:background="@drawable/border_round_gray_white_4" />
+
+                <TextView
+                    android:id="@+id/sign_up_agree1_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:fontFamily="@font/noto_sans_kr_bold"
+                    android:includeFontPadding="false"
+                    android:text="전체 약관에 동의합니다."
+                    android:textColor="@color/black"
+                    android:textSize="12dp" />
+            </LinearLayout>
+
+            <ImageView
+                android:id="@+id/sign_up_box1_on_iv"
+                android:layout_width="18dp"
+                android:layout_height="18dp"
+                android:layout_marginStart="15dp"
+                android:scaleType="fitXY"
+                android:src="@drawable/ic_check"
+                android:visibility="gone"
+                app:layout_constraintStart_toStartOf="@+id/sign_up_agree1_layout"
+                app:layout_constraintTop_toTopOf="@+id/sign_up_agree1_layout"
+                app:layout_constraintBottom_toBottomOf="@+id/sign_up_agree1_layout"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:id="@+id/sign_up_agree2_layout"
+                android:layout_marginTop="10dp"
+                android:layout_marginHorizontal="20dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/sign_up_agree1_layout"
+                android:gravity="center_vertical"
+                android:background="@drawable/border_round_transparent_white_6">
+
+                <ImageView
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:layout_marginStart="15dp"
+                    android:id="@+id/sign_up_box2_off_iv"
+                    android:background="@drawable/border_round_gray_white_4" />
+
+                <TextView
+                    android:id="@+id/sign_up_agree2_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:fontFamily="@font/noto_sans_kr_regular"
+                    android:includeFontPadding="false"
+                    android:text="개인정보 약관에 동의합니다. (필수)"
+                    android:textColor="@color/black"
+                    android:textSize="12dp"
+                    android:background="@drawable/border_line_bottom"/>
+            </LinearLayout>
+
+            <ImageView
+                android:id="@+id/sign_up_box2_on_iv"
+                android:layout_width="18dp"
+                android:layout_height="18dp"
+                android:layout_marginStart="18dp"
+                android:scaleType="fitXY"
+                android:src="@drawable/ic_check"
+                android:visibility="gone"
+                app:layout_constraintStart_toStartOf="@+id/sign_up_agree2_layout"
+                app:layout_constraintTop_toTopOf="@+id/sign_up_agree2_layout"
+                app:layout_constraintBottom_toBottomOf="@+id/sign_up_agree2_layout"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:id="@+id/sign_up_agree3_layout"
+                android:layout_marginTop="4dp"
+                android:layout_marginBottom="12dp"
+                android:layout_marginHorizontal="20dp"
+                app:layout_constraintTop_toBottomOf="@+id/sign_up_agree2_layout"
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:gravity="center_vertical"
+                android:background="@drawable/border_round_transparent_white_6">
+
+                <ImageView
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:layout_marginStart="15dp"
+                    android:id="@+id/sign_up_box3_off_iv"
+                    android:background="@drawable/border_round_gray_white_4" />
+
+                <TextView
+                    android:id="@+id/sign_up_agree3_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:fontFamily="@font/noto_sans_kr_regular"
+                    android:includeFontPadding="false"
+                    android:text="서비스 홍보 약관에 동의합니다. (선택)"
+                    android:textColor="@color/black"
+                    android:textSize="12dp"
+                    android:background="@drawable/border_line_bottom"/>
+            </LinearLayout>
+
+            <ImageView
+                android:id="@+id/sign_up_box3_on_iv"
+                android:layout_width="18dp"
+                android:layout_height="18dp"
+                android:layout_marginStart="18dp"
+                android:scaleType="fitXY"
+                android:src="@drawable/ic_check"
+                android:visibility="gone"
+                app:layout_constraintStart_toStartOf="@+id/sign_up_agree3_layout"
+                app:layout_constraintTop_toTopOf="@+id/sign_up_agree3_layout"
+                app:layout_constraintBottom_toBottomOf="@+id/sign_up_agree3_layout"/>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/sign_up_sign_up_btn"
+            android:layout_width="170dp"
+            android:layout_height="60dp"
+            android:background="@drawable/border_round_gray_clearness8_10"
+            android:text="시작하기"
+            android:textColor="#50ffffff"
+            android:fontFamily="@font/noto_sans_kr_bold"
+            android:textSize="20dp"
             android:includeFontPadding="false"
-            android:text="전체 약관에 동의합니다."
+            android:layout_marginTop="50dp"
+            android:layout_marginBottom="40dp"
+            app:layout_constraintEnd_toEndOf="@+id/sign_up_agree_layout"
+            app:layout_constraintTop_toBottomOf="@+id/sign_up_agree_layout"
+            app:layout_constraintBottom_toBottomOf="parent"/>
 
-            android:textColor="@color/black"
-            android:textSize="12dp" />
-    </LinearLayout>
-
-    <ImageView
-        android:id="@+id/sign_up_box1_on_iv"
-        android:layout_width="18dp"
-        android:layout_height="18dp"
-        android:layout_marginStart="18dp"
-        android:scaleType="fitXY"
-        android:src="@drawable/ic_check"
-        android:visibility="gone"
-        app:layout_constraintStart_toStartOf="@+id/sign_up_agree1_layout"
-        app:layout_constraintTop_toTopOf="@+id/sign_up_agree1_layout"
-        app:layout_constraintBottom_toBottomOf="@+id/sign_up_agree1_layout"/>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:id="@+id/sign_up_agree2_layout"
-        android:layout_marginTop="10dp"
-        android:layout_marginStart="30dp"
-        android:layout_marginEnd="30dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/sign_up_agree1_layout"
-        android:gravity="center_vertical"
-        android:background="@drawable/border_round_transparent_gray_6">
-
-        <ImageView
-            android:layout_width="25dp"
-            android:layout_height="25dp"
-            android:layout_marginStart="15dp"
-            android:id="@+id/sign_up_box2_off_iv"
-            android:background="@drawable/border_round_transparent_white_6" />
-
-        <TextView
-            android:id="@+id/sign_up_agree2_tv"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:fontFamily="@font/noto_sans_kr_regular"
-            android:includeFontPadding="false"
-            android:text="개인정보 약관에 동의합니다. (필수)"
-            android:textColor="@color/black"
-            android:textSize="12dp" />
-    </LinearLayout>
-
-    <ImageView
-        android:id="@+id/sign_up_box2_on_iv"
-        android:layout_width="18dp"
-        android:layout_height="18dp"
-        android:layout_marginStart="18dp"
-        android:scaleType="fitXY"
-        android:src="@drawable/ic_check"
-        android:visibility="gone"
-        app:layout_constraintStart_toStartOf="@+id/sign_up_agree2_layout"
-        app:layout_constraintTop_toTopOf="@+id/sign_up_agree2_layout"
-        app:layout_constraintBottom_toBottomOf="@+id/sign_up_agree2_layout"/>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:id="@+id/sign_up_agree3_layout"
-        android:layout_marginTop="10dp"
-        android:layout_marginStart="30dp"
-        android:layout_marginEnd="30dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/sign_up_agree2_layout"
-        app:layout_constraintBottom_toBottomOf="parent"
-        android:layout_marginBottom="40dp"
-        android:gravity="center_vertical"
-        android:background="@drawable/border_round_transparent_gray_6">
-
-        <ImageView
-            android:layout_width="25dp"
-            android:layout_height="25dp"
-            android:layout_marginStart="15dp"
-            android:id="@+id/sign_up_box3_off_iv"
-            android:background="@drawable/border_round_transparent_white_6" />
-
-        <TextView
-            android:id="@+id/sign_up_agree3_tv"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:fontFamily="@font/noto_sans_kr_regular"
-            android:includeFontPadding="false"
-            android:text="서비스 홍보 약관에 동의합니다. (선택)"
-            android:textColor="@color/black"
-            android:textSize="12dp" />
-    </LinearLayout>
-
-    <ImageView
-        android:id="@+id/sign_up_box3_on_iv"
-        android:layout_width="18dp"
-        android:layout_height="18dp"
-        android:layout_marginStart="18dp"
-        android:scaleType="fitXY"
-        android:src="@drawable/ic_check"
-        android:visibility="gone"
-        app:layout_constraintStart_toStartOf="@+id/sign_up_agree3_layout"
-        app:layout_constraintTop_toTopOf="@+id/sign_up_agree3_layout"
-        app:layout_constraintBottom_toBottomOf="@+id/sign_up_agree3_layout"/>
 </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>

@@ -6,6 +6,12 @@ import java.io.Serializable
 //Response
 //3.7 [특정 게시판]게시물 리스트 조회 api
 //3.7.1 [전체 범위(키워드 검색)] 게시물 리스트 조회 api
+//3.9.2 스크랩 게시물
+data class PostInfo(
+    @SerializedName(value = "postList") val postList : List<PostList>,
+    @SerializedName(value = "postCount") var postCount : Int? = 0
+)
+
 data class PostList(
     @SerializedName(value = "boardIdx") var boardIdx : Int? = 0,
     @SerializedName(value = "postIdx") var postIdx : Int? = 0,
@@ -62,4 +68,9 @@ data class PostLikeCancel(
     @SerializedName(value = "userIdx") var userIdx : Int? = 0
 )
 
+//3.7.1
+data class SearchPost(
+    @SerializedName(value = "keyword") var keyword : String? = "",
+    @SerializedName(value = "pageNum") var pageNum : Int? = 0
+)
 

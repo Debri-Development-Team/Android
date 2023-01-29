@@ -145,14 +145,14 @@ class PostService {
         })
     }
 
-    fun showPostList(keyword : String){
+    fun showPostList(searchPost:SearchPost){
         Log.d("postList", "enter")
         val postService = getRetrofit().create(RetrofitInterface::class.java)
-        postService.showPostList(keyword, getJwt()!!).enqueue(object: Callback<BaseResponse<List<PostList>>> {
+        postService.showPostList(searchPost, getJwt()!!).enqueue(object: Callback<BaseResponse<PostInfo>> {
             //응답이 왔을 때 처리
-            override fun onResponse(call: Call<BaseResponse<List<PostList>>>, response: Response<BaseResponse<List<PostList>>>) {
+            override fun onResponse(call: Call<BaseResponse<PostInfo>>, response: Response<BaseResponse<PostInfo>>) {
                 Log.d("postList", "response")
-                val resp: BaseResponse<List<PostList>> = response.body()!!
+                val resp: BaseResponse<PostInfo> = response.body()!!
                 Log.d("postListCode", resp.code.toString())
                 when(resp.code){
                     //API code값 사용
@@ -161,21 +161,22 @@ class PostService {
                 }
             }
             //실패했을 때 처리
-            override fun onFailure(call: Call<BaseResponse<List<PostList>>>, t: Throwable) {
+            override fun onFailure(call: Call<BaseResponse<PostInfo>>, t: Throwable) {
                 Log.d("postListFail", t.toString())
             }
 
         })
     }
 
-    fun showEachPostList(boardIdx:Int){
+    fun showEachPostList(boardIdx:Int, pageNum:Int){
         Log.d("eachpostlist", "enter")
         val postService = getRetrofit().create(RetrofitInterface::class.java)
-        postService.showEachPostList(boardIdx, getJwt()!!).enqueue(object: Callback<BaseResponse<List<PostList>>> {
+        postService.showEachPostList(boardIdx, pageNum, getJwt()!!).enqueue(object: Callback<BaseResponse<PostInfo>> {
             //응답이 왔을 때 처리
-            override fun onResponse(call: Call<BaseResponse<List<PostList>>>, response: Response<BaseResponse<List<PostList>>>) {
+            override fun onResponse(call: Call<BaseResponse<PostInfo>>, response: Response<BaseResponse<PostInfo>>) {
                 Log.d("eachpostlist", "response")
-                val resp: BaseResponse<List<PostList>> = response.body()!!
+//                Log.d("eachpost",response.body().toString())
+                val resp: BaseResponse<PostInfo> = response.body()!!
                 Log.d("eachpostlistCode", resp.code.toString())
                 when(resp.code){
                     //API code값 사용
@@ -184,21 +185,21 @@ class PostService {
                 }
             }
             //실패했을 때 처리
-            override fun onFailure(call: Call<BaseResponse<List<PostList>>>, t: Throwable) {
+            override fun onFailure(call: Call<BaseResponse<PostInfo>>, t: Throwable) {
                 Log.d("postlistfail", t.toString())
             }
 
         })
     }
 
-    fun showScrapPostList(){
+    fun showScrapPostList(pageNum: Int){
         Log.d("showScrapPostList", "enter")
         val postService = getRetrofit().create(RetrofitInterface::class.java)
-        postService.showScrapPostList(getJwt()!!).enqueue(object: Callback<BaseResponse<List<PostList>>> {
+        postService.showScrapPostList(pageNum, getJwt()!!).enqueue(object: Callback<BaseResponse<PostInfo>> {
             //응답이 왔을 때 처리
-            override fun onResponse(call: Call<BaseResponse<List<PostList>>>, response: Response<BaseResponse<List<PostList>>>) {
+            override fun onResponse(call: Call<BaseResponse<PostInfo>>, response: Response<BaseResponse<PostInfo>>) {
                 Log.d("showScrapPostList", "response")
-                val resp: BaseResponse<List<PostList>> = response.body()!!
+                val resp: BaseResponse<PostInfo> = response.body()!!
                 Log.d("showScrapPostListCode", resp.code.toString())
                 when(resp.code){
                     //API code값 사용
@@ -207,7 +208,7 @@ class PostService {
                 }
             }
             //실패했을 때 처리
-            override fun onFailure(call: Call<BaseResponse<List<PostList>>>, t: Throwable) {
+            override fun onFailure(call: Call<BaseResponse<PostInfo>>, t: Throwable) {
                 Log.d("showScrapPostListFail", t.toString())
             }
 

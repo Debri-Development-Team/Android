@@ -1,6 +1,7 @@
 package com.example.debri_lize.activity
 
 import android.content.Intent
+import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -12,11 +13,10 @@ import android.widget.Toast
 import androidx.annotation.UiThread
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.debri_lize.R
-import com.example.debri_lize.activity.auth.LoginActivity
-import com.example.debri_lize.activity.auth.ProfileActivity
 import com.example.debri_lize.adapter.class_.LectureReviewRVAdapter
 import com.example.debri_lize.data.class_.Lecture
 import com.example.debri_lize.data.class_.LectureReview
+import com.example.debri_lize.data.class_.ShowLectureReview
 import com.example.debri_lize.data.curriculum.Review
 import com.example.debri_lize.databinding.ActivityLectureDetailBinding
 import com.example.debri_lize.service.ClassService
@@ -36,10 +36,16 @@ class LectureDetailActivity : AppCompatActivity(), ShowLectureDetailView, Create
     //api
     var reviewService = ReviewService()
 
+    private var pageNum : Int = 1 //현재 페이지 번호
+    var page : Int = 1      //현재 페이지가 속한 곳 pageNum이 1~5면 1, 6~10이면 2
+    var totalPage : Int = 0
+
     private var lectureIdx by Delegates.notNull<Int>()
     private lateinit var lectureName : String
 
     val classService = ClassService()
+
+    var lectureInfo : String? = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -56,20 +62,14 @@ class LectureDetailActivity : AppCompatActivity(), ShowLectureDetailView, Create
 
         //7.6.1 강의 리뷰 조회 api
         reviewService.setShowLectureReviewView(this)
-        reviewService.showLectureReview(lectureIdx)
+        reviewService.showLectureReview(pageNum, lectureIdx)
 
     }
 
     override fun onStart() {
         super.onStart()
 
-        liveAnimation()
-
-        //click profile
-        binding.lectureDetailUserusedTv.setOnClickListener{
-            val intent = Intent(this, ProfileActivity::class.java)
-            startActivity(intent)
-        }
+//        liveAnimation()
 
         //add curriculum
         binding.lectureDetailCurriAddBtn.setOnClickListener{
@@ -99,12 +99,21 @@ class LectureDetailActivity : AppCompatActivity(), ShowLectureDetailView, Create
             false
         }
 
+        //페이징 버튼 클릭
+        pageButtonClick()
+
         //api
         classService.setShowLectureDetailView(this)
         classService.showLectureDetail(lectureIdx)
 
         classService.setCreateLectureLikeView(this)
         classService.setDeleteLectureLikeView(this)
+
+        //강의 정보 확인하기 버튼 : url 연결
+        binding.lectureDetailLectureinfoCheckBtn.setOnClickListener{
+            val intentURL = Intent(Intent.ACTION_VIEW, Uri.parse(lectureInfo))
+            startActivity(intentURL)
+        }
     }
 
 
@@ -146,7 +155,7 @@ class LectureDetailActivity : AppCompatActivity(), ShowLectureDetailView, Create
                 binding.lectureDetailPublisherTv.text = result.publisher
                 binding.lectureDetailLikenumTv.text = result.likeNumber.toString()
 
-
+                lectureInfo = result.srcLink
 
                     when(language.text){
                         "Front" -> language.setBackgroundResource(R.drawable.border_round_transparent_front_10)
@@ -221,7 +230,7 @@ class LectureDetailActivity : AppCompatActivity(), ShowLectureDetailView, Create
                 //lectureReviewRVAdapter.notifyDataSetChanged()
 
                 reviewService.setShowLectureReviewView(this)
-                reviewService.showLectureReview(lectureIdx)
+                reviewService.showLectureReview(pageNum, lectureIdx)
             }
         }
     }
@@ -267,39 +276,191 @@ class LectureDetailActivity : AppCompatActivity(), ShowLectureDetailView, Create
     }
 
     //7.6.1 강의 리뷰 조회 api
-    override fun onShowLectureReviewSuccess(code: Int, result: List<LectureReview>) {
+    override fun onShowLectureReviewSuccess(code: Int, result: ShowLectureReview) {
         when(code){
             200->{
-                if(result.isNotEmpty()){
-                    var j = 0
-                    thread(start = true) {
-                        while(true){
-                            runOnUiThread{
-                                review.clear()
-                                review.apply {
-                                    for (cnt in 1..3){
-                                        review.add(Review(result[j].lectureIdx, result[j].authorName, result[j].content))
+                binding.lectureDetailReviewRv.layoutManager =
+                    LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
+                lectureReviewRVAdapter = LectureReviewRVAdapter()
+                binding.lectureDetailReviewRv.adapter = lectureReviewRVAdapter
 
-                                        j++
-                                        if(j>=result.size){
-                                            j = 0
-                                        }
-                                    }
+                review.clear()
 
-                                    lectureReviewRVAdapter.datas = review
-                                    lectureReviewRVAdapter.notifyDataSetChanged()
-                                }
-                                binding.lectureDetailReviewRv.startLayoutAnimation()
-                            }
-                            Thread.sleep(5000)
-                        }
-                    }
+                totalPage = if(result.reviewCount %12==0) result.reviewCount /12 else result.reviewCount /12 + 1
+                page = if(pageNum%5==0) pageNum/5 else pageNum/5+1
+
+                Log.d("reviewCount",result.reviewCount.toString())
+
+                pageButton()
+                if(result.reviewCount == 0){
+                    binding.lectureDetailReviewPagenum1Tv.visibility = View.INVISIBLE
+                    binding.lectureDetailReviewPagenum2Tv.visibility = View.INVISIBLE
+                    binding.lectureDetailReviewPagenum3Tv.visibility = View.INVISIBLE
+                    binding.lectureDetailReviewPagenum4Tv.visibility = View.INVISIBLE
+                    binding.lectureDetailReviewPagenum5Tv.visibility = View.INVISIBLE
+                    binding.lectureDetailReviewPageNextIv.visibility = View.INVISIBLE
                 }
+
+                review.apply {
+                    for (i in result.reviewList) {
+                        review.add(Review(i.lectureIdx, i.authorName, i.content))
+                    }
+
+                    lectureReviewRVAdapter.datas = review
+                    lectureReviewRVAdapter.notifyDataSetChanged()
+                }
+//                if(result.isNotEmpty()){
+//                    var j = 0
+//                    thread(start = true) {
+//                        while(true){
+//                            runOnUiThread{
+//                                review.clear()
+//                                review.apply {
+//                                    for (cnt in 1..3){
+//                                        review.add(Review(result[j].lectureIdx, result[j].authorName, result[j].content))
+//
+//                                        j++
+//                                        if(j>=result.size){
+//                                            j = 0
+//                                        }
+//                                    }
+//
+//                                    lectureReviewRVAdapter.datas = review
+//                                    lectureReviewRVAdapter.notifyDataSetChanged()
+//                                }
+//                                binding.lectureDetailReviewRv.startLayoutAnimation()
+//                            }
+//                            Thread.sleep(5000)
+//                        }
+//                    }
+//                }
             }
         }
     }
 
     override fun onShowLectureReviewFailure(code: Int) {
+
+    }
+
+
+    private fun pageButtonClick() {
+        binding.lectureDetailReviewPagenum1Tv.setOnClickListener {
+            pageNum = (page - 1) * 5 + 1
+            pageButton()
+            reviewService.showLectureReview(pageNum, lectureIdx)
+        }
+        binding.lectureDetailReviewPagenum2Tv.setOnClickListener {
+            pageNum = (page - 1) * 5 + 2
+            pageButton()
+            reviewService.showLectureReview(pageNum, lectureIdx)
+        }
+        binding.lectureDetailReviewPagenum3Tv.setOnClickListener {
+            pageNum = (page - 1) * 5 + 3
+            pageButton()
+            reviewService.showLectureReview(pageNum, lectureIdx)
+        }
+        binding.lectureDetailReviewPagenum4Tv.setOnClickListener {
+            pageNum = (page - 1) * 5 + 4
+            pageButton()
+            reviewService.showLectureReview(pageNum, lectureIdx)
+        }
+        binding.lectureDetailReviewPagenum5Tv.setOnClickListener {
+            pageNum = (page - 1) * 5 + 5
+            pageButton()
+            reviewService.showLectureReview(pageNum, lectureIdx)
+        }
+        binding.lectureDetailReviewPagePreviousIv.setOnClickListener {
+            pageNum = (page-2)*5 + 1
+            pageButton()
+            reviewService.showLectureReview(pageNum, lectureIdx)
+        }
+        binding.lectureDetailReviewPageNextIv.setOnClickListener {
+            pageNum = page * 5 + 1
+            pageButton()
+            reviewService.showLectureReview(pageNum, lectureIdx)
+        }
+
+    }
+
+
+
+    private fun pageButton(){
+        //페이지 번호
+        binding.lectureDetailReviewPagenum1Tv.text = ((page-1)*5+1).toString()
+        binding.lectureDetailReviewPagenum2Tv.text = ((page-1)*5+2).toString()
+        binding.lectureDetailReviewPagenum3Tv.text = ((page-1)*5+3).toString()
+        binding.lectureDetailReviewPagenum4Tv.text = ((page-1)*5+4).toString()
+        binding.lectureDetailReviewPagenum5Tv.text = ((page-1)*5+5).toString()
+
+        //화살표 visibility 설정
+        if(page == 1)   binding.lectureDetailReviewPagePreviousIv.visibility = View.INVISIBLE
+        else    binding.lectureDetailReviewPagePreviousIv.visibility = View.VISIBLE
+        if(totalPage>=(page-1)*5+1 && totalPage<=(page-1)*5+5)
+            binding.lectureDetailReviewPageNextIv.visibility = View.INVISIBLE
+        else    binding.lectureDetailReviewPageNextIv.visibility = View.VISIBLE
+
+        //숫자 버튼 visibility 설정
+        if(totalPage-page*5 == -1){
+            binding.lectureDetailReviewPagenum2Tv.visibility = View.VISIBLE
+            binding.lectureDetailReviewPagenum3Tv.visibility = View.VISIBLE
+            binding.lectureDetailReviewPagenum4Tv.visibility = View.VISIBLE
+            binding.lectureDetailReviewPagenum5Tv.visibility = View.INVISIBLE
+        }else if(totalPage-page*5 == -2){
+            binding.lectureDetailReviewPagenum2Tv.visibility = View.VISIBLE
+            binding.lectureDetailReviewPagenum3Tv.visibility = View.VISIBLE
+            binding.lectureDetailReviewPagenum4Tv.visibility = View.INVISIBLE
+            binding.lectureDetailReviewPagenum5Tv.visibility = View.INVISIBLE
+        } else if(totalPage-page*5 == -3){
+            binding.lectureDetailReviewPagenum2Tv.visibility = View.VISIBLE
+            binding.lectureDetailReviewPagenum3Tv.visibility = View.INVISIBLE
+            binding.lectureDetailReviewPagenum4Tv.visibility = View.INVISIBLE
+            binding.lectureDetailReviewPagenum5Tv.visibility = View.INVISIBLE
+        }
+        else if(totalPage-page*5 == -4){
+            binding.lectureDetailReviewPagenum2Tv.visibility = View.INVISIBLE
+            binding.lectureDetailReviewPagenum3Tv.visibility = View.INVISIBLE
+            binding.lectureDetailReviewPagenum4Tv.visibility = View.INVISIBLE
+            binding.lectureDetailReviewPagenum5Tv.visibility = View.INVISIBLE
+        }else{
+            binding.lectureDetailReviewPagenum2Tv.visibility = View.VISIBLE
+            binding.lectureDetailReviewPagenum3Tv.visibility = View.VISIBLE
+            binding.lectureDetailReviewPagenum4Tv.visibility = View.VISIBLE
+            binding.lectureDetailReviewPagenum5Tv.visibility = View.VISIBLE
+        }
+
+
+        //background circle 설정
+        if(pageNum%5 == 1) {
+            binding.lectureDetailReviewPagenum1Tv.setBackgroundResource(R.drawable.circle_debri_debri_8)
+            binding.lectureDetailReviewPagenum2Tv.setBackgroundResource(R.color.transparent)
+            binding.lectureDetailReviewPagenum3Tv.setBackgroundResource(R.color.transparent)
+            binding.lectureDetailReviewPagenum4Tv.setBackgroundResource(R.color.transparent)
+            binding.lectureDetailReviewPagenum5Tv.setBackgroundResource(R.color.transparent)
+        }else if(pageNum%5 == 2){
+            binding.lectureDetailReviewPagenum1Tv.setBackgroundResource(R.color.transparent)
+            binding.lectureDetailReviewPagenum2Tv.setBackgroundResource(R.drawable.circle_debri_debri_8)
+            binding.lectureDetailReviewPagenum3Tv.setBackgroundResource(R.color.transparent)
+            binding.lectureDetailReviewPagenum4Tv.setBackgroundResource(R.color.transparent)
+            binding.lectureDetailReviewPagenum5Tv.setBackgroundResource(R.color.transparent)
+        }else if(pageNum%5 == 3){
+            binding.lectureDetailReviewPagenum1Tv.setBackgroundResource(R.color.transparent)
+            binding.lectureDetailReviewPagenum2Tv.setBackgroundResource(R.color.transparent)
+            binding.lectureDetailReviewPagenum3Tv.setBackgroundResource(R.drawable.circle_debri_debri_8)
+            binding.lectureDetailReviewPagenum4Tv.setBackgroundResource(R.color.transparent)
+            binding.lectureDetailReviewPagenum5Tv.setBackgroundResource(R.color.transparent)
+        }else if(pageNum%5 == 4){
+            binding.lectureDetailReviewPagenum1Tv.setBackgroundResource(R.color.transparent)
+            binding.lectureDetailReviewPagenum2Tv.setBackgroundResource(R.color.transparent)
+            binding.lectureDetailReviewPagenum3Tv.setBackgroundResource(R.color.transparent)
+            binding.lectureDetailReviewPagenum4Tv.setBackgroundResource(R.drawable.circle_debri_debri_8)
+            binding.lectureDetailReviewPagenum5Tv.setBackgroundResource(R.color.transparent)
+        }else if(pageNum%5 == 0){
+            binding.lectureDetailReviewPagenum1Tv.setBackgroundResource(R.color.transparent)
+            binding.lectureDetailReviewPagenum2Tv.setBackgroundResource(R.color.transparent)
+            binding.lectureDetailReviewPagenum3Tv.setBackgroundResource(R.color.transparent)
+            binding.lectureDetailReviewPagenum4Tv.setBackgroundResource(R.color.transparent)
+            binding.lectureDetailReviewPagenum5Tv.setBackgroundResource(R.drawable.circle_debri_debri_8)
+        }
 
     }
 }

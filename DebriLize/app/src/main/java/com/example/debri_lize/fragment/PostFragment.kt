@@ -8,21 +8,22 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.debri_lize.adapter.post.PostRVAdapter
 import com.example.debri_lize.R
 import com.example.debri_lize.activity.MainActivity
 import com.example.debri_lize.activity.PostCreateActivity
 import com.example.debri_lize.activity.PostDetailActivity
-import com.example.debri_lize.activity.auth.ProfileActivity
+import com.example.debri_lize.adapter.post.PostRVAdapter
 import com.example.debri_lize.data.board.Board
 import com.example.debri_lize.data.board.BoardFavorite
+import com.example.debri_lize.data.post.PostInfo
 import com.example.debri_lize.data.post.PostList
-import com.example.debri_lize.service.PostService
-import com.example.debri_lize.view.post.EachPostListView
 import com.example.debri_lize.databinding.FragmentPostBinding
+import com.example.debri_lize.service.PostService
 import com.example.debri_lize.utils.*
+import com.example.debri_lize.view.post.EachPostListView
 import kotlin.properties.Delegates
 
 
@@ -32,11 +33,18 @@ class PostFragment : Fragment(), EachPostListView {
     private lateinit var postRVAdapter: PostRVAdapter
     private val datas = ArrayList<PostList>()
 
+
     var boardIdx by Delegates.notNull<Int>()
+    var pageNum : Int = 1  //현재 페이지 번호
+    var page : Int = 1      //현재 페이지가 속한 곳 pageNum이 1~5면 1, 6~10이면 2
+
+    var totalPage : Int = 0
     var boardName by Delegates.notNull<String>()
 
     //search post
     private val filteredData = ArrayList<PostList>() //검색했을 때 나타낼 데이터
+
+    val postService = PostService()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -49,12 +57,6 @@ class PostFragment : Fragment(), EachPostListView {
 
     override fun onStart() {
         super.onStart()
-
-        //click profile
-        binding.postDebriUserIv.setOnClickListener{
-            val intent = Intent(context, ProfileActivity::class.java)
-            startActivity(intent)
-        }
 
         //data 받아오기 (BoardFragment -> BoardDetailFragment) : 게시판 이름
         var board = arguments?.getSerializable("board") as Board?
@@ -77,16 +79,20 @@ class PostFragment : Fragment(), EachPostListView {
             binding.postFavoriteIv.setImageResource(R.drawable.ic_favorite_on)
         }
 
-        //fragment to fragment
-        binding.postPreviousIv.setOnClickListener{
-            (context as MainActivity).supportFragmentManager.beginTransaction()
-                .replace(R.id.main_frm, BoardFragment()).commitAllowingStateLoss()
-        }
 
         //api
-        val postService = PostService()
         postService.seteachPostListView(this)
-        postService.showEachPostList(boardIdx) //변경필요
+        postService.showEachPostList(boardIdx, pageNum) //변경필요
+
+        //fragment to fragment
+        binding.postPreviousIv.setOnClickListener{
+            Log.d("postprevious","enter")
+            activity?.supportFragmentManager!!.beginTransaction()
+                .replace(R.id.main_frm, BoardFragment())
+                .commit()
+//            (context as MainActivity).supportFragmentManager.beginTransaction()
+//                .replace(R.id.main_frm, BoardFragment()).commitAllowingStateLoss()
+        }
 
         //create post
         binding.postWriteBtn.setOnClickListener{
@@ -95,6 +101,8 @@ class PostFragment : Fragment(), EachPostListView {
             intent.putExtra("edit", false)
             startActivity(intent)
         }
+
+        pageButtonClick()
 
         //focus
         binding.postSearchEt.setOnFocusChangeListener(object : View.OnFocusChangeListener {
@@ -133,7 +141,7 @@ class PostFragment : Fragment(), EachPostListView {
         postRVAdapter.filterList(filteredData)
     }
 
-    override fun onEachPostListSuccess(code: Int, result: List<PostList>) {
+    override fun onEachPostListSuccess(code: Int, result: PostInfo) {
         when(code){
             //개발할 때는 userIdx 저장이 필요할수도
             200-> {
@@ -144,11 +152,25 @@ class PostFragment : Fragment(), EachPostListView {
 
                 datas.clear()
 
+                totalPage = if(result.postCount!!%12==0) result.postCount!!/12 else result.postCount!!/12 + 1
+                page = if(pageNum%5==0) pageNum/5 else pageNum/5+1
+
+
+                pageButton()
+                if(result.postCount == 0){
+                    binding.postPagenum1Tv.visibility = View.INVISIBLE
+                    binding.postPagenum2Tv.visibility = View.INVISIBLE
+                    binding.postPagenum3Tv.visibility = View.INVISIBLE
+                    binding.postPagenum4Tv.visibility = View.INVISIBLE
+                    binding.postPagenum5Tv.visibility = View.INVISIBLE
+                    binding.postPageNextIv.visibility = View.INVISIBLE
+                }
+
 
                 //data
                 datas.apply {
 
-                    for (i in result){
+                    for (i in result.postList){
                         datas.add(PostList(i.boardIdx, i.postIdx, i.authorName, i.postName, i.likeCnt, i.likeStatus, i.scrapStatus, i.timeAfterCreated, i.commentCnt, i.boardName))
                     }
 
@@ -193,6 +215,7 @@ class PostFragment : Fragment(), EachPostListView {
                         val searchText: String = binding.postSearchEt.text.toString()
                         //Log.d("editText","$searchText")
                         searchFilter(searchText)
+                        pageButton()
                     }
 
                 })
@@ -201,7 +224,125 @@ class PostFragment : Fragment(), EachPostListView {
     }
 
     override fun onEachPostListFailure(code: Int) {
+        Log.d("eachpostlistfail",code.toString())
+    }
+
+    private fun pageButtonClick(){
+        binding.postPagenum1Tv.setOnClickListener {
+            pageNum = (page-1)*5+1
+            pageButton()
+            postService.showEachPostList(boardIdx, pageNum)
+        }
+        binding.postPagenum2Tv.setOnClickListener {
+            pageNum = (page-1)*5+2
+            pageButton()
+            postService.showEachPostList(boardIdx, pageNum)
+        }
+        binding.postPagenum3Tv.setOnClickListener {
+            pageNum = (page-1)*5+3
+            pageButton()
+            postService.showEachPostList(boardIdx, pageNum)
+        }
+        binding.postPagenum4Tv.setOnClickListener {
+            pageNum = (page-1)*5+4
+            pageButton()
+            postService.showEachPostList(boardIdx, pageNum)
+        }
+        binding.postPagenum5Tv.setOnClickListener {
+            pageNum = (page-1)*5+5
+            pageButton()
+            postService.showEachPostList(boardIdx, pageNum)
+        }
+        binding.postPreviousIv.setOnClickListener {
+            pageNum = (page-2)*5+1
+            pageButton()
+            postService.showEachPostList(boardIdx, pageNum)
+        }
+        binding.postPageNextIv.setOnClickListener {
+            pageNum = page*5+1
+            pageButton()
+            postService.showEachPostList(boardIdx, pageNum)
+        }
+
 
     }
 
+    private fun pageButton(){
+        //페이지 번호
+        binding.postPagenum1Tv.text = ((page-1)*5+1).toString()
+        binding.postPagenum2Tv.text = ((page-1)*5+2).toString()
+        binding.postPagenum3Tv.text = ((page-1)*5+3).toString()
+        binding.postPagenum4Tv.text = ((page-1)*5+4).toString()
+        binding.postPagenum5Tv.text = ((page-1)*5+5).toString()
+
+        //화살표 visibility 설정
+        if(page == 1)   binding.postPagePreviousIv.visibility = View.INVISIBLE
+        else    binding.postPagePreviousIv.visibility = View.VISIBLE
+        if(totalPage>=(page-1)*5+1 && totalPage<=(page-1)*5+5)
+            binding.postPageNextIv.visibility = View.INVISIBLE
+        else    binding.postPageNextIv.visibility = View.VISIBLE
+
+        //숫자 버튼 visibility 설정
+        if(totalPage-page*5 == -1){
+            binding.postPagenum2Tv.visibility = View.VISIBLE
+            binding.postPagenum3Tv.visibility = View.VISIBLE
+            binding.postPagenum4Tv.visibility = View.VISIBLE
+            binding.postPagenum5Tv.visibility = View.INVISIBLE
+        }else if(totalPage-page*5 == -2){
+            binding.postPagenum2Tv.visibility = View.VISIBLE
+            binding.postPagenum3Tv.visibility = View.VISIBLE
+            binding.postPagenum4Tv.visibility = View.INVISIBLE
+            binding.postPagenum5Tv.visibility = View.INVISIBLE
+        } else if(totalPage-page*5 == -3){
+            binding.postPagenum2Tv.visibility = View.VISIBLE
+            binding.postPagenum3Tv.visibility = View.INVISIBLE
+            binding.postPagenum4Tv.visibility = View.INVISIBLE
+            binding.postPagenum5Tv.visibility = View.INVISIBLE
+        }
+        else if(totalPage-page*5 == -4){
+            binding.postPagenum2Tv.visibility = View.INVISIBLE
+            binding.postPagenum3Tv.visibility = View.INVISIBLE
+            binding.postPagenum4Tv.visibility = View.INVISIBLE
+            binding.postPagenum5Tv.visibility = View.INVISIBLE
+        }else{
+            binding.postPagenum2Tv.visibility = View.VISIBLE
+            binding.postPagenum3Tv.visibility = View.VISIBLE
+            binding.postPagenum4Tv.visibility = View.VISIBLE
+            binding.postPagenum5Tv.visibility = View.VISIBLE
+        }
+
+        //background circle 설정
+        if(pageNum%5 == 1) {
+            binding.postPagenum1Tv.setBackgroundResource(R.drawable.circle_debri_debri_8)
+            binding.postPagenum2Tv.setBackgroundResource(R.color.transparent)
+            binding.postPagenum3Tv.setBackgroundResource(R.color.transparent)
+            binding.postPagenum4Tv.setBackgroundResource(R.color.transparent)
+            binding.postPagenum5Tv.setBackgroundResource(R.color.transparent)
+        }else if(pageNum%5 == 2){
+            binding.postPagenum1Tv.setBackgroundResource(R.color.transparent)
+            binding.postPagenum2Tv.setBackgroundResource(R.drawable.circle_debri_debri_8)
+            binding.postPagenum3Tv.setBackgroundResource(R.color.transparent)
+            binding.postPagenum4Tv.setBackgroundResource(R.color.transparent)
+            binding.postPagenum5Tv.setBackgroundResource(R.color.transparent)
+        }else if(pageNum%5 == 3){
+            binding.postPagenum1Tv.setBackgroundResource(R.color.transparent)
+            binding.postPagenum2Tv.setBackgroundResource(R.color.transparent)
+            binding.postPagenum3Tv.setBackgroundResource(R.drawable.circle_debri_debri_8)
+            binding.postPagenum4Tv.setBackgroundResource(R.color.transparent)
+            binding.postPagenum5Tv.setBackgroundResource(R.color.transparent)
+        }else if(pageNum%5 == 4){
+            binding.postPagenum1Tv.setBackgroundResource(R.color.transparent)
+            binding.postPagenum2Tv.setBackgroundResource(R.color.transparent)
+            binding.postPagenum3Tv.setBackgroundResource(R.color.transparent)
+            binding.postPagenum4Tv.setBackgroundResource(R.drawable.circle_debri_debri_8)
+            binding.postPagenum5Tv.setBackgroundResource(R.color.transparent)
+        }else if(pageNum%5 == 0){
+            binding.postPagenum1Tv.setBackgroundResource(R.color.transparent)
+            binding.postPagenum2Tv.setBackgroundResource(R.color.transparent)
+            binding.postPagenum3Tv.setBackgroundResource(R.color.transparent)
+            binding.postPagenum4Tv.setBackgroundResource(R.color.transparent)
+            binding.postPagenum5Tv.setBackgroundResource(R.drawable.circle_debri_debri_8)
+        }
+
+    }
 }

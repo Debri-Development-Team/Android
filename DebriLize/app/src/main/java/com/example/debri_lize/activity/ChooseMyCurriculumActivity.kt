@@ -41,8 +41,6 @@ class ChooseMyCurriculumActivity : AppCompatActivity(), MyCurriculumListView, Ad
         lectureIdx = intent.getIntExtra("lectureIdx", 0)
         lectureName = intent.getStringExtra("lectureName").toString()
 
-        //screen
-        binding.chooseMyCurriLectureNameTv.text = lectureName
 
         //backbtn
         binding.postPreviousIv.setOnClickListener{
@@ -71,7 +69,7 @@ class ChooseMyCurriculumActivity : AppCompatActivity(), MyCurriculumListView, Ad
                 datas.apply {
 
                     for(i in result){
-                        datas.add(Curriculum(i.curriculumIdx, i.curriculumName, i.curriculumAuthor, i.status))
+                        datas.add(Curriculum(i.curriculumIdx, i.curriculumName, i.curriculumAuthor, i.status, i.visibleStatus, i.curriDesc, i.createdAt, i.langtag, i.scrapCount))
                     }
 
                     curriculumRVAdapter.datas = datas

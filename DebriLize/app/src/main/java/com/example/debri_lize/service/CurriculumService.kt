@@ -4,6 +4,7 @@ import android.util.Log
 import com.example.debri_lize.utils.RetrofitInterface
 import com.example.debri_lize.base.BaseResponse
 import com.example.debri_lize.data.curriculum.*
+import com.example.debri_lize.fragment.CurriculumFragment
 import com.example.debri_lize.utils.getJwt
 import com.example.debri_lize.utils.getRetrofit
 import com.example.debri_lize.view.curriculum.*
@@ -462,11 +463,11 @@ class CurriculumService {
     fun showGetNewCurriList(){
         val curriculumService = getRetrofit().create(RetrofitInterface::class.java)
 
-        curriculumService.showTop10List(getJwt()!!).enqueue(object: Callback<BaseResponse<List<Top10>>> {
+        curriculumService.showGetNewCurriList(getJwt()!!).enqueue(object: Callback<BaseResponse<List<RecentCurriculum>>> {
             //응답이 왔을 때 처리
-            override fun onResponse(call: Call<BaseResponse<List<Top10>>>, response: Response<BaseResponse<List<Top10>>>) {
+            override fun onResponse(call: Call<BaseResponse<List<RecentCurriculum>>>, response: Response<BaseResponse<List<RecentCurriculum>>>) {
                 Log.d("showGetNewCurriList", "response")
-                val resp: BaseResponse<List<Top10>> = response.body()!!
+                val resp: BaseResponse<List<RecentCurriculum>> = response.body()!!
                 Log.d("showGetNewCurriListCode", resp.code.toString())
                 when(resp.code){
                     //API code값 사용
@@ -475,7 +476,7 @@ class CurriculumService {
                 }
             }
             //실패했을 때 처리
-            override fun onFailure(call: Call<BaseResponse<List<Top10>>>, t: Throwable) {
+            override fun onFailure(call: Call<BaseResponse<List<RecentCurriculum>>>, t: Throwable) {
                 Log.d("showGetNewCurriListFail", t.toString())
             }
 

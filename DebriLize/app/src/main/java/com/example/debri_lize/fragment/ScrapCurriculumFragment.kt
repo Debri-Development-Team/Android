@@ -12,7 +12,6 @@ import com.example.debri_lize.R
 import com.example.debri_lize.activity.AddCurriculumDetailActivity
 import com.example.debri_lize.activity.MainActivity
 import com.example.debri_lize.adapter.home.CurriculumRVAdapter
-import com.example.debri_lize.adapter.post.PostRVAdapter
 import com.example.debri_lize.data.curriculum.Curriculum
 import com.example.debri_lize.data.curriculum.CurriculumLike
 import com.example.debri_lize.data.curriculum.ScrapCurriculumList

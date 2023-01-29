@@ -33,6 +33,8 @@ class CurriculumSettingActivity : AppCompatActivity(), CreateCurriculumView {
         binding = ActivityCurriculumSettingBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+
+
         //버튼 클릭한 텍스트 받아오기
         radioBtnClick()
         //focus effect
@@ -56,6 +58,7 @@ class CurriculumSettingActivity : AppCompatActivity(), CreateCurriculumView {
         //start btn
         binding.curriculumSettingStartBtn.setOnClickListener {
             if(curriName.isNotBlank() && curriExplain.isNotBlank() && langText.isNotBlank() && publicText.isNotBlank()){
+                Log.d("curriInfo",curriName)
                 //api - 8.1 커리큘럼 생성 api
                 var curriculumService = CurriculumService()
                 curriculumService.setCreateCurriculumView(this)

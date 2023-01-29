@@ -1,8 +1,11 @@
 package com.example.debri_lize.adapter.home
 
+import android.provider.ContactsContract
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
+import android.view.View.GONE
+import android.view.View.VISIBLE
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
@@ -12,6 +15,8 @@ import com.example.debri_lize.R
 import com.example.debri_lize.data.curriculum.Curriculum
 import com.example.debri_lize.databinding.ItemCurriculumBinding
 import com.example.debri_lize.databinding.ItemCurriculumProfileBinding
+import org.json.JSONObject.NULL
+import java.util.Date
 
 class CurriculumRVAdapter(val className : String) : RecyclerView.Adapter<CurriculumRVAdapter.ViewHolder>() {
 
@@ -23,20 +28,37 @@ class CurriculumRVAdapter(val className : String) : RecyclerView.Adapter<Curricu
         val curriculumName : TextView = binding.profileCurriculumNameTv
         val privateLayout = binding.profilePrivateLayout
 
+        val language : TextView = binding.itemCurriculumLectureImgTagTv
+
         fun bind(item: Curriculum) {
             Glide.with(itemView).load(R.raw.curriculum).into(statusImg)
             curriculumName.text = item.curriculumName
             binding.itemCurriculumAuthorTv.text = item.curriculumAuthor
 //            Log.d("created",item.createdAt.toString())
+            Log.d("curriculum",item.toString())
 
             if(className=="ProfileActivity") {
                 privateLayout.visibility = View.VISIBLE
                 binding.itemCurriculumAuthorLayout.visibility = View.GONE
-                binding.profileCurriculumDateTv.text = item.createdAt
-            } else {
+                //시작 날짜 TODO: 유닉스 시간 변환하기
+//                binding.profileCurriculumDateTv.text = Date(((item.createdAt)!! /86400).toLong())
+                binding.profileCurriculumDateTv.visibility = View.VISIBLE
+                binding.profileCurriculumDescTv.text = item.curriDesc
+                binding.profileCurriculumDescTv.visibility = View.GONE
+
+            }else if(className=="myCurriculum"){
+                privateLayout.visibility = View.GONE
+                binding.itemCurriculumLikenumLayout.visibility = View.VISIBLE
+                binding.itemCurriculumLikenumTv.text = item.scrapCount.toString()
+                binding.itemCurriculumAuthorLayout.visibility = View.GONE
+            }
+            else {
                 privateLayout.visibility = View.GONE
                 binding.itemCurriculumAuthorLayout.visibility = View.VISIBLE
-                binding.profileCurriculumDateTv.text = item.curriDesc
+
+                binding.profileCurriculumDateTv.visibility = View.GONE
+                binding.profileCurriculumDescTv.text = item.curriDesc
+                binding.profileCurriculumDescTv.visibility = View.VISIBLE
             }
 
 
@@ -46,6 +68,16 @@ class CurriculumRVAdapter(val className : String) : RecyclerView.Adapter<Curricu
             }else{
                 binding.profilePrivateIv.setImageResource(R.drawable.ic_hide)
                 binding.profilePrivateTv.text = "비공개"
+            }
+
+            //language tag
+            language.text = item.langtag
+            Log.d("curri langtag", item.langtag)
+            when(language.text){
+                "Front" -> language.setBackgroundResource(R.drawable.border_round_transparent_front_10)
+                "Back" -> language.setBackgroundResource(R.drawable.border_round_transparent_back_10)
+                "C 언어" -> language.setBackgroundResource(R.drawable.border_round_transparent_c_10)
+                "Python" -> language.setBackgroundResource(R.drawable.border_round_transparent_python_10)
             }
 
 

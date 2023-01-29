@@ -2,6 +2,7 @@ package com.example.debri_lize.fragment
 
 import android.content.Context
 import android.content.Intent
+import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
 import android.view.*
@@ -20,7 +21,6 @@ import com.example.debri_lize.CustomDialog
 import com.example.debri_lize.R
 import com.example.debri_lize.activity.LectureDetailActivity
 import com.example.debri_lize.activity.MainActivity
-import com.example.debri_lize.activity.auth.ProfileActivity
 import com.example.debri_lize.adapter.home.ChapterRVAdapter
 import com.example.debri_lize.adapter.home.LectureRVAdapter
 import com.example.debri_lize.data.curriculum.*
@@ -32,7 +32,6 @@ import com.example.debri_lize.view.curriculum.*
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import java.sql.Timestamp
 import java.text.SimpleDateFormat
-import kotlin.properties.Delegates
 
 class HomeActiveFragment(
 
@@ -64,12 +63,6 @@ class HomeActiveFragment(
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentHomeActiveBinding.inflate(inflater, container, false)
-
-        //click userImg -> profile
-        binding.homeDebriUserIv.setOnClickListener{
-            val intent = Intent(context, ProfileActivity::class.java)
-            startActivity(intent)
-        }
 
         //click add lecture -> ClassFragment
         binding.homeCurriculumAddLectureLayout.setOnClickListener{
@@ -222,7 +215,7 @@ class HomeActiveFragment(
             bottomSheetDialog.dismiss()
         }
 
-        binding.homeCurriculumSettingLayout.setOnClickListener {
+        binding.homeCurriculumSettingIv.setOnClickListener {
             bottomSheetDialog.show()
         }
 
@@ -259,7 +252,7 @@ class HomeActiveFragment(
         val sdf = SimpleDateFormat("yyyy년 MM월 dd일")
         val date = sdf.format(timestamp)
 
-        return date+"에 완성함"
+        return date
     }
 
     private fun waveAnimation(progressRate : Int){
@@ -273,7 +266,11 @@ class HomeActiveFragment(
     override fun onShowCurriculumDetailSuccess(code: Int, result: CurriculumDetail) {
         when(code){
             200->{
-                //활성화
+                //비활성화
+                binding.homeCurriculumPauseLayout.setOnClickListener{
+                    curriculumService.setEditCurriculumStatusView(this)
+                    curriculumService.editCurriculumStatus(EditCurriculumStatus(curriculumIdx, "INACTIVE"))
+                }
 
                 //chapter
                 //동적으로 화면 크기 지정
@@ -341,29 +338,9 @@ class HomeActiveFragment(
                     chapterRVAdapter.notifyDataSetChanged()
                 }
 
-                //move
-                if(index==0){
-                    //1번째 커리큘럼
-                        binding.homeCurriculumPreviousIv.visibility = View.INVISIBLE
-                        binding.homeCurriculumNextIv.setOnClickListener{
-                            //다음 커리로 이동
-
-                        }
-                }else{
-
-                    binding.homeCurriculumPreviousIv.visibility = View.VISIBLE
-                    binding.homeCurriculumPreviousIv.setOnClickListener{
-                        //이전 커리로 이동
-                    }
-                    binding.homeCurriculumNextIv.setOnClickListener {
-                        //다음 커리로 이동
-                    }
-                }
-
                 //홈 화면
                 curriculumIdx = result.curriculumIdx
                 binding.homeCurriculumTitleTv.text = result.curriculumName //커리큘럼 이름
-                binding.homeCurriculumDateTv.text = timestampToDate(result.createdAt) //커리큘럼 생성 날짜
 
                 //공개 or 비공개
                 if(result.visibleStatus=="ACTIVE"){ //공개
@@ -375,11 +352,32 @@ class HomeActiveFragment(
                 }
 
                 //dday
-                binding.homeCurriculumDdayTv.text = "D-"+result.dday.toString()
+                if(result.dday<0){ //dday 지남
+                    binding.homeCurriculumDdayInfoTv.text = "D+"
+                    binding.homeCurriculumDdayTv.text = (-result.dday).toString()
+                    binding.homeCurriculumDateTv.text = timestampToDate(result.createdAt) + "\n완성함" //커리큘럼 생성 날짜
+                }else if(result.dday == 0){ //dday 당일
+                    binding.homeCurriculumDdayTv.text = "day"
+                    //색상 빨간색으로 변경
+                    binding.homeCurriculumDdayTv.setTextColor(Color.parseColor("#FF0000"))
+                    binding.homeCurriculumDateTv.text = timestampToDate(result.createdAt) + "\n완성함" //커리큘럼 생성 날짜
+                }else{ //dday
+                    binding.homeCurriculumDdayTv.text = result.dday.toString()
+                    //색상 초록색으로 변경
+                    binding.homeCurriculumDdayTv.setTextColor(Color.parseColor("#66CC66"))
+                    binding.homeCurriculumDateTv.text = timestampToDate(result.createdAt) + "\n시작함" //커리큘럼 생성 날짜
+                }
 
                 //progress rate
                 waveAnimation(result.progressRate.toInt())
                 binding.homeCurriculumProgressTv2.text = result.progressRate.toInt().toString()
+                if(result.progressRate.toInt()<100){
+                    //색상 빨간색으로 변경
+                    binding.homeCurriculumProgressTv2.setTextColor(Color.parseColor("#FF0000"))
+                }else{
+                    //색상 초록색으로 변경
+                    binding.homeCurriculumProgressTv2.setTextColor(Color.parseColor("#66CC66"))
+                }
 
                 //lecture
                 lecture.clear()

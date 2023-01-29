@@ -1,0 +1,68 @@
+{
+  "project_info": {
+    "project_number": "668824342861",
+    "project_id": "debri-3a8e1",
+    "storage_bucket": "debri-3a8e1.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:668824342861:android:b7aa506e734a7c4c1ae704",
+        "android_client_info": {
+          "package_name": "com.example.debri"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "668824342861-labbdp2atc2gumc6npflks07a224v6d9.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCT39dg1-rQS6LBlGkd56eSlRqDSUR-WKk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "668824342861-labbdp2atc2gumc6npflks07a224v6d9.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:668824342861:android:3e2b01d3d49309b71ae704",
+        "android_client_info": {
+          "package_name": "com.example.debri_lize"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "668824342861-labbdp2atc2gumc6npflks07a224v6d9.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCT39dg1-rQS6LBlGkd56eSlRqDSUR-WKk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "668824342861-labbdp2atc2gumc6npflks07a224v6d9.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

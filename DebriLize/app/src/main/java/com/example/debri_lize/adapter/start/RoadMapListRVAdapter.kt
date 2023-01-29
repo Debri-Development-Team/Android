@@ -21,12 +21,28 @@ class RoadMapListRVAdapter : RecyclerView.Adapter<RoadMapListRVAdapter.ViewHolde
         val roadMapName : TextView = binding.itemCurriculumNameTv
         val roadMapExplain : TextView = binding.itemCurriculumDetailTv
         val roadMapAuthor : TextView = binding.itemCurriculumAuthorTv
+        val language : TextView = binding.itemCurriculumLangTagTv
 
         fun bind(item: RoadMapList) {
             Glide.with(itemView).load(R.raw.curriculum).into(statusImg)
             roadMapName.text = item.roadmapName
             roadMapExplain.text = item.roadmapExplain
             roadMapAuthor.text = "by "+ item.roadmapAuthor
+
+            if(item.roadmapIdx == 1){ //서버 로드맵
+                language.text = "Back" //추후에 수정
+            }else{
+                language.text = "Front" //추후에 수정
+            }
+
+
+            //language tag
+            when(language.text){
+                "Front" -> language.setBackgroundResource(R.drawable.border_round_transparent_front_10)
+                "Back" -> language.setBackgroundResource(R.drawable.border_round_transparent_back_10)
+                "C 언어" -> language.setBackgroundResource(R.drawable.border_round_transparent_c_10)
+                "Python" -> language.setBackgroundResource(R.drawable.border_round_transparent_python_10)
+            }
         }
     }
 

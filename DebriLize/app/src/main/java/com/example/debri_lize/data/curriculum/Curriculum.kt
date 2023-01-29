@@ -19,7 +19,9 @@ data class Curriculum(
     @SerializedName(value = "status") val status: String? = "",
     @SerializedName(value = "visibleStatus") val visibleStatus: String? = "",
     @SerializedName(value = "curriDesc") val curriDesc: String? = "",
-    @SerializedName(value = "createdAt") val createdAt: String? = "",
+    @SerializedName(value = "createdAt") val createdAt: Int? = 0,
+    @SerializedName(value = "langTag") val langtag : String = "",
+    @SerializedName(value = "scrapCount") val scrapCount: Int? = 0,
     @PrimaryKey(autoGenerate = true) var roomIdx : Int =0
 )
 
@@ -37,8 +39,10 @@ data class CurriculumDetail(
     @SerializedName(value = "lectureListResList") val lectureListResList: List<LectureList>,
     @SerializedName(value = "chapterListResList") val chapterListResList: List<ChapterList>,
     @SerializedName(value = "dday") val dday: Int,
+    @SerializedName(value = "totalDday") val totalDday: Int,
     @SerializedName(value = "curriDesc") val curriDesc: String,
     @SerializedName(value = "curriLikeStatus") val curriLikeStatus: String,
+    @SerializedName(value = "curriLikeCount") val curriLikeCount: Int,
     @SerializedName(value = "scrapIdx") val scrapIdx: Int
 ) : Serializable
 
@@ -98,7 +102,7 @@ data class Top10(
     @SerializedName(value = "curriName") val curriName: String,
     @SerializedName(value = "curriAuthor") val curriAuthor: String,
     @SerializedName(value = "visibleStatus") val visibleStatus: String,
-    @SerializedName(value = "langTag") val language: String,
+    @SerializedName(value = "langTag") val langtag: String,
     @SerializedName(value = "progressRate") val progressRate: Float,
     @SerializedName(value = "status") val status: String,
     @SerializedName(value = "createdAt") val createdAt: Int,
@@ -157,3 +161,16 @@ data class CopyCurriculum(
     @SerializedName(value = "targetCurriIdx") val targetCurriIdx: Int? = 0,
     @SerializedName(value = "targetOwnerNickName") val targetOwnerNickName: String? = ""
 ): Serializable
+
+//8.14 최신 등록 커리큘럼 api
+data class RecentCurriculum(
+    @SerializedName(value = "curriIdx") val curriIdx: Int,
+    @SerializedName(value = "curriName") val curriName: String,
+    @SerializedName(value = "curriAuthor") val curriAuthor: String,
+    @SerializedName(value = "curriDesc") val curriDesc: String? = "",
+    @SerializedName(value = "visibleStatus") val visibleStatus: String,
+    @SerializedName(value = "langTag") val langtag: String,
+    @SerializedName(value = "progressRate") val progressRate: Float,
+    @SerializedName(value = "status") val status: String,
+    @SerializedName(value = "createdAt") val createdAt: Int
+) : Serializable

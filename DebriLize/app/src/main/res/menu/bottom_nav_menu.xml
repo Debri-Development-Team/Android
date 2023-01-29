@@ -9,11 +9,12 @@
         android:enabled="true"
         android:title="홈"
         tools:ignore="AlwaysShowAction" />
+
     <item
-        android:id="@+id/classFragment"
-        android:icon="@drawable/btm_nav_class"
+        android:id="@+id/boardFragment"
+        android:icon="@drawable/btm_nav_search"
         app:showAsAction="always"
-        android:title="강의" />
+        android:title="게시판" />
 
     <item
         android:id="@+id/curriculumFragment"
@@ -22,10 +23,16 @@
         android:title="커리큘럼" />
 
     <item
-        android:id="@+id/boardFragment"
-        android:icon="@drawable/btm_nav_search"
+        android:id="@+id/classFragment"
+        android:icon="@drawable/btm_nav_class"
         app:showAsAction="always"
-        android:title="게시판" />
+        android:title="강의" />
+
+    <item
+        android:id="@+id/profileFragment"
+        android:icon="@drawable/ic_profile"
+        app:showAsAction="always"
+        android:title="마이 페이지" />
 
 
 </menu>

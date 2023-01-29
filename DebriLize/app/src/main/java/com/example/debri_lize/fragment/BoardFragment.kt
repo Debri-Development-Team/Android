@@ -2,8 +2,6 @@ package com.example.debri_lize.fragment
 
 import android.content.Intent
 import android.os.Bundle
-import android.text.Editable
-import android.text.TextWatcher
 import android.util.Log
 import android.view.Gravity
 import android.view.LayoutInflater
@@ -17,7 +15,6 @@ import com.example.debri_lize.adapter.board.BoardRVAdapter
 import com.example.debri_lize.R
 import com.example.debri_lize.activity.PostCreateActivity
 import com.example.debri_lize.activity.PostListActivity
-import com.example.debri_lize.activity.auth.ProfileActivity
 import com.example.debri_lize.adapter.board.BoardFavoriteRVAdapter
 import com.example.debri_lize.data.board.Board
 import com.example.debri_lize.data.board.BoardFavorite
@@ -54,11 +51,6 @@ class BoardFragment : Fragment(), UnScrapBoardListView, ScrapBoardListView, Canc
 
     override fun onStart() {
         super.onStart()
-        //click userImg -> profile
-        binding.boardDebriUserIv.setOnClickListener{
-            val intent = Intent(context, ProfileActivity::class.java)
-            startActivity(intent)
-        }
 
         binding.boardFavoriteOnOffIv.setOnClickListener{
             if(boardTF){
@@ -116,6 +108,7 @@ class BoardFragment : Fragment(), UnScrapBoardListView, ScrapBoardListView, Canc
                 binding.boardAllRv.adapter = boardRVAdapter
 
                 datas.clear()
+
 
                 //data : 전체
                 datas.apply {

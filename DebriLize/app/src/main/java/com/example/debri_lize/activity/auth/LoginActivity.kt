@@ -5,6 +5,7 @@ import android.content.Intent
 import android.graphics.Insets
 import android.os.Build
 import android.os.Bundle
+import android.text.method.PasswordTransformationMethod
 import android.util.DisplayMetrics
 import android.util.Log
 import android.view.*
@@ -35,10 +36,10 @@ class LoginActivity:AppCompatActivity(), LoginView, TokenView {
         setContentView(binding.root)
 
         //set UI size
-        var screenWidth = getScreenWidth(this) / getDeviceDpi() // px to dp
-        Log.d("screenWidth", screenWidth.toString())
-        saveSize(screenWidth)
-        setSize()
+//        var screenWidth = getScreenWidth(this) / getDeviceDpi() // px to dp
+//        Log.d("screenWidth", screenWidth.toString())
+//        saveSize(screenWidth)
+//        setSize()
 
         setFocus() //focus effect
         setMouseEvent() //mouse event
@@ -53,61 +54,64 @@ class LoginActivity:AppCompatActivity(), LoginView, TokenView {
             login()
         }
 
+        //password dot size
+        binding.loginPasswordEt.transformationMethod = CustomPasswordTransformationMethod()
+
     }
 
     //get screenWidth (pixel)
-    private fun getScreenWidth(activity: Activity): Int {
-        return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
-            val windowMetrics = activity.windowManager.currentWindowMetrics
-            val insets: Insets = windowMetrics.windowInsets
-                .getInsetsIgnoringVisibility(WindowInsets.Type.systemBars())
-            windowMetrics.bounds.width() - insets.left - insets.right
-        } else {
-            val displayMetrics = DisplayMetrics()
-            activity.windowManager.defaultDisplay.getMetrics(displayMetrics)
-            displayMetrics.widthPixels
-        }
-    }
+//    private fun getScreenWidth(activity: Activity): Int {
+//        return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+//            val windowMetrics = activity.windowManager.currentWindowMetrics
+//            val insets: Insets = windowMetrics.windowInsets
+//                .getInsetsIgnoringVisibility(WindowInsets.Type.systemBars())
+//            windowMetrics.bounds.width() - insets.left - insets.right
+//        } else {
+//            val displayMetrics = DisplayMetrics()
+//            activity.windowManager.defaultDisplay.getMetrics(displayMetrics)
+//            displayMetrics.widthPixels
+//        }
+//    }
 
     //get screen density (DPI)
-    private fun getDeviceDpi(): Int {
-
-        val density = resources.displayMetrics.density.toInt()
-        val result = when {
-            density >= 4.0 -> "xxxhdpi"
-            density >= 3.0 -> "xxhdpi"
-            density >= 2.0 -> "xhdpi"
-            density >= 1.5 -> "hdpi"
-            density >= 1.0 -> "mdpi"
-            else -> "ldpi"
-        }
-        Log.d("density", density.toString())
-        saveUISize("dpi", density)
-
-        return density
-    }
+//    private fun getDeviceDpi(): Int {
+//
+//        val density = resources.displayMetrics.density.toInt()
+//        val result = when {
+//            density >= 4.0 -> "xxxhdpi"
+//            density >= 3.0 -> "xxhdpi"
+//            density >= 2.0 -> "xhdpi"
+//            density >= 1.5 -> "hdpi"
+//            density >= 1.0 -> "mdpi"
+//            else -> "ldpi"
+//        }
+//        Log.d("density", density.toString())
+//        saveUISize("dpi", density)
+//
+//        return density
+//    }
 
     //save UI Size (dp)
-    private fun saveSize(screenWidth : Int){
-
-        //dp to px : px = dp * density
-        //px to dp : dp = px / density
-        //signUp, login button
-        saveUISize("authButton", ((screenWidth-60)/2 - 15) * getDeviceDpi()) //dimens.xml에서 margin, padding값 가져올 것
-    }
+//    private fun saveSize(screenWidth : Int){
+//
+//        //dp to px : px = dp * density
+//        //px to dp : dp = px / density
+//        //signUp, login button
+//        saveUISize("authButton", ((screenWidth-60)/2 - 15) * getDeviceDpi()) //dimens.xml에서 margin, padding값 가져올 것
+//    }
 
     //set UI Size (px)
-    private fun setSize(){
-        //signUp button
-        binding.loginSignUpBtn.layoutParams = binding.loginSignUpBtn.layoutParams.apply {
-            this.width = getUISize("authButton")
-        }
-
-        //login button
-        binding.loginBtn.layoutParams = binding.loginBtn.layoutParams.apply {
-            this.width = getUISize("authButton")
-        }
-    }
+//    private fun setSize(){
+//        //signUp button
+//        binding.loginSignUpBtn.layoutParams = binding.loginSignUpBtn.layoutParams.apply {
+//            this.width = getUISize("authButton")
+//        }
+//
+//        //login button
+//        binding.loginBtn.layoutParams = binding.loginBtn.layoutParams.apply {
+//            this.width = getUISize("authButton")
+//        }
+//    }
 
     //set UI Size
 
@@ -323,6 +327,31 @@ class LoginActivity:AppCompatActivity(), LoginView, TokenView {
             }
         })*/
     }
+
+
+    //password 가려지는 모양 변경
+    class CustomCharSequence(private val source: CharSequence): CharSequence {
+
+        override val length: Int
+            get() = source.length
+
+        override fun get(index: Int): Char {
+            return '●' //원하는 문자로 변경
+        }
+
+        override fun subSequence(startIndex: Int, endIndex: Int): CharSequence {
+            return source.subSequence(startIndex, endIndex)
+        }
+    }
+
+    class CustomPasswordTransformationMethod : PasswordTransformationMethod() {
+
+        override fun getTransformation(source: CharSequence, view: View?): CharSequence {
+            return CustomCharSequence(source)
+        }
+    }
+
+
 
 
 }

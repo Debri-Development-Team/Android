@@ -2,11 +2,8 @@ package com.example.debri_lize.service
 
 import android.util.Log
 import com.example.debri_lize.utils.RetrofitInterface
-import com.example.debri_lize.data.class_.Lecture
-import com.example.debri_lize.data.class_.LectureScrap
-import com.example.debri_lize.data.class_.LectureFilter
 import com.example.debri_lize.base.BaseResponse
-import com.example.debri_lize.data.class_.LikeSuccess
+import com.example.debri_lize.data.class_.*
 import com.example.debri_lize.utils.getJwt
 import com.example.debri_lize.utils.getRetrofit
 import com.example.debri_lize.view.class_.*
@@ -81,11 +78,12 @@ class ClassService {
     fun showLectureSearch(lectureFilter: LectureFilter){
         Log.d("lecturefilter", "enter")
         val classService = getRetrofit().create(RetrofitInterface::class.java)
-        classService.showLectureSearch(lectureFilter.lang,lectureFilter.type,lectureFilter.price,lectureFilter.key, getJwt()!!).enqueue(object: Callback<BaseResponse<List<Lecture>>> {
+        classService.showLectureSearch(lectureFilter.lang,lectureFilter.type,lectureFilter.price,lectureFilter.key,lectureFilter.pageNum, getJwt()!!).enqueue(object: Callback<BaseResponse<SearchLecture>> {
             //응답이 왔을 때 처리
-            override fun onResponse(call: Call<BaseResponse<List<Lecture>>>, response: Response<BaseResponse<List<Lecture>>>) {
+            override fun onResponse(call: Call<BaseResponse<SearchLecture>>, response: Response<BaseResponse<SearchLecture>>) {
                 Log.d("lecturefilter", "response")
-                val resp: BaseResponse<List<Lecture>> = response.body()!!
+                Log.d("lecturefilterresponse",response.body().toString())
+                val resp: BaseResponse<SearchLecture> = response.body()!!
                 Log.d("lecturefilterCode", resp.code.toString())
                 when(resp.code){
                     //API code값 사용
@@ -94,7 +92,7 @@ class ClassService {
                 }
             }
             //실패했을 때 처리
-            override fun onFailure(call: Call<BaseResponse<List<Lecture>>>, t: Throwable) {
+            override fun onFailure(call: Call<BaseResponse<SearchLecture>>, t: Throwable) {
                 Log.d("lecturefilterFail",t.toString())
             }
         })

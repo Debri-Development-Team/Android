@@ -1,16 +1,10 @@
 package com.example.debri_lize.utils
 
 import com.example.debri_lize.base.BaseResponse
-import com.example.debri_lize.data.auth.Token
-import com.example.debri_lize.data.auth.User
-import com.example.debri_lize.data.auth.UserLogin
-import com.example.debri_lize.data.auth.UserSignup
+import com.example.debri_lize.data.auth.*
 import com.example.debri_lize.data.board.Board
 import com.example.debri_lize.data.board.BoardFavorite
-import com.example.debri_lize.data.class_.Lecture
-import com.example.debri_lize.data.class_.LectureReview
-import com.example.debri_lize.data.class_.LectureScrap
-import com.example.debri_lize.data.class_.LikeSuccess
+import com.example.debri_lize.data.class_.*
 import com.example.debri_lize.data.curriculum.*
 import com.example.debri_lize.data.post.*
 import com.example.debri_lize.data.post.Comment
@@ -32,6 +26,10 @@ interface RetrofitInterface {
     //1.2 로그인 api
     @POST("api/auth/login")
     fun login(@Body user : UserLogin): Call<BaseResponse<User>>
+
+    //1.5 이메일 인증 api
+    @POST("api/auth/authEmail")
+    fun getCode(@Body emailAddress : String) : Call<BaseResponse<Email>>
 
     //2.1 게시판 즐겨찾기 생성 api
     @POST("api/board/scrap/{boardIdx}")
@@ -74,12 +72,12 @@ interface RetrofitInterface {
     fun cancelPostLike(@Body postLikeCancel: PostLikeCancel, @Header("ACCESS-TOKEN") authToken: String) : Call<BaseResponse<String>>
 
     //3.7 [특정 게시판] 게시물 리스트 조회 api
-    @GET("api/post/getList/{boardIdx}")
-    fun showEachPostList(@Path("boardIdx") boardIdx: Int, @Header("ACCESS-TOKEN") authToken: String) : Call<BaseResponse<List<PostList>>>
+    @GET("api/post/getList/{boardIdx}/{pageNum}")
+    fun showEachPostList(@Path("boardIdx") boardIdx: Int, @Path("pageNum") pageNum: Int, @Header("ACCESS-TOKEN") authToken: String) : Call<BaseResponse<PostInfo>>
 
     //3.7.1 [전체 범위(키워드 검색)] 게시물 리스트 조회 api
     @POST("api/post/getSearchList")
-    fun showPostList(@Body keyword: String, @Header("ACCESS-TOKEN") authToken: String) : Call<BaseResponse<List<PostList>>>
+    fun showPostList(@Body searchPost : SearchPost, @Header("ACCESS-TOKEN") authToken: String) : Call<BaseResponse<PostInfo>>
 
     //3.8 게시물 조회 api
     @GET("api/post/get/{postIdx}")
@@ -94,8 +92,8 @@ interface RetrofitInterface {
     fun cancelPostScrap(@Path("postIdx") postIdx: Int, @Header("ACCESS-TOKEN") authToken: String) : Call<BaseResponse<String>>
 
     //3.9.2 스크랩 게시물 조회 api
-    @GET("api/post/getMyScrap")
-    fun showScrapPostList(@Header("ACCESS-TOKEN") authToken: String) : Call<BaseResponse<List<PostList>>>
+    @GET("api/post/getMyScrap/{pageNum}")
+    fun showScrapPostList(@Path("pageNum") pageNum: Int, @Header("ACCESS-TOKEN") authToken: String) : Call<BaseResponse<PostInfo>>
 
     //4.1 게시물 댓글 작성 api
     @POST("api/comment/replyOnPost/create")
@@ -151,7 +149,7 @@ interface RetrofitInterface {
 
     //7.4.1 강의 검색 api
     @GET("api/lecture/search")
-    fun showLectureSearch(@Query ("lang") lang:String?,@Query ("type") type:String?,@Query ("price") price:String?,@Query ("key") key:String?, @Header("ACCESS-TOKEN") authToken: String) : Call<BaseResponse<List<Lecture>>>
+    fun showLectureSearch(@Query ("lang") lang:String?,@Query ("type") type:String?,@Query ("price") price:String?,@Query ("key") key:String?, @Query ("pageNum") pageNum: Int?, @Header("ACCESS-TOKEN") authToken: String) : Call<BaseResponse<SearchLecture>>
 
     //7.5 로드맵 리스트 조회 api
     @GET("api/lecture/roadmap/list")
@@ -161,13 +159,17 @@ interface RetrofitInterface {
     @GET("api/lecture/roadmap/view")
     fun showRoadMapDetail(@Query ("mod") mod:String?, @Header("ACCESS-TOKEN") authToken: String) :Call<BaseResponse<List<RoadMap>>>
 
+    //7.5.2 로드맵 to 커리큘럼 api
+    @POST("api/lecture/roadmap/copy")
+    fun copyRoadmapToCurri(@Body copyRoadMap : copyRoadMap, @Header("ACCESS-TOKEN") authToken: String) : Call<BaseResponse<CurriIdx>>
+
     //7.6 강의 리뷰 작성 api
     @POST("api/lecture/review/create")
     fun createLectureReview(@Body lectureReview : LectureReview, @Header("ACCESS-TOKEN") authToken: String) :Call<BaseResponse<LectureReview>>
 
     //7.6.1 강의 리뷰 조회 api
-    @GET("api/lecture/review/get")
-    fun showLectureReview(@Query ("lectureIdx") lectureIdx:Int?, @Header("ACCESS-TOKEN") authToken: String) :Call<BaseResponse<List<LectureReview>>>
+    @GET("api/lecture/review/get/{pageNum}")
+    fun showLectureReview(@Path ("pageNum") pageNum: Int, @Query ("lectureIdx") lectureIdx:Int?, @Header("ACCESS-TOKEN") authToken: String) :Call<BaseResponse<ShowLectureReview>>
 
     //7.7 강의 좋아요 api
     @POST("api/lecture/like/create")
@@ -239,13 +241,13 @@ interface RetrofitInterface {
 
     //8.12.1 커리큘럼 리뷰 조회 api
     @GET("api/curri/review/getList/{curriIdx}")
-    fun showReview(@Path("curriIdx") curriIdx: Int, @Header("ACCESS-TOKEN") authToken: String) : Call<BaseResponse<List<Review>>>
+    fun showReview(@Path("curriIdx") curriIdx: Int, @Query("pageNum") pageNum: Int?, @Header("ACCESS-TOKEN") authToken: String) : Call<BaseResponse<ShowReview>>
 
     //8.13 커리큘럼 복붙 api
     @POST("api/curri/copy")
     fun copyCurriculum(@Body copyCurriculum : CopyCurriculum, @Header("ACCESS-TOKEN") authToken: String) : Call<BaseResponse<Copy>>
 
     //8.14 최신 커리큘럼 리스트 조회 api
-    @POST("api/curri/getNewList")
-    fun showGetNewCurriList(@Header("ACCESS-TOKEN") authToken: String) : Call<BaseResponse<List<Top10>>>
+    @GET("api/curri/getNewList")
+    fun showGetNewCurriList(@Header("ACCESS-TOKEN") authToken: String) : Call<BaseResponse<List<RecentCurriculum>>>
 }

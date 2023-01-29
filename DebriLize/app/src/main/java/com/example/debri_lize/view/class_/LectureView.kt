@@ -1,6 +1,7 @@
 package com.example.debri_lize.view.class_
 
 import com.example.debri_lize.data.class_.Lecture
+import com.example.debri_lize.data.class_.SearchLecture
 
 //7.2 강의 즐겨찾기 생성
 interface CreateLectureScrapView {
@@ -28,7 +29,7 @@ interface ShowLectureDetailView {
 
 //7.4.1 강의 검색 필터
 interface LectureFilterView {
-    fun onLectureFilterSuccess(code: Int, result: List<Lecture>)
+    fun onLectureFilterSuccess(code: Int, result: SearchLecture)
     fun onLectureFilterFailure(code : Int)
 }
 

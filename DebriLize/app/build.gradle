@@ -1,6 +1,9 @@
 plugins {
     id 'com.android.application'
     id 'org.jetbrains.kotlin.android'
+
+    //firebase
+    id 'com.google.gms.google-services'
 }
 
 
@@ -51,6 +54,7 @@ dependencies {
     implementation 'androidx.navigation:navigation-fragment-ktx:2.4.2'
     implementation 'androidx.navigation:navigation-ui-ktx:2.4.2'
     implementation 'androidx.room:room-common:2.4.2'
+    implementation 'com.google.firebase:firebase-auth:19.2.0'
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.3'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
@@ -84,4 +88,14 @@ dependencies {
 
     //blur
     implementation 'com.github.mmin18:realtimeblurview:1.2.1'
+
+    //firebase
+    //implementation platform('com.google.firebase:firebase-bom:31.1.1')
+    //implementation 'com.google.firebase:firebase-analytics-ktx'
+
+    //tablayout
+    implementation 'com.google.android.material:material:1.4.0'
+
+    //페이징 버튼
+//    implementation 'com.github.lakue119:LakuePagingButton:1.0.0'
 }
