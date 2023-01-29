@@ -93,7 +93,7 @@ interface RetrofitInterface {
 
     //3.9.2 스크랩 게시물 조회 api
     @GET("api/post/getMyScrap/{pageNum}")
-    fun showScrapPostList(@Path("pageNum") pageNum: Int, @Header("ACCESS-TOKEN") authToken: String) : Call<BaseResponse<List<PostList>>>
+    fun showScrapPostList(@Path("pageNum") pageNum: Int, @Header("ACCESS-TOKEN") authToken: String) : Call<BaseResponse<PostInfo>>
 
     //4.1 게시물 댓글 작성 api
     @POST("api/comment/replyOnPost/create")

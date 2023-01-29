@@ -195,11 +195,11 @@ class PostService {
     fun showScrapPostList(pageNum: Int){
         Log.d("showScrapPostList", "enter")
         val postService = getRetrofit().create(RetrofitInterface::class.java)
-        postService.showScrapPostList(pageNum, getJwt()!!).enqueue(object: Callback<BaseResponse<List<PostList>>> {
+        postService.showScrapPostList(pageNum, getJwt()!!).enqueue(object: Callback<BaseResponse<PostInfo>> {
             //응답이 왔을 때 처리
-            override fun onResponse(call: Call<BaseResponse<List<PostList>>>, response: Response<BaseResponse<List<PostList>>>) {
+            override fun onResponse(call: Call<BaseResponse<PostInfo>>, response: Response<BaseResponse<PostInfo>>) {
                 Log.d("showScrapPostList", "response")
-                val resp: BaseResponse<List<PostList>> = response.body()!!
+                val resp: BaseResponse<PostInfo> = response.body()!!
                 Log.d("showScrapPostListCode", resp.code.toString())
                 when(resp.code){
                     //API code값 사용
@@ -208,7 +208,7 @@ class PostService {
                 }
             }
             //실패했을 때 처리
-            override fun onFailure(call: Call<BaseResponse<List<PostList>>>, t: Throwable) {
+            override fun onFailure(call: Call<BaseResponse<PostInfo>>, t: Throwable) {
                 Log.d("showScrapPostListFail", t.toString())
             }
 

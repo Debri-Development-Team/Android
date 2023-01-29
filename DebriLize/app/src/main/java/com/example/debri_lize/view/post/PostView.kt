@@ -65,6 +65,6 @@ interface CancelPostScrapView {
 
 //3.9.2 스크랩 게시물 조회 api
 interface ShowScrapPostListView {
-    fun onShowScrapPostListSuccess(code : Int, result: List<PostList>)
+    fun onShowScrapPostListSuccess(code : Int, result: PostInfo)
     fun onShowScrapPostListFailure(code : Int)
 }
