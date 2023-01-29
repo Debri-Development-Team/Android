@@ -10,8 +10,7 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.debri_lize.activity.AddCurriculumDetailActivity
 import com.example.debri_lize.adapter.home.CurriculumRVAdapter
-import com.example.debri_lize.data.curriculum.Curriculum
-import com.example.debri_lize.data.curriculum.Top10
+import com.example.debri_lize.data.curriculum.*
 import com.example.debri_lize.databinding.FragmentCurriculumBinding
 import com.example.debri_lize.service.CurriculumService
 import com.example.debri_lize.view.curriculum.ShowGetNewCurriListView
@@ -123,7 +122,7 @@ class CurriculumFragment : Fragment(), ShowTop10ListView, ShowGetNewCurriListVie
         Log.d("showtop5listfail","$code")
     }
 
-    override fun onShowGetNewCurriListSuccess(code: Int, result: List<Top10>) {
+    override fun onShowGetNewCurriListSuccess(code: Int, result: List<RecentCurriculum>) {
         when(code){
             200->{
                 binding.curriculumTotalRv.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)

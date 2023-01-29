@@ -15,6 +15,7 @@ import com.example.debri_lize.R
 import com.example.debri_lize.activity.MainActivity
 import com.example.debri_lize.activity.PostCreateActivity
 import com.example.debri_lize.activity.PostDetailActivity
+import com.example.debri_lize.data.post.PostInfo
 import com.example.debri_lize.data.post.PostList
 import com.example.debri_lize.service.PostService
 import com.example.debri_lize.databinding.FragmentScrapPostBinding
@@ -99,7 +100,7 @@ class ScrapPostFragment : Fragment(), ShowScrapPostListView {
     }
 
     //recycler view
-    override fun onShowScrapPostListSuccess(code: Int, result: List<PostList>) {
+    override fun onShowScrapPostListSuccess(code: Int, result: PostInfo) {
         when(code){
             //개발할 때는 userIdx 저장이 필요할수도
             200-> {
@@ -114,7 +115,7 @@ class ScrapPostFragment : Fragment(), ShowScrapPostListView {
                 //data
                 datas.apply {
 
-                    for (i in result){
+                    for (i in result.postList){
                         datas.add(PostList(i.boardIdx, i.postIdx, i.authorName, i.postName, i.likeCnt, i.likeStatus, i.scrapStatus, i.timeAfterCreated, i.commentCnt, i.boardName))
                     }
                     Log.d("scrapPostdata",datas.toString())

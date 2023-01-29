@@ -93,7 +93,7 @@ interface RetrofitInterface {
 
     //3.9.2 스크랩 게시물 조회 api
     @GET("api/post/getMyScrap/{pageNum}")
-    fun showScrapPostList(@Path("pageNum") pageNum: Int, @Header("ACCESS-TOKEN") authToken: String) : Call<BaseResponse<List<PostList>>>
+    fun showScrapPostList(@Path("pageNum") pageNum: Int, @Header("ACCESS-TOKEN") authToken: String) : Call<BaseResponse<PostInfo>>
 
     //4.1 게시물 댓글 작성 api
     @POST("api/comment/replyOnPost/create")
@@ -248,6 +248,6 @@ interface RetrofitInterface {
     fun copyCurriculum(@Body copyCurriculum : CopyCurriculum, @Header("ACCESS-TOKEN") authToken: String) : Call<BaseResponse<Copy>>
 
     //8.14 최신 커리큘럼 리스트 조회 api
-    @POST("api/curri/getNewList")
-    fun showGetNewCurriList(@Header("ACCESS-TOKEN") authToken: String) : Call<BaseResponse<List<Top10>>>
+    @GET("api/curri/getNewList")
+    fun showGetNewCurriList(@Header("ACCESS-TOKEN") authToken: String) : Call<BaseResponse<List<RecentCurriculum>>>
 }
