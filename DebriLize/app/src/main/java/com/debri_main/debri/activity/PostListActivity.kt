@@ -1,0 +1,130 @@
+package com.debri_main.debri.activity
+
+import android.content.Intent
+import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
+import android.util.Log
+import android.view.View
+import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.debri_main.debri.R
+import com.debri_main.debri.adapter.post.PostRVAdapter
+import com.debri_main.debri.data.post.PostInfo
+import com.debri_main.debri.data.post.PostList
+import com.debri_main.debri.data.post.SearchPost
+import com.debri_main.debri.databinding.ActivityPostListBinding
+import com.debri_main.debri.service.PostService
+import com.debri_main.debri.view.post.PostListView
+
+
+class PostListActivity : AppCompatActivity(), PostListView {
+
+    lateinit var binding: ActivityPostListBinding
+    private lateinit var postRVAdapter: PostRVAdapter
+    private val datas = ArrayList<PostList>()
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        binding = ActivityPostListBinding.inflate(layoutInflater) //binding 초기화
+        setContentView(binding.root)
+    }
+
+    override fun onStart() {
+        super.onStart()
+
+        //fragment to fragment
+        binding.postListPreviousIv.setOnClickListener{
+            finish()
+        }
+
+        //search post : 실시간 검색기능
+        //검색어 입력
+        binding.postListSearchEt.addTextChangedListener(object : TextWatcher {
+            //입력이 끝날 때
+            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+
+            }
+
+            //입력하기 전에
+            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+
+            }
+
+            //타이핑되는 텍스트에 변화가 있을 때
+            override fun afterTextChanged(p0: Editable?) {
+                //api
+                val postService = PostService()
+                postService.setPostListView(this@PostListActivity)
+                postService.showPostList(SearchPost(binding.postListSearchEt.text.toString(),1))    //TODO:pageNum
+                Log.d("postListSearch",binding.postListSearchEt.text.toString())
+
+                true
+            }
+
+        })
+
+        //focus
+        binding.postListSearchEt.setOnFocusChangeListener(object : View.OnFocusChangeListener {
+            override fun onFocusChange(view: View, hasFocus: Boolean) {
+                if (hasFocus) {
+                    //  포커스시
+                    binding.postListSearchLayout.setBackgroundResource(R.drawable.border_round_debri_transparent_10)
+                    binding.postListSearchIv.setImageResource(R.drawable.btm_nav_search_on)
+                } else {
+                    //  포커스 뺏겼을 때
+                    binding.postListSearchLayout.setBackgroundResource(R.drawable.border_round_white_transparent_10)
+                    binding.postListSearchIv.setImageResource(R.drawable.btm_nav_search)
+                }
+            }
+        })
+
+
+    }
+
+    override fun onPostListSuccess(code: Int, result: PostInfo) {
+        when(code){
+            //개발할 때는 userIdx 저장이 필요할수도
+            200-> {
+                binding.postListRv.layoutManager =
+                    LinearLayoutManager(this@PostListActivity, LinearLayoutManager.VERTICAL, false)
+                postRVAdapter = PostRVAdapter()
+                binding.postListRv.adapter = postRVAdapter
+
+                //data
+                datas.clear()
+                datas.apply {
+//                    Log.d("resultSize", result.size.toString())
+                    for (i in result.postList){
+                        Log.d("postlist","$result")
+                        datas.add(PostList(i.boardIdx, i.postIdx, i.authorName, i.postName, i.likeCnt, i.likeStatus,i.scrapStatus, i.timeAfterCreated, i.commentCnt, i.boardName))
+                    }
+
+                    postRVAdapter.datas = datas
+                    postRVAdapter.notifyDataSetChanged()
+
+                    //recyclerview item 클릭하면 activity 전환
+                    postRVAdapter.setItemClickListener(object : PostRVAdapter.OnItemClickListener {
+                        override fun onClick(v: View, position: Int) {
+                            // 클릭 시 이벤트 작성
+                            //객체 자체를 보내는 방법 (data class)
+                            val intent = Intent(this@PostListActivity, PostDetailActivity::class.java)
+                            intent.putExtra("postIdx", datas[position].postIdx)
+                            intent.putExtra("boardName", datas[position].boardName)
+                            startActivity(intent)
+
+
+                        }
+                    })
+
+
+                }
+            }
+        }
+    }
+
+    override fun onPostListFailure(code: Int) {
+
+    }
+
+}

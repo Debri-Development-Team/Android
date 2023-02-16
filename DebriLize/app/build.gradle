@@ -11,13 +11,15 @@ android {
     compileSdk 32
 
     defaultConfig {
-        applicationId "com.example.debri"
+        applicationId "com.debri_main.debri"
         minSdk 21
         targetSdk 32
-        versionCode 1
-        versionName "1.0"
+        versionCode 6
+        versionName "0.1.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+
+        ndk.abiFilters 'x86_64'
     }
 
 

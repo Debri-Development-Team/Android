@@ -1,0 +1,14 @@
+package com.debri_main.debri.data.post
+
+//@Body
+//6.1 게시물 신고 api
+data class ReportPost(
+    var postIdx : Int,
+    var reason : String
+)
+
+//6.2 댓글 신고 api
+data class ReportComment(
+    var commentIdx : Int,
+    var reason : String
+)
